@@ -130,34 +130,49 @@ const Home = () => {
   return (
     <div className="bg-white">
       {/* Hero section with background image and search form */}
-      <div className="relative h-[600px] overflow-hidden">
+      {/* Hero section */}
+      <div className="relative h-[650px] overflow-hidden">
+        {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-            alt="Luxurious vacation home"
+            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1950&q=80"
+            alt="Travel destination"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
         </div>
 
-        {/* <div className="relative max-w-6xl mx-auto px-4 sm:px-6 h-full flex items-center">
-          <div className="max-w-2xl text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-shadow-lg">
-              Find your next perfect stay
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto h-full flex items-center px-4 sm:px-6">
+          <div className="max-w-3xl text-white">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+              Find stays that feel{" "}
+              <span className="text-primary-400">like home</span>
             </h1>
-            <p className="text-xl mb-8 text-shadow">
-              Discover the best vacation rentals, homes, and unique places to
-              stay around the world.
+
+            <p className="text-lg md:text-xl text-neutral-200 mb-10 max-w-2xl">
+              Discover unique homes, apartments, and experiences across the
+              world — handpicked for comfort, style, and unforgettable memories.
             </p>
 
-            {/* Main search form */}
-        {/* <div className="bg-white rounded-2xl shadow-lg p-4">
-              <div className="text-center text-neutral-800">
-                Search options removed
-              </div>
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/listings"
+                className="bg-primary-500 hover:bg-primary-600 text-white px-7 py-3 rounded-xl font-medium transition duration-300 shadow-lg"
+              >
+                Explore stays
+              </Link>
+
+              <Link
+                to="/host/become-a-host"
+                className="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-7 py-3 rounded-xl font-medium transition duration-300 border border-white/30"
+              >
+                Become a host
+              </Link>
             </div>
           </div>
-        </div>  */}
+        </div>
       </div>
 
       {/* Featured destinations section */}
