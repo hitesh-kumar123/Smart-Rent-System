@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight, Search, MapPin, Clock, X } from "lucide-react";
 
 const Home = () => {
   // State for search query input value
@@ -11,6 +12,12 @@ const Home = () => {
     const saved = localStorage.getItem("recentSearches");
     return saved ? JSON.parse(saved) : [];
   });
+
+   // State for hero slideshow current image index
+  const [currentIndex, setCurrentIndex] = useState(0);
+  // State to prevent multiple transitions at once
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   // Reference to search container for detecting outside clicks
   const searchRef = useRef(null);
   const navigate = useNavigate();
@@ -23,7 +30,48 @@ const Home = () => {
     "Chicago",
     "San Francisco",
   ];
+  
 
+
+   useEffect(() => {
+    // Auto-advance slideshow every 5 seconds
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+      setTimeout(() => setIsTransitioning(false), 700);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
+   // Function to go to next slide
+  const nextSlide = () => {
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+      setTimeout(() => setIsTransitioning(false), 700);
+    }
+  };
+
+  // Function to go to previous slide
+  const prevSlide = () => {
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+      setTimeout(() => setIsTransitioning(false), 700);
+    }
+  };
+
+  // Function to jump to specific slide
+  const goToSlide = (index) => {
+    if (!isTransitioning && index !== currentIndex) {
+      setIsTransitioning(true);
+      setCurrentIndex(index);
+      setTimeout(() => setIsTransitioning(false), 700);
+    }
+  };
+  
+  
   useEffect(() => {
     // Handle clicks outside the search dropdown to close it
     const handleClickOutside = (event) => {
@@ -73,6 +121,7 @@ const Home = () => {
     setRecentSearches([]);
   };
 
+  
   // Sample featured destinations data
   const destinations = [
     {
@@ -127,37 +176,158 @@ const Home = () => {
     },
   ];
 
+   // Array of hero images for the slideshow
+  const heroImages = [
+    {
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      alt: "Luxurious vacation home"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Mountain landscape retreat"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1540206395-68808572332f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Tropical beach paradise"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Forest wilderness escape"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Coastal sunset view"
+    }
+  ];
+  
   return (
     <div className="bg-white">
+
       {/* Hero section with background image and search form */}
-      <div className="relative h-[600px] overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-            alt="Luxurious vacation home"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30"></div>
+       <div className="relative h-[600px] overflow-hidden group">
+        {/* Render all images with fade transition */}
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              index === currentIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <img
+              src={image.url}
+              alt={image.alt}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30"></div>
+          </div>
+        ))}
+
+        {/* --- SEARCH BAR SECTION (Restored) --- */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 text-center drop-shadow-lg">
+                Find your next stay
+            </h1>
+            
+            <div className="w-full max-w-2xl relative" ref={searchRef}>
+                <form onSubmit={handleSearchSubmit} className="relative flex shadow-2xl">
+                    <input
+                        type="text"
+                        placeholder="Where do you want to go?"
+                        className="w-full px-6 py-4 rounded-full text-lg focus:outline-none text-gray-800 pr-32"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onFocus={() => setIsSearchFocused(true)}
+                    />
+                    <button 
+                        type="submit" 
+                        className="absolute right-2 top-2 bottom-2 bg-primary-600 text-white px-6 rounded-full font-semibold hover:bg-primary-700 transition-colors flex items-center"
+                    >
+                        <Search className="w-5 h-5 mr-2" />
+                        Search
+                    </button>
+                </form>
+
+                {/* Dropdown for Recent Searches & Suggestions */}
+                {isSearchFocused && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl overflow-hidden py-2 text-left animate-in fade-in zoom-in-95 duration-200">
+                        {/* Recent Searches */}
+                        {recentSearches.length > 0 && (
+                            <div className="mb-2">
+                                <div className="flex items-center justify-between px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                    <span>Recent Searches</span>
+                                    <button onClick={clearRecentSearches} className="text-primary-600 hover:text-primary-800">
+                                        Clear
+                                    </button>
+                                </div>
+                                {recentSearches.map((search, idx) => (
+                                    <div 
+                                        key={idx} 
+                                        onClick={() => handleSuggestionClick(search)}
+                                        className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-700"
+                                    >
+                                        <Clock className="w-4 h-4 mr-3 text-gray-400" />
+                                        {search}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Divider */}
+                        {recentSearches.length > 0 && <div className="border-t border-gray-100 my-1"></div>}
+
+                        {/* Popular Destinations */}
+                        <div>
+                            <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                Popular Destinations
+                            </div>
+                            {suggestions.map((suggestion, idx) => (
+                                <div 
+                                    key={idx}
+                                    onClick={() => handleSuggestionClick(suggestion)}
+                                    className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-700"
+                                >
+                                    <MapPin className="w-4 h-4 mr-3 text-gray-400" />
+                                    {suggestion}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
 
-        {/* <div className="relative max-w-6xl mx-auto px-4 sm:px-6 h-full flex items-center">
-          <div className="max-w-2xl text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-shadow-lg">
-              Find your next perfect stay
-            </h1>
-            <p className="text-xl mb-8 text-shadow">
-              Discover the best vacation rentals, homes, and unique places to
-              stay around the world.
-            </p>
+        
 
-            {/* Main search form */}
-        {/* <div className="bg-white rounded-2xl shadow-lg p-4">
-              <div className="text-center text-neutral-800">
-                Search options removed
-              </div>
-            </div>
-          </div>
-        </div>  */}
+        {/* Previous slide button - shows on hover */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+
+        {/* Next slide button - shows on hover */}
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+
+        {/* Dot indicators for slide navigation */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentIndex
+                  ? 'w-8 h-2 bg-white'
+                  : 'w-2 h-2 bg-white/50 hover:bg-white/75'
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Featured destinations section */}

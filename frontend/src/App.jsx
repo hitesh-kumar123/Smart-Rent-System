@@ -13,7 +13,7 @@ import PaymentPage from "./pages/PaymentPage";
 import ResetPassword from "./pages/ResetPassword";
 import ApiTest from "./pages/ApiTest";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import "./App.css";
 function App() {
   return (
     <Router>
