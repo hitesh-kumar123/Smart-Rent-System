@@ -29,6 +29,7 @@ const Listings = () => {
     propertyType: "",
     bedrooms: "",
     location: "",
+    experience: "",
     language: language, // Add language to filters
   });
   const [activeCategory, setActiveCategory] = useState("all");
@@ -91,6 +92,7 @@ const Listings = () => {
       propertyType: "",
       bedrooms: "",
       location: "",
+      experience: "",
       language: language, // Add language to filters
     });
     setActiveCategory("all");
@@ -119,6 +121,7 @@ const Listings = () => {
     const queryParams = new URLSearchParams(location.search);
     const locationParam = queryParams.get("location");
     const typeParam = queryParams.get("type"); // Get the type parameter from URL
+    const experienceParam = queryParams.get("experience"); // Get the experience parameter from URL
 
     // Update filters if parameters exist
     let updatedFilters = { ...filters };
@@ -154,6 +157,11 @@ const Listings = () => {
       setActiveCategory(propertyType);
     }
 
+    if (experienceParam) {
+      console.log("Experience param found:", experienceParam);
+      updatedFilters.experience = experienceParam;
+    }
+
     // Update filters with all changes
     setFilters(updatedFilters);
 
@@ -182,7 +190,7 @@ const Listings = () => {
           )}`;
         }
 
-        // Make API call to fetch properties
+        // Make API call to fetch properties (timeout is handled by axios config)
         const response = await api.get(
           `/api/properties${queryString ? `?${queryString}` : ""}`
         );
@@ -221,13 +229,27 @@ const Listings = () => {
         setLoading(false);
       } catch (err) {
         console.error("Error fetching properties:", err);
-        setError(
-          "Unable to load properties. Please try again later or check your connection."
-        );
-        // Fall back to dummy data
+        
+        // If it's a timeout or network error, show a more helpful message
+        if (err.code === "ECONNABORTED" || err.message?.includes("timeout")) {
+          setError(
+            "The server is taking too long to respond. Please check your connection or try again later."
+          );
+        } else if (err.response?.status === 404 || err.code === "ERR_NETWORK") {
+          setError(
+            "Unable to connect to the server. Please check your connection."
+          );
+        } else {
+          setError(
+            "Unable to load properties. Please try again later or check your connection."
+          );
+        }
+        
+        // Fall back to empty array - experience filter will handle showing results
         setProperties([]);
         setTotalCount(0);
         setIsApiData(false);
+        setLoading(false);
       }
     };
 
@@ -244,6 +266,62 @@ const Listings = () => {
       ...filters,
       [name]: value,
     });
+  };
+
+  /**
+   * Checks if a property matches the experience filter based on keywords
+   * @param {Object} property - The property object to check
+   * @param {string} experience - The experience type (city-tours, outdoor-adventures, local-cuisine)
+   * @returns {boolean} - True if property matches the experience
+   */
+  const matchesExperience = (property, experience) => {
+    if (!experience) return true;
+
+    const title = (property.title || "").toLowerCase();
+    const description = (property.description || "").toLowerCase();
+    const category = (property.category || "").toLowerCase();
+    const propertyType = (property.propertyType || "").toLowerCase();
+    const searchText = `${title} ${description} ${category} ${propertyType}`;
+
+    switch (experience.toLowerCase()) {
+      case "city-tours":
+        return (
+          searchText.includes("city") ||
+          searchText.includes("tour") ||
+          searchText.includes("urban") ||
+          searchText.includes("downtown") ||
+          searchText.includes("sightseeing") ||
+          searchText.includes("metropolitan") ||
+          searchText.includes("downtown")
+        );
+      case "outdoor-adventures":
+        return (
+          searchText.includes("outdoor") ||
+          searchText.includes("adventure") ||
+          searchText.includes("hiking") ||
+          searchText.includes("camping") ||
+          searchText.includes("nature") ||
+          searchText.includes("mountain") ||
+          searchText.includes("trail") ||
+          searchText.includes("forest") ||
+          searchText.includes("wilderness") ||
+          searchText.includes("national park")
+        );
+      case "local-cuisine":
+        return (
+          searchText.includes("cuisine") ||
+          searchText.includes("food") ||
+          searchText.includes("restaurant") ||
+          searchText.includes("cooking") ||
+          searchText.includes("culinary") ||
+          searchText.includes("dining") ||
+          searchText.includes("kitchen") ||
+          searchText.includes("gourmet") ||
+          searchText.includes("local food")
+        );
+      default:
+        return true;
+    }
   };
 
   // Apply category filter
@@ -452,6 +530,11 @@ const Listings = () => {
   // Apply remaining filters (price, amenities, etc.)
   const fullyFilteredProperties = filteredProperties.filter((property) => {
     let matches = true;
+
+    // Experience filter
+    if (filters.experience && !matchesExperience(property, filters.experience)) {
+      return false;
+    }
 
     // Price filters
     if (filters.priceMin && property.price < parseInt(filters.priceMin)) {
@@ -694,6 +777,7 @@ const Listings = () => {
     if (filters.priceMax) count++;
     if (filters.bedrooms) count++;
     if (filters.location) count++;
+    if (filters.experience) count++;
     if (activeCategory !== "all") count++;
 
     return count;
@@ -709,6 +793,7 @@ const Listings = () => {
       propertyType: "",
       bedrooms: "",
       location: "",
+      experience: "",
       language: language, // Add language to filters
     });
     setAmenityFilters({
@@ -727,6 +812,10 @@ const Listings = () => {
       gym: false,
     });
     setActiveCategory("all");
+    // Clear experience from URL
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.delete("experience");
+    navigate(`/listings?${queryParams.toString()}`, { replace: true });
   };
 
   /**
@@ -917,11 +1006,25 @@ const Listings = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50">
-        <div className="text-primary-600 text-xl font-semibold flex items-center">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
+        <div className="text-primary-600 text-xl font-semibold flex items-center mb-4">
           <i className="fas fa-spinner fa-spin mr-3 text-2xl"></i>
           Loading properties...
         </div>
+        <p className="text-neutral-500 text-sm">
+          This may take a few seconds...
+        </p>
+        {filters.experience && (
+          <p className="text-neutral-400 text-xs mt-2">
+            Filtering for {filters.experience === "city-tours"
+              ? "City Tours"
+              : filters.experience === "outdoor-adventures"
+              ? "Outdoor Adventures"
+              : filters.experience === "local-cuisine"
+              ? "Local Cuisine"
+              : filters.experience}
+          </p>
+        )}
       </div>
     );
   }
@@ -1378,6 +1481,7 @@ const Listings = () => {
                           propertyType: "",
                           bedrooms: "",
                           location: "",
+                          experience: "",
                           language: language, // Add language to filters
                         });
                         setAmenityFilters({
@@ -1396,6 +1500,10 @@ const Listings = () => {
                           gym: false,
                         });
                         setActiveCategory("all");
+                        // Clear experience from URL
+                        const queryParams = new URLSearchParams(location.search);
+                        queryParams.delete("experience");
+                        navigate(`/listings?${queryParams.toString()}`, { replace: true });
                       }}
                       className="flex-1 px-4 py-2 border border-neutral-300 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors duration-200"
                     >
@@ -1428,6 +1536,18 @@ const Listings = () => {
               in{" "}
               {categories.find((cat) => cat.id === activeCategory)?.label ||
                 activeCategory}
+            </span>
+          )}
+          {filters.experience && (
+            <span className="text-sm font-normal text-primary-600 ml-2">
+              for{" "}
+              {filters.experience === "city-tours"
+                ? "City Tours"
+                : filters.experience === "outdoor-adventures"
+                ? "Outdoor Adventures"
+                : filters.experience === "local-cuisine"
+                ? "Local Cuisine"
+                : filters.experience}
             </span>
           )}
         </h1>
