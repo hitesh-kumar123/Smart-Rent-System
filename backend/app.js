@@ -11,15 +11,33 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: [
-    "https://smartrentsystem.netlify.app",
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-  ],
+  origin: (origin, callback) => {
+    // Allow server-to-server / Postman / curl
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = [
+      "https://smartrentsystem.netlify.app",
+      "http://127.0.0.1:3000",
+      "http://localhost:3000",
+    ];
+
+    // Allow main frontend
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // ⭐ Allow ALL Netlify deploy previews (PRs)
+    if (origin.endsWith(".netlify.app")) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   credentials: true,
   optionsSuccessStatus: 204,
 };
+
 
 // Middleware
 app.use(cors(corsOptions));
