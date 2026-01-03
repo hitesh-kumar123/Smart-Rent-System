@@ -58,7 +58,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection with better error handling
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGO_URL || process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB Connected Successfully");
   })
@@ -197,6 +197,4 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+module.exports = app;
