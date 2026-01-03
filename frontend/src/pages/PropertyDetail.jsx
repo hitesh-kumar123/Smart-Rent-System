@@ -31,6 +31,33 @@ const PropertyDetail = () => {
     property,
     "-----------------------------------------------------------"
   );
+
+  //Checks if user has already saved it in his wishlist
+  useEffect(() => {
+  const checkIfSaved = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token || !property) return;
+
+      const res = await axios.get("/api/wishlist", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const exists = res.data.some(
+        (item) => String(item._id) === String(property._id)
+      );
+
+      setIsSaved(exists);
+    } catch (err) {
+      console.error("Error checking wishlist status", err);
+    }
+  };
+
+  checkIfSaved();
+}, [property]);
+
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
@@ -176,16 +203,33 @@ const PropertyDetail = () => {
       checkBookingStatus();
     }
   }, [id, property]);
-
+  
+  //Here we are making API call to save it in the users wishlist
   const handleSave = async () => {
-    try {
-      // Here you would typically make an API call to save the property
-      setIsSaved(!isSaved);
-      // You can also add a toast notification here
-    } catch (error) {
-      console.error("Error saving property:", error);
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
     }
-  };
+
+    await axios.post(
+      `/api/wishlist/${property._id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setIsSaved((prev) => !prev);
+  } catch (error) {
+    console.error("Error saving property:", error);
+  }
+};
+
 
   const handleShare = async () => {
     try {
@@ -723,21 +767,21 @@ const PropertyDetail = () => {
                       Where you'll be
                     </h3>
                     <p className="text-neutral-700 mb-4">
-                      {property.city
-                        ? `${property.city}, ${property.state || ""}, ${
-                            property.country || ""
-                          }`
-                        : "Location details not available"}
+                       {property.location?.city
+                       ? `${property.location.city}, ${property.location.state || ""}, ${property.location.country || ""}`
+                       : "Location details not available"}
                     </p>
+
                     <div className="h-[400px] w-full rounded-lg overflow-hidden">
                       <StaticMap
-                        address={isBooked ? property.address : undefined}
-                        city={property.city}
-                        state={property.state}
-                        country={property.country}
-                        isConfirmedBooking={isBooked}
-                        zoom={13}
-                      />
+                      address={isBooked ? property.location?.address : undefined}
+                     city={property.location?.city}
+                     state={property.location?.state}
+                      country={property.location?.country}
+                      isConfirmedBooking={isBooked}
+                      zoom={13}
+                     />
+
                     </div>
                     {!isBooked && (
                       <p className="mt-4 text-sm text-neutral-500">
