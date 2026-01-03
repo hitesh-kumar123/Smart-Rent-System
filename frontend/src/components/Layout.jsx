@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ScrollProgress from "./ScrollProgress";
 import ErrorBoundary from "./ErrorBoundary";
+import ScrollToTop from "./ScrollToTop";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -38,13 +39,14 @@ const Layout = ({ children }) => {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen ">
         <ScrollProgress />
         <Navbar />
         <main className="flex-grow">
           <ErrorBoundary>{children}</ErrorBoundary>
         </main>
         <Footer />
+        <ScrollToTop />
       </div>
     </ErrorBoundary>
   );

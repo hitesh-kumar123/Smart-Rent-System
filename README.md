@@ -446,7 +446,7 @@ graph LR
 
 ### 🏆 Top Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=hitesh-kumar123/Smart-Rent)](https://github.com/hitesh-kumar123/Smart-Rent/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=hitesh-kumar123/Smart-Rent-System)](https://github.com/hitesh-kumar123/Smart-Rent-System/graphs/contributors)
 
 ### 💬 Join the Conversation
 
