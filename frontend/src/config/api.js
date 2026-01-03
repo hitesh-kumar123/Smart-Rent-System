@@ -16,7 +16,7 @@ const getApiUrl = () => {
   return process.env.REACT_APP_API_URL || "http://localhost:8000";
 };
 
-console.log("API Base URL:", getApiUrl());
+
 
 // Create axios instance with default config
 const api = axios.create({
@@ -45,7 +45,6 @@ api.interceptors.request.use(
 // Add response interceptor to handle errors
 api.interceptors.response.use(
   (response) => {
-    console.log("API Success:", response.config.url, response.status);
     return response;
   },
   (error) => {

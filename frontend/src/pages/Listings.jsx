@@ -142,7 +142,7 @@ const Listings = () => {
   }, []);
 
   useEffect(() => {
-    console.log("FILTER RESET EFFECT: Resetting all filters on mount");
+   
     // Reset all filters when the page loads to ensure all properties show
     setFilters({
       priceMin: "",
@@ -185,12 +185,12 @@ const Listings = () => {
     let updatedFilters = { ...filters };
 
     if (locationParam) {
-      console.log("Location param found:", locationParam);
+
       updatedFilters.location = locationParam;
     }
 
     if (typeParam) {
-      console.log("Property type param found:", typeParam);
+   
 
       // Convert URL parameter to match property categories in the system
       let propertyType = "";
@@ -274,14 +274,11 @@ const Listings = () => {
             setTotalCount(total);
             setIsApiData(true);
           } else {
-            console.log(
-              "Using dummy data (API returned invalid data)",
-              response.data
-            );
+            
             setIsApiData(false);
           }
         } else {
-          console.log("No data returned from API");
+          
           setIsApiData(false);
         }
         setLoading(false);
@@ -313,7 +310,7 @@ const Listings = () => {
 
     fetchProperties();
   }, [location.search, language]);
-  console.log(properties);
+
   /**
    * Handles changes to the filter inputs
    * @param {Event} e - The change event
@@ -406,15 +403,7 @@ const Listings = () => {
       activeCategory === "Desert" ||
       activeCategory === "Ski-in/out" ||
       activeCategory === "Vineyard"
-    ) {
-      console.log(`Checking match for ${activeCategory}:`, {
-        property: property.title,
-        propertyCategory,
-        propertyType,
-        activeCat,
-      });
-    }
-
+    ) 
     // Match based on property category and type
     // Case-insensitive matching for various property types
     switch (activeCat) {
@@ -552,23 +541,23 @@ const Listings = () => {
         );
 
       case "arctic":
-        console.log("Arctic match check:", propertyCategory, propertyType);
+    
         return (
           propertyCategory.includes("arctic") || propertyType.includes("arctic")
         );
 
       case "desert":
-        console.log("Desert match check:", propertyCategory, propertyType);
+   
         return (
           propertyCategory.includes("desert") || propertyType.includes("desert")
         );
 
       case "ski-in/out":
-        console.log("Ski match check:", propertyCategory, propertyType);
+
         return propertyCategory.includes("ski") || propertyType.includes("ski");
 
       case "vineyard":
-        console.log("Vineyard match check:", propertyCategory, propertyType);
+   
         return (
           propertyCategory.includes("vineyard") ||
           propertyType.includes("vineyard") ||
@@ -741,70 +730,28 @@ const Listings = () => {
     const usingApiData = isApiData !== undefined ? isApiData : false;
 
     if (activeCategory !== "all") {
-      console.log(`----- CATEGORY FILTER: ${activeCategory} -----`);
-      console.log(`MongoDB data?: ${usingApiData ? "YES" : "NO"}`);
-      console.log(
-        `Properties count: ${sortedProperties.length} out of ${properties.length}`
-      );
-
       // Check the first few properties and their categories
       if (properties.length > 0) {
-        console.log("PROPERTY SAMPLE DATA:");
+       
         properties.slice(0, 3).forEach((prop, i) => {
-          console.log(`Property ${i + 1}:`, {
-            id: prop._id,
-            title: prop.title,
-            propertyType: prop.propertyType,
-            category: prop.category,
-            hasImage: !!prop.image,
-            imageValue: prop.image,
-            hasImages: prop.images && prop.images.length > 0,
-            imagesCount: prop.images ? prop.images.length : 0,
-            imagesData: prop.images,
-          });
         });
       }
 
       // Check which properties matched the category filter
-      console.log("CATEGORY MATCHED PROPERTIES:");
+
       sortedProperties.slice(0, 3).forEach((property, idx) => {
-        console.log(`Matched ${idx + 1}:`, {
-          title: property.title,
-          propertyType: property.propertyType,
-          category: property.category,
-          match:
-            activeCategory === property.propertyType ||
-            activeCategory === property.category,
-        });
+      
       });
     }
   }, [activeCategory, sortedProperties.length, properties.length, isApiData]);
 
-  console.log("BEFORE FILTERS - Total properties count:", properties.length);
-  console.log(
-    "AFTER FILTERS - Filtered properties count:",
-    sortedProperties.length
-  );
+ 
 
   // Log filter state
-  console.log("Current filter state:", {
-    priceMin: filters.priceMin,
-    priceMax: filters.priceMax,
-    bedrooms: filters.bedrooms,
-    location: filters.location,
-    activeCategory: activeCategory,
-    amenityFilters: amenityFilters,
-  });
-
   // Debug filtered properties and their images
-  console.log("Filtered Properties Count:", sortedProperties.length);
-  console.log("First few filtered properties with images:");
+
+
   sortedProperties.slice(0, 3).forEach((property, idx) => {
-    console.log(`Property ${idx}:`, {
-      title: property.title,
-      imageCount: property.images ? property.images.length : 0,
-      images: property.images || [],
-    });
   });
 
   /**
@@ -955,7 +902,6 @@ const Listings = () => {
    * @param {string} categoryId - The ID of the clicked category
    */
   const handleCategoryClick = (categoryId) => {
-    console.log("Category clicked:", categoryId);
 
     // Set the active category
     setActiveCategory(categoryId);
@@ -983,7 +929,7 @@ const Listings = () => {
   const navigateToPropertyDetail = (propertyId, e) => {
     if (e) e.stopPropagation();
 
-    console.log("Navigating to property with ID:", propertyId);
+  
 
     // Ensure propertyId is a string and is valid
     const stringId = String(propertyId).trim();
@@ -1007,7 +953,7 @@ const Listings = () => {
         // Also store the property ID separately for redundancy
         sessionStorage.setItem("lastViewedPropertyId", stringId);
 
-        console.log("Stored complete property data:", currentProperty);
+      
       } catch (err) {
         console.error("Failed to store property in session storage:", err);
       }
@@ -1126,7 +1072,7 @@ const Listings = () => {
                   {categories.map((category) => {
                     // Debug the category
                     if (activeCategory === category.id) {
-                      console.log(`Active category selected: ${category.id}`);
+                     
                     }
 
                     return (
@@ -1654,13 +1600,6 @@ const Listings = () => {
                 const propertyType =
                   property.propertyType || property.category || "";
                 const normalizedType = propertyType.trim().toLowerCase();
-
-                console.log("Looking for fallback image for:", {
-                  title: property.title,
-                  category: property.category,
-                  propertyType: property.propertyType,
-                  normalizedType,
-                });
               };
 
               // Ensure property has valid images array, use fallback if needed
