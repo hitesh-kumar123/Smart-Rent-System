@@ -10,6 +10,7 @@ const Listings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
+  const [wishlistIds, setWishlistIds] = useState(new Set());
 
   // App settings for language and currency
   const {
@@ -65,6 +66,41 @@ const Listings = () => {
    * Scrolls the categories container left or right
    * @param {string} direction - Either "left" or "right"
    */
+  // API is called to add this or remove this from the Wishlist
+  const toggleWishlist = async (e, propertyId) => {
+    e.stopPropagation();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await api.post(
+        `/api/wishlist/${propertyId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setWishlistIds((prev) => {
+        const updated = new Set(prev);
+        if (updated.has(propertyId)) {
+          updated.delete(propertyId);
+        } else {
+          updated.add(propertyId);
+        }
+        return updated;
+      });
+    } catch (err) {
+      console.error("Failed to toggle wishlist", err);
+    }
+  };
+
   const scrollCategories = (direction) => {
     const container = categoriesContainerRef.current;
     if (!container) return;
@@ -83,6 +119,28 @@ const Listings = () => {
   /**
    * Reset all filters when component mounts
    */
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await api.get("/api/wishlist", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const ids = new Set(res.data.map((item) => item._id));
+        setWishlistIds(ids);
+      } catch (err) {
+        console.error("Failed to fetch wishlist", err);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+
   useEffect(() => {
     console.log("FILTER RESET EFFECT: Resetting all filters on mount");
     // Reset all filters when the page loads to ensure all properties show
@@ -200,8 +258,8 @@ const Listings = () => {
           const propsArray = Array.isArray(response.data)
             ? response.data
             : Array.isArray(response.data.properties)
-            ? response.data.properties
-            : null;
+              ? response.data.properties
+              : null;
 
           if (propsArray) {
             setProperties(propsArray);
@@ -209,7 +267,7 @@ const Listings = () => {
             // prefer pagination.total when provided
             const total =
               response.data.pagination &&
-              typeof response.data.pagination.total === "number"
+                typeof response.data.pagination.total === "number"
                 ? response.data.pagination.total
                 : propsArray.length;
 
@@ -1075,25 +1133,22 @@ const Listings = () => {
                       <div
                         key={category.id}
                         onClick={() => handleCategoryClick(category.id)}
-                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${
-                          activeCategory === category.id
+                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${activeCategory === category.id
                             ? "text-primary-600 border-b-2 border-primary-600 scale-110"
                             : "text-neutral-500 hover:text-primary-500 hover:scale-105"
-                        }`}
+                          }`}
                       >
                         <div
-                          className={`rounded-full p-2 mb-1 ${
-                            activeCategory === category.id
+                          className={`rounded-full p-2 mb-1 ${activeCategory === category.id
                               ? "bg-primary-50"
                               : "bg-neutral-50"
-                          }`}
+                            }`}
                         >
                           <i
-                            className={`${category.icon} text-lg ${
-                              activeCategory === category.id
+                            className={`${category.icon} text-lg ${activeCategory === category.id
                                 ? "text-primary-600"
                                 : "text-neutral-500"
-                            }`}
+                              }`}
                           ></i>
                         </div>
                         <span className="text-sm font-medium">
@@ -1256,11 +1311,10 @@ const Listings = () => {
                               language: lang.code,
                             });
                           }}
-                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
-                            language === lang.code
+                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${language === lang.code
                               ? "bg-primary-50 text-primary-600 font-medium border border-primary-200"
                               : "text-neutral-700 hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300"
-                          }`}
+                            }`}
                         >
                           <span>{lang.name}</span>
                         </button>
@@ -1613,8 +1667,8 @@ const Listings = () => {
               const propertyImages = hasValidImages
                 ? property.images
                 : hasValidImage
-                ? [property.image]
-                : [getCategoryImage()];
+                  ? [property.image]
+                  : [getCategoryImage()];
 
               return (
                 // Property card component
@@ -1665,13 +1719,14 @@ const Listings = () => {
                       {/* Favorite button */}
                       <button
                         className="absolute top-3 left-3 bg-white text-neutral-600 hover:text-primary-600 h-8 w-8 rounded-full flex items-center justify-center shadow-sm transition-colors duration-200"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Add favorite logic here
-                        }}
+                        onClick={(e) => toggleWishlist(e, property._id)}
                       >
-                        <i className="far fa-heart"></i>
+                        <i
+                          className={`${wishlistIds.has(property._id) ? "fas text-red-500" : "far"
+                            } fa-heart`}
+                        ></i>
                       </button>
+
                     </div>
 
                     {/* Property details section */}

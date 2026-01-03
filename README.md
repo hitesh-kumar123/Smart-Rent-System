@@ -211,7 +211,7 @@ PORT=8000
 NODE_ENV=development
 
 # Database
-MONGO_URL=mongodb://localhost:27017/smartrent
+MONGODB_URI=mongodb://localhost:27017/smartrent
 
 # Authentication
 JWT_SECRET=your_super_secret_jwt_key_change_in_production
@@ -318,6 +318,121 @@ Smart-Rent/
 Once the backend is running, access API documentation at:
 ```
 http://localhost:8000/api-docs
+```
+
+---
+
+## 🐳 Docker Setup (Recommended)
+
+This project supports Docker to simplify local development, reduce setup issues, and ensure a consistent development environment across systems.
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+
+- Docker (v20+ recommended)
+- Docker Compose (v2+)
+
+### Verify installation:
+
+```bash
+docker --version
+docker compose version
+```
+
+### Clone the repository
+```bash
+git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
+cd Smart-Rent-System
+```
+
+## 📁 Project Structure (Docker)
+
+Docker uses a single `.env` file at the project root.
+
+```
+Smart-Rent-System/
+├── backend/
+│   └── Dockerfile         # Backend container
+├── frontend/
+│   └── Dockerfile         # Frontend container
+├── docker-compose.yml     # Docker orchestration
+├── .env                   # Required for Docker
+└── README.md
+```
+
+## 🔐 Environment Variables
+
+When using Docker, only one `.env` file is required at the `root`.
+
+Create a `.env` file in the project `root` with the following content:
+
+```env
+# Backend
+PORT=8000
+NODE_ENV=development
+MONGODB_URI=mongodb://mongodb:27017/smartrent
+JWT_SECRET=your_jwt_secret_here
+
+# Optional (email service)
+# RESEND_API_KEY=your_resend_key_here
+
+# Frontend
+REACT_APP_API_URL=http://localhost:8000
+```
+
+### 🚀 Running the Application with Docker
+
+From the project `root`, run:
+
+```
+docker compose up --build
+```
+
+**This will:**
+
+- Build backend and frontend images
+- Start MongoDB
+- Start backend and frontend services
+- Automatically link all services together
+
+### 🌐 Accessing the Application
+
+Once the containers are running:
+
+**Frontend:**
+```
+http://localhost:3000
+```
+
+**Backend API:** 
+```
+http://localhost:8000
+```
+
+**MongoDB:**
+```
+mongodb://localhost:27017
+```
+
+### 🛑 Stopping the Application
+
+To stop and remove all containers:
+
+```
+docker compose down
+```
+
+To stop containers but keep them:
+```
+docker compose stop
+```
+
+### 🔄 Rebuilding Containers (After Code Changes)
+
+If you modify dependencies or Docker files:
+```
+docker compose up --build
 ```
 
 ---
