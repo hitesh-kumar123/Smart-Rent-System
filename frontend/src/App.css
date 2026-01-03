@@ -1,21 +1,36 @@
 /* Main styling is handled by Tailwind CSS */
 /* This file contains only custom styles not covered by Tailwind */
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
 }
 
+/* Smooth momentum scrolling for iOS devices */
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar styling for webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Scrollbar track (background) */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
+  border-radius: 10px;
 }
 
+/* Scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 4px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
 }
 
+/* Scrollbar thumb on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
