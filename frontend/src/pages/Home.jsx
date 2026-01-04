@@ -34,15 +34,16 @@ const Home = () => {
 
 
    useEffect(() => {
-    // Auto-advance slideshow every 5 seconds
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setCurrentIndex((prev) => (prev + 1) % heroImages.length);
-      setTimeout(() => setIsTransitioning(false), 700);
-    }, 5000);
+  const interval = setInterval(() => {
+    setIsTransitioning(true);
+    setCurrentIndex(prev => (prev + 1) % heroImages.length);
 
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, 3300);
+
+  return () => clearInterval(interval);
+}, []);
+
 
    // Function to go to next slide
   const nextSlide = () => {
@@ -222,107 +223,23 @@ const Home = () => {
           </div>
         ))}
 
-        {/* --- SEARCH BAR SECTION (Restored) --- */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 pointer-events-none">
-            {/* Heading: Scales from 3xl on mobile to 6xl on desktop */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 text-center drop-shadow-lg px-2 transition-all duration-300">
-                Find your next stay
-            </h1>
-            
-            <div className="w-full max-w-2xl relative pointer-events-auto" ref={searchRef}>
-                <form onSubmit={handleSearchSubmit} className="relative flex shadow-2xl">
-                    <input
-                        type="text"
-                        placeholder="Where do you want to go?"
-                        // Input Styling:
-                        // - py-3 md:py-4: Slightly more compact on mobile
-                        // - pr-14 md:pr-32: Less right-padding on mobile (since button is smaller)
-                        // - text-base md:text-lg: Readable text size on all devices
-                        className="w-full pl-6 pr-14 md:pr-32 py-3 md:py-4 rounded-full text-base md:text-lg focus:outline-none text-gray-800 placeholder-gray-500 truncate"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onFocus={() => setIsSearchFocused(true)}
-                    />
-                    
-                    {/* Search Button: Circle with Icon on Mobile, Pill with Text on Desktop */}
-                    <button 
-                        type="submit" 
-                        className="absolute right-1.5 top-1.5 bottom-1.5 md:right-2 md:top-2 md:bottom-2 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-all duration-200 flex items-center justify-center
-                        aspect-square md:aspect-auto w-10 md:w-auto md:px-6"
-                    >
-                        {/* Icon margin only on desktop */}
-                        <Search className="w-5 h-5 md:mr-2" />
-                        {/* Text hidden on mobile */}
-                        <span className="hidden md:inline">Search</span>
-                    </button>
-                </form>
-
-                {/* Dropdown for Recent Searches & Suggestions */}
-                {isSearchFocused && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl overflow-hidden py-2 text-left animate-in fade-in zoom-in-95 duration-200 z-30">
-                        {/* Recent Searches */}
-                        {recentSearches.length > 0 && (
-                            <div className="mb-2">
-                                <div className="flex items-center justify-between px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                    <span>Recent Searches</span>
-                                    <button onClick={clearRecentSearches} className="text-primary-600 hover:text-primary-800">
-                                        Clear
-                                    </button>
-                                </div>
-                                {recentSearches.map((search, idx) => (
-                                    <div 
-                                        key={idx} 
-                                        onClick={() => handleSuggestionClick(search)}
-                                        className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-700 active:bg-gray-100"
-                                    >
-                                        <Clock className="w-4 h-4 mr-3 text-gray-400 flex-shrink-0" />
-                                        <span className="truncate">{search}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {/* Divider */}
-                        {recentSearches.length > 0 && <div className="border-t border-gray-100 my-1"></div>}
-
-                        {/* Popular Destinations */}
-                        <div>
-                            <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Popular Destinations
-                            </div>
-                            {suggestions.map((suggestion, idx) => (
-                                <div 
-                                    key={idx}
-                                    onClick={() => handleSuggestionClick(suggestion)}
-                                    className="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-700 active:bg-gray-100"
-                                >
-                                    <MapPin className="w-4 h-4 mr-3 text-gray-400 flex-shrink-0" />
-                                    <span className="truncate">{suggestion}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
 
         
 
         {/* Previous slide button - shows on hover */}
-        {/* <button
+        <button
           onClick={prevSlide}
           className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
         >
           <ChevronLeft className="w-6 h-6" />
-        </button> */}
-
+        </button>
         {/* Next slide button - shows on hover */}
-        {/* <button
+        <button
           onClick={nextSlide}
           className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
         >
           <ChevronRight className="w-6 h-6" />
-        </button> */}
+        </button>
 
         {/* Dot indicators for slide navigation */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
