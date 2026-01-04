@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSettings } from "../../contexts/AppSettingsContext";
+import { useTranslation } from "react-i18next";
 
 /**
  * A self-contained, responsive search component with a dropdown for recent and popular searches.
@@ -23,6 +24,7 @@ const NavSearch = ({ onSearchComplete, isMobileLayout = false }) => {
   const navigate = useNavigate();
   const searchContainerRef = useRef(null);
   const { getText } = useAppSettings();
+  const { t } = useTranslation();
 
   // This can be fetched from an API or be static
   const popularSuggestions = ["New York", "Los Angeles", "Miami", "Chicago"];
@@ -97,7 +99,7 @@ const NavSearch = ({ onSearchComplete, isMobileLayout = false }) => {
       <form onSubmit={handleFormSubmit} className="relative w-full">
         <input
           type="text"
-          placeholder={getText("common", "search")}
+          placeholder={t("common.search")}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
@@ -147,13 +149,13 @@ const NavSearch = ({ onSearchComplete, isMobileLayout = false }) => {
             <div className="p-4 sm:p-3">
               <div className="flex justify-between items-center mb-3">
                 <h3 className="text-sm font-semibold text-neutral-700">
-                  {getText("search", "recentSearches")}
+                  {t("search.recentSearches")}
                 </h3>
                 <button
                   onClick={clearRecentSearches}
                   className="text-xs text-primary-600 hover:text-primary-700 hover:underline px-2 py-1 rounded-md transition-colors"
                 >
-                  {getText("common", "clear")}
+                  {t("common.clear")}
                 </button>
               </div>
               <div className="space-y-1">
@@ -181,7 +183,7 @@ const NavSearch = ({ onSearchComplete, isMobileLayout = false }) => {
             }`}
           >
             <h3 className="text-sm font-semibold text-neutral-700 mb-3">
-              {getText("search", "popularDestinations")}
+              {t("search.popularDestinations")}
             </h3>
             <div className="space-y-1">
               {popularSuggestions.map((suggestion, index) => (

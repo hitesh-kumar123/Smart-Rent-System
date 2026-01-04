@@ -1,0 +1,95 @@
+{
+  "faqTitle": "Preguntas Frecuentes",
+  "faqSubtitle": "Encuentra respuestas a las preguntas más comunes sobre el uso de Smart Rent System.",
+  "categoriesLabel": "Categorías",
+  "categories": {
+    "general": "Preguntas Generales",
+    "booking": "Reservas y Reservaciones",
+    "payment": "Pagos y Reembolsos",
+    "host": "Preguntas de Anfitrión",
+    "safety": "Seguridad y Protección",
+    "account": "Gestión de Cuenta"
+  },
+  "needMoreHelp": "¿Necesitas más ayuda?",
+  "needMoreHelpDesc": "Si no encuentras lo que buscas, nuestro equipo de soporte está listo para ayudarte.",
+  "contactSupport": "Contactar Soporte",
+  "helpCenter": "Centro de Ayuda",
+  "helpCenterDesc": "Consulta guías de ayuda completas, tutoriales y consejos de solución de problemas para usar Smart Rent.",
+  "visitHelpCenter": "Visitar Centro de Ayuda",
+  "safetyInfo": "Información de Seguridad",
+  "safetyInfoDesc": "Conozca nuestros protocolos de seguridad, pautas para huéspedes y anfitriones, y recursos de emergencia.",
+  "viewSafetyGuidelines": "Ver Pautas de Seguridad",
+  "reportConcernTitle": "Reportar un Problema",
+  "reportConcernDesc": "¿Necesitas reportar un problema de seguridad, una violación de política u otra preocupación sobre un anuncio o usuario?",
+    "submitReport": "Enviar un Reporte",
+  "general": {
+    "what-is-smart-rent": {
+      "question": "¿Qué es Smart Rent System?",
+      "answer": "Smart Rent System es una plataforma que conecta viajeros con alojamientos únicos en todo el mundo. Nuestra plataforma permite a los anfitriones listar sus propiedades y a los huéspedes reservar estos espacios. Ofrecemos procesamiento de pagos seguro, reseñas verificadas y soporte al cliente para garantizar una experiencia fluida para todos."
+    },
+    "how-to-start": {
+      "question": "¿Cómo empiezo con Smart Rent?",
+      "answer": "¡Empezar es fácil! Simplemente crea una cuenta, completa tu información de perfil y puedes comenzar a buscar propiedades o listar tu propio espacio. Busca anuncios por ubicación, precio, comodidades y más para encontrar el lugar perfecto para tu próximo viaje."
+    },
+    "contact-support": {
+      "question": "¿Cómo contacto al soporte al cliente?",
+      "answer": "Puedes contactar a nuestro equipo de soporte al cliente por varios canales. Usa la página de Contacto en nuestro sitio web, envíanos un correo a support@smartrentsystem.com, o llama a nuestra línea de soporte al +1 (800) SMART-RENT. Nuestro equipo está disponible 24/7."
+    },
+    "app-available": {
+      "question": "¿Hay una aplicación móvil disponible?",
+      "answer": "¡Sí! La aplicación Smart Rent System está disponible para iOS y Android. Descárgala desde la App Store o Google Play Store para gestionar tus reservas, mensajes y explorar anuncios donde sea."
+    }
+  },
+  "booking": {
+    "how-to-book": {
+      "question": "¿Cómo reservo una propiedad?",
+      "answer": "Para reservar una propiedad, busca alojamientos en tu ubicación y fechas deseadas. Cuando encuentres un lugar que te guste, haz clic en 'Reservar' o 'Book Now' y sigue el proceso de pago. Algunas propiedades permiten reserva instantánea, otras requieren aprobación del anfitrión."
+    },
+    "booking-confirmation": {
+      "question": "¿Cómo sé si mi reserva está confirmada?",
+      "answer": "Después de completar el proceso de reserva, recibirás un correo de confirmación con todos los detalles. También puedes ver el estado de tu reserva en la sección 'Viajes' de tu panel de cuenta."
+    },
+    "cancel-booking": {
+      "question": "¿Cómo cancelo una reserva?",
+      "answer": "Para cancelar una reserva, ve a la sección 'Viajes' de tu cuenta, encuentra la reserva que deseas cancelar y haz clic en la opción 'Cancelar'. El monto del reembolso dependerá de la política de cancelación de la propiedad."
+    },
+    "modify-dates": {
+      "question": "¿Puedo cambiar las fechas de mi reserva?",
+      "answer": "Sí, puedes solicitar modificar las fechas de tu reserva. Ve a tu página de 'Viajes', selecciona la reserva que deseas cambiar y haz clic en 'Modificar Reserva'. Esto depende de la aprobación del anfitrión y la disponibilidad. Puede haber ajustes de precio según las nuevas fechas."
+    }
+  },
+  "payment": {
+    "payment-methods": {
+      "question": "¿Qué métodos de pago se aceptan?",
+      "answer": "Aceptamos tarjetas de crédito y débito principales (Visa, MasterCard, American Express, Discover), PayPal, y en algunas regiones, Apple Pay y Google Pay. Todos los pagos se procesan de forma segura a través de nuestra plataforma."
+    },
+    "payment-timing": {
+      "question": "¿Cuándo se me cobra por mi reserva?",
+      "answer": "Para la mayoría de las reservas, se te cobrará el monto total cuando el anfitrión acepte tu reserva o inmediatamente si usas Reserva Instantánea. Para algunas estancias largas o reservas anticipadas, puedes tener la opción de pagar en cuotas."
+    },
+    "security-deposit": {
+      "question": "¿Qué es un depósito de seguridad y cuándo se devuelve?",
+      "answer": "Un depósito de seguridad es una cantidad retenida para cubrir posibles daños durante tu estancia. No se cobra a menos que el anfitrión haga una reclamación. Si no hay reclamación, la retención en tu método de pago se libera automáticamente 14 días después del check-out."
+    },
+    "refund-process": {
+      "question": "¿Cuánto tiempo tarda el reembolso en procesarse?",
+      "answer": "Una vez emitido el reembolso, normalmente tarda de 5 a 10 días hábiles en aparecer en tu método de pago original. El tiempo exacto depende de tu proveedor de pago y entidad financiera."
+    }
+  }
+  ,
+  "categories": {
+    "general": "Preguntas generales",
+    "booking": "Reservas y Estancia",
+    "payment": "Pagos y Reembolsos",
+    "host": "Preguntas para anfitriones",
+    "safety": "Seguridad",
+    "account": "Gestión de la cuenta"
+  },
+  "categoriesLabel": "Categorías",
+  "general": [],
+  "booking": [],
+  "payment": [],
+  "host": [],
+  "safety": [],
+  "account": []
+}

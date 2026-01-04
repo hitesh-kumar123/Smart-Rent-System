@@ -1,0 +1,28 @@
+{
+  "faqTitle": "よくある質問",
+  "faqSubtitle": "Smart Rent Systemのよくある質問とその回答をご覧ください",
+  "categories": {
+    "general": "一般的な質問",
+    "booking": "予約・宿泊",
+    "payment": "支払い・返金",
+    "host": "ホスト向けの質問",
+    "safety": "安全・セキュリティ",
+    "account": "アカウント管理"
+  },
+  "needMoreHelp": "さらにサポートが必要ですか？",
+  "needMoreHelpDesc": "お探しの内容が見つからない場合は、サポートチームまでご連絡ください。",
+  "contactSupport": "サポートに連絡する",
+  "categoriesLabel": "カテゴリ",
+  "helpCenter": "ヘルプセンター",
+  "helpCenterDesc": "Smart Rentの使い方ガイド、チュートリアル、トラブルシューティングを参照できます。",
+  "visitHelpCenter": "ヘルプセンターを訪問",
+  "safetyInfo": "安全情報",
+  "safetyInfoDesc": "当社の安全対策、ゲスト・ホスト向けガイドライン、緊急時のリソースについてご案内します。",
+  "viewSafetyGuidelines": "安全ガイドラインを見る",
+  "general": [],
+  "booking": [],
+  "payment": [],
+  "host": [],
+  "safety": [],
+  "account": []
+}

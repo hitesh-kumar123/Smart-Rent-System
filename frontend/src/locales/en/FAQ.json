@@ -1,0 +1,79 @@
+{
+  "faqTitle": "Frequently Asked Questions",
+  "faqSubtitle": "Find answers to the most common questions about using Smart Rent System",
+  "categoriesLabel": "Categories",
+  "categories": {
+    "general": "General Questions",
+    "booking": "Booking & Reservations",
+    "payment": "Payments & Refunds",
+    "host": "Hosting Questions",
+    "safety": "Safety & Security",
+    "account": "Account Management"
+  },
+  "needMoreHelp": "Need more help?",
+  "needMoreHelpDesc": "If you can't find what you're looking for, our support team is ready to assist.",
+  "contactSupport": "Contact Support",
+  "helpCenter": "Help Center",
+  "helpCenterDesc": "Browse comprehensive help guides, tutorials, and troubleshooting tips for using Smart Rent.",
+  "visitHelpCenter": "Visit Help Center",
+  "safetyInfo": "Safety Information",
+  "safetyInfoDesc": "Learn about our safety protocols, guidelines for guests and hosts, and emergency resources.",
+  "viewSafetyGuidelines": "View Safety Guidelines",
+  "reportConcernTitle": "Report a Concern",
+  "reportConcernDesc": "Need to report a safety issue, policy violation, or other concern about a listing or user?",
+  "submitReport": "Submit a Report",
+  "general": {
+    "what-is-smart-rent": {
+      "question": "What is Smart Rent System?",
+      "answer": "Smart Rent System is a platform that connects travelers with unique accommodations around the world. Our platform allows hosts to list their properties, and guests to book these spaces. We provide secure payment processing, verified reviews, and customer support to ensure a smooth experience for everyone."
+    },
+    "how-to-start": {
+      "question": "How do I get started with Smart Rent?",
+      "answer": "Getting started is easy! Simply create an account, fill out your profile information, and you can start searching for properties or list your own space. Browse listings by location, price, amenities, and more to find the perfect place for your next trip."
+    },
+    "contact-support": {
+      "question": "How do I contact customer support?",
+      "answer": "You can reach our customer support team through multiple channels. Use the Contact page on our website, email us at support@smartrentsystem.com, or call our support line at +1 (800) SMART-RENT. Our team is available 24/7 to assist with any questions or concerns."
+    },
+    "app-available": {
+      "question": "Is there a mobile app available?",
+      "answer": "Yes! The Smart Rent System app is available for both iOS and Android devices. Download it from the App Store or Google Play Store to manage your bookings, message hosts or guests, and browse listings on the go."
+    }
+  },
+  "booking": {
+    "how-to-book": {
+      "question": "How do I book a property?",
+      "answer": "To book a property, search for accommodations in your desired location and dates. Once you find a place you like, click 'Reserve' or 'Book Now' and follow the checkout process. Some properties allow instant booking, while others require approval from the host."
+    },
+    "booking-confirmation": {
+      "question": "How do I know if my booking is confirmed?",
+      "answer": "After completing the booking process, you'll receive a confirmation email with all the details of your reservation. You can also view the status of your booking in the 'Trips' section of your account dashboard."
+    },
+    "cancel-booking": {
+      "question": "How do I cancel a booking?",
+      "answer": "To cancel a booking, go to the 'Trips' section of your account, find the booking you wish to cancel, and click the 'Cancel' option. The refund amount will depend on the property's cancellation policy, which is displayed before you book and in your reservation details."
+    },
+    "modify-dates": {
+      "question": "Can I change the dates of my reservation?",
+      "answer": "Yes, you can request to modify your reservation dates. Go to your 'Trips' page, select the booking you want to change, and click 'Modify Reservation.' Note that this is subject to host approval and availability. Price adjustments may apply based on the new dates."
+    }
+  },
+  "payment": {
+    "payment-methods": {
+      "question": "What payment methods are accepted?",
+      "answer": "We accept major credit and debit cards (Visa, MasterCard, American Express, Discover), PayPal, and in some regions, Apple Pay and Google Pay. All payments are processed securely through our platform."
+    },
+    "payment-timing": {
+      "question": "When am I charged for my booking?",
+      "answer": "For most bookings, you'll be charged the full amount when the host accepts your reservation or immediately if you use Instant Book. For some longer stays or bookings made months in advance, you may have the option to pay in installments."
+    },
+    "security-deposit": {
+      "question": "What is a security deposit and when is it returned?",
+      "answer": "A security deposit is an amount held to cover potential damages during your stay. It's not charged unless there's a claim by the host. If no claim is made, the hold on your payment method is released automatically 14 days after check-out."
+    },
+    "refund-process": {
+      "question": "How long do refunds take to process?",
+      "answer": "Once a refund is issued, it typically takes 5-10 business days to appear on your original payment method. The exact timing depends on your payment provider and financial institution."
+    }
+  }
+}

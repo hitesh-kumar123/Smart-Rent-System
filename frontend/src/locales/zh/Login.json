@@ -1,0 +1,11 @@
+{
+  "loginTitle": "登录您的账户",
+  "createAccount": "或创建新账户",
+  "email": "电子邮箱地址",
+  "password": "密码",
+  "rememberMe": "记住我",
+  "forgotPassword": "忘记密码？",
+  "login": "登录",
+  "orContinueWith": "或继续使用",
+  "signInWithGoogle": "使用Google登录"
+}

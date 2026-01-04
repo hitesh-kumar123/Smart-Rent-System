@@ -1,0 +1,19 @@
+{
+  "search": "खोजें",
+  "login": "लॉग इन करें",
+  "signup": "साइन अप करें",
+  "logout": "लॉग आउट",
+  "profile": "प्रोफ़ाइल",
+  "help": "मदद",
+  "becomeHost": "मेज़बान बनें",
+  "messages": "संदेश",
+  "trips": "यात्राएँ",
+  "wishlist": "इच्छा सूची",
+  "account": "खाता",
+  "settings": "सेटिंग्स",
+  "popularSuggestions": ["नई दिल्ली", "मुंबई", "बैंगलोर", "चेन्नई", "कोलकाता"],
+  "recentSearches": "हाल की खोजें",
+  "clear": "साफ़ करें",
+  "popularDestinations": "लोकप्रिय गंतव्य",
+  "explore": "खोजें"
+}

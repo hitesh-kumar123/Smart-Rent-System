@@ -1,0 +1,11 @@
+{
+  "loginTitle": "Log in to your account",
+  "createAccount": "Or create a new account",
+  "email": "Email address",
+  "password": "Password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot your password?",
+  "login": "Log in",
+  "orContinueWith": "Or continue with",
+  "signInWithGoogle": "Sign in with Google"
+}

@@ -1,0 +1,17 @@
+{
+    "signInToExistingLink": "登录到您现有的账户",
+    "signUpWithGoogle": "使用Google注册",
+    "signUpWithFacebook": "使用Facebook注册",
+  "registerTitle": "创建您的账户",
+  "signInToExisting": "或登录到您现有的账户",
+  "firstName": "名字",
+  "lastName": "姓氏",
+  "username": "用户名（可选）",
+  "usernameHint": "如果留空，将使用您邮箱的一部分",
+  "email": "电子邮箱地址",
+  "password": "密码",
+  "confirmPassword": "确认密码",
+  "agreeTerms": "我同意服务条款和隐私政策",
+  "register": "创建账户",
+  "orContinueWith": "或继续使用"
+}

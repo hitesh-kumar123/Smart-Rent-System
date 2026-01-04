@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 /**
  * Register Component
@@ -13,6 +14,7 @@ import { useAuth } from "../contexts/AuthContext";
  * - Optional username creation
  */
 const Register = () => {
+    const { t } = useTranslation("Register");
   // Form state management
   const [formData, setFormData] = useState({
     firstName: "",
@@ -147,15 +149,15 @@ const Register = () => {
       {/* Header section with title and link to login */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-neutral-900">
-          Create your account
+          {t("registerTitle")}
         </h2>
         <p className="mt-2 text-center text-sm text-neutral-600">
-          Or{" "}
+          {t("signInToExisting", "Or sign in to your existing account")} {" "}
           <Link
             to="/login"
             className="font-medium text-primary-600 hover:text-primary-500"
           >
-            sign in to your existing account
+            {t("signInToExistingLink", "sign in to your existing account")}
           </Link>
         </p>
       </div>
@@ -179,7 +181,7 @@ const Register = () => {
                   htmlFor="firstName"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  First name
+                  {t("firstName", "First name")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -200,7 +202,7 @@ const Register = () => {
                   htmlFor="lastName"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Last name
+                  {t("lastName", "Last name")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -223,7 +225,7 @@ const Register = () => {
                 htmlFor="username"
                 className="block text-sm font-medium text-neutral-700"
               >
-                Username (optional)
+                {t("username", "Username (optional)")}
               </label>
               <div className="mt-1">
                 <input
@@ -234,7 +236,7 @@ const Register = () => {
                   value={formData.username}
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                  placeholder="Will use part of your email if left blank"
+                  placeholder={t("usernameHint", "Will use part of your email if left blank")}
                 />
               </div>
             </div>
@@ -245,7 +247,7 @@ const Register = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-neutral-700"
               >
-                Email address
+                {t("email", "Email address")}
               </label>
               <div className="mt-1">
                 <input
@@ -267,7 +269,7 @@ const Register = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-neutral-700"
               >
-                Password
+                {t("password", "Password")}
               </label>
               <div className="mt-1 relative">
                 <input
@@ -324,7 +326,7 @@ const Register = () => {
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-neutral-700"
               >
-                Confirm password
+                {t("confirmPassword", "Confirm password")}
               </label>
               <div className="mt-1 relative">
                 <input
@@ -388,20 +390,7 @@ const Register = () => {
                 htmlFor="terms"
                 className="ml-2 block text-sm text-neutral-700"
               >
-                I agree to the{" "}
-                <Link
-                  to="/terms"
-                  className="font-medium text-primary-600 hover:text-primary-500"
-                >
-                  Terms of Service
-                </Link>{" "}
-                and{" "}
-                <Link
-                  to="/privacy"
-                  className="font-medium text-primary-600 hover:text-primary-500"
-                >
-                  Privacy Policy
-                </Link>
+                {t("agreeTerms", "I agree to the Terms of Service and Privacy Policy")}
               </label>
             </div>
 
@@ -412,7 +401,7 @@ const Register = () => {
                 disabled={loading}
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
               >
-                {loading ? "Creating account..." : "Create account"}
+                {loading ? t("creatingAccount", "Creating account...") : t("register", "Create account")}
               </button>
             </div>
           </form>
@@ -425,7 +414,7 @@ const Register = () => {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white text-neutral-500">
-                  Or continue with
+                  {t("orContinueWith", "Or continue with")}
                 </span>
               </div>
             </div>
@@ -440,7 +429,7 @@ const Register = () => {
                   disabled={loading}
                   className="w-full inline-flex justify-center py-2 px-4 border border-neutral-300 rounded-md shadow-sm bg-white text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 >
-                  <span className="sr-only">Sign up with Google</span>
+                  <span className="sr-only">{t("signUpWithGoogle", "Sign up with Google")}</span>
                   <svg
                     className="w-5 h-5"
                     viewBox="0 0 24 24"
@@ -475,7 +464,7 @@ const Register = () => {
                   disabled={loading}
                   className="w-full inline-flex justify-center py-2 px-4 border border-neutral-300 rounded-md shadow-sm bg-white text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 >
-                  <span className="sr-only">Sign up with Facebook</span>
+                  <span className="sr-only">{t("signUpWithFacebook", "Sign up with Facebook")}</span>
                   <svg
                     className="w-5 h-5"
                     fill="#1877F2"

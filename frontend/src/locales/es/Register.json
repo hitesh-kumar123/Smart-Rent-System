@@ -1,0 +1,17 @@
+{
+    "signInToExistingLink": "inicia sesión en tu cuenta existente",
+    "signUpWithGoogle": "Regístrate con Google",
+    "signUpWithFacebook": "Regístrate con Facebook",
+  "registerTitle": "Crea tu cuenta",
+  "signInToExisting": "O inicia sesión en tu cuenta existente",
+  "firstName": "Nombre",
+  "lastName": "Apellido",
+  "username": "Nombre de usuario (opcional)",
+  "usernameHint": "Se usará parte de tu correo si se deja en blanco",
+  "email": "Dirección de correo electrónico",
+  "password": "Contraseña",
+  "confirmPassword": "Confirmar contraseña",
+  "agreeTerms": "Acepto los Términos de servicio y la Política de privacidad",
+  "register": "Crear cuenta",
+  "orContinueWith": "O continúa con"
+}

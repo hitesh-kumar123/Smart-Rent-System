@@ -1,0 +1,47 @@
+{
+	"aboutTitle": "Über Smart Rent System",
+	"aboutSubtitle": "Mietobjekte einfach, sicher und angenehm für alle machen.",
+	"missionTitle": "Unsere Mission",
+	"missionText": "Smart Rent System wurde 2020 mit einer einfachen Mission gegründet: Mietobjekte für alle zugänglich, sicher und angenehm zu machen. Wir haben festgestellt, dass der traditionelle Mietprozess oft kompliziert, zeitaufwendig und intransparent war.",
+	"visionTitle": "Unsere Vision",
+	"visionText": "Wir wollten eine Plattform schaffen, die Eigentümer nahtlos mit potenziellen Mietern verbindet und Werkzeuge bereitstellt, die den gesamten Prozess – von der Anzeige über die Buchung bis zum Aufenthalt – so reibungslos wie möglich gestalten. Heute bietet Smart Rent System Tausende von Objekten weltweit an, hilft Reisenden, ihr perfektes temporäres Zuhause zu finden, und ermöglicht Eigentümern, ihr Mietpotenzial mit minimalem Aufwand zu maximieren.",
+	"ourValuesTitle": "Unsere Werte",
+	"trustSafetyTitle": "Vertrauen & Sicherheit",
+	"trustSafetyDesc": "Wir glauben an die Schaffung einer sicheren Umgebung für Gastgeber und Gäste mit transparenten Richtlinien und sicheren Transaktionen.",
+	"globalCommunityTitle": "Globale Gemeinschaft",
+	"globalCommunityDesc": "Wir feiern Vielfalt und arbeiten daran, Verbindungen zwischen Menschen unterschiedlicher Herkunft und Kulturen zu schaffen.",
+	"innovationTitle": "Innovation",
+	"innovationDesc": "Wir verbessern unsere Plattform und Dienstleistungen kontinuierlich, um allen Nutzern das bestmögliche Erlebnis zu bieten.",
+	"teamTitle": "Unser Team kennenlernen",
+	"teamText": "Unser Team setzt sich dafür ein, dass jeder Nutzer außergewöhnliche Unterstützung erhält und eine positive Erfahrung mit Smart Rent System macht.",
+	"joinOurCommunity": "Treten Sie unserer Community bei",
+	"joinOurCommunityDesc": "Egal, ob Sie eine Unterkunft suchen oder Ihre Immobilie mit Reisenden teilen möchten, Smart Rent System ist für Sie da.",
+	"exploreProperties": "Objekte entdecken",
+	"becomeHost": "Gastgeber werden",
+	"teamMembers": [
+		{
+			"name": "Jane Smith",
+			"role": "CEO & Gründerin",
+			"image": "https://randomuser.me/api/portraits/women/32.jpg",
+			"bio": "Jane gründete Smart Rent System mit der Vision, die Art und Weise zu verändern, wie Menschen weltweit Unterkünfte finden und buchen."
+		},
+		{
+			"name": "Michael Johnson",
+			"role": "CTO",
+			"image": "https://randomuser.me/api/portraits/men/42.jpg",
+			"bio": "Michael leitet unser Technikteam und sorgt dafür, dass unsere Plattform für Gastgeber und Gäste sicher, schnell und benutzerfreundlich ist."
+		},
+		{
+			"name": "Sarah Chen",
+			"role": "Leiterin Betrieb",
+			"image": "https://randomuser.me/api/portraits/women/22.jpg",
+			"bio": "Sarah überwacht unser Tagesgeschäft und stellt sicher, dass Gastgeber und Gäste eine reibungslose Erfahrung auf unserer Plattform haben."
+		},
+		{
+			"name": "James Wilson",
+			"role": "Leiter Kundenerfahrung",
+			"image": "https://randomuser.me/api/portraits/men/32.jpg",
+			"bio": "James sorgt dafür, dass jeder Nutzer außergewöhnlichen Support erhält und eine positive Erfahrung mit Smart Rent System macht."
+		}
+	]
+}

@@ -1,0 +1,19 @@
+{
+  "search": "Buscar",
+  "login": "Iniciar sesión",
+  "signup": "Registrarse",
+  "logout": "Cerrar sesión",
+  "profile": "Perfil",
+  "help": "Ayuda",
+  "becomeHost": "Hazte anfitrión",
+  "messages": "Mensajes",
+  "trips": "Viajes",
+  "wishlist": "Lista de deseos",
+  "account": "Cuenta",
+  "settings": "Configuración",
+  "popularSuggestions": ["Madrid", "Barcelona", "Valencia", "Sevilla", "Granada"],
+  "recentSearches": "Búsquedas recientes",
+  "clear": "Limpiar",
+  "popularDestinations": "Destinos populares",
+  "explore": "Explorar"
+}

@@ -1,0 +1,19 @@
+{
+  "search": "Chercher",
+  "login": "Se connecter",
+  "signup": "S'inscrire",
+  "logout": "Se déconnecter",
+  "profile": "Profil",
+  "help": "Aide",
+  "becomeHost": "Devenir hôte",
+  "messages": "Messages",
+  "trips": "Voyages",
+  "wishlist": "Liste de souhaits",
+  "account": "Compte",
+  "settings": "Paramètres",
+  "popularSuggestions": ["Paris", "Lyon", "Marseille", "Nice", "Bordeaux"],
+  "recentSearches": "Recherches récentes",
+  "clear": "Effacer",
+  "popularDestinations": "Destinations populaires",
+  "explore": "Explorer"
+}

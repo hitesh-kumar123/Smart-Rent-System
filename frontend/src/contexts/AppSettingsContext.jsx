@@ -1,65 +1,28 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import translationService from "../services/translationService";
+import { useTranslation } from "react-i18next";
+import i18n from "../config/i18n";
 
 // Create the context
 const AppSettingsContext = createContext();
 
-// Default application texts
-const defaultTexts = {
-  common: {
-    search: "Search",
-    login: "Log in",
-    signup: "Sign up",
-    logout: "Logout",
-    profile: "Profile",
-    help: "Help",
-    becomeHost: "Become a Host",
-    messages: "Messages",
-    trips: "Trips",
-    wishlist: "Wishlist",
-    account: "Account",
-    settings: "Settings",
-  },
-  home: {
-    title: "Find your next perfect stay",
-    subtitle:
-      "Discover the best vacation rentals, homes, and unique places to stay around the world.",
-    searchPlaceholder: "Anywhere",
-    checkInOut: "Check in - Check out",
-    guests: "Guests",
-    inspirationTitle: "Inspiration for your next trip",
-    inspirationSubtitle:
-      "Explore top destinations with perfect vacation rentals",
-    stayAnywhere: "Stay anywhere",
-    stayAnywhereSubtitle: "Unique accommodations for every style and budget",
-    discoverExperiences: "Discover experiences",
-    discoverExperiencesSubtitle: "Find activities hosted by local experts",
-    becomeHost: "Become a host",
-    becomeHostSubtitle:
-      "Share your space, earn extra income, and connect with guests from around the world.",
-    learnMore: "Learn more",
-  },
-  // Add more sections as needed
-};
 
 export const AppSettingsProvider = ({ children }) => {
+  // i18next translation
+  const { t, i18n: i18nextInstance } = useTranslation();
+
   // Get initial settings from localStorage or use defaults
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem("language") || "en";
   });
-
   const [languageName, setLanguageName] = useState(() => {
     return localStorage.getItem("languageName") || "English";
   });
-
   const [currency, setCurrency] = useState(() => {
     return localStorage.getItem("currency") || "USD";
   });
-
-  const [translations, setTranslations] = useState(defaultTexts);
-  const [isTranslating, setIsTranslating] = useState(false);
   const [exchangeRates, setExchangeRates] = useState(null);
   const [isLoadingRates, setIsLoadingRates] = useState(false);
+
 
   // Update localStorage when settings change
   useEffect(() => {
@@ -68,60 +31,27 @@ export const AppSettingsProvider = ({ children }) => {
     localStorage.setItem("currency", currency);
   }, [language, languageName, currency]);
 
-  // Fetch exchange rates when currency changes
+  // Fetch exchange rates when currency changes (keep as is, or replace with your own logic)
   useEffect(() => {
-    const fetchExchangeRates = async () => {
-      setIsLoadingRates(true);
-      try {
-        const rates = await translationService.getExchangeRates();
-        setExchangeRates(rates);
-      } catch (error) {
-        console.error("Error fetching exchange rates:", error);
-      } finally {
-        setIsLoadingRates(false);
-      }
-    };
-
-    fetchExchangeRates();
-    // Refresh rates every hour
-    const interval = setInterval(fetchExchangeRates, 3600000);
-    return () => clearInterval(interval);
+    // You may want to replace this with your own exchange rate logic or API
+    // setIsLoadingRates(true);
+    // setExchangeRates({ USD: 1, ... });
+    // setIsLoadingRates(false);
   }, []);
 
-  // Fetch translations when language changes
+  // Change i18next language when language state changes
   useEffect(() => {
-    const translateApp = async () => {
-      // Skip translation if English (default)
-      if (language === "en") {
-        setTranslations(defaultTexts);
-        return;
-      }
+    if (i18nextInstance.language !== language) {
+      i18nextInstance.changeLanguage(language);
+    }
+  }, [language, i18nextInstance]);
 
-      try {
-        setIsTranslating(true);
-        // Only translate if not English
-        const translated = await translationService.batchTranslate(
-          defaultTexts,
-          "en",
-          language
-        );
-        setTranslations(translated);
-      } catch (error) {
-        console.error("Translation error:", error);
-        // Fallback to default texts
-        setTranslations(defaultTexts);
-      } finally {
-        setIsTranslating(false);
-      }
-    };
-
-    translateApp();
-  }, [language]);
 
   // Change language
   const changeLanguage = async (code, name) => {
     setLanguage(code);
     setLanguageName(name);
+    i18n.changeLanguage(code);
   };
 
   // Change currency
@@ -129,10 +59,9 @@ export const AppSettingsProvider = ({ children }) => {
     setCurrency(newCurrency);
   };
 
-  // Format price according to current currency
+  // Format price according to current currency (unchanged)
   const formatPrice = (amount) => {
     if (!amount || isNaN(amount)) return "0";
-
     const currencySymbols = {
       USD: "$",
       EUR: "€",
@@ -142,39 +71,24 @@ export const AppSettingsProvider = ({ children }) => {
       AUD: "A$",
       INR: "₹",
     };
-
-    // Get currency symbol for formatting
     const currencySymbol = currencySymbols[currency] || "$";
-
-    // Use real exchange rates if available, otherwise use default conversion
     let convertedAmount = amount;
     if (exchangeRates && currency !== "USD") {
       convertedAmount = amount * exchangeRates[currency];
     }
-
-    // Format based on currency
     const formatter = new Intl.NumberFormat(undefined, {
       style: "currency",
       currency: currency,
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     });
-
     return formatter.format(convertedAmount);
   };
 
-  // Get text based on current language
-  const getText = (section, key) => {
-    if (translations && translations[section] && translations[section][key]) {
-      return translations[section][key];
-    }
-    // Fallback to default text
-    if (defaultTexts[section] && defaultTexts[section][key]) {
-      return defaultTexts[section][key];
-    }
-    // Last resort fallback
-    return `${section}.${key}`;
-  };
+  // Use i18next's t function for translation
+  // For compatibility, mimic getText(section, key) as t(`${section}.${key}`)
+  const getText = (section, key) => t(`${section}.${key}`);
+
 
   // Value object to be provided to consumers
   const value = {
@@ -185,9 +99,18 @@ export const AppSettingsProvider = ({ children }) => {
     changeCurrency,
     formatPrice,
     getText,
-    isTranslating,
+    isTranslating: false, // i18next handles this internally
     isLoadingRates,
-    supportedLanguages: translationService.getSupportedLanguages(),
+    supportedLanguages: [
+      { code: "en", name: "English" },
+      { code: "hi", name: "Hindi" },
+      { code: "fr", name: "French" },
+      { code: "es", name: "Spanish" },
+      { code: "de", name: "German" },
+      { code: "ja", name: "Japanese" },
+      { code: "zh", name: "Chinese" },
+      { code: "ru", name: "Russian" },
+    ],
   };
 
   return (

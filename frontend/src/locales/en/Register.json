@@ -1,0 +1,17 @@
+{
+    "signInToExistingLink": "sign in to your existing account",
+    "signUpWithGoogle": "Sign up with Google",
+    "signUpWithFacebook": "Sign up with Facebook",
+  "registerTitle": "Create your account",
+  "signInToExisting": "Or sign in to your existing account",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "username": "Username (optional)",
+  "usernameHint": "Will use part of your email if left blank",
+  "email": "Email address",
+  "password": "Password",
+  "confirmPassword": "Confirm password",
+  "agreeTerms": "I agree to the Terms of Service and Privacy Policy",
+  "register": "Create account",
+  "orContinueWith": "Or continue with"
+}

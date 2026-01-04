@@ -1,0 +1,108 @@
+{
+  "faqTitle": "Häufig gestellte Fragen",
+  "faqSubtitle": "Finden Sie Antworten auf die häufigsten Fragen zur Nutzung von Smart Rent System",
+  "categories": {
+    "general": "Allgemeine Fragen",
+    "booking": "Buchung & Reservierungen",
+    "payment": "Zahlungen & Rückerstattungen",
+    "host": "Fragen zur Vermietung",
+    "safety": "Sicherheit",
+    "account": "Kontoverwaltung"
+  },
+  "needMoreHelp": "Brauchen Sie weitere Hilfe?",
+  "needMoreHelpDesc": "Wenn Sie nicht finden, was Sie suchen, steht Ihnen unser Support-Team zur Verfügung.",
+  "contactSupport": "Support kontaktieren",
+  "categoriesLabel": "Kategorien",
+  "helpCenter": "Hilfe-Center",
+  "helpCenterDesc": "Durchsuchen Sie umfassende Hilfeguides, Tutorials und Tipps zur Fehlerbehebung für Smart Rent.",
+  "visitHelpCenter": "Hilfe-Center besuchen",
+  "safetyInfo": "Sicherheitsinformationen",
+  "safetyInfoDesc": "Erfahren Sie mehr über unsere Sicherheitsprotokolle, Richtlinien für Gäste und Gastgeber und Notfallressourcen.",
+  "viewSafetyGuidelines": "Sicherheitsrichtlinien anzeigen"
+  ,
+  "categories": {
+    "general": "Allgemeine Fragen",
+    "categoriesLabel": "Kategorien",
+    "categories": {
+      "general": "Allgemeine Fragen",
+      "booking": "Buchungen & Reservierungen",
+      "payment": "Zahlungen & Rückerstattungen",
+      "host": "Gastgeber-Fragen",
+      "safety": "Sicherheit & Schutz",
+      "account": "Kontoverwaltung"
+    },
+    "needMoreHelp": "Brauchen Sie mehr Hilfe?",
+    "needMoreHelpDesc": "Wenn Sie nicht finden, was Sie suchen, steht Ihnen unser Support-Team zur Verfügung.",
+    "contactSupport": "Support kontaktieren",
+    "helpCenter": "Hilfezentrum",
+    "helpCenterDesc": "Durchsuchen Sie umfassende Hilfeguides, Tutorials und Tipps zur Fehlerbehebung für Smart Rent.",
+    "visitHelpCenter": "Hilfezentrum besuchen",
+    "safetyInfo": "Sicherheitsinformationen",
+    "safetyInfoDesc": "Erfahren Sie mehr über unsere Sicherheitsprotokolle, Richtlinien für Gäste und Gastgeber sowie Notfallressourcen.",
+    "viewSafetyGuidelines": "Sicherheitsrichtlinien anzeigen",
+    "reportConcernTitle": "Ein Problem melden",
+    "reportConcernDesc": "Müssen Sie ein Sicherheitsproblem, einen Verstoß gegen die Richtlinien oder ein anderes Anliegen bezüglich eines Eintrags oder Benutzers melden?",
+    "submitReport": "Bericht einreichen",
+    "general": {
+      "what-is-smart-rent": {
+        "question": "Was ist das Smart Rent System?",
+        "answer": "Smart Rent System ist eine Plattform, die Reisende mit einzigartigen Unterkünften weltweit verbindet. Gastgeber können ihre Immobilien listen, Gäste diese buchen. Wir bieten sichere Zahlungsabwicklung, verifizierte Bewertungen und Kundensupport für ein reibungsloses Erlebnis."
+      },
+      "how-to-start": {
+        "question": "Wie starte ich mit Smart Rent?",
+        "answer": "Der Einstieg ist einfach! Erstellen Sie ein Konto, füllen Sie Ihr Profil aus und suchen Sie nach Unterkünften oder listen Sie Ihre eigene. Durchsuchen Sie Angebote nach Ort, Preis, Ausstattung und mehr, um das perfekte Ziel zu finden."
+      },
+      "contact-support": {
+        "question": "Wie kontaktiere ich den Kundensupport?",
+        "answer": "Sie erreichen unser Support-Team über verschiedene Kanäle. Nutzen Sie die Kontaktseite, schreiben Sie an support@smartrentsystem.com oder rufen Sie +1 (800) SMART-RENT an. Unser Team ist rund um die Uhr erreichbar."
+      },
+      "app-available": {
+        "question": "Gibt es eine mobile App?",
+        "answer": "Ja! Die Smart Rent System App ist für iOS und Android verfügbar. Laden Sie sie im App Store oder Google Play Store herunter, um Buchungen zu verwalten, Nachrichten zu senden und Angebote zu durchsuchen."
+      }
+    },
+    "booking": {
+      "how-to-book": {
+        "question": "Wie buche ich eine Unterkunft?",
+        "answer": "Um eine Unterkunft zu buchen, suchen Sie nach Angeboten an Ihrem gewünschten Ort und Datum. Klicken Sie auf 'Reservieren' oder 'Jetzt buchen' und folgen Sie dem Checkout-Prozess. Einige Angebote sind sofort buchbar, andere benötigen die Zustimmung des Gastgebers."
+      },
+      "booking-confirmation": {
+        "question": "Wie weiß ich, ob meine Buchung bestätigt ist?",
+        "answer": "Nach Abschluss der Buchung erhalten Sie eine Bestätigungs-E-Mail mit allen Details. Den Status Ihrer Buchung sehen Sie auch im Bereich 'Reisen' Ihres Kontos."
+      },
+      "cancel-booking": {
+        "question": "Wie storniere ich eine Buchung?",
+        "answer": "Um eine Buchung zu stornieren, gehen Sie zu 'Reisen' in Ihrem Konto, wählen Sie die Buchung aus und klicken Sie auf 'Stornieren'. Die Rückerstattung richtet sich nach den Stornierungsbedingungen der Unterkunft."
+      },
+      "modify-dates": {
+        "question": "Kann ich die Reisedaten ändern?",
+        "answer": "Ja, Sie können eine Änderung der Reisedaten anfragen. Gehen Sie zu 'Reisen', wählen Sie die Buchung und klicken Sie auf 'Buchung ändern'. Dies hängt von der Zustimmung des Gastgebers und der Verfügbarkeit ab. Preisänderungen sind möglich."
+      }
+    },
+    "payment": {
+      "payment-methods": {
+        "question": "Welche Zahlungsmethoden werden akzeptiert?",
+        "answer": "Wir akzeptieren gängige Kredit- und Debitkarten (Visa, MasterCard, American Express, Discover), PayPal und in einigen Regionen Apple Pay und Google Pay. Alle Zahlungen werden sicher über unsere Plattform abgewickelt."
+      },
+      "payment-timing": {
+        "question": "Wann wird meine Buchung abgerechnet?",
+        "answer": "Bei den meisten Buchungen wird der Gesamtbetrag fällig, wenn der Gastgeber die Buchung akzeptiert oder sofort bei Sofortbuchung. Bei längeren Aufenthalten oder Vorausbuchungen kann Ratenzahlung möglich sein."
+      },
+      "security-deposit": {
+        "question": "Was ist eine Kaution und wann wird sie zurückerstattet?",
+        "answer": "Eine Kaution wird zur Deckung möglicher Schäden während Ihres Aufenthalts einbehalten. Sie wird nur bei einem Anspruch des Gastgebers belastet. Ohne Anspruch wird die Kaution 14 Tage nach dem Check-out automatisch freigegeben."
+      },
+      "refund-process": {
+        "question": "Wie lange dauert eine Rückerstattung?",
+        "answer": "Nach Ausstellung der Rückerstattung dauert es in der Regel 5-10 Werktage, bis sie auf Ihrer Zahlungsmethode erscheint. Die genaue Dauer hängt von Ihrem Zahlungsanbieter und Ihrer Bank ab."
+      }
+    }
+  },
+  "categoriesLabel": "Kategorien",
+  "general": [],
+  "booking": [],
+  "payment": [],
+  "host": [],
+  "safety": [],
+  "account": []
+}

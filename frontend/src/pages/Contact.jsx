@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useScrollTop from "../hooks/useScrollTop";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
   // Use the scroll top hook
   useScrollTop();
+  const { t } = useTranslation("Contact");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -39,9 +41,11 @@ const Contact = () => {
       <div className="bg-primary-700 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              {t("contactTitle")}
+            </h1>
             <p className="text-xl text-primary-100">
-              We'd love to hear from you. Get in touch with our team.
+              {t("contactSubtitle")}
             </p>
           </div>
         </div>
@@ -53,7 +57,7 @@ const Contact = () => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-sm p-8">
               <h2 className="text-2xl font-bold mb-6 text-neutral-800">
-                Contact Information
+                {t("contactTitle")}
               </h2>
 
               <div className="space-y-6">
@@ -76,11 +80,11 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-neutral-800">
-                      Phone
+                      {t("phoneLabel")}
                     </h3>
                     <p className="text-primary-600 mt-1">+1 (800) 123-4567</p>
                     <p className="text-sm text-neutral-500 mt-1">
-                      Mon-Fri from 8am to 8pm
+                      {t("officeHoursValue")}
                     </p>
                   </div>
                 </div>
@@ -104,13 +108,13 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-neutral-800">
-                      Email
+                      {t("emailContactLabel")}
                     </h3>
                     <p className="text-primary-600 mt-1">
                       support@smartrent.com
                     </p>
                     <p className="text-sm text-neutral-500 mt-1">
-                      We'll respond within 24 hours
+                      {t("successMessage")}
                     </p>
                   </div>
                 </div>
@@ -140,14 +144,15 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-neutral-800">
-                      Office
+                      {t("addressLabel")}
                     </h3>
+                    {/* Address fields not translated for now */}
                     <p className="text-neutral-600 mt-1">
                       123 Smart Rent Street
                     </p>
                     <p className="text-neutral-600">San Francisco, CA 94103</p>
                     <p className="text-sm text-neutral-500 mt-1">
-                      Visit us during business hours
+                      {t("officeHours")}
                     </p>
                   </div>
                 </div>
@@ -219,7 +224,7 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm p-8">
               <h2 className="text-2xl font-bold mb-6 text-neutral-800">
-                Send us a message
+                {t("formIntro")}
               </h2>
 
               {submitted ? (
@@ -239,11 +244,10 @@ const Contact = () => {
                     ></path>
                   </svg>
                   <h3 className="text-xl font-semibold mb-2">
-                    Thank you for contacting us!
+                    {t("successMessage")}
                   </h3>
                   <p className="mb-4">
-                    Your message has been sent successfully. We'll get back to
-                    you soon.
+                    {t("successMessage")}
                   </p>
                   <button
                     onClick={() => {
@@ -257,7 +261,7 @@ const Contact = () => {
                     }}
                     className="text-primary-600 hover:text-primary-700 font-medium"
                   >
-                    Send another message
+                    {t("submitButton")}
                   </button>
                 </div>
               ) : (
@@ -268,7 +272,7 @@ const Contact = () => {
                         htmlFor="name"
                         className="block text-sm font-medium text-neutral-700 mb-2"
                       >
-                        Your Name
+                        {t("nameLabel")}
                       </label>
                       <input
                         type="text"
@@ -278,7 +282,7 @@ const Contact = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
-                        placeholder="John Doe"
+                        placeholder={t("nameLabel")}
                       />
                     </div>
                     <div>
@@ -286,7 +290,7 @@ const Contact = () => {
                         htmlFor="email"
                         className="block text-sm font-medium text-neutral-700 mb-2"
                       >
-                        Your Email
+                        {t("emailLabel")}
                       </label>
                       <input
                         type="email"
@@ -296,7 +300,7 @@ const Contact = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
-                        placeholder="john@example.com"
+                        placeholder={t("emailLabel")}
                       />
                     </div>
                   </div>
@@ -316,7 +320,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
-                      placeholder="How can we help you?"
+                      placeholder={t("formIntro")}
                     />
                   </div>
 
@@ -325,7 +329,7 @@ const Contact = () => {
                       htmlFor="message"
                       className="block text-sm font-medium text-neutral-700 mb-2"
                     >
-                      Message
+                      {t("messageLabel")}
                     </label>
                     <textarea
                       id="message"
@@ -335,7 +339,7 @@ const Contact = () => {
                       required
                       rows="6"
                       className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
-                      placeholder="Your message here..."
+                      placeholder={t("messageLabel")}
                     ></textarea>
                   </div>
 
@@ -371,7 +375,7 @@ const Contact = () => {
                         Sending...
                       </span>
                     ) : (
-                      "Send Message"
+                      t("submitButton")
                     )}
                   </button>
                 </form>
@@ -385,6 +389,7 @@ const Contact = () => {
               </h2>
 
               <div className="space-y-4">
+                {/* FAQ items not yet translated */}
                 <div className="border-b border-neutral-200 pb-4">
                   <h3 className="text-lg font-medium text-neutral-800 mb-2">
                     How quickly will I get a response?

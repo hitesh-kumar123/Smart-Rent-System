@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useScrollTop from "../hooks/useScrollTop";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
+
   // Use the scroll top hook
   useScrollTop();
+  const { t } = useTranslation('About');
 
   // State for image loading
   const [loadedImages, setLoadedImages] = useState({});
@@ -14,33 +17,8 @@ const About = () => {
     setLoadedImages((prev) => ({ ...prev, [memberName]: true }));
   };
 
-  // Team members data
-  const teamMembers = [
-    {
-      name: "Jane Smith",
-      role: "CEO & Founder",
-      image: "https://randomuser.me/api/portraits/women/32.jpg",
-      bio: "Jane founded Smart Rent System with a vision to transform the way people find and book accommodations around the world.",
-    },
-    {
-      name: "Michael Johnson",
-      role: "CTO",
-      image: "https://randomuser.me/api/portraits/men/42.jpg",
-      bio: "Michael leads our technology team, ensuring that our platform is secure, fast, and user-friendly for both hosts and guests.",
-    },
-    {
-      name: "Sarah Chen",
-      role: "Head of Operations",
-      image: "https://randomuser.me/api/portraits/women/22.jpg",
-      bio: "Sarah oversees our day-to-day operations, making sure that both hosts and guests have a seamless experience on our platform.",
-    },
-    {
-      name: "James Wilson",
-      role: "Customer Experience Lead",
-      image: "https://randomuser.me/api/portraits/men/32.jpg",
-      bio: "James is dedicated to ensuring every user receives exceptional support and has a positive experience with Smart Rent System.",
-    },
-  ];
+  // Team members data from translation
+  const teamMembers = t('teamMembers', { returnObjects: true }) || [];
 
   return (
     <div className="bg-neutral-50 min-h-screen">
@@ -55,11 +33,10 @@ const About = () => {
               id="hero-title"
               className="text-4xl md:text-5xl font-bold mb-6 animate-fadeIn"
             >
-              About Smart Rent System
+              {t('aboutTitle')}
             </h1>
             <p className="text-xl text-primary-100 mb-8 animate-fadeIn animation-delay-200">
-              Making property rentals simple, secure, and enjoyable for
-              everyone.
+              {t('aboutSubtitle')}
             </p>
           </div>
         </div>
@@ -73,27 +50,11 @@ const About = () => {
               id="story-title"
               className="text-3xl font-bold text-center mb-10 animate-fadeIn animation-delay-400"
             >
-              Our Story
+              {t('missionTitle')}
             </h2>
             <div className="bg-white rounded-xl shadow-sm p-8 mb-10 animate-fadeIn animation-delay-600">
-              <p className="text-neutral-700 mb-4">
-                Smart Rent System was founded in 2020 with a simple mission: to
-                make property rentals accessible, secure, and enjoyable for
-                everyone. We noticed that the traditional rental process was
-                often complicated, time-consuming, and lacked transparency.
-              </p>
-              <p className="text-neutral-700 mb-4">
-                We set out to build a platform that would connect property
-                owners with potential renters in a seamless way, providing tools
-                that make the entire process - from listing to booking to
-                staying - as smooth as possible.
-              </p>
-              <p className="text-neutral-700">
-                Today, Smart Rent System hosts thousands of properties across
-                the globe, helping travelers find their perfect temporary homes
-                while enabling property owners to maximize their rental
-                potential with minimal hassle.
-              </p>
+              <p className="text-neutral-700 mb-4">{t('missionText')}</p>
+              <p className="text-neutral-700 mb-4">{t('visionText')}</p>
             </div>
           </div>
         </div>
@@ -102,7 +63,7 @@ const About = () => {
       {/* Our Values */}
       <div className="bg-white py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-10">Our Values</h2>
+          <h2 className="text-3xl font-bold text-center mb-10">{t('ourValuesTitle')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-neutral-50 rounded-xl p-6 text-center">
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -121,11 +82,8 @@ const About = () => {
                   ></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Trust & Safety</h3>
-              <p className="text-neutral-600">
-                We believe in creating a safe environment for both hosts and
-                guests, with transparent policies and secure transactions.
-              </p>
+              <h3 className="text-xl font-semibold mb-2">{t('trustSafetyTitle')}</h3>
+              <p className="text-neutral-600">{t('trustSafetyDesc')}</p>
             </div>
             <div className="bg-neutral-50 rounded-xl p-6 text-center">
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -144,11 +102,8 @@ const About = () => {
                   ></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Global Community</h3>
-              <p className="text-neutral-600">
-                We celebrate diversity and work to create connections between
-                people from different backgrounds and cultures.
-              </p>
+              <h3 className="text-xl font-semibold mb-2">{t('globalCommunityTitle')}</h3>
+              <p className="text-neutral-600">{t('globalCommunityDesc')}</p>
             </div>
             <div className="bg-neutral-50 rounded-xl p-6 text-center">
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -167,11 +122,8 @@ const About = () => {
                   ></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Innovation</h3>
-              <p className="text-neutral-600">
-                We continuously improve our platform and services to provide the
-                best experience possible for all users.
-              </p>
+              <h3 className="text-xl font-semibold mb-2">{t('innovationTitle')}</h3>
+              <p className="text-neutral-600">{t('innovationDesc')}</p>
             </div>
           </div>
         </div>
@@ -181,7 +133,7 @@ const About = () => {
       <div className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-10">
-            Meet Our Team
+            {t('teamTitle')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
@@ -241,11 +193,10 @@ const About = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <h2 id="cta-title" className="text-3xl font-bold mb-6 animate-fadeIn">
-            Join Our Community
+            {t('joinOurCommunity')}
           </h2>
           <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto animate-fadeIn animation-delay-200">
-            Whether you're looking for a place to stay or want to share your
-            property with travelers, Smart Rent System is here to help.
+            {t('joinOurCommunityDesc')}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
@@ -253,14 +204,14 @@ const About = () => {
               className="bg-white text-primary-700 hover:bg-neutral-100 px-8 py-3 rounded-full font-semibold transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-700"
               aria-label="Browse our property listings"
             >
-              Explore Properties
+              {t('exploreProperties')}
             </Link>
             <Link
               to="/host/become-a-host"
               className="bg-primary-600 hover:bg-primary-500 text-white px-8 py-3 rounded-full font-semibold transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-700"
               aria-label="Learn about becoming a property host"
             >
-              Become a Host
+              {t('becomeHost')}
             </Link>
           </div>
         </div>

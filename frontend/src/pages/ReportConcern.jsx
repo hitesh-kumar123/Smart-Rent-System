@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
 
 const ReportConcern = () => {
   const [formData, setFormData] = useState({
@@ -14,16 +15,12 @@ const ReportConcern = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const concernTypes = [
-    { id: 'safety', name: 'Safety Concern' },
-    { id: 'fraud', name: 'Potential Fraud' },
-    { id: 'scam', name: 'Scam or Misleading Listing' },
-    { id: 'discrimination', name: 'Discrimination' },
-    { id: 'property', name: 'Property Damage' },
-    { id: 'accessibility', name: 'Accessibility Issue' },
-    { id: 'account', name: 'Account Security' },
-    { id: 'other', name: 'Other Concern' },
-  ];
+  const { t } = useTranslation('ReportConcern');
+
+  let concernTypes = t('concernTypes', { returnObjects: true });
+  if (!Array.isArray(concernTypes)) {
+    concernTypes = [];
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,10 +51,8 @@ const ReportConcern = () => {
       <div className="bg-primary-700 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Report a Concern</h1>
-            <p className="text-xl text-primary-100">
-              Your safety and satisfaction are our priority. Let us know about any issues or concerns.
-            </p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('title')}</h1>
+            <p className="text-xl text-primary-100">{t('subtitle')}</p>
           </div>
         </div>
       </div>
@@ -72,19 +67,17 @@ const ReportConcern = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold mb-4 text-neutral-800">Thank You for Your Report</h2>
-              <p className="text-neutral-600 mb-6">
-                We've received your concern and will review it promptly. Our team will reach out to you via email if we need additional information.
-              </p>
+              <h2 className="text-2xl font-bold mb-4 text-neutral-800">{t('thankYouTitle')}</h2>
+              <p className="text-neutral-600 mb-6">{t('thankYouMsg1')}</p>
               <p className="text-neutral-600 mb-8">
-                Reference Number: <span className="font-medium">{`RC${Date.now().toString().substring(6)}`}</span>
+                {t('thankYouMsg2')} <span className="font-medium">{`RC${Date.now().toString().substring(6)}`}</span>
               </p>
               <div className="flex flex-col md:flex-row gap-4 justify-center">
                 <Link to="/" className="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition duration-300">
-                  Return to Home
+                  {t('returnHome')}
                 </Link>
                 <Link to="/help" className="px-6 py-3 bg-neutral-200 text-neutral-700 rounded-lg font-medium hover:bg-neutral-300 transition duration-300">
-                  Visit Help Center
+                  {t('visitHelp')}
                 </Link>
               </div>
             </div>
@@ -92,28 +85,26 @@ const ReportConcern = () => {
             <>
               {/* Introduction */}
               <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-                <h2 className="text-2xl font-bold mb-4 text-neutral-800">How to Report a Concern</h2>
-                <p className="text-neutral-600 mb-4">
-                  We take all reports seriously and will investigate each one thoroughly. Please provide as much detail as possible to help us address your concern efficiently.
-                </p>
+                <h2 className="text-2xl font-bold mb-4 text-neutral-800">{t('howToTitle')}</h2>
+                <p className="text-neutral-600 mb-4">{t('howToDesc')}</p>
                 <div className="flex items-center p-4 bg-blue-50 text-blue-800 rounded-lg mt-4">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <p className="text-sm">
-                    <strong>For emergencies:</strong> If you're experiencing an emergency situation, please contact local emergency services immediately by dialing your local emergency number.
+                    <strong>{t('emergency')}</strong> {t('emergencyDesc')}
                   </p>
                 </div>
               </div>
 
               {/* Report Form */}
               <div className="bg-white rounded-xl shadow-sm p-8">
-                <h2 className="text-2xl font-bold mb-6 text-neutral-800">Submit Your Report</h2>
+                <h2 className="text-2xl font-bold mb-6 text-neutral-800">{t('submitTitle')}</h2>
                 <form onSubmit={handleSubmit}>
                   {/* Concern Type */}
                   <div className="mb-6">
                     <label htmlFor="concernType" className="block text-sm font-medium text-neutral-700 mb-2">
-                      Type of Concern *
+                      {t('concernTypeLabel')}
                     </label>
                     <select
                       id="concernType"
@@ -123,9 +114,9 @@ const ReportConcern = () => {
                       required
                       className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     >
-                      <option value="">Select type of concern</option>
-                      {concernTypes.map(type => (
-                        <option key={type.id} value={type.id}>{type.name}</option>
+                      <option value="">{t('concernTypePlaceholder')}</option>
+                      {concernTypes.map((type, idx) => (
+                        <option key={idx} value={type}>{type}</option>
                       ))}
                     </select>
                   </div>
@@ -133,7 +124,7 @@ const ReportConcern = () => {
                   {/* Listing ID */}
                   <div className="mb-6">
                     <label htmlFor="listingId" className="block text-sm font-medium text-neutral-700 mb-2">
-                      Listing/Reservation ID (if applicable)
+                      {t('listingIdLabel')}
                     </label>
                     <input
                       type="text"
@@ -141,18 +132,18 @@ const ReportConcern = () => {
                       name="listingId"
                       value={formData.listingId}
                       onChange={handleChange}
-                      placeholder="e.g., LIST12345 or RES67890"
+                      placeholder={t('listingIdPlaceholder')}
                       className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                     <p className="mt-2 text-sm text-neutral-500">
-                      This helps us identify the specific listing or reservation your concern relates to.
+                      {t('listingIdHelp')}
                     </p>
                   </div>
 
                   {/* Description */}
                   <div className="mb-6">
                     <label htmlFor="description" className="block text-sm font-medium text-neutral-700 mb-2">
-                      Description of Concern *
+                      {t('descriptionLabel')}
                     </label>
                     <textarea
                       id="description"
@@ -161,7 +152,7 @@ const ReportConcern = () => {
                       onChange={handleChange}
                       required
                       rows={6}
-                      placeholder="Please provide as much detail as possible about your concern..."
+                      placeholder={t('descriptionPlaceholder')}
                       className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     ></textarea>
                   </div>
@@ -169,7 +160,7 @@ const ReportConcern = () => {
                   {/* File Attachments */}
                   <div className="mb-6">
                     <label htmlFor="attachments" className="block text-sm font-medium text-neutral-700 mb-2">
-                      Attachments (Optional)
+                      {t('attachmentsLabel')}
                     </label>
                     <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 border-dashed rounded-lg">
                       <div className="space-y-1 text-center">
@@ -178,20 +169,23 @@ const ReportConcern = () => {
                         </svg>
                         <div className="flex text-sm text-neutral-600">
                           <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500">
-                            <span>Upload files</span>
-                            <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              multiple
-                              onChange={handleFileChange}
-                              className="sr-only"
-                            />
-                          </label>
-                          <p className="pl-1">or drag and drop</p>
+                              <span>{t('attachmentsUpload')}</span>
+                              <input
+                                id="file-upload"
+                                name="file-upload"
+                                type="file"
+                                multiple
+                                onChange={handleFileChange}
+                                className="sr-only"
+                              />
+                            </label>
+                            <p className="pl-1">{t('attachmentsOr')}</p>
+                            <span className="pl-2 text-xs text-neutral-500">
+                              {formData.attachments.length === 0 ? t('attachmentsUploadNoFile', 'No file chosen') : ''}
+                            </span>
                         </div>
                         <p className="text-xs text-neutral-500">
-                          PNG, JPG, PDF up to 10MB
+                          {t('attachmentsHelp')}
                         </p>
                       </div>
                     </div>
@@ -211,11 +205,11 @@ const ReportConcern = () => {
 
                   {/* Contact Info */}
                   <div className="p-6 bg-neutral-50 rounded-lg mb-6">
-                    <h3 className="text-lg font-medium mb-4 text-neutral-800">Your Contact Information</h3>
+                    <h3 className="text-lg font-medium mb-4 text-neutral-800">{t('contactTitle')}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-2">
-                          Name *
+                          {t('nameLabel')}
                         </label>
                         <input
                           type="text"
@@ -229,7 +223,7 @@ const ReportConcern = () => {
                       </div>
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
-                          Email *
+                          {t('emailLabel')}
                         </label>
                         <input
                           type="email"
@@ -244,7 +238,7 @@ const ReportConcern = () => {
                     </div>
                     <div className="mt-6">
                       <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-2">
-                        Phone Number (Optional)
+                        {t('phoneLabel')}
                       </label>
                       <input
                         type="tel"
@@ -271,7 +265,9 @@ const ReportConcern = () => {
                       </div>
                       <div className="ml-3 text-sm">
                         <label htmlFor="privacy" className="font-medium text-neutral-700">
-                          I understand that my information will be processed as described in the <Link to="/privacy" className="text-primary-600 hover:text-primary-500">Privacy Policy</Link>
+                          <Trans i18nKey="privacyNotice" ns="ReportConcern">
+                            {t('privacyNotice', 'I understand that my information will be processed as described in the')} <Link to="/privacy" className="text-primary-600 hover:text-primary-500">{t('privacyPolicy', 'Privacy Policy')}</Link>
+                          </Trans>
                         </label>
                       </div>
                     </div>
@@ -283,7 +279,7 @@ const ReportConcern = () => {
                       type="submit"
                       className="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition duration-300"
                     >
-                      Submit Report
+                      {t('submitBtn')}
                     </button>
                   </div>
                 </form>
@@ -293,7 +289,7 @@ const ReportConcern = () => {
 
           {/* Additional Resources */}
           <div className="mt-8 bg-white rounded-xl shadow-sm p-8">
-            <h2 className="text-xl font-bold mb-4 text-neutral-800">Additional Resources</h2>
+            <h2 className="text-xl font-bold mb-4 text-neutral-800">{t('additionalResources')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Link
                 to="/safety"
@@ -305,8 +301,8 @@ const ReportConcern = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-neutral-800">Safety Information</h3>
-                  <p className="text-sm text-neutral-600">Learn about our safety guidelines and protocols for guests and hosts.</p>
+                  <h3 className="font-medium text-neutral-800">{t('safetyInfoTitle')}</h3>
+                  <p className="text-sm text-neutral-600">{t('safetyInfoDesc')}</p>
                 </div>
               </Link>
               <Link
@@ -319,8 +315,8 @@ const ReportConcern = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-neutral-800">Help Center</h3>
-                  <p className="text-sm text-neutral-600">Browse our frequently asked questions and help guides.</p>
+                  <h3 className="font-medium text-neutral-800">{t('helpCenterTitle')}</h3>
+                  <p className="text-sm text-neutral-600">{t('helpCenterDesc')}</p>
                 </div>
               </Link>
               <Link
@@ -333,8 +329,8 @@ const ReportConcern = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-neutral-800">Contact Support</h3>
-                  <p className="text-sm text-neutral-600">Get in touch with our customer support team.</p>
+                  <h3 className="font-medium text-neutral-800">{t('contactSupportTitle')}</h3>
+                  <p className="text-sm text-neutral-600">{t('contactSupportDesc')}</p>
                 </div>
               </Link>
               <a
@@ -347,8 +343,8 @@ const ReportConcern = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-neutral-800">Emergency Line</h3>
-                  <p className="text-sm text-neutral-600">Call our emergency support line for urgent matters.</p>
+                  <h3 className="font-medium text-neutral-800">{t('emergencyLineTitle')}</h3>
+                  <p className="text-sm text-neutral-600">{t('emergencyLineDesc')}</p>
                 </div>
               </a>
             </div>

@@ -1,0 +1,19 @@
+{
+  "search": "検索",
+  "login": "ログイン",
+  "signup": "サインアップ",
+  "logout": "ログアウト",
+  "profile": "プロフィール",
+  "help": "ヘルプ",
+  "becomeHost": "ホストになる",
+  "messages": "メッセージ",
+  "trips": "旅行",
+  "wishlist": "ウィッシュリスト",
+  "account": "アカウント",
+  "settings": "設定",
+  "popularSuggestions": ["東京", "大阪", "京都", "札幌", "福岡"],
+  "recentSearches": "最近の検索",
+  "clear": "クリア",
+  "popularDestinations": "人気の目的地",
+  "explore": "探す"
+}

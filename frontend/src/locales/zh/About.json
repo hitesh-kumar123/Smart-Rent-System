@@ -1,0 +1,47 @@
+{
+  "aboutTitle": "关于Smart Rent System",
+  "aboutSubtitle": "让房产租赁变得简单、安全、愉快，适合每个人。",
+  "missionTitle": "我们的使命",
+  "missionText": "Smart Rent System成立于2020年，使命是让房产租赁变得人人可及、安全且愉快。我们注意到传统的租赁流程往往复杂、耗时且缺乏透明度。",
+  "visionTitle": "我们的愿景",
+  "visionText": "我们致力于打造一个平台，无缝连接房东和潜在租客，提供让整个流程——从发布到预订再到入住——尽可能顺畅的工具。如今，Smart Rent System在全球拥有数千套房源，帮助旅行者找到理想的临时住所，同时让房东以最少的麻烦实现租赁收益最大化。",
+  "ourValuesTitle": "我们的价值观",
+  "trustSafetyTitle": "信任与安全",
+  "trustSafetyDesc": "我们致力于为房东和房客创造一个安全的环境，拥有透明的政策和安全的交易。",
+  "globalCommunityTitle": "全球社区",
+  "globalCommunityDesc": "我们庆祝多样性，致力于连接来自不同背景和文化的人们。",
+  "innovationTitle": "创新",
+  "innovationDesc": "我们不断改进平台和服务，为所有用户提供最佳体验。",
+  "teamTitle": "认识我们的团队",
+  "teamText": "我们的团队致力于确保每位用户都能获得卓越的支持，并在Smart Rent System拥有积极的体验。",
+  "joinOurCommunity": "加入我们的社区",
+  "joinOurCommunityDesc": "无论您是在寻找住宿，还是希望与旅行者分享您的房产，Smart Rent System都能为您提供帮助。",
+  "exploreProperties": "浏览房源",
+  "becomeHost": "成为房东",
+  "teamMembers": [
+    {
+      "name": "简·史密斯",
+      "role": "首席执行官兼创始人",
+      "image": "https://randomuser.me/api/portraits/women/32.jpg",
+      "bio": "简创立了Smart Rent System，旨在改变人们在全球范围内寻找和预订住宿的方式。"
+    },
+    {
+      "name": "迈克尔·约翰逊",
+      "role": "首席技术官",
+      "image": "https://randomuser.me/api/portraits/men/42.jpg",
+      "bio": "迈克尔领导我们的技术团队，确保我们的平台对房东和房客都安全、快速且用户友好。"
+    },
+    {
+      "name": "莎拉·陈",
+      "role": "运营主管",
+      "image": "https://randomuser.me/api/portraits/women/22.jpg",
+      "bio": "莎拉负责我们的日常运营，确保房东和房客在我们的平台上都能获得顺畅的体验。"
+    },
+    {
+      "name": "詹姆斯·威尔逊",
+      "role": "客户体验主管",
+      "image": "https://randomuser.me/api/portraits/men/32.jpg",
+      "bio": "詹姆斯致力于确保每位用户都能获得卓越的支持，并在Smart Rent System拥有积极的体验。"
+    }
+  ]
+}

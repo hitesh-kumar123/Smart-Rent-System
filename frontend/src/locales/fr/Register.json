@@ -1,0 +1,17 @@
+{
+    "signInToExistingLink": "connectez-vous à votre compte existant",
+    "signUpWithGoogle": "S'inscrire avec Google",
+    "signUpWithFacebook": "S'inscrire avec Facebook",
+  "registerTitle": "Créez votre compte",
+  "signInToExisting": "Ou connectez-vous à votre compte existant",
+  "firstName": "Prénom",
+  "lastName": "Nom de famille",
+  "username": "Nom d'utilisateur (optionnel)",
+  "usernameHint": "Utilisera une partie de votre e-mail si laissé vide",
+  "email": "Adresse e-mail",
+  "password": "Mot de passe",
+  "confirmPassword": "Confirmez le mot de passe",
+  "agreeTerms": "J'accepte les Conditions d'utilisation et la Politique de confidentialité",
+  "register": "Créer un compte",
+  "orContinueWith": "Ou continuer avec"
+}

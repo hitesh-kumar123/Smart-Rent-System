@@ -1,0 +1,11 @@
+{
+  "loginTitle": "Войдите в свой аккаунт",
+  "createAccount": "Или создайте новый аккаунт",
+  "email": "Электронная почта",
+  "password": "Пароль",
+  "rememberMe": "Запомнить меня",
+  "forgotPassword": "Забыли пароль?",
+  "login": "Войти",
+  "orContinueWith": "Или продолжить с помощью",
+  "signInWithGoogle": "Войти через Google"
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppSettings } from "../contexts/AppSettingsContext";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/AuthContext";
 import NavLogo from "./navbar/NavLogo";
 import NavSearch from "./navbar/NavSearch";
@@ -29,6 +30,7 @@ const Navbar = () => {
   // Use auth context
   const { currentUser, logout, isAuthenticated } = useAuth();
 
+
   // Use the app settings context
   const {
     language,
@@ -37,10 +39,12 @@ const Navbar = () => {
     changeLanguage,
     changeCurrency,
     supportedLanguages,
-    getText,
     isTranslating,
     isLoadingRates,
   } = useAppSettings();
+
+  // Use i18next translation hook
+  const { t } = useTranslation('navbar');
 
   // Popular suggestions
   const suggestions = [
@@ -62,7 +66,7 @@ const Navbar = () => {
     { code: "INR", symbol: "₹", name: "Indian Rupee" },
   ];
 
-  // Close profile and settings menus on route change
+ // Close profile and settings menus on route change
   useEffect(() => {
     setIsProfileMenuOpen(false);
     setIsSettingsMenuOpen(false);
@@ -230,7 +234,7 @@ const Navbar = () => {
                 aria-label="Explore Properties"
               >
                 <i className="fas fa-compass text-lg"></i>
-                <span className="font-medium">Explore</span>
+                <span className="font-medium">{t('explore')}</span>
               </Link>
             </div>
           )}
@@ -244,7 +248,7 @@ const Navbar = () => {
               <form onSubmit={handleSearchSubmit} className="relative w-full flex items-center">
                 <input
                   type="text"
-                  placeholder={getText("common", "search")}
+                  placeholder={t("search")}
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onFocus={() => setIsSearchFocused(true)}
@@ -328,7 +332,7 @@ const Navbar = () => {
               to="/host/become-a-host"
               className="text-neutral-700 hover:text-neutral-900 px-4 py-2 rounded-full text-sm font-medium hidden sm:block"
             >
-              {getText("common", "becomeHost")}
+              {t("becomeHost")}
             </Link>
 
             {/* Language and Currency Selector */}
@@ -628,28 +632,28 @@ const Navbar = () => {
                         className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                         onClick={() => setIsProfileMenuOpen(false)}
                       >
-                        {getText("common", "login")}
+                        {t("login")}
                       </Link>
                       <Link
                         to="/register"
                         className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                         onClick={() => setIsProfileMenuOpen(false)}
                       >
-                        {getText("common", "signup")}
+                        {t("signup")}
                       </Link>
                       <Link
                         to="/host/become-a-host"
                         className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                         onClick={() => setIsProfileMenuOpen(false)}
                       >
-                        {getText("common", "becomeHost")}
+                        {t("becomeHost")}
                       </Link>
                       <Link
                         to="/help"
                         className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                         onClick={() => setIsProfileMenuOpen(false)}
                       >
-                        {getText("common", "help")}
+                        {t("help")}
                       </Link>
                     </div>
                   ) : (
@@ -694,21 +698,21 @@ const Navbar = () => {
                           className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                           onClick={() => setIsProfileMenuOpen(false)}
                         >
-                          {getText("common", "messages")}
+                          {t("messages")}
                         </Link>
                         <Link
                           to="/trips"
                           className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                           onClick={() => setIsProfileMenuOpen(false)}
                         >
-                          {getText("common", "trips")}
+                          {t("trips")}
                         </Link>
                         <Link
                           to="/wishlist"
                           className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                           onClick={() => setIsProfileMenuOpen(false)}
                         >
-                          {getText("common", "wishlist")}
+                          {t("wishlist")}
                         </Link>
                       </div>
                       {/* Account management links */}
@@ -725,20 +729,20 @@ const Navbar = () => {
                           className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                           onClick={() => setIsProfileMenuOpen(false)}
                         >
-                          {getText("common", "account")}
+                          {t("account")}
                         </Link>
                         <button
                           className="w-full text-left block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                           onClick={handleLogout}
                         >
-                          {getText("common", "logout")}
+                          {t("logout")}
                         </button>
                         <Link
                           to="/help"
                           className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
                           onClick={() => setIsProfileMenuOpen(false)}
                         >
-                          {getText("common", "help")}
+                          {t("help")}
                         </Link>
                       </div>
                     </>
@@ -766,7 +770,7 @@ const Navbar = () => {
               <form onSubmit={handleSearchSubmit} className="w-full">
                 <input
                   type="text"
-                  placeholder={getText("common", "search")}
+                  placeholder={t("search")}
                   value={searchQuery}
                   onChange={handleSearchChange}
                   className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"

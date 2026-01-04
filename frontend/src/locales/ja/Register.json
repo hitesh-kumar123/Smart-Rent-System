@@ -1,0 +1,17 @@
+{
+    "signInToExistingLink": "既存のアカウントにサインイン",
+    "signUpWithGoogle": "Googleで登録",
+    "signUpWithFacebook": "Facebookで登録",
+  "registerTitle": "アカウントを作成",
+  "signInToExisting": "または既存のアカウントにサインイン",
+  "firstName": "名",
+  "lastName": "姓",
+  "username": "ユーザー名（任意）",
+  "usernameHint": "空欄の場合はメールの一部を使用します",
+  "email": "メールアドレス",
+  "password": "パスワード",
+  "confirmPassword": "パスワードを確認",
+  "agreeTerms": "利用規約とプライバシーポリシーに同意します",
+  "register": "アカウントを作成",
+  "orContinueWith": "または次で続行"
+}

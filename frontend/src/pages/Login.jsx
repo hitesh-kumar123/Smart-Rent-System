@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 /**
  * Login Component
@@ -8,6 +9,7 @@ import { useAuth } from "../contexts/AuthContext";
  * Features: Login, password reset, form validation, show/hide password
  */
 const Login = () => {
+    const { t } = useTranslation("Login");
   // State for form data and UI controls
   const [formData, setFormData] = useState({
     email: "",
@@ -181,28 +183,29 @@ const Login = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-neutral-900">
           {showForgotPassword
-            ? "Reset your password"
-            : "Log in to your account"}
+            ? t("resetPasswordTitle", "Reset your password")
+            : t("loginTitle")}
         </h2>
         <p className="mt-2 text-center text-sm text-neutral-600">
           {showForgotPassword ? (
             <>
-              Remember your password?{" "}
+              {t("rememberPassword", "Remember your password?")}{" "}
               <button
                 onClick={() => setShowForgotPassword(false)}
                 className="font-medium text-primary-600 hover:text-primary-500"
               >
-                Back to login
+                {t("backToLogin", "Back to login")}
               </button>
             </>
           ) : (
             <>
-              Or{" "}
+              {t("createAccount", "Or create a new account")}
+              {" "}
               <Link
                 to="/register"
                 className="font-medium text-primary-600 hover:text-primary-500"
               >
-                create a new account
+                {t("createAccountLink", "create a new account")}
               </Link>
             </>
           )}
@@ -254,7 +257,7 @@ const Login = () => {
                   htmlFor="resetEmail"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Email address
+                  {t("email", "Email address")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -276,7 +279,7 @@ const Login = () => {
                   disabled={loading}
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                 >
-                  {loading ? "Sending..." : "Send reset link"}
+                  {loading ? t("sending", "Sending...") : t("sendResetLink", "Send reset link")}
                 </button>
               </div>
             </form>
@@ -289,7 +292,7 @@ const Login = () => {
                   htmlFor="email"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Email address
+                  {t("email", "Email address")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -311,7 +314,7 @@ const Login = () => {
                   htmlFor="password"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Password
+                  {t("password", "Password")}
                 </label>
                 <div className="mt-1 relative">
                   <input
@@ -380,7 +383,7 @@ const Login = () => {
                     htmlFor="remember_me"
                     className="ml-2 block text-sm text-neutral-700"
                   >
-                    Remember me
+                    {t("rememberMe", "Remember me")}
                   </label>
                 </div>
 
@@ -389,9 +392,7 @@ const Login = () => {
                     type="button"
                     onClick={() => {
                       if (!formData.email || formData.email.trim() === "") {
-                        setError(
-                          "Please enter your email address before requesting a password reset."
-                        );
+                        setError(t("enterEmailForReset", "Please enter your email address before requesting a password reset."));
                       } else {
                         setShowForgotPassword(true);
                         setResetEmail(formData.email); // Pre-populate the reset email field with the login email
@@ -399,7 +400,7 @@ const Login = () => {
                     }}
                     className="font-medium text-primary-600 hover:text-primary-500"
                   >
-                    Forgot your password?
+                    {t("forgotPassword", "Forgot your password?")}
                   </button>
                 </div>
               </div>
@@ -411,7 +412,7 @@ const Login = () => {
                   disabled={loading}
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                 >
-                  {loading ? "Logging in..." : "Log in"}
+                  {loading ? t("loggingIn", "Logging in...") : t("login", "Log in")}
                 </button>
               </div>
             </form>
@@ -425,7 +426,7 @@ const Login = () => {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white text-neutral-500">
-                  Or continue with
+                  {t("orContinueWith", "Or continue with")}
                 </span>
               </div>
             </div>
@@ -440,7 +441,7 @@ const Login = () => {
                   disabled={socialLoading !== ""}
                   className="w-full inline-flex justify-center py-2 px-4 border border-neutral-300 rounded-md shadow-sm bg-white text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 >
-                  <span className="sr-only">Sign in with Google</span>
+                  <span className="sr-only">{t("signInWithGoogle", "Sign in with Google")}</span>
                   {socialLoading === "google" ? (
                     <span className="animate-spin h-5 w-5 border-t-2 border-r-2 border-blue-500 rounded-full" />
                   ) : (

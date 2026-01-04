@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Blog = () => {
+  const { t } = useTranslation('Blog');
   const [activeCategory, setActiveCategory] = useState('all');
 
   // Blog categories
   const categories = [
-    { id: 'all', name: 'All Posts' },
-    { id: 'tips', name: 'Travel Tips' },
-    { id: 'destinations', name: 'Destinations' },
-    { id: 'hosting', name: 'Hosting Tips' },
-    { id: 'news', name: 'Company News' },
+    { id: 'all', name: t('allPosts') },
+    { id: 'tips', name: t('tips') },
+    { id: 'destinations', name: t('destinations') },
+    { id: 'hosting', name: t('hosting') },
+    { id: 'news', name: t('news') },
   ];
 
   // Blog posts data
@@ -127,9 +129,9 @@ const Blog = () => {
       <div className="bg-primary-700 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Smart Rent Blog</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('blogTitle')}</h1>
             <p className="text-xl text-primary-100">
-              Travel tips, destination guides, and insights to help you make the most of your trips
+              {t('blogSubtitle')}
             </p>
           </div>
         </div>
@@ -138,7 +140,7 @@ const Blog = () => {
       {/* Featured Posts Section */}
       {featuredPosts.length > 0 && (
         <div className="container mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold mb-8 text-neutral-800">Featured Articles</h2>
+          <h2 className="text-2xl font-bold mb-8 text-neutral-800">{t('featuredArticles')}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredPosts.map(post => (
@@ -248,13 +250,13 @@ const Blog = () => {
             <svg className="w-16 h-16 text-neutral-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
             </svg>
-            <h3 className="text-xl font-medium text-neutral-700 mb-2">No posts found</h3>
-            <p className="text-neutral-500">No posts available in this category yet.</p>
+            <h3 className="text-xl font-medium text-neutral-700 mb-2">{t('noPostsFound')}</h3>
+            <p className="text-neutral-500">{t('noPostsAvailable')}</p>
             <button 
               onClick={() => setActiveCategory('all')} 
               className="mt-4 px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition"
             >
-              View All Posts
+              {t('viewAllPosts')}
             </button>
           </div>
         )}
@@ -264,14 +266,14 @@ const Blog = () => {
       <div className="container mx-auto px-4 mt-16">
         <div className="bg-primary-50 rounded-xl p-8 md:p-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-neutral-800 mb-4">Subscribe to Our Newsletter</h2>
+            <h2 className="text-2xl font-bold text-neutral-800 mb-4">{t('subscribeNewsletter')}</h2>
             <p className="text-neutral-600 mb-6">
-              Get the latest travel tips, destination guides, and Smart Rent news delivered straight to your inbox.
+              {t('newsletterDesc')}
             </p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input 
                 type="email" 
-                placeholder="Your email address" 
+                placeholder={t('yourEmail')}
                 className="flex-grow px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 required
               />
@@ -279,11 +281,11 @@ const Blog = () => {
                 type="submit"
                 className="px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition whitespace-nowrap"
               >
-                Subscribe
+                {t('subscribe')}
               </button>
             </form>
             <p className="text-xs text-neutral-500 mt-4">
-              By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
+              {t('privacyConsent')}
             </p>
           </div>
         </div>

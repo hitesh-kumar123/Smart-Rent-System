@@ -1,0 +1,20 @@
+{
+  "contactTitle": "联系我们",
+  "contactSubtitle": "我们随时为您提供帮助。欢迎随时联系我们。",
+  "phoneLabel": "电话",
+  "phoneValue": "+1 (800) 123-4567",
+  "officeHoursLabel": "办公时间",
+  "officeHoursValue": "周一至周五, 上午9点至下午6点",
+  "emailContactLabel": "电子邮件",
+  "emailContactValue": "support@smartrent.com",
+  "successMessage": "您的消息已成功发送！",
+  "addressLabel": "地址",
+  "addressValue": "123 Smart Rent Street\n旧金山, CA 94103",
+  "connectWithUs": "联系我们",
+  "formIntro": "请填写下方表格，我们会尽快与您联系。",
+  "nameLabel": "姓名",
+  "emailLabel": "电子邮件",
+  "subjectLabel": "主题",
+  "messageLabel": "消息",
+  "submitButton": "发送消息"
+}

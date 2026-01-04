@@ -1,0 +1,20 @@
+{
+  "contactTitle": "Contáctenos",
+  "contactSubtitle": "Estamos aquí para ayudar. Contáctenos en cualquier momento.",
+  "phoneLabel": "Teléfono",
+  "phoneValue": "+1 (800) 123-4567",
+  "officeHoursLabel": "Horario de oficina",
+  "officeHoursValue": "Lun-Vie, 9am-6pm",
+  "emailContactLabel": "Correo electrónico",
+  "emailContactValue": "support@smartrent.com",
+  "successMessage": "¡Su mensaje ha sido enviado exitosamente!",
+  "addressLabel": "Dirección",
+  "addressValue": "123 Smart Rent Street\nSan Francisco, CA 94103",
+  "connectWithUs": "Conéctese con nosotros",
+  "formIntro": "Complete el formulario a continuación y nos pondremos en contacto pronto.",
+  "nameLabel": "Nombre",
+  "emailLabel": "Correo electrónico",
+  "subjectLabel": "Asunto",
+  "messageLabel": "Mensaje",
+  "submitButton": "Enviar mensaje"
+}

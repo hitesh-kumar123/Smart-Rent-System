@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
 
 const Home = () => {
+  const { t } = useTranslation('Home');
   // State for search query input value
   const [searchQuery, setSearchQuery] = useState("");
   // State to track if search dropdown is open/focused
@@ -77,31 +79,31 @@ const Home = () => {
   const destinations = [
     {
       id: 1,
-      name: "New York",
+      name: t('newYork'),
       image:
         "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      properties: 120,
+      properties: t('newYorkProperties'),
     },
     {
       id: 2,
-      name: "Los Angeles",
+      name: t('losAngeles'),
       image:
         "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      properties: 94,
+      properties: t('losAngelesProperties'),
     },
     {
       id: 3,
-      name: "Miami",
+      name: t('miami'),
       image:
         "https://images.unsplash.com/photo-1535498730771-e735b998cd64?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      properties: 85,
+      properties: t('miamiProperties'),
     },
     {
       id: 4,
-      name: "Chicago",
+      name: t('chicago'),
       image:
         "https://images.unsplash.com/photo-1494522855154-9297ac14b55f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      properties: 73,
+      properties: t('chicagoProperties'),
     },
   ];
 
@@ -149,13 +151,13 @@ const Home = () => {
         <div className="relative z-10 max-w-7xl mx-auto h-full flex items-center px-4 sm:px-6">
           <div className="max-w-3xl text-white">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              Find stays that feel{" "}
-              <span className="text-primary-400">like home</span>
+              <Trans i18nKey="heroTitle" ns="Home">
+                Find stays that feel <span className="text-primary-400">like home</span>
+              </Trans>
             </h1>
 
             <p className="text-lg md:text-xl text-neutral-200 mb-10 max-w-2xl">
-              Discover unique homes, apartments, and experiences across the
-              world — handpicked for comfort, style, and unforgettable memories.
+              {t('heroDescription')}
             </p>
 
             {/* CTA Buttons */}
@@ -164,14 +166,14 @@ const Home = () => {
                 to="/listings"
                 className="bg-primary-500 hover:bg-primary-600 text-white px-7 py-3 rounded-xl font-medium transition duration-300 shadow-lg"
               >
-                Explore stays
+                {t('exploreStays')}
               </Link>
 
               <Link
                 to="/host/become-a-host"
                 className="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-7 py-3 rounded-xl font-medium transition duration-300 border border-white/30"
               >
-                Become a host
+                {t('becomeHost')}
               </Link>
             </div>
           </div>
@@ -181,10 +183,10 @@ const Home = () => {
       {/* Featured destinations section */}
       <div className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <h2 className="text-3xl font-semibold mb-2 text-neutral-800">
-          Inspiration for your next trip
+          {t('inspirationTitle')}
         </h2>
         <p className="text-neutral-600 mb-8">
-          Explore top destinations with perfect vacation rentals
+          {t('inspirationSubtitle')}
         </p>
 
         {/* Featured destinations grid */}
@@ -216,10 +218,10 @@ const Home = () => {
       <div className="py-16 bg-neutral-50 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-semibold mb-2 text-neutral-800">
-            Stay anywhere
+            {t('stayAnywhereTitle')}
           </h2>
           <p className="text-neutral-600 mb-8">
-            Unique accommodations for every style and budget
+            {t('stayAnywhereSubtitle')}
           </p>
 
           {/* Property types grid */}
@@ -236,9 +238,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Apartments
+                    {t('apartments')}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Urban comfort</p>
+                  <p className="text-neutral-600 text-sm">{t('apartmentsDesc')}</p>
                 </div>
               </div>
             </Link>
@@ -254,9 +256,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Houses
+                    {t('houses')}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Entire homes</p>
+                  <p className="text-neutral-600 text-sm">{t('housesDesc')}</p>
                 </div>
               </div>
             </Link>
@@ -272,9 +274,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Cabins
+                    {t('cabins')}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Rustic retreats</p>
+                  <p className="text-neutral-600 text-sm">{t('cabinsDesc')}</p>
                 </div>
               </div>
             </Link>
@@ -290,9 +292,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Villas
+                    {t('villas')}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Luxury stays</p>
+                  <p className="text-neutral-600 text-sm">{t('villasDesc')}</p>
                 </div>
               </div>
             </Link>
@@ -303,10 +305,10 @@ const Home = () => {
       {/* Experiences section */}
       <div className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <h2 className="text-3xl font-semibold mb-2 text-neutral-800">
-          Discover experiences
+          {t('discoverExperiencesTitle')}
         </h2>
         <p className="text-neutral-600 mb-8">
-          Find activities hosted by local experts
+          {t('discoverExperiencesSubtitle')}
         </p>
 
         {/* Experiences grid */}
@@ -321,15 +323,15 @@ const Home = () => {
                 <div className="h-80 relative overflow-hidden">
                   <img
                     src={experience.image}
-                    alt={experience.title}
+                    alt={t(experience.slug)}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-4">
                   <h3 className="text-xl font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    {experience.title}
+                    {t(experience.slug)}
                   </h3>
-                  <p className="text-neutral-600">Explore with local guides</p>
+                  <p className="text-neutral-600">{t(`${experience.slug}Desc`)}</p>
                 </div>
               </div>
             </Link>
@@ -344,24 +346,23 @@ const Home = () => {
             <div className="md:flex">
               <div className="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  Become a host
+                  {t('becomeAHostTitle')}
                 </h2>
                 <p className="text-white text-lg mb-8 max-w-md">
-                  Share your space, earn extra income, and connect with guests
-                  from around the world.
+                  {t('becomeAHostDesc')}
                 </p>
                 {/* Learn more button for host sign-up */}
                 <Link
                   to="/host/become-a-host"
                   className="inline-block bg-white text-primary-500 font-medium px-6 py-3 rounded-lg hover:bg-neutral-100 transition duration-300 w-fit"
                 >
-                  Learn more
+                  {t('learnMore')}
                 </Link>
               </div>
               <div className="md:w-1/2">
                 <img
                   src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                  alt="Become a host"
+                  alt={t('becomeAHostTitle')}
                   className="h-full w-full object-cover"
                 />
               </div>

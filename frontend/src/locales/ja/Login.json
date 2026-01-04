@@ -1,0 +1,11 @@
+{
+  "loginTitle": "アカウントにログイン",
+  "createAccount": "または新しいアカウントを作成",
+  "email": "メールアドレス",
+  "password": "パスワード",
+  "rememberMe": "ログイン状態を保持する",
+  "forgotPassword": "パスワードをお忘れですか？",
+  "login": "ログイン",
+  "orContinueWith": "または次で続行",
+  "signInWithGoogle": "Googleでサインイン"
+}

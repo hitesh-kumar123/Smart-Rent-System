@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+// Initialize i18next
+import "./config/i18n";
+
 // Reset scroll position on page load
 if (typeof window !== "undefined") {
   window.onload = () => {

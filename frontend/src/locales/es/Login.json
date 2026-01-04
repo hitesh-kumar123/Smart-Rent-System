@@ -1,0 +1,11 @@
+{
+  "loginTitle": "Inicia sesión en tu cuenta",
+  "createAccount": "O crea una nueva cuenta",
+  "email": "Dirección de correo electrónico",
+  "password": "Contraseña",
+  "rememberMe": "Recuérdame",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "login": "Iniciar sesión",
+  "orContinueWith": "O continúa con",
+  "signInWithGoogle": "Iniciar sesión con Google"
+}

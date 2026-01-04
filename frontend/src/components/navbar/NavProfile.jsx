@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const NavProfile = ({
@@ -7,8 +8,9 @@ const NavProfile = ({
   currentUser,
   isAuthenticated,
   handleLogout,
-  getText,
+  // removed getText prop
 }) => {
+  const { t } = useTranslation();
   // Handle keyboard navigation
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
@@ -95,7 +97,7 @@ const NavProfile = ({
               onClick={() => setIsProfileMenuOpen(false)}
             >
               <i className="fas fa-sign-in-alt w-5 mr-3 text-neutral-400"></i>
-              {getText("common", "login")}
+              {t("common.login")}
             </Link>
             <Link
               to="/register"
@@ -103,7 +105,7 @@ const NavProfile = ({
               onClick={() => setIsProfileMenuOpen(false)}
             >
               <i className="fas fa-user-plus w-5 mr-3 text-neutral-400"></i>
-              {getText("common", "signup")}
+              {t("common.signup")}
             </Link>
             <div className="border-t border-neutral-100 my-2"></div>
             <div className="px-4 mb-2">
@@ -117,7 +119,7 @@ const NavProfile = ({
               onClick={() => setIsProfileMenuOpen(false)}
             >
               <i className="fas fa-home w-5 mr-3 text-neutral-400"></i>
-              {getText("common", "becomeHost")}
+              {t("common.becomeHost")}
             </Link>
             <Link
               to="/help"
@@ -125,7 +127,7 @@ const NavProfile = ({
               onClick={() => setIsProfileMenuOpen(false)}
             >
               <i className="fas fa-question-circle w-5 mr-3 text-neutral-400"></i>
-              {getText("common", "help")}
+              {t("common.help")}
             </Link>
           </div>
         ) : (
@@ -176,7 +178,7 @@ const NavProfile = ({
                 onClick={() => setIsProfileMenuOpen(false)}
               >
                 <i className="fas fa-envelope w-5 mr-3 text-neutral-400 group-hover:text-neutral-500"></i>
-                {getText("common", "messages")}
+                {t("common.messages")}
               </Link>
               <Link
                 to="/trips"
@@ -184,7 +186,7 @@ const NavProfile = ({
                 onClick={() => setIsProfileMenuOpen(false)}
               >
                 <i className="fas fa-suitcase w-5 mr-3 text-neutral-400 group-hover:text-neutral-500"></i>
-                {getText("common", "trips")}
+                {t("common.trips")}
               </Link>
               <Link
                 to="/wishlist"
@@ -192,7 +194,7 @@ const NavProfile = ({
                 onClick={() => setIsProfileMenuOpen(false)}
               >
                 <i className="fas fa-heart w-5 mr-3 text-neutral-400 group-hover:text-neutral-500"></i>
-                {getText("common", "wishlist")}
+                {t("common.wishlist")}
               </Link>
             </div>
             {/* Account management links */}
@@ -223,7 +225,7 @@ const NavProfile = ({
                 onClick={() => setIsProfileMenuOpen(false)}
               >
                 <i className="fas fa-user-cog w-5 mr-3 text-neutral-400 group-hover:text-neutral-500"></i>
-                {getText("common", "account")}
+                {t("common.account")}
               </Link>
               <Link
                 to="/help"
@@ -231,14 +233,14 @@ const NavProfile = ({
                 onClick={() => setIsProfileMenuOpen(false)}
               >
                 <i className="fas fa-question-circle w-5 mr-3 text-neutral-400 group-hover:text-neutral-500"></i>
-                {getText("common", "help")}
+                {t("common.help")}
               </Link>
               <button
                 className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors group"
                 onClick={handleLogout}
               >
                 <i className="fas fa-sign-out-alt w-5 mr-3 text-red-400 group-hover:text-red-500"></i>
-                {getText("common", "logout")}
+                {t("common.logout")}
               </button>
             </div>
           </>

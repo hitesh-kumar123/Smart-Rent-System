@@ -1,0 +1,95 @@
+{
+  "faqTitle": "Foire Aux Questions",
+  "faqSubtitle": "Trouvez des réponses aux questions les plus courantes sur l'utilisation de Smart Rent System.",
+  "categoriesLabel": "Catégories",
+  "categories": {
+    "general": "Questions Générales",
+    "booking": "Réservations et Bookings",
+    "payment": "Paiements et Remboursements",
+    "host": "Questions d'Hébergement",
+    "safety": "Sécurité et Protection",
+    "account": "Gestion du Compte"
+  },
+  "needMoreHelp": "Besoin de plus d'aide ?",
+  "needMoreHelpDesc": "Si vous ne trouvez pas ce que vous cherchez, notre équipe d'assistance est prête à vous aider.",
+  "contactSupport": "Contacter le support",
+  "helpCenter": "Centre d'aide",
+  "helpCenterDesc": "Consultez des guides d'aide complets, des tutoriels et des conseils de dépannage pour utiliser Smart Rent.",
+  "visitHelpCenter": "Visiter le centre d'aide",
+  "safetyInfo": "Informations de sécurité",
+  "safetyInfoDesc": "Découvrez nos protocoles de sécurité, nos directives pour les invités et les hôtes, et nos ressources d'urgence.",
+  "viewSafetyGuidelines": "Voir les consignes de sécurité",
+  "reportConcernTitle": "Signaler un problème",
+  "reportConcernDesc": "Besoin de signaler un problème de sécurité, une violation de politique ou une autre préoccupation concernant une annonce ou un utilisateur ?",
+  "submitReport": "Soumettre un rapport",
+  "general": {
+    "what-is-smart-rent": {
+      "question": "Qu'est-ce que Smart Rent System ?",
+      "answer": "Smart Rent System est une plateforme qui connecte les voyageurs à des hébergements uniques dans le monde entier. Notre plateforme permet aux hôtes de lister leurs propriétés et aux invités de réserver ces espaces. Nous offrons un traitement sécurisé des paiements, des avis vérifiés et un support client pour garantir une expérience fluide à tous."
+    },
+    "how-to-start": {
+      "question": "Comment commencer avec Smart Rent ?",
+      "answer": "Commencer est facile ! Créez simplement un compte, remplissez vos informations de profil et vous pouvez commencer à rechercher des propriétés ou à lister votre propre espace. Parcourez les annonces par emplacement, prix, commodités et plus pour trouver l'endroit idéal pour votre prochain voyage."
+    },
+    "contact-support": {
+      "question": "Comment contacter le support client ?",
+      "answer": "Vous pouvez joindre notre équipe de support client par plusieurs moyens. Utilisez la page Contact sur notre site, envoyez-nous un email à support@smartrentsystem.com ou appelez notre ligne d'assistance au +1 (800) SMART-RENT. Notre équipe est disponible 24h/24 et 7j/7."
+    },
+    "app-available": {
+      "question": "Y a-t-il une application mobile disponible ?",
+      "answer": "Oui ! L'application Smart Rent System est disponible pour iOS et Android. Téléchargez-la depuis l'App Store ou Google Play Store pour gérer vos réservations, envoyer des messages et parcourir les annonces où que vous soyez."
+    }
+  },
+  "booking": {
+    "how-to-book": {
+      "question": "Comment réserver une propriété ?",
+      "answer": "Pour réserver une propriété, recherchez des hébergements selon votre lieu et vos dates souhaités. Une fois que vous avez trouvé un endroit qui vous plaît, cliquez sur 'Réserver' ou 'Book Now' et suivez le processus de paiement. Certaines propriétés permettent la réservation instantanée, d'autres nécessitent l'approbation de l'hôte."
+    },
+    "booking-confirmation": {
+      "question": "Comment savoir si ma réservation est confirmée ?",
+      "answer": "Après avoir terminé le processus de réservation, vous recevrez un email de confirmation avec tous les détails. Vous pouvez aussi voir le statut de votre réservation dans la section 'Voyages' de votre tableau de bord."
+    },
+    "cancel-booking": {
+      "question": "Comment annuler une réservation ?",
+      "answer": "Pour annuler une réservation, allez dans la section 'Voyages' de votre compte, trouvez la réservation à annuler et cliquez sur 'Annuler'. Le montant du remboursement dépendra de la politique d'annulation de la propriété."
+    },
+    "modify-dates": {
+      "question": "Puis-je modifier les dates de ma réservation ?",
+      "answer": "Oui, vous pouvez demander à modifier les dates de votre réservation. Allez sur votre page 'Voyages', sélectionnez la réservation à modifier et cliquez sur 'Modifier la réservation'. Cela dépend de l'approbation de l'hôte et de la disponibilité. Des ajustements de prix peuvent s'appliquer."
+    }
+  },
+  "payment": {
+    "payment-methods": {
+      "question": "Quels modes de paiement sont acceptés ?",
+      "answer": "Nous acceptons les principales cartes de crédit et de débit (Visa, MasterCard, American Express, Discover), PayPal, et dans certaines régions, Apple Pay et Google Pay. Tous les paiements sont traités de manière sécurisée via notre plateforme."
+    },
+    "payment-timing": {
+      "question": "Quand suis-je facturé pour ma réservation ?",
+      "answer": "Pour la plupart des réservations, vous serez facturé du montant total lorsque l'hôte accepte votre réservation ou immédiatement si vous utilisez la réservation instantanée. Pour certains séjours plus longs ou réservations anticipées, vous pouvez avoir la possibilité de payer en plusieurs fois."
+    },
+    "security-deposit": {
+      "question": "Qu'est-ce qu'un dépôt de garantie et quand est-il rendu ?",
+      "answer": "Un dépôt de garantie est une somme retenue pour couvrir d'éventuels dommages pendant votre séjour. Il n'est facturé que s'il y a une réclamation de l'hôte. Si aucune réclamation n'est faite, la retenue sur votre moyen de paiement est levée automatiquement 14 jours après le départ."
+    },
+    "refund-process": {
+      "question": "Combien de temps faut-il pour traiter un remboursement ?",
+      "answer": "Une fois le remboursement effectué, il faut généralement 5 à 10 jours ouvrables pour qu'il apparaisse sur votre moyen de paiement. Le délai exact dépend de votre fournisseur de paiement et de votre banque."
+    }
+  }
+  ,
+  "categories": {
+    "general": "Questions générales",
+    "booking": "Réservation & Séjour",
+    "payment": "Paiement & Remboursements",
+    "host": "Questions d'hôte",
+    "safety": "Sécurité",
+    "account": "Gestion du compte"
+  },
+  "categoriesLabel": "Catégories",
+  "general": [],
+  "booking": [],
+  "payment": [],
+  "host": [],
+  "safety": [],
+  "account": []
+}

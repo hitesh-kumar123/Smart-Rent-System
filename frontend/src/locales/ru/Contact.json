@@ -1,0 +1,20 @@
+{
+  "contactTitle": "Связаться с нами",
+  "contactSubtitle": "Мы всегда готовы помочь. Свяжитесь с нами в любое время.",
+  "phoneLabel": "Телефон",
+  "phoneValue": "+1 (800) 123-4567",
+  "officeHoursLabel": "Часы работы",
+  "officeHoursValue": "Пн-Пт, 9:00-18:00",
+  "emailContactLabel": "Электронная почта",
+  "emailContactValue": "support@smartrent.com",
+  "successMessage": "Ваше сообщение успешно отправлено!",
+  "addressLabel": "Адрес",
+  "addressValue": "123 Smart Rent Street\nСан-Франциско, CA 94103",
+  "connectWithUs": "Связаться с нами",
+  "formIntro": "Заполните форму ниже, и мы скоро свяжемся с вами.",
+  "nameLabel": "Имя",
+  "emailLabel": "Электронная почта",
+  "subjectLabel": "Тема",
+  "messageLabel": "Сообщение",
+  "submitButton": "Отправить сообщение"
+}

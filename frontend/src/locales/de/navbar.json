@@ -1,0 +1,19 @@
+{
+  "search": "Suchen",
+  "login": "Anmelden",
+  "signup": "Registrieren",
+  "logout": "Abmelden",
+  "profile": "Profil",
+  "help": "Hilfe",
+  "becomeHost": "Gastgeber werden",
+  "messages": "Nachrichten",
+  "trips": "Reisen",
+  "wishlist": "Wunschliste",
+  "account": "Konto",
+  "settings": "Einstellungen",
+  "popularSuggestions": ["Berlin", "München", "Hamburg", "Köln", "Frankfurt"],
+  "recentSearches": "Letzte Suchen",
+  "clear": "Löschen",
+  "popularDestinations": "Beliebte Reiseziele",
+  "explore": "Entdecken"
+}

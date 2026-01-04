@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Help = () => {
+  const { t } = useTranslation("Help");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("general");
   const [expandedFaqs, setExpandedFaqs] = useState({});
@@ -9,12 +11,12 @@ const Help = () => {
 
   // Mock data for help categories
   const categories = [
-    { id: "general", name: "General" },
-    { id: "account", name: "Account & Profile" },
-    { id: "booking", name: "Booking & Reservations" },
-    { id: "payment", name: "Payments & Refunds" },
-    { id: "hosting", name: "Hosting" },
-    { id: "safety", name: "Safety & Accessibility" },
+    { id: "general", name: t("categoryGeneral", "General") },
+    { id: "account", name: t("categoryAccount", "Account & Profile") },
+    { id: "booking", name: t("categoryBooking", "Booking & Reservations") },
+    { id: "payment", name: t("categoryPayment", "Payments & Refunds") },
+    { id: "hosting", name: t("categoryHosting", "Hosting") },
+    { id: "safety", name: t("categorySafety", "Safety & Accessibility") },
   ];
 
   // Mock data for FAQs
@@ -22,91 +24,117 @@ const Help = () => {
     general: [
       {
         id: "what-is-smart-rent",
-        question: "What is Smart Rent?",
-        answer:
-          "Smart Rent is a platform that connects property owners with travelers looking for unique and comfortable places to stay. Whether you're looking for a cozy apartment in the city or a beachfront villa, Smart Rent offers a wide range of properties to suit your needs and budget.",
+        question: t("faqWhatIsSmartRentQuestion", "What is Smart Rent?"),
+        answer: t(
+          "faqWhatIsSmartRentAnswer",
+          "Smart Rent is a platform that connects property owners with travelers looking for unique and comfortable places to stay. Whether you're looking for a cozy apartment in the city or a beachfront villa, Smart Rent offers a wide range of properties to suit your needs and budget."
+        ),
       },
       {
         id: "how-to-use",
-        question: "How do I use Smart Rent?",
-        answer:
-          "Using Smart Rent is simple. Create an account, search for properties based on your destination and dates, browse through the options, and book the one that suits you best. You can also save properties to your wishlist, message hosts directly, and leave reviews after your stay.",
+        question: t("faqHowToUseQuestion", "How do I use Smart Rent?"),
+        answer: t(
+          "faqHowToUseAnswer",
+          "Using Smart Rent is simple. Create an account, search for properties based on your destination and dates, browse through the options, and book the one that suits you best. You can also save properties to your wishlist, message hosts directly, and leave reviews after your stay."
+        ),
       },
       {
         id: "customer-service",
-        question: "How do I contact customer service?",
-        answer:
-          "You can contact our customer service team through various channels including email support at help@smartrent.com, our 24/7 live chat available on our website, or by phone at +1-800-SMART-RENT. We aim to respond to all inquiries within 24 hours.",
+        question: t("faqCustomerServiceQuestion", "How do I contact customer service?"),
+        answer: t(
+          "faqCustomerServiceAnswer",
+          "You can contact our customer service team through various channels including email support at help@smartrent.com, our 24/7 live chat available on our website, or by phone at +1-800-SMART-RENT. We aim to respond to all inquiries within 24 hours."
+        ),
       },
     ],
     account: [
       {
         id: "create-account",
-        question: "How do I create an account?",
-        answer:
-          'To create an account, click on the "Sign up" button in the top right corner of our website or app. You can sign up using your email address, or continue with Google or Facebook. Fill in your details, agree to our terms of service, and you\'re ready to go!',
+        question: t("faqCreateAccountQuestion", "How do I create an account?"),
+        answer: t(
+          "faqCreateAccountAnswer",
+          'To create an account, click on the "Sign up" button in the top right corner of our website or app. You can sign up using your email address, or continue with Google or Facebook. Fill in your details, agree to our terms of service, and you\'re ready to go!'
+        ),
       },
       {
         id: "delete-account",
-        question: "Can I delete my account?",
-        answer:
-          'Yes, you can delete your account at any time. Go to your Account Settings, scroll to the bottom of the page, and click on "Delete Account". Please note that this action is irreversible and will permanently remove all your data from our platform.',
+        question: t("faqDeleteAccountQuestion", "Can I delete my account?"),
+        answer: t(
+          "faqDeleteAccountAnswer",
+          'Yes, you can delete your account at any time. Go to your Account Settings, scroll to the bottom of the page, and click on "Delete Account". Please note that this action is irreversible and will permanently remove all your data from our platform.'
+        ),
       },
     ],
     booking: [
       {
         id: "cancel-booking",
-        question: "How do I cancel a booking?",
-        answer:
-          'To cancel a booking, go to your Trips page, find the reservation you want to cancel, and click on "Cancel Reservation". The refund amount depends on the property\'s cancellation policy and how close to the check-in date you are cancelling. Always check the cancellation policy before booking.',
+        question: t("faqCancelBookingQuestion", "How do I cancel a booking?"),
+        answer: t(
+          "faqCancelBookingAnswer",
+          'To cancel a booking, go to your Trips page, find the reservation you want to cancel, and click on "Cancel Reservation". The refund amount depends on the property\'s cancellation policy and how close to the check-in date you are cancelling. Always check the cancellation policy before booking.'
+        ),
       },
       {
         id: "modify-booking",
-        question: "Can I modify my booking dates?",
-        answer:
-          'Yes, you can request to modify your booking dates. Go to your Trips page, find the reservation you want to modify, and click on "Change Reservation". Note that changes are subject to host approval and may result in price adjustments based on the new dates.',
+        question: t("faqModifyBookingQuestion", "Can I modify my booking dates?"),
+        answer: t(
+          "faqModifyBookingAnswer",
+          'Yes, you can request to modify your booking dates. Go to your Trips page, find the reservation you want to modify, and click on "Change Reservation". Note that changes are subject to host approval and may result in price adjustments based on the new dates.'
+        ),
       },
     ],
     payment: [
       {
         id: "payment-methods",
-        question: "What payment methods do you accept?",
-        answer:
-          "We accept various payment methods including major credit cards (Visa, MasterCard, American Express), debit cards, PayPal, and in some regions, we also offer payment installments through services like Affirm or Klarna.",
+        question: t("faqPaymentMethodsQuestion", "What payment methods do you accept?"),
+        answer: t(
+          "faqPaymentMethodsAnswer",
+          "We accept various payment methods including major credit cards (Visa, MasterCard, American Express), debit cards, PayPal, and in some regions, we also offer payment installments through services like Affirm or Klarna."
+        ),
       },
       {
         id: "refund-policy",
-        question: "What is your refund policy?",
-        answer:
-          "Our refund policy depends on the individual property's cancellation policy chosen by the host. These typically fall into three categories: Flexible, Moderate, and Strict. The specific refund amount is clearly displayed before you confirm your booking and in your trip details.",
+        question: t("faqRefundPolicyQuestion", "What is your refund policy?"),
+        answer: t(
+          "faqRefundPolicyAnswer",
+          "Our refund policy depends on the individual property's cancellation policy chosen by the host. These typically fall into three categories: Flexible, Moderate, and Strict. The specific refund amount is clearly displayed before you confirm your booking and in your trip details."
+        ),
       },
     ],
     hosting: [
       {
         id: "become-host",
-        question: "How do I become a host?",
-        answer:
-          'To become a host, click on "Become a Host" in the top navigation menu. You\'ll need to create a listing with photos, description, and pricing details for your property. Our step-by-step guide will help you set up your listing and start welcoming guests.',
+        question: t("faqBecomeHostQuestion", "How do I become a host?"),
+        answer: t(
+          "faqBecomeHostAnswer",
+          'To become a host, click on "Become a Host" in the top navigation menu. You\'ll need to create a listing with photos, description, and pricing details for your property. Our step-by-step guide will help you set up your listing and start welcoming guests.'
+        ),
       },
       {
         id: "host-fees",
-        question: "What fees do hosts pay?",
-        answer:
-          "Hosts pay a service fee that is typically 3% of the booking subtotal. This fee covers the cost of processing payments and the services we provide to hosts, such as 24/7 customer support and marketing of your property to millions of potential guests.",
+        question: t("faqHostFeesQuestion", "What fees do hosts pay?"),
+        answer: t(
+          "faqHostFeesAnswer",
+          "Hosts pay a service fee that is typically 3% of the booking subtotal. This fee covers the cost of processing payments and the services we provide to hosts, such as 24/7 customer support and marketing of your property to millions of potential guests."
+        ),
       },
     ],
     safety: [
       {
         id: "covid-measures",
-        question: "What COVID-19 safety measures are in place?",
-        answer:
-          "We encourage hosts to follow enhanced cleaning protocols developed with health experts. Many properties have implemented additional safety measures, which are displayed on the listing page. We also have flexible cancellation options related to COVID-19 circumstances.",
+        question: t("faqCovidMeasuresQuestion", "What COVID-19 safety measures are in place?"),
+        answer: t(
+          "faqCovidMeasuresAnswer",
+          "We encourage hosts to follow enhanced cleaning protocols developed with health experts. Many properties have implemented additional safety measures, which are displayed on the listing page. We also have flexible cancellation options related to COVID-19 circumstances."
+        ),
       },
       {
         id: "accessibility",
-        question: "How can I find accessible properties?",
-        answer:
-          "You can use our accessibility filters when searching for properties to find ones that match your specific needs. Hosts can list various accessibility features such as step-free access, wide doorways, accessible parking, and more.",
+        question: t("faqAccessibilityQuestion", "How can I find accessible properties?"),
+        answer: t(
+          "faqAccessibilityAnswer",
+          "You can use our accessibility filters when searching for properties to find ones that match your specific needs. Hosts can list various accessibility features such as step-free access, wide doorways, accessible parking, and more."
+        ),
       },
     ],
   };
@@ -131,33 +159,36 @@ const Help = () => {
         return (
           <div className="bg-white rounded-lg shadow-sm p-6 border border-neutral-200">
             <h2 className="text-2xl font-semibold text-neutral-900 mb-6">
-              Help Guides
+              {t("helpGuidesTitle", "Help Guides")}
             </h2>
             <p className="text-neutral-600 mb-6">
-              Detailed guides on how to use Smart Rent features and services.
+              {t(
+                "helpGuidesDescription",
+                "Detailed guides on how to use Smart Rent features and services."
+              )}
             </p>
 
             <div className="space-y-6">
               <div className="border-b border-neutral-200 pb-6">
                 <h3 className="text-lg font-medium text-neutral-800 mb-3">
-                  Getting Started
+                  {t("gettingStarted", "Getting Started")}
                 </h3>
                 <ul className="space-y-3">
                   <li className="text-primary-600 hover:text-primary-700">
                     <button
                       onClick={() => console.log("Creating account guide")}
                     >
-                      How to create and set up your account
+                      {t("howToCreateAccount", "How to create and set up your account")}
                     </button>
                   </li>
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Search guide")}>
-                      Searching for properties
+                      {t("searchingForProperties", "Searching for properties")}
                     </button>
                   </li>
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Booking guide")}>
-                      Making your first booking
+                      {t("makingYourFirstBooking", "Making your first booking")}
                     </button>
                   </li>
                 </ul>
@@ -165,22 +196,22 @@ const Help = () => {
 
               <div className="border-b border-neutral-200 pb-6">
                 <h3 className="text-lg font-medium text-neutral-800 mb-3">
-                  Hosting
+                  {t("hosting", "Hosting")}
                 </h3>
                 <ul className="space-y-3">
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Become host guide")}>
-                      How to become a host
+                      {t("howToBecomeAHost", "How to become a host")}
                     </button>
                   </li>
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Listing guide")}>
-                      Creating an attractive listing
+                      {t("creatingAnAttractiveListing", "Creating an attractive listing")}
                     </button>
                   </li>
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Pricing guide")}>
-                      Setting the right price
+                      {t("settingTheRightPrice", "Setting the right price")}
                     </button>
                   </li>
                 </ul>
@@ -188,22 +219,22 @@ const Help = () => {
 
               <div>
                 <h3 className="text-lg font-medium text-neutral-800 mb-3">
-                  Payments & Security
+                  {t("paymentsAndSecurity", "Payments & Security")}
                 </h3>
                 <ul className="space-y-3">
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Payment guide")}>
-                      Payment methods and processes
+                      {t("paymentMethodsAndProcesses", "Payment methods and processes")}
                     </button>
                   </li>
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Security guide")}>
-                      Keeping your account secure
+                      {t("keepingYourAccountSecure", "Keeping your account secure")}
                     </button>
                   </li>
                   <li className="text-primary-600 hover:text-primary-700">
                     <button onClick={() => console.log("Issues guide")}>
-                      Resolving payment issues
+                      {t("resolvingPaymentIssues", "Resolving payment issues")}
                     </button>
                   </li>
                 </ul>
@@ -215,7 +246,7 @@ const Help = () => {
                 onClick={() => setActiveTab("main")}
                 className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
               >
-                Back to Help Center
+                {t("backToHelpCenter", "Back to Help Center")}
               </button>
             </div>
           </div>
@@ -225,10 +256,10 @@ const Help = () => {
         return (
           <div className="bg-white rounded-lg shadow-sm p-6 border border-neutral-200">
             <h2 className="text-2xl font-semibold text-neutral-900 mb-6">
-              Contact Support
+              {t("contactSupport", "Contact Support")}
             </h2>
             <p className="text-neutral-600 mb-6">
-              Our support team is here to help you with any issues or questions.
+              {t("contactSupportDescription", "Our support team is here to help you with any issues or questions.")}
             </p>
 
             <div className="max-w-xl mx-auto mb-8">
@@ -238,13 +269,13 @@ const Help = () => {
                     htmlFor="name"
                     className="block text-sm font-medium text-neutral-700 mb-1"
                   >
-                    Your Name
+                    {t("yourName", "Your Name")}
                   </label>
                   <input
                     type="text"
                     id="name"
                     className="w-full px-4 py-2 border border-neutral-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Enter your name"
+                    placeholder={t("enterYourName", "Enter your name")}
                   />
                 </div>
 
@@ -253,13 +284,13 @@ const Help = () => {
                     htmlFor="email"
                     className="block text-sm font-medium text-neutral-700 mb-1"
                   >
-                    Email Address
+                    {t("emailAddress", "Email Address")}
                   </label>
                   <input
                     type="email"
                     id="email"
                     className="w-full px-4 py-2 border border-neutral-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Enter your email"
+                    placeholder={t("enterYourEmail", "Enter your email")}
                   />
                 </div>
 
@@ -268,18 +299,18 @@ const Help = () => {
                     htmlFor="subject"
                     className="block text-sm font-medium text-neutral-700 mb-1"
                   >
-                    Subject
+                    {t("subject", "Subject")}
                   </label>
                   <select
                     id="subject"
                     className="w-full px-4 py-2 border border-neutral-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
                   >
-                    <option value="">Select a subject</option>
-                    <option value="booking">Booking Issue</option>
-                    <option value="payment">Payment Problem</option>
-                    <option value="account">Account Settings</option>
-                    <option value="host">Hosting Question</option>
-                    <option value="other">Other</option>
+                    <option value="">{t("selectASubject", "Select a subject")}</option>
+                    <option value="booking">{t("bookingIssue", "Booking Issue")}</option>
+                    <option value="payment">{t("paymentProblem", "Payment Problem")}</option>
+                    <option value="account">{t("accountSettings", "Account Settings")}</option>
+                    <option value="host">{t("hostingQuestion", "Hosting Question")}</option>
+                    <option value="other">{t("other", "Other")}</option>
                   </select>
                 </div>
 
@@ -288,13 +319,13 @@ const Help = () => {
                     htmlFor="message"
                     className="block text-sm font-medium text-neutral-700 mb-1"
                   >
-                    Message
+                    {t("message", "Message")}
                   </label>
                   <textarea
                     id="message"
                     rows={5}
                     className="w-full px-4 py-2 border border-neutral-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Describe your issue or question"
+                    placeholder={t("describeYourIssueOrQuestion", "Describe your issue or question")}
                   ></textarea>
                 </div>
 
@@ -303,7 +334,7 @@ const Help = () => {
                     type="submit"
                     className="w-full px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
                   >
-                    Submit Request
+                    {t("submitRequest", "Submit Request")}
                   </button>
                 </div>
               </form>
@@ -314,7 +345,7 @@ const Help = () => {
                 onClick={() => setActiveTab("main")}
                 className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
               >
-                Back to Help Center
+                {t("backToHelpCenter", "Back to Help Center")}
               </button>
             </div>
           </div>
@@ -324,11 +355,10 @@ const Help = () => {
         return (
           <div className="bg-white rounded-lg shadow-sm p-6 border border-neutral-200">
             <h2 className="text-2xl font-semibold text-neutral-900 mb-6">
-              Community Forum
+              {t("communityForum", "Community Forum")}
             </h2>
             <p className="text-neutral-600 mb-6">
-              Connect with other users, share experiences, and get advice from
-              the community.
+              {t("forumDescription", "Connect with other users, share experiences, and get advice from the community.")}
             </p>
 
             <div className="text-center py-12">
@@ -347,17 +377,19 @@ const Help = () => {
                 />
               </svg>
               <h3 className="text-lg font-medium text-neutral-900 mb-2">
-                Coming Soon!
+                {t("comingSoon", "Coming Soon!")}
               </h3>
               <p className="text-neutral-600 mb-6 max-w-md mx-auto">
-                Our community forum is currently in development. Check back soon
-                to join discussions with other Smart Rent users!
+                {t(
+                  "forumComingSoonDescription",
+                  "Our community forum is currently in development. Check back soon to join discussions with other Smart Rent users!"
+                )}
               </p>
               <button
                 onClick={() => setActiveTab("main")}
                 className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
               >
-                Back to Help Center
+                {t("backToHelpCenter", "Back to Help Center")}
               </button>
             </div>
           </div>
@@ -370,17 +402,17 @@ const Help = () => {
             <div className="bg-primary-700 text-white rounded-lg py-12 px-8 mb-8">
               <div className="max-w-3xl mx-auto text-center">
                 <h1 className="text-3xl font-bold mb-4">
-                  How can we help you?
+                  {t("howCanWeHelpYou", "How can we help you?")}
                 </h1>
                 <p className="text-lg mb-6 text-primary-100">
-                  Find answers to your questions or contact our support team
+                  {t("findAnswersOrContactSupport", "Find answers to your questions or contact our support team")}
                 </p>
 
                 <form onSubmit={handleSearch} className="max-w-xl mx-auto">
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder="Search for answers..."
+                      placeholder={t("searchForAnswers", "Search for answers...")}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="w-full px-5 py-4 rounded-full text-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary-500 border-none"
@@ -429,35 +461,35 @@ const Help = () => {
                   </svg>
                 </div>
                 <h2 className="text-lg font-medium text-neutral-900 mb-2">
-                  Help Guides
+                  {t("helpGuides", "Help Guides")}
                 </h2>
                 <p className="text-sm text-neutral-600 mb-4">
-                  Detailed guides on how to use Smart Rent features
+                  {t("helpGuidesDescription", "Detailed guides on how to use Smart Rent features")}
                 </p>
                 <div className="flex flex-col space-y-2">
                   <button
                     onClick={() => setActiveTab("guides")}
                     className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                   >
-                    View guides
+                    {t("viewGuides", "View guides")}
                   </button>
                   <Link
                     to="/safety"
                     className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                   >
-                    Safety Information
+                    {t("safetyInformation", "Safety Information")}
                   </Link>
                   <Link
                     to="/cancellation"
                     className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                   >
-                    Cancellation Policies
+                    {t("cancellationPolicies", "Cancellation Policies")}
                   </Link>
                   <Link
                     to="/report-concern"
                     className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                   >
-                    Report a Concern
+                    {t("reportAConcern", "Report a Concern")}
                   </Link>
                 </div>
               </div>
@@ -480,16 +512,16 @@ const Help = () => {
                   </svg>
                 </div>
                 <h2 className="text-lg font-medium text-neutral-900 mb-2">
-                  Contact Support
+                  {t("contactSupport", "Contact Support")}
                 </h2>
                 <p className="text-sm text-neutral-600 mb-4">
-                  Get in touch with our customer support team
+                  {t("contactSupportDescription", "Get in touch with our customer support team")}
                 </p>
                 <button
                   onClick={() => setActiveTab("contact")}
                   className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                 >
-                  Contact us
+                  {t("contactUs", "Contact us")}
                 </button>
               </div>
 
@@ -511,16 +543,16 @@ const Help = () => {
                   </svg>
                 </div>
                 <h2 className="text-lg font-medium text-neutral-900 mb-2">
-                  Community Forum
+                  {t("communityForum", "Community Forum")}
                 </h2>
                 <p className="text-sm text-neutral-600 mb-4">
-                  Connect with other users and share your experiences
+                  {t("connectWithOtherUsers", "Connect with other users and share your experiences")}
                 </p>
                 <button
                   onClick={() => setActiveTab("forum")}
                   className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                 >
-                  Join discussion
+                  {t("joinDiscussion", "Join discussion")}
                 </button>
               </div>
             </div>
@@ -528,7 +560,7 @@ const Help = () => {
             {/* FAQs */}
             <div className="bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden mb-12">
               <h2 className="text-xl font-semibold text-neutral-900 p-6 border-b border-neutral-200">
-                Frequently Asked Questions
+                {t("frequentlyAskedQuestions", "Frequently Asked Questions")}
               </h2>
 
               <div className="md:flex">
@@ -599,13 +631,13 @@ const Help = () => {
 
                   <div className="mt-6 text-center">
                     <p className="text-sm text-neutral-600 mb-4">
-                      Can't find what you're looking for?
+                      {t("cantFindWhatYouAreLookingFor", "Can't find what you're looking for?")}
                     </p>
                     <button
                       onClick={() => setActiveTab("contact")}
                       className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
                     >
-                      Contact our support team
+                      {t("contactOurSupportTeam", "Contact our support team")}
                     </button>
                   </div>
                 </div>
@@ -633,12 +665,11 @@ const Help = () => {
                     </svg>
                   </div>
                   <h3 className="ml-3 text-lg font-medium text-neutral-900">
-                    Email Support
+                    {t("emailSupport", "Email Support")}
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-600 mb-3">
-                  Our email support team is available 24/7 to assist you with
-                  any questions or issues.
+                  {t("emailSupportDescription", "Our email support team is available 24/7 to assist you with any questions or issues.")}
                 </p>
                 <a
                   href="mailto:support@smartrent.com"
@@ -667,12 +698,11 @@ const Help = () => {
                     </svg>
                   </div>
                   <h3 className="ml-3 text-lg font-medium text-neutral-900">
-                    Phone Support
+                    {t("phoneSupport", "Phone Support")}
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-600 mb-3">
-                  Call our customer service team for immediate assistance during
-                  business hours.
+                  {t("phoneSupportDescription", "Call our customer service team for immediate assistance during business hours.")}
                 </p>
                 <a
                   href="tel:+18007726238"
@@ -681,7 +711,7 @@ const Help = () => {
                   +1 (800) SMART-RENT
                 </a>
                 <p className="text-xs text-neutral-500 mt-2">
-                  Available Monday-Friday, 9am-6pm EST
+                  {t("availableMondayToFriday", "Available Monday-Friday, 9am-6pm EST")}
                 </p>
               </div>
 
@@ -704,17 +734,18 @@ const Help = () => {
                     </svg>
                   </div>
                   <h3 className="ml-3 text-lg font-medium text-neutral-900">
-                    Live Chat
+                    {t("liveChat", "Live Chat")}
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-600 mb-3">
-                  Chat with our support team in real-time for quick assistance
-                  with your questions.
+                  {t("liveChatDescription", "Chat with our support team in real-time for quick assistance with your questions.")}
                 </p>
                 <button className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                  Start a chat session
+                  {t("startAChatSession", "Start a chat session")}
                 </button>
-                <p className="text-xs text-neutral-500 mt-2">Available 24/7</p>
+                <p className="text-xs text-neutral-500 mt-2">
+                  {t("available247", "Available 24/7")}
+                </p>
               </div>
             </div>
           </>

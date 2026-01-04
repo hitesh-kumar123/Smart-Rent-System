@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import StaticMap from "../components/StaticMap";
 import { uploadMultipleToCloudinary } from "../utils/cloudinaryService";
 import { useAppSettings } from "../contexts/AppSettingsContext";
+import { useTranslation } from "react-i18next";
 
 const BecomeHost = () => {
+  const { t } = useTranslation("BecomeHost");
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     propertyType: "",
@@ -45,13 +47,13 @@ const BecomeHost = () => {
 
   // Available currencies
   const currencies = [
-    { code: "USD", symbol: "$", name: "US Dollar" },
-    { code: "EUR", symbol: "€", name: "Euro" },
-    { code: "GBP", symbol: "£", name: "British Pound" },
-    { code: "JPY", symbol: "¥", name: "Japanese Yen" },
-    { code: "CAD", symbol: "C$", name: "Canadian Dollar" },
-    { code: "AUD", symbol: "A$", name: "Australian Dollar" },
-    { code: "INR", symbol: "₹", name: "Indian Rupee" },
+    { code: "USD", symbol: "$", name: t("usd") || "US Dollar" },
+    { code: "EUR", symbol: "€", name: t("eur") || "Euro" },
+    { code: "GBP", symbol: "£", name: t("gbp") || "British Pound" },
+    { code: "JPY", symbol: "¥", name: t("jpy") || "Japanese Yen" },
+    { code: "CAD", symbol: "C$", name: t("cad") || "Canadian Dollar" },
+    { code: "AUD", symbol: "A$", name: t("aud") || "Australian Dollar" },
+    { code: "INR", symbol: "₹", name: t("inr") || "Indian Rupee" },
   ];
 
   // Handler for changing language
@@ -67,36 +69,36 @@ const BecomeHost = () => {
   const totalSteps = 5;
 
   const propertyTypes = [
-    { id: "house", label: "House", icon: "🏠" },
-    { id: "apartment", label: "Apartment", icon: "🏢" },
-    { id: "guesthouse", label: "Guesthouse", icon: "🏡" },
-    { id: "hotel", label: "Hotel", icon: "🏨" },
-    { id: "cabin", label: "Cabin", icon: "🌲" },
-    { id: "villa", label: "Villa", icon: "🏛️" },
+    { id: "house", label: t("house", "House"), icon: "🏠" },
+    { id: "apartment", label: t("apartment", "Apartment"), icon: "🏢" },
+    { id: "guesthouse", label: t("guesthouse", "Guesthouse"), icon: "🏡" },
+    { id: "hotel", label: t("hotel", "Hotel"), icon: "🏨" },
+    { id: "cabin", label: t("cabin", "Cabin"), icon: "🌲" },
+    { id: "villa", label: t("villa", "Villa"), icon: "🏛️" },
   ];
 
   const propertyCategories = [
-    { id: "beach", label: "Beach", icon: "🏖️" },
-    { id: "mountain", label: "Mountain", icon: "⛰️" },
-    { id: "city", label: "City", icon: "🏙️" },
-    { id: "countryside", label: "Countryside", icon: "🌄" },
-    { id: "lake", label: "Lake", icon: "🌊" },
-    { id: "desert", label: "Desert", icon: "🏜️" },
+    { id: "beach", label: t("beach", "Beach"), icon: "🏖️" },
+    { id: "mountain", label: t("mountain", "Mountain"), icon: "⛰️" },
+    { id: "city", label: t("city", "City"), icon: "🏙️" },
+    { id: "countryside", label: t("countryside", "Countryside"), icon: "🌄" },
+    { id: "lake", label: t("lake", "Lake"), icon: "🌊" },
+    { id: "desert", label: t("desert", "Desert"), icon: "🏜️" },
   ];
 
   const amenities = [
-    { id: "wifi", label: "Wifi", icon: "📶" },
-    { id: "kitchen", label: "Kitchen", icon: "🍳" },
-    { id: "washer", label: "Washer", icon: "🧺" },
-    { id: "dryer", label: "Dryer", icon: "👕" },
-    { id: "ac", label: "Air conditioning", icon: "❄️" },
-    { id: "heating", label: "Heating", icon: "🔥" },
-    { id: "tv", label: "TV", icon: "📺" },
-    { id: "parking", label: "Free parking", icon: "🚗" },
-    { id: "pool", label: "Pool", icon: "🏊" },
-    { id: "hottub", label: "Hot tub", icon: "♨️" },
-    { id: "gym", label: "Gym", icon: "💪" },
-    { id: "pets", label: "Pets allowed", icon: "🐕" },
+    { id: "wifi", label: t("wifi", "Wifi"), icon: "📶" },
+    { id: "kitchen", label: t("kitchen", "Kitchen"), icon: "🍳" },
+    { id: "washer", label: t("washer", "Washer"), icon: "🧺" },
+    { id: "dryer", label: t("dryer", "Dryer"), icon: "👕" },
+    { id: "ac", label: t("ac", "Air conditioning"), icon: "❄️" },
+    { id: "heating", label: t("heating", "Heating"), icon: "🔥" },
+    { id: "tv", label: t("tv", "TV"), icon: "📺" },
+    { id: "parking", label: t("parking", "Free parking"), icon: "🚗" },
+    { id: "pool", label: t("pool", "Pool"), icon: "🏊" },
+    { id: "hottub", label: t("hottub", "Hot tub"), icon: "♨️" },
+    { id: "gym", label: t("gym", "Gym"), icon: "💪" },
+    { id: "pets", label: t("pets", "Pets allowed"), icon: "🐕" },
   ];
 
   const handleInputChange = (e) => {

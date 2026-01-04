@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscribeStatus, setSubscribeStatus] = useState(null); // null | 'success' | 'error'
+  const { t } = useTranslation('footer');
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -48,9 +51,7 @@ const Footer = () => {
               <span className="font-light">RentSystem</span>
             </h3>
             <p className="text-neutral-400 mb-6 leading-relaxed max-w-sm">
-              Find your perfect home away from home. SmartRent provides a secure
-              platform for property rental with verified hosts and quality
-              listings.
+              {t("companyDescription")}
             </p>
             <div className="flex space-x-4">
               <a
@@ -97,7 +98,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div className="mt-4 sm:mt-0">
             <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
-              Quick Links
+              {t("quickLinks")}
             </h3>
             <ul className="space-y-2.5 sm:space-y-3">
               <li>
@@ -107,7 +108,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Home
+                  {t("home")}
                 </Link>
               </li>
               <li>
@@ -117,7 +118,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  About Us
+                  {t("aboutUs")}
                 </Link>
               </li>
               <li>
@@ -127,7 +128,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Contact
+                  {t("contact")}
                 </Link>
               </li>
               <li>
@@ -137,7 +138,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Blog
+                  {t("blog")}
                 </Link>
               </li>
             </ul>
@@ -145,7 +146,7 @@ const Footer = () => {
 
           {/* Support */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 text-white">Support</h3>
+            <h3 className="text-lg font-semibold mb-6 text-white">{t("support")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -154,7 +155,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Help
+                  {t("help")}
                 </Link>
               </li>
               <li>
@@ -164,7 +165,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Safety Information
+                  {t("safetyInformation")}
                 </Link>
               </li>
               <li>
@@ -174,7 +175,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Cancellation Options
+                  {t("cancellationOptions")}
                 </Link>
               </li>
               <li>
@@ -184,7 +185,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Report Concern
+                  {t("reportConcern")}
                 </Link>
               </li>
               <li>
@@ -194,7 +195,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  FAQ
+                  {t("faq")}
                 </Link>
               </li>
             </ul>
@@ -203,13 +204,13 @@ const Footer = () => {
           {/* Contact */}
           <div className="mt-4 sm:mt-0">
             <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
-              Contact Us
+              {t("contactUs")}
             </h3>
             <ul className="space-y-4 text-neutral-400">
               <li className="flex items-start justify-center sm:justify-start group">
                 <i className="fas fa-map-marker-alt mt-1 mr-3 text-primary-500 group-hover:scale-110 transition-transform duration-300"></i>
                 <span className="group-hover:text-neutral-300 transition-colors duration-300">
-                  123 Rent Street, City, Country
+                  {t("address")}
                 </span>
               </li>
               <li className="flex items-center justify-center sm:justify-start group">
@@ -233,13 +234,13 @@ const Footer = () => {
             </ul>
             <div className="mt-8">
               <h4 className="text-sm font-semibold mb-4 text-white">
-                Subscribe to Newsletter
+                {t("subscribeNewsletter")}
               </h4>
               <form onSubmit={handleSubscribe} className="space-y-2">
                 <div className="flex max-w-sm mx-auto sm:mx-0 group focus-within:scale-[1.02] transition-transform duration-300">
                   <input
                     type="email"
-                    placeholder="Your email"
+                    placeholder={t("yourEmail")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={`w-full text-sm text-neutral-800 bg-neutral-100 rounded-l-lg px-4 py-2.5 
@@ -264,8 +265,8 @@ const Footer = () => {
                     disabled={isSubscribing}
                     aria-label={
                       isSubscribing
-                        ? "Subscribing..."
-                        : "Subscribe to newsletter"
+                        ? t("subscribing")
+                        : t("subscribeNewsletter")
                     }
                   >
                     {isSubscribing ? (
@@ -285,8 +286,8 @@ const Footer = () => {
                     } transition-all duration-300 animate-fadeIn text-center sm:text-left`}
                   >
                     {subscribeStatus === "success"
-                      ? "Thank you for subscribing!"
-                      : "Please enter a valid email address."}
+                      ? t("subscribeSuccess")
+                      : t("subscribeError")}
                   </p>
                 )}
               </form>
@@ -308,7 +309,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Privacy Policy
+              {t("privacyPolicy")}
             </Link>
             <span className="hidden sm:block text-neutral-600">•</span>
             <Link
@@ -316,7 +317,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Terms of Service
+              {t("termsOfService")}
             </Link>
             <span className="hidden sm:block text-neutral-600">•</span>
             <Link
@@ -324,7 +325,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Cookie Policy
+              {t("cookiePolicy")}
             </Link>
           </div>
         </div>

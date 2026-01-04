@@ -1,0 +1,17 @@
+{
+    "signInToExistingLink": "अपने मौजूदा खाते में साइन इन करें",
+    "signUpWithGoogle": "Google से साइन अप करें",
+    "signUpWithFacebook": "Facebook से साइन अप करें",
+  "registerTitle": "अपना खाता बनाएं",
+  "signInToExisting": "या अपने मौजूदा खाते में साइन इन करें",
+  "firstName": "पहला नाम",
+  "lastName": "अंतिम नाम",
+  "username": "यूज़रनेम (वैकल्पिक)",
+  "usernameHint": "यदि खाली छोड़ा गया तो आपके ईमेल का भाग उपयोग किया जाएगा",
+  "email": "ईमेल पता",
+  "password": "पासवर्ड",
+  "confirmPassword": "पासवर्ड की पुष्टि करें",
+  "agreeTerms": "मैं सेवा की शर्तों और गोपनीयता नीति से सहमत हूँ",
+  "register": "खाता बनाएं",
+  "orContinueWith": "या जारी रखें"
+}

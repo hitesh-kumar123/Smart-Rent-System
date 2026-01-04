@@ -1,0 +1,20 @@
+{
+  "contactTitle": "お問い合わせ",
+  "contactSubtitle": "ご質問があればいつでもご連絡ください。",
+  "phoneLabel": "電話",
+  "phoneValue": "+1 (800) 123-4567",
+  "officeHoursLabel": "営業時間",
+  "officeHoursValue": "月〜金, 9時〜18時",
+  "emailContactLabel": "メール",
+  "emailContactValue": "support@smartrent.com",
+  "successMessage": "メッセージが正常に送信されました！",
+  "addressLabel": "住所",
+  "addressValue": "123 Smart Rent Street\nサンフランシスコ, CA 94103",
+  "connectWithUs": "お問い合わせ",
+  "formIntro": "下記のフォームにご記入いただければ、すぐにご連絡いたします。",
+  "nameLabel": "名前",
+  "emailLabel": "メール",
+  "subjectLabel": "件名",
+  "messageLabel": "メッセージ",
+  "submitButton": "送信"
+}

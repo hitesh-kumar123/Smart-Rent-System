@@ -1,0 +1,47 @@
+{
+  "aboutTitle": "Smart Rent Systemについて",
+  "aboutSubtitle": "すべての人にとって賃貸をシンプルで安全、快適に。",
+  "missionTitle": "私たちのミッション",
+  "missionText": "Smart Rent Systemは2020年に設立され、すべての人にとって賃貸を利用しやすく、安全で快適にするというシンプルなミッションを掲げています。従来の賃貸プロセスは複雑で時間がかかり、透明性に欠けていることが多いと感じました。",
+  "visionTitle": "私たちのビジョン",
+  "visionText": "私たちは、物件オーナーと借り手をシームレスにつなぐプラットフォームを構築し、リスティングから予約、滞在までのすべてのプロセスをできる限りスムーズにするツールを提供することを目指しました。現在、Smart Rent Systemは世界中で数千の物件をホストし、旅行者が理想的な一時的な住まいを見つけるのを助け、オーナーが最小限の手間で賃貸収益を最大化できるようにしています。",
+  "ourValuesTitle": "私たちの価値観",
+  "trustSafetyTitle": "信頼と安全",
+  "trustSafetyDesc": "私たちは、ホストとゲストの両方にとって安全な環境を作ること、透明なポリシーと安全な取引を信条としています。",
+  "globalCommunityTitle": "グローバルコミュニティ",
+  "globalCommunityDesc": "私たちは多様性を称え、さまざまな背景や文化を持つ人々のつながりを創出します。",
+  "innovationTitle": "イノベーション",
+  "innovationDesc": "私たちはすべてのユーザーに最高の体験を提供するため、プラットフォームとサービスを継続的に改善しています。",
+  "teamTitle": "私たちのチーム紹介",
+  "teamText": "私たちのチームは、すべてのユーザーが素晴らしいサポートを受け、Smart Rent Systemで前向きな体験ができるよう尽力しています。",
+  "joinOurCommunity": "コミュニティに参加する",
+  "joinOurCommunityDesc": "滞在先をお探しの方も、物件を旅行者と共有したい方も、Smart Rent Systemがサポートします。",
+  "exploreProperties": "物件を探す",
+  "becomeHost": "ホストになる",
+  "teamMembers": [
+    {
+      "name": "ジェーン・スミス",
+      "role": "CEO & 創設者",
+      "image": "https://randomuser.me/api/portraits/women/32.jpg",
+      "bio": "ジェーンは、世界中の人々が宿泊施設を見つけて予約する方法を変革するというビジョンでSmart Rent Systemを設立しました。"
+    },
+    {
+      "name": "マイケル・ジョンソン",
+      "role": "CTO",
+      "image": "https://randomuser.me/api/portraits/men/42.jpg",
+      "bio": "マイケルは技術チームを率い、ホストとゲストの両方にとって安全で高速、使いやすいプラットフォームを実現しています。"
+    },
+    {
+      "name": "サラ・チェン",
+      "role": "オペレーション責任者",
+      "image": "https://randomuser.me/api/portraits/women/22.jpg",
+      "bio": "サラは日々の運営を監督し、ホストとゲストの両方が当社のプラットフォームでスムーズな体験を得られるようにしています。"
+    },
+    {
+      "name": "ジェームズ・ウィルソン",
+      "role": "カスタマーエクスペリエンス責任者",
+      "image": "https://randomuser.me/api/portraits/men/32.jpg",
+      "bio": "ジェームズは、すべてのユーザーが素晴らしいサポートを受け、Smart Rent Systemで前向きな体験ができるよう尽力しています。"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "contactTitle": "संपर्क करें",
+  "contactSubtitle": "हम आपकी सहायता के लिए यहाँ हैं। कभी भी संपर्क करें।",
+  "phoneLabel": "फ़ोन",
+  "phoneValue": "+1 (800) 123-4567",
+  "officeHoursLabel": "कार्यालय समय",
+  "officeHoursValue": "सोम-शुक्र, सुबह 9 से शाम 6",
+  "emailContactLabel": "ईमेल",
+  "emailContactValue": "support@smartrent.com",
+  "successMessage": "आपका संदेश सफलतापूर्वक भेज दिया गया है!",
+  "addressLabel": "पता",
+  "addressValue": "123 स्मार्ट रेंट स्ट्रीट\nसैन फ्रांसिस्को, CA 94103",
+  "connectWithUs": "हमसे जुड़ें",
+  "formIntro": "नीचे दिए गए फॉर्म को भरें और हम जल्द ही आपसे संपर्क करेंगे।",
+  "nameLabel": "नाम",
+  "emailLabel": "ईमेल",
+  "subjectLabel": "विषय",
+  "messageLabel": "संदेश",
+  "submitButton": "संदेश भेजें"
+}

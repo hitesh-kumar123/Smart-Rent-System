@@ -1,0 +1,11 @@
+{
+  "loginTitle": "Melden Sie sich bei Ihrem Konto an",
+  "createAccount": "Oder erstellen Sie ein neues Konto",
+  "email": "E-Mail-Adresse",
+  "password": "Passwort",
+  "rememberMe": "Angemeldet bleiben",
+  "forgotPassword": "Passwort vergessen?",
+  "login": "Anmelden",
+  "orContinueWith": "Oder fortfahren mit",
+  "signInWithGoogle": "Mit Google anmelden"
+}

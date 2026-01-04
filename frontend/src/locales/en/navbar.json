@@ -1,0 +1,19 @@
+{
+  "search": "Search",
+  "login": "Log in",
+  "signup": "Sign up",
+  "logout": "Logout",
+  "profile": "Profile",
+  "help": "Help",
+  "becomeHost": "Become a Host",
+  "messages": "Messages",
+  "trips": "Trips",
+  "wishlist": "Wishlist",
+  "account": "Account",
+  "settings": "Settings",
+  "popularSuggestions": ["New York", "Los Angeles", "Miami", "Chicago", "San Francisco"],
+  "recentSearches": "Recent Searches",
+  "clear": "Clear",
+  "popularDestinations": "Popular Destinations",
+  "explore": "Explore"
+}

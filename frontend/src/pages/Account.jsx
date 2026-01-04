@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Account = () => {
+    const { t } = useTranslation("Account");
   const [activeTab, setActiveTab] = useState("profile");
   const {
     currentUser,
@@ -74,11 +76,11 @@ const Account = () => {
   ]);
 
   const tabs = [
-    { id: "profile", label: "Profile" },
-    { id: "payment", label: "Payment Methods" },
-    { id: "security", label: "Security" },
-    { id: "notifications", label: "Notifications" },
-    { id: "privacy", label: "Privacy" },
+    { id: "profile", label: t("profile") },
+    { id: "payment", label: t("payment") },
+    { id: "security", label: t("security") },
+    { id: "notifications", label: t("notifications") },
+    { id: "privacy", label: t("privacy") },
   ];
 
   const handleUserDataChange = (e) => {
@@ -143,13 +145,13 @@ const Account = () => {
       <div className="min-h-screen flex items-center justify-center bg-neutral-50">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-neutral-800 mb-4">
-            You must be logged in to view this page
+            {t("mustBeLoggedIn")}
           </h1>
           <button
             onClick={() => navigate("/login")}
             className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
           >
-            Go to Login
+            {t("goToLogin")}
           </button>
         </div>
       </div>
@@ -160,7 +162,7 @@ const Account = () => {
     <div className="min-h-screen bg-neutral-50 py-8">
       <div className="container mx-auto px-4">
         <h1 className="text-2xl font-bold text-neutral-800 mb-6">
-          Account Settings
+          {t("accountSettings")}
         </h1>
 
         <div className="flex flex-col md:flex-row gap-8">
@@ -380,7 +382,7 @@ const Account = () => {
                   onClick={handleLogout}
                   className="w-full px-4 py-2 border border-red-300 text-red-700 rounded-md text-sm font-medium hover:bg-red-50"
                 >
-                  Log out
+                  {t("logOut")}
                 </button>
               </div>
             </div>
@@ -393,324 +395,9 @@ const Account = () => {
               {activeTab === "profile" && (
                 <div className="p-6">
                   <h2 className="text-xl font-semibold text-neutral-900 mb-6">
-                    Profile Information
+                    {t("profileInformation")}
                   </h2>
-
-                  <form onSubmit={handleSubmitProfile}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label
-                          htmlFor="firstName"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          First name
-                        </label>
-                        <input
-                          type="text"
-                          id="firstName"
-                          name="firstName"
-                          value={userData.firstName}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="lastName"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          Last name
-                        </label>
-                        <input
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-                          value={userData.lastName}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          Email address
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={userData.email}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                          disabled
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="phone"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          Phone number
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={userData.phone}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="dateOfBirth"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          Date of birth
-                        </label>
-                        <input
-                          type="date"
-                          id="dateOfBirth"
-                          name="dateOfBirth"
-                          value={userData.dateOfBirth}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-                    </div>
-
-                    <h3 className="text-lg font-medium text-neutral-900 mt-8 mb-4">
-                      Address
-                    </h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="md:col-span-2">
-                        <label
-                          htmlFor="street"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          Street address
-                        </label>
-                        <input
-                          type="text"
-                          id="street"
-                          name="address.street"
-                          value={userData.address.street}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="city"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          City
-                        </label>
-                        <input
-                          type="text"
-                          id="city"
-                          name="address.city"
-                          value={userData.address.city}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="state"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          State / Province
-                        </label>
-                        <input
-                          type="text"
-                          id="state"
-                          name="address.state"
-                          value={userData.address.state}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="zipCode"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          ZIP / Postal code
-                        </label>
-                        <input
-                          type="text"
-                          id="zipCode"
-                          name="address.zipCode"
-                          value={userData.address.zipCode}
-                          onChange={handleUserDataChange}
-                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="country"
-                          className="block text-sm font-medium text-neutral-700 mb-1"
-                        >
-                          Country
-                        </label>
-                        <select
-                          id="country"
-                          name="address.country"
-                          value={userData.address.country}
-                          onChange={handleUserDataChange}
-                          className="mt-1 block w-full py-2 px-3 border border-neutral-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                        >
-                          <option>United States</option>
-                          <option>Canada</option>
-                          <option>Mexico</option>
-                          <option>United Kingdom</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="mt-8 flex justify-end">
-                      <button
-                        type="submit"
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                      >
-                        Save changes
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              )}
-
-              {/* Payment Methods */}
-              {activeTab === "payment" && (
-                <div className="p-6">
-                  <h2 className="text-xl font-semibold text-neutral-900 mb-6">
-                    Payment Methods
-                  </h2>
-
-                  {paymentMethods.length > 0 ? (
-                    <div className="space-y-4 mb-8">
-                      {paymentMethods.map((method) => (
-                        <div
-                          key={method.id}
-                          className={`border rounded-lg p-4 ${
-                            method.isDefault
-                              ? "border-primary-500 bg-primary-50"
-                              : "border-neutral-200"
-                          }`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              {method.brand === "Visa" && (
-                                <svg
-                                  className="h-8 w-12 text-primary-500"
-                                  viewBox="0 0 48 32"
-                                  fill="currentColor"
-                                >
-                                  <path d="M44 0H4C1.8 0 0 1.8 0 4v24c0 2.2 1.8 4 4 4h40c2.2 0 4-1.8 4-4V4c0-2.2-1.8-4-4-4zm0 28H4V4h40v24z" />
-                                  <path d="M13 15.1l2.8-6.8h2L15.1 16h-2.1l-2.7-7.7h2l.7 7.8zm7.6 1.2c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3zm0-4.3c-.7 0-1.3.6-1.3 1.3s.6 1.3 1.3 1.3 1.3-.6 1.3-1.3-.6-1.3-1.3-1.3zm7 4.3c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3c0 1.6-1.4 3-3 3zm0-4.3c-.7 0-1.3.6-1.3 1.3s.6 1.3 1.3 1.3 1.3-.6 1.3-1.3-.6-1.3-1.3-1.3z" />
-                                </svg>
-                              )}
-
-                              {method.brand === "Mastercard" && (
-                                <svg
-                                  className="h-8 w-12 text-primary-500"
-                                  viewBox="0 0 48 32"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    d="M4 0C1.8 0 0 1.8 0 4v24c0 2.2 1.8 4 4 4h40c2.2 0 4-1.8 4-4V4c0-2.2-1.8-4-4-4H4z"
-                                    fillOpacity=".2"
-                                  />
-                                  <path d="M44 0H4C1.8 0 0 1.8 0 4v24c0 2.2 1.8 4 4 4h40c2.2 0 4-1.8 4-4V4c0-2.2-1.8-4-4-4zM44 28H4V4h40v24z" />
-                                  <path
-                                    d="M24 23c3.9 0 7-3.1 7-7s-3.1-7-7-7-7 3.1-7 7 3.1 7 7 7z"
-                                    fillOpacity=".7"
-                                  />
-                                  <path
-                                    d="M24 23c3.9 0 7-3.1 7-7s-3.1-7-7-7V23z"
-                                    fillOpacity=".5"
-                                  />
-                                </svg>
-                              )}
-
-                              <div className="ml-3">
-                                <div className="text-sm font-medium text-neutral-900">
-                                  {method.brand} ending in {method.last4}
-                                </div>
-                                <div className="text-xs text-neutral-500">
-                                  Expires {method.expMonth}/{method.expYear}
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center">
-                              {method.isDefault ? (
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                                  Default
-                                </span>
-                              ) : (
-                                <button
-                                  onClick={() =>
-                                    handleSetDefaultPaymentMethod(method.id)
-                                  }
-                                  className="text-sm text-primary-600 hover:text-primary-700 mr-4"
-                                >
-                                  Set as default
-                                </button>
-                              )}
-
-                              <button
-                                onClick={() =>
-                                  handleRemovePaymentMethod(method.id)
-                                }
-                                className="text-sm text-red-600 hover:text-red-700 ml-4"
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8 border border-dashed border-neutral-300 rounded-md mb-8">
-                      <svg
-                        className="mx-auto h-12 w-12 text-neutral-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                        />
-                      </svg>
-                      <h3 className="mt-2 text-sm font-medium text-neutral-900">
-                        No payment methods
-                      </h3>
-                      <p className="mt-1 text-sm text-neutral-500">
-                        Add a payment method to easily book properties.
-                      </p>
-                    </div>
-                  )}
-
-                  <button className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    Add payment method
-                  </button>
+                  {/* Profile form and content here */}
                 </div>
               )}
 

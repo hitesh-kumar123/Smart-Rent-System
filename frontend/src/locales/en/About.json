@@ -1,0 +1,47 @@
+{
+  "aboutTitle": "About Smart Rent System",
+  "aboutSubtitle": "Making property rentals simple, secure, and enjoyable for everyone.",
+  "missionTitle": "Our Mission",
+  "missionText": "Smart Rent System was founded in 2020 with a simple mission: to make property rentals accessible, secure, and enjoyable for everyone. We noticed that the traditional rental process was often complicated, time-consuming, and lacked transparency.",
+  "visionTitle": "Our Vision",
+  "visionText": "We set out to build a platform that would connect property owners with potential renters in a seamless way, providing tools that make the entire process - from listing to booking to staying - as smooth as possible. Today, Smart Rent System hosts thousands of properties across the globe, helping travelers find their perfect temporary homes while enabling property owners to maximize their rental potential with minimal hassle.",
+  "ourValuesTitle": "Our Values",
+  "trustSafetyTitle": "Trust & Safety",
+  "trustSafetyDesc": "We believe in creating a safe environment for both hosts and guests, with transparent policies and secure transactions.",
+  "globalCommunityTitle": "Global Community",
+  "globalCommunityDesc": "We celebrate diversity and work to create connections between people from different backgrounds and cultures.",
+  "innovationTitle": "Innovation",
+  "innovationDesc": "We continuously improve our platform and services to provide the best experience possible for all users.",
+  "teamTitle": "Meet Our Team",
+  "teamText": "Our team is dedicated to ensuring every user receives exceptional support and has a positive experience with Smart Rent System.",
+  "joinOurCommunity": "Join Our Community",
+  "joinOurCommunityDesc": "Whether you're looking for a place to stay or want to share your property with travelers, Smart Rent System is here to help.",
+  "exploreProperties": "Explore Properties",
+  "becomeHost": "Become a Host",
+  "teamMembers": [
+    {
+      "name": "Jane Smith",
+      "role": "CEO & Founder",
+      "image": "https://randomuser.me/api/portraits/women/32.jpg",
+      "bio": "Jane founded Smart Rent System with a vision to transform the way people find and book accommodations around the world."
+    },
+    {
+      "name": "Michael Johnson",
+      "role": "CTO",
+      "image": "https://randomuser.me/api/portraits/men/42.jpg",
+      "bio": "Michael leads our technology team, ensuring that our platform is secure, fast, and user-friendly for both hosts and guests."
+    },
+    {
+      "name": "Sarah Chen",
+      "role": "Head of Operations",
+      "image": "https://randomuser.me/api/portraits/women/22.jpg",
+      "bio": "Sarah oversees our day-to-day operations, making sure that both hosts and guests have a seamless experience on our platform."
+    },
+    {
+      "name": "James Wilson",
+      "role": "Customer Experience Lead",
+      "image": "https://randomuser.me/api/portraits/men/32.jpg",
+      "bio": "James is dedicated to ensuring every user receives exceptional support and has a positive experience with Smart Rent System."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "loginTitle": "अपने खाते में लॉग इन करें",
+  "createAccount": "या एक नया खाता बनाएं",
+  "email": "ईमेल पता",
+  "password": "पासवर्ड",
+  "rememberMe": "मुझे याद रखें",
+  "forgotPassword": "क्या आप पासवर्ड भूल गए?",
+  "login": "लॉग इन करें",
+  "orContinueWith": "या जारी रखें",
+  "signInWithGoogle": "Google से साइन इन करें"
+}
