@@ -3,12 +3,60 @@
   "faqSubtitle": "查找有关使用Smart Rent System的最常见问题的答案。",
   "categoriesLabel": "类别",
   "categories": {
-    "general": "常见问题",
-    "booking": "预订与预约",
-    "payment": "支付与退款",
-    "host": "房东问题",
-    "safety": "安全与保障",
-    "account": "账户管理"
+      "general": {
+        "what-is-smart-rent": {
+          "question": "Smart Rent System是什么？",
+          "answer": "Smart Rent System是一个连接全球旅行者与独特住宿的平台。我们的平台允许房东发布房源，客人预订这些空间。我们提供安全的支付处理、验证的评价和客户支持，确保每个人都能顺利体验。"
+        },
+        "how-to-start": {
+          "question": "如何开始使用Smart Rent？",
+          "answer": "开始很简单！只需创建一个账户，填写个人信息，即可开始搜索房源或发布自己的空间。按位置、价格、设施等浏览房源，找到下次旅行的理想住所。"
+        },
+        "contact-support": {
+          "question": "如何联系客服？",
+          "answer": "您可以通过多种渠道联系我们的客户支持团队。使用网站上的联系页面，发送邮件至support@smartrentsystem.com，或拨打+1 (800) SMART-RENT。我们的团队全天候为您服务。"
+        },
+        "app-available": {
+          "question": "有移动应用吗？",
+          "answer": "有！Smart Rent System应用适用于iOS和Android。可在App Store或Google Play Store下载，随时管理预订、消息和浏览房源。"
+        }
+      },
+      "booking": {
+        "how-to-book": {
+          "question": "如何预订房源？",
+          "answer": "要预订房源，请按所需位置和日期搜索住宿。找到喜欢的房源后，点击“预订”或“立即预订”，并完成结账流程。有些房源可即时预订，其他则需房东批准。"
+        },
+        "booking-confirmation": {
+          "question": "如何确认我的预订？",
+          "answer": "完成预订流程后，您会收到包含所有细节的确认邮件。也可在账户“行程”部分查看预订状态。"
+        },
+        "cancel-booking": {
+          "question": "如何取消预订？",
+          "answer": "要取消预订，请进入账户“行程”部分，找到要取消的预订，点击“取消”选项。退款金额取决于房源的取消政策。"
+        },
+        "modify-dates": {
+          "question": "可以更改预订日期吗？",
+          "answer": "可以，您可申请更改预订日期。进入“行程”页面，选择要更改的预订，点击“修改预订”。需房东批准和有空房。新日期可能会调整价格。"
+        }
+      },
+      "payment": {
+        "payment-methods": {
+          "question": "接受哪些支付方式？",
+          "answer": "我们接受主流信用卡和借记卡（Visa、MasterCard、American Express、Discover）、PayPal，以及部分地区的Apple Pay和Google Pay。所有支付均通过平台安全处理。"
+        },
+        "payment-timing": {
+          "question": "预订时何时扣费？",
+          "answer": "大多数预订在房东接受预订或使用即时预订时全额扣费。部分长期或提前预订可分期付款。"
+        },
+        "security-deposit": {
+          "question": "什么是押金，何时退还？",
+          "answer": "押金用于覆盖住宿期间的潜在损坏。除非房东提出索赔，否则不会扣费。无索赔时，退房后14天自动解除支付方式上的冻结。"
+        },
+        "refund-process": {
+          "question": "退款处理需要多久？",
+          "answer": "退款发起后，通常5-10个工作日到账。具体时间取决于支付服务商和金融机构。"
+        }
+      }
   },
   "needMoreHelp": "需要更多帮助？",
   "needMoreHelpDesc": "如果您找不到所需内容，我们的支持团队随时为您服务。",

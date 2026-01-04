@@ -88,9 +88,9 @@ const Terms = () => {
               <h2 className="text-2xl font-bold text-neutral-800 mt-10 mb-4">{t('contactTitle')}</h2>
               <p className="mb-6">{t('contact')}</p>
               <div className="bg-neutral-50 p-6 rounded-lg">
-                <p className="mb-2"><strong>{t('email').split(':')[0]}:</strong> {t('email').split(':')[1]}</p>
-                <p className="mb-2"><strong>{t('address').split(':')[0]}:</strong> {t('address').split(':')[1]}</p>
-                <p><strong>{t('phone').split(':')[0]}:</strong> {t('phone').split(':')[1]}</p>
+                <p className="mb-2"><strong>{t('emailLabel', 'Email')}:</strong> {t('emailValue')}</p>
+                <p className="mb-2"><strong>{t('addressLabel', 'Address')}:</strong> {t('addressValue')}</p>
+                <p><strong>{t('phoneLabel', 'Phone')}:</strong> {t('phoneValue')}</p>
               </div>
             </div>
           </div>

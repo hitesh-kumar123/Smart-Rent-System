@@ -395,9 +395,144 @@ const Account = () => {
               {activeTab === "profile" && (
                 <div className="p-6">
                   <h2 className="text-xl font-semibold text-neutral-900 mb-6">
-                    {t("profileInformation")}
+                    {t("profileInformation", "Profile Information")}
                   </h2>
-                  {/* Profile form and content here */}
+                  <form className="space-y-6" onSubmit={handleSubmitProfile}>
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-neutral-700">
+                          {t("firstName", "First name")}
+                        </label>
+                        <input
+                          id="firstName"
+                          name="firstName"
+                          type="text"
+                          autoComplete="given-name"
+                          required
+                          value={userData.firstName}
+                          onChange={handleUserDataChange}
+                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-neutral-700">
+                          {t("lastName", "Last name")}
+                        </label>
+                        <input
+                          id="lastName"
+                          name="lastName"
+                          type="text"
+                          autoComplete="family-name"
+                          required
+                          value={userData.lastName}
+                          onChange={handleUserDataChange}
+                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-neutral-700">
+                        {t("email", "Email address")}
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        required
+                        value={userData.email}
+                        onChange={handleUserDataChange}
+                        className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-neutral-700">
+                        {t("phone", "Phone number")}
+                      </label>
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        autoComplete="tel"
+                        value={userData.phone}
+                        onChange={handleUserDataChange}
+                        className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="dateOfBirth" className="block text-sm font-medium text-neutral-700">
+                        {t("dateOfBirth", "Date of birth")}
+                      </label>
+                      <input
+                        id="dateOfBirth"
+                        name="dateOfBirth"
+                        type="date"
+                        value={userData.dateOfBirth}
+                        onChange={handleUserDataChange}
+                        className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">
+                        {t("address", "Address")}
+                      </label>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <input
+                          id="street"
+                          name="address.street"
+                          type="text"
+                          placeholder={t("street", "Street address")}
+                          value={userData.address.street}
+                          onChange={handleUserDataChange}
+                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                        <input
+                          id="city"
+                          name="address.city"
+                          type="text"
+                          placeholder={t("city", "City")}
+                          value={userData.address.city}
+                          onChange={handleUserDataChange}
+                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                        <input
+                          id="state"
+                          name="address.state"
+                          type="text"
+                          placeholder={t("state", "State/Province")}
+                          value={userData.address.state}
+                          onChange={handleUserDataChange}
+                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                        <input
+                          id="zipCode"
+                          name="address.zipCode"
+                          type="text"
+                          placeholder={t("zipCode", "ZIP/Postal code")}
+                          value={userData.address.zipCode}
+                          onChange={handleUserDataChange}
+                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                        <input
+                          id="country"
+                          name="address.country"
+                          type="text"
+                          placeholder={t("country", "Country")}
+                          value={userData.address.country}
+                          onChange={handleUserDataChange}
+                          className="appearance-none block w-full px-3 py-2 border border-neutral-300 rounded-md shadow-sm placeholder-neutral-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <button
+                        type="submit"
+                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                      >
+                        {t("saveProfile", "Save profile")}
+                      </button>
+                    </div>
+                  </form>
                 </div>
               )}
 

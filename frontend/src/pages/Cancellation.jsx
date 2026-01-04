@@ -158,7 +158,7 @@ const Cancellation = () => {
                       {activeTab === 'host' && (
                         <div className="mt-4 pt-4 border-t border-neutral-200">
                           <p className="text-neutral-600 italic">
-                            <strong>{t('hostTipFlexible', { ns: 'Cancellation' }).split(':')[0]}:</strong> {t('hostTipFlexible')}
+                            <strong>{t('hostTipFlexibleLabel', { ns: 'Cancellation', defaultValue: 'Tip for hosts' })}:</strong> {t('hostTipFlexible')}
                           </p>
                         </div>
                       )}
@@ -189,7 +189,7 @@ const Cancellation = () => {
                       {activeTab === 'host' && (
                         <div className="mt-4 pt-4 border-t border-neutral-200">
                           <p className="text-neutral-600 italic">
-                            <strong>{t('hostTipModerate', { ns: 'Cancellation' }).split(':')[0]}:</strong> {t('hostTipModerate')}
+                            <strong>{t('hostTipModerateLabel', { ns: 'Cancellation', defaultValue: 'Tip for hosts' })}:</strong> {t('hostTipModerate')}
                           </p>
                         </div>
                       )}
@@ -220,7 +220,7 @@ const Cancellation = () => {
                       {activeTab === 'host' && (
                         <div className="mt-4 pt-4 border-t border-neutral-200">
                           <p className="text-neutral-600 italic">
-                            <strong>{t('hostTipStrict', { ns: 'Cancellation' }).split(':')[0]}:</strong> {t('hostTipStrict')}
+                            <strong>{t('hostTipStrictLabel', { ns: 'Cancellation', defaultValue: 'Tip for hosts' })}:</strong> {t('hostTipStrict')}
                           </p>
                         </div>
                       )}
@@ -251,7 +251,7 @@ const Cancellation = () => {
                       {activeTab === 'host' && (
                         <div className="mt-4 pt-4 border-t border-neutral-200">
                           <p className="text-neutral-600 italic">
-                            <strong>{t('hostTipNonrefundable', { ns: 'Cancellation' }).split(':')[0]}:</strong> {t('hostTipNonrefundable')}
+                            <strong>{t('hostTipNonrefundableLabel', { ns: 'Cancellation', defaultValue: 'Tip for hosts' })}:</strong> {t('hostTipNonrefundable')}
                           </p>
                         </div>
                       )}

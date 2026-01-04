@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 
 /**
  * Register Component
@@ -390,7 +390,9 @@ const Register = () => {
                 htmlFor="terms"
                 className="ml-2 block text-sm text-neutral-700"
               >
-                {t("agreeTerms", "I agree to the Terms of Service and Privacy Policy")}
+                <Trans i18nKey="agreeTerms" ns="Register">
+                  I agree to the <Link to="/terms" className="text-primary-600 underline">Terms of Service</Link> and <Link to="/privacy" className="text-primary-600 underline">Privacy Policy</Link>
+                </Trans>
               </label>
             </div>
 
