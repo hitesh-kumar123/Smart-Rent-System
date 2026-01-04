@@ -22,8 +22,8 @@ npm run dev        # Start development mode
 Create `.env` file in the frontend directory:
 
 ```env
-REACT_APP_API_URL=http://localhost:5000
-REACT_APP_BACKEND_URL=http://localhost:5000
+REACT_APP_API_URL=http://localhost:8000
+REACT_APP_BACKEND_URL=http://localhost:8000
 ```
 
 ## Features
@@ -82,7 +82,7 @@ frontend/src/
 
 ## API Integration
 
-Frontend communicates with backend API at `http://localhost:5000`:
+Frontend communicates with backend API at `http://localhost:8000`:
 
 ### Key Endpoints Used
 

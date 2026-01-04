@@ -87,6 +87,7 @@ app.use("/api", require("./routes/indexRoutes"));
 app.use("/api/messages", require("./routes/messageRoutes"));
 app.use("/api/reviews", require("./routes/reviewRoutes"));
 app.use("/api/bookings", require("./routes/bookingRoutes"));
+app.use("/api/wishlist", require("./routes/wishListRoute"));
 
 // Check if build directory exists (serve from top-level frontend/build)
 const buildPath = path.join(__dirname, "../frontend/build");

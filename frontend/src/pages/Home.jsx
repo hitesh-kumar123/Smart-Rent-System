@@ -160,18 +160,21 @@ const Home = () => {
     {
       id: 1,
       title: "City Tours",
+      slug: "city-tours",
       image:
         "https://images.unsplash.com/photo-1473396413399-6717ef7c4093?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     },
     {
       id: 2,
       title: "Outdoor Adventures",
+      slug: "outdoor-adventures",
       image:
         "https://images.unsplash.com/photo-1533692328991-08159ff19fca?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     },
     {
       id: 3,
       title: "Local Cuisine",
+      slug: "local-cuisine",
       image:
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     },
@@ -391,8 +394,12 @@ const Home = () => {
         {/* Experiences grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {experiences.map((experience) => (
-            <div key={experience.id} className="group cursor-pointer">
-              <div className="rounded-2xl overflow-hidden shadow-card">
+            <Link
+              key={experience.id}
+              to={`/listings?experience=${experience.slug}`}
+              className="group cursor-pointer"
+            >
+              <div className="rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition duration-300">
                 <div className="h-80 relative overflow-hidden">
                   <img
                     src={experience.image}
@@ -407,7 +414,7 @@ const Home = () => {
                   <p className="text-neutral-600">Explore with local guides</p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

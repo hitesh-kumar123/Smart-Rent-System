@@ -1,86 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Wishlist = () => {
-  // Mock data for wishlist collections
-  const [collections, setCollections] = useState([
-    {
-      id: 1,
-      name: "Summer Vacation",
-      items: [
-        {
-          id: 101,
-          title: "Beachfront Villa with Private Pool",
-          location: "Malibu, CA",
-          image:
-            "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-          price: "$350",
-          rating: 4.92,
-          reviews: 128,
-          beds: 4,
-          baths: 3,
-          saved: true,
-        },
-        {
-          id: 102,
-          title: "Luxury Oceanfront Condo",
-          location: "Miami Beach, FL",
-          image:
-            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-          price: "$220",
-          rating: 4.78,
-          reviews: 95,
-          beds: 2,
-          baths: 2,
-          saved: true,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "City Getaways",
-      items: [
-        {
-          id: 103,
-          title: "Modern Loft in Downtown",
-          location: "New York, NY",
-          image:
-            "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-          price: "$180",
-          rating: 4.85,
-          reviews: 74,
-          beds: 1,
-          baths: 1,
-          saved: true,
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "Dream Homes",
-      items: [],
-    },
-  ]);
+  // Wishlist Collection
+  const [collections, setCollections] = useState([]);
 
   // States for managing active tab, modal visibility, and form data
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState(null);
+
+
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState("");
   const [collectionError, setCollectionError] = useState("");
 
-  // Function to remove a property from a wishlist collection
-  const handleRemoveFromWishlist = (collectionId, itemId) => {
-    const updatedCollections = collections.map((collection) => {
-      if (collection.id === collectionId) {
-        return {
-          ...collection,
-          items: collection.items.filter((item) => item.id !== itemId),
-        };
-      }
-      return collection;
-    });
+  //Api Call for fetching Wishlist Collection for particular user
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const res = await axios.get("/api/wishlist", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
-    setCollections(updatedCollections);
+        // Wrap backend data into ONE default collection
+        setCollections([
+          {
+            id: "default",
+            name: "My Wishlist",
+            items: res.data,
+          },
+        ]);
+      } catch (err) {
+        console.error("Failed to fetch wishlist", err);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+
+  // Function to remove a property from a wishlist collection
+  const handleRemoveFromWishlist = async (propertyId) => {
+    try {
+      const res = await axios.post(
+        `/api/wishlist/${propertyId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      // Update UI after removal
+      setCollections([
+        {
+          id: "default",
+          name: "My Wishlist",
+          items: collections[0].items.filter(
+            (item) => item._id !== propertyId
+          ),
+        },
+      ]);
+    } catch (err) {
+      console.error("Failed to remove from wishlist", err);
+    }
   };
 
   // Handle opening the create collection modal
@@ -156,30 +141,17 @@ const Wishlist = () => {
         <div className="border-b border-neutral-200 mb-6">
           <nav className="-mb-px flex space-x-8">
             {/* All properties tab */}
-            <button
-              onClick={() => setActiveTab("all")}
-              className={`pb-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "all"
-                  ? "border-primary-500 text-primary-600"
-                  : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
-              }`}
-            >
-              All properties
-              <span className="ml-2 py-0.5 px-2 rounded-full text-xs bg-neutral-100 text-neutral-700">
-                {totalSaved}
-              </span>
-            </button>
+
 
             {/* Collection tabs - one for each collection */}
             {collections.map((collection) => (
               <button
                 key={collection.id}
                 onClick={() => setActiveTab(collection.id)}
-                className={`pb-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === collection.id
+                className={`pb-4 px-1 border-b-2 font-medium text-sm ${activeTab === collection.id
                     ? "border-primary-500 text-primary-600"
                     : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
-                }`}
+                  }`}
               >
                 {collection.name}
                 <span className="ml-2 py-0.5 px-2 rounded-full text-xs bg-neutral-100 text-neutral-700">
@@ -227,12 +199,7 @@ const Wishlist = () => {
                                 className="h-48 w-full object-cover"
                               />
                               <button
-                                onClick={() =>
-                                  handleRemoveFromWishlist(
-                                    collection.id,
-                                    item.id
-                                  )
-                                }
+                                onClick={() => handleRemoveFromWishlist(item._id)}
                                 className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-sm text-primary-500 hover:text-primary-700"
                               >
                                 <svg
@@ -274,9 +241,11 @@ const Wishlist = () => {
                               </h3>
 
                               {/* Property location */}
+                              {/* Property location */}
                               <p className="text-sm text-neutral-500 mb-2">
                                 {item.location}
                               </p>
+
 
                               {/* Property beds and baths info */}
                               <p className="text-sm text-neutral-700 mb-2">
@@ -360,10 +329,11 @@ const Wishlist = () => {
                         {/* Property image and remove button */}
                         <div className="relative">
                           <img
-                            src={item.image}
+                            src={item.images?.[0]?.url || "/placeholder.jpg"}
                             alt={item.title}
                             className="h-48 w-full object-cover"
                           />
+
                           <button
                             onClick={() =>
                               handleRemoveFromWishlist(activeTab, item.id)
@@ -410,8 +380,11 @@ const Wishlist = () => {
 
                           {/* Property location */}
                           <p className="text-sm text-neutral-500 mb-2">
-                            {item.location}
+                            {item.location?.city
+                              ? `${item.location.city}, ${item.location.country || ""}`
+                              : "Location not available"}
                           </p>
+
 
                           {/* Property beds and baths info */}
                           <p className="text-sm text-neutral-700 mb-2">
