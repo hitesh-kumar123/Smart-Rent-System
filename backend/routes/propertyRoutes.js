@@ -5,8 +5,7 @@ const reviewController = require("../controllers/reviewController");
 const { authenticate, authorize } = require("../middleware");
 const { upload } = require("../cloudConfig");
 
-// Test route removed for production safety (PR Feedback)
-// router.get("/test", ...);
+// Test route removed (PR Feedback)
 
 // New route to get all properties without any filtering
 router.get("/all", async (req, res) => {
