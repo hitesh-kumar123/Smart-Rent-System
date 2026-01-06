@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight, Search, MapPin, Clock, X } from "lucide-react";
 
 const Home = () => {
   // State for search query input value
@@ -11,6 +12,12 @@ const Home = () => {
     const saved = localStorage.getItem("recentSearches");
     return saved ? JSON.parse(saved) : [];
   });
+
+   // State for hero slideshow current image index
+  const [currentIndex, setCurrentIndex] = useState(0);
+  // State to prevent multiple transitions at once
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   // Reference to search container for detecting outside clicks
   const searchRef = useRef(null);
   const navigate = useNavigate();
@@ -23,7 +30,49 @@ const Home = () => {
     "Chicago",
     "San Francisco",
   ];
+  
 
+
+   useEffect(() => {
+  const interval = setInterval(() => {
+    setIsTransitioning(true);
+    setCurrentIndex(prev => (prev + 1) % heroImages.length);
+
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, 3300);
+
+  return () => clearInterval(interval);
+}, []);
+
+
+   // Function to go to next slide
+  const nextSlide = () => {
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+      setTimeout(() => setIsTransitioning(false), 700);
+    }
+  };
+
+  // Function to go to previous slide
+  const prevSlide = () => {
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+      setTimeout(() => setIsTransitioning(false), 700);
+    }
+  };
+
+  // Function to jump to specific slide
+  const goToSlide = (index) => {
+    if (!isTransitioning && index !== currentIndex) {
+      setIsTransitioning(true);
+      setCurrentIndex(index);
+      setTimeout(() => setIsTransitioning(false), 700);
+    }
+  };
+  
+  
   useEffect(() => {
     // Handle clicks outside the search dropdown to close it
     const handleClickOutside = (event) => {
@@ -73,6 +122,7 @@ const Home = () => {
     setRecentSearches([]);
   };
 
+  
   // Sample featured destinations data
   const destinations = [
     {
@@ -130,51 +180,83 @@ const Home = () => {
     },
   ];
 
+   // Array of hero images for the slideshow
+  const heroImages = [
+    {
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      alt: "Luxurious vacation home"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Mountain landscape retreat"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1540206395-68808572332f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Tropical beach paradise"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Forest wilderness escape"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
+      alt: "Coastal sunset view"
+    }
+  ];
+  
   return (
     <div className="bg-white">
+
       {/* Hero section with background image and search form */}
-      {/* Hero section */}
-      <div className="relative h-[650px] overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1950&q=80"
-            alt="Travel destination"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto h-full flex items-center px-4 sm:px-6">
-          <div className="max-w-3xl text-white">
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              Find stays that feel{" "}
-              <span className="text-primary-400">like home</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-neutral-200 mb-10 max-w-2xl">
-              Discover unique homes, apartments, and experiences across the
-              world — handpicked for comfort, style, and unforgettable memories.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to="/listings"
-                className="bg-primary-500 hover:bg-primary-600 text-white px-7 py-3 rounded-xl font-medium transition duration-300 shadow-lg"
-              >
-                Explore stays
-              </Link>
-
-              <Link
-                to="/host/become-a-host"
-                className="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-7 py-3 rounded-xl font-medium transition duration-300 border border-white/30"
-              >
-                Become a host
-              </Link>
-            </div>
+       <div className="relative h-[600px] overflow-hidden group">
+        {/* Render all images with fade transition */}
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              index === currentIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <img
+              src={image.url}
+              alt={image.alt}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30"></div>
           </div>
+        ))}
+
+
+        
+
+        {/* Previous slide button - shows on hover */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        {/* Next slide button - shows on hover */}
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+
+        {/* Dot indicators for slide navigation */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentIndex
+                  ? 'w-8 h-2 bg-white'
+                  : 'w-2 h-2 bg-white/50 hover:bg-white/75'
+              }`}
+            />
+          ))}
         </div>
       </div>
 
