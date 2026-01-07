@@ -128,47 +128,59 @@ const Login = () => {
     setSocialLoading("google");
     setError("");
 
+    // 1. Get the ID
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+    // 2. SAFETY CHECK: Stop if ID is missing or is the placeholder
+    if (!clientId || clientId === "your-google-client-id") {
+      setError("Google Login is not configured in this environment.");
+      setSocialLoading("");
+      return; 
+    }
+
     try {
-      // Open Google OAuth popup
       const googleAuthUrl = "https://accounts.google.com/o/oauth2/v2/auth";
       const redirectUri = window.location.origin + "/auth/google/callback";
 
       const params = new URLSearchParams({
-        client_id:
-          process.env.REACT_APP_GOOGLE_CLIENT_ID || "your-google-client-id",
+        client_id: clientId, // Use the variable, NOT the hardcoded fallback
         redirect_uri: redirectUri,
         response_type: "code",
         scope: "email profile",
         prompt: "select_account",
       });
 
-      // Open the Google login popup
       window.location.href = `${googleAuthUrl}?${params.toString()}`;
     } catch (err) {
       setError("Google login failed. Please try again.");
       setSocialLoading("");
     }
   };
-
   // Handle Facebook login
   const handleFacebookLogin = async () => {
     setSocialLoading("facebook");
     setError("");
 
+    const appId = process.env.REACT_APP_FACEBOOK_APP_ID;
+
+    // SAFETY CHECK
+    if (!appId || appId === "your-facebook-app-id") {
+      setError("Facebook Login is not configured in this environment.");
+      setSocialLoading("");
+      return;
+    }
+
     try {
-      // Facebook login URL and parameters
       const fbAuthUrl = "https://www.facebook.com/v12.0/dialog/oauth";
       const redirectUri = window.location.origin + "/auth/facebook/callback";
 
       const params = new URLSearchParams({
-        client_id:
-          process.env.REACT_APP_FACEBOOK_APP_ID || "your-facebook-app-id",
+        client_id: appId,
         redirect_uri: redirectUri,
         response_type: "code",
         scope: "email,public_profile",
       });
 
-      // Redirect to Facebook login
       window.location.href = `${fbAuthUrl}?${params.toString()}`;
     } catch (err) {
       setError("Facebook login failed. Please try again.");
