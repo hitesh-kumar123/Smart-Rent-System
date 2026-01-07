@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, Calendar, User, Share2, Bookmark } from 'lucide-react';
-import { blogs } from '../data/blogs';
+import { blogs } from '../data/blog';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 
 const BlogPost = () => {

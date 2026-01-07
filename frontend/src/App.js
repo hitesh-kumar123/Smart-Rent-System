@@ -30,6 +30,7 @@ import Cookies from "./pages/Cookies";
 import ResetPassword from "./pages/ResetPassword";
 import Map from "./pages/Map";
 import PropertyMap from "./pages/PropertyMap";
+import BlogPost from "./pages/BlogPost"
 // Component to protect routes that require authentication
 import ProtectedRoute from "./components/ProtectedRoute";
 // Import ScrollToTop component
