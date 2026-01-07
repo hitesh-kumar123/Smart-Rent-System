@@ -25,7 +25,7 @@ Create `.env` file:
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/database
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/<db>
 JWT_SECRET=your-secret-key
 JWT_EXPIRE=7d
 CLOUDINARY_NAME=your-cloudinary-name

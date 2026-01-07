@@ -1,7 +1,7 @@
 # 🏡 Smart Rent System
 
 <div align="center">
-  <img src="assets/srm_banner.png" alt="Smart-Rent Banner" width="100%">
+  <img src="assets/readme-banner.png" alt="Smart-Rent Banner" width="100%">
 </div>
 
 **Revolutionizing the rental experience through technology and community**
