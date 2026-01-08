@@ -1,210 +1,569 @@
-# Code of Conduct
+# 📜 Code of Conduct
 
-## Our Pledge
+<p align="center">
+  <img src="https://media.giphy.com/media/hVEBWRInEvNOEVS18i/giphy.gif" width="380"/>
+</p>
 
-We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.
+<div align="center">
 
-We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
+[![Community](https://img.shields.io/badge/Community-Inclusive-brightgreen?style=for-the-badge)](CODE_OF_CONDUCT.md)
+[![Safe Space](https://img.shields.io/badge/Safe_Space-Guaranteed-blue?style=for-the-badge)](CODE_OF_CONDUCT.md)
+[![Respect](https://img.shields.io/badge/Respect-Always-orange?style=for-the-badge)](CODE_OF_CONDUCT.md)
 
----
+</div>
 
-## Our Standards
+## 👋 Welcome to Smart-Rent
 
-Examples of behavior that contributes to a positive environment for our community include:
+**Smart Rent System** is an open-source project built for **learning, collaboration, and real-world software development**.  
+We are committed to maintaining a **respectful, inclusive, and safe environment** for everyone.
 
-- **Demonstrating empathy and kindness** toward other people
-- **Being respectful** of differing opinions, viewpoints, and experiences
-- **Giving and gracefully accepting constructive feedback**
-- **Accepting responsibility** and apologizing to those affected by our mistakes, and learning from the experience
-- **Focusing on what is best** not just for us as individuals, but for the overall community
-- **Showing concern for the community** we are building together
-- **Using welcoming and inclusive language**
-- **Listening actively** to others and trying to understand their perspective
-- **Collaborating** with other community members
-- **Supporting new members** and helping them get started
+🌱 Whether you're a **first-time contributor** or an **experienced developer**, you are welcome here.
 
-Examples of unacceptable behavior include:
+<div align="center">
 
-- **Harassment** of any kind, including but not limited to: unwelcome sexual attention, sustained disruption of discussions, or threats of violence
-- **Discriminatory behavior and language** based on any of the characteristics listed in Our Pledge
-- **Bullying, intimidation, or deliberate exclusion** of others
-- **Insults or put-downs** directed at other community members
-- **Trolling or bad-faith engagement** with the community
-- **Spam or excessive self-promotion** without community consent
-- **Publishing others' private information** without explicit permission (doxxing)
-- **Sexual or violent language** or imagery
-- **Unwelcome sexual advances** or harassment
-- **Retaliatory actions** against individuals for reporting violations
-- **Any other conduct which could reasonably be considered inappropriate** in a professional setting
+```
+╔════════════════════════════════════════════════════════════╗
+║  "In diversity there is beauty and there is strength."    ║
+║                        - Maya Angelou                      ║
+╚════════════════════════════════════════════════════════════╝
+```
+
+</div>
 
 ---
 
-## Enforcement Responsibilities
+## 🎯 Our Community Promise
 
-Community leaders are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.
+We, as contributors and maintainers of **Smart-Rent**, pledge to make participation in our community a **harassment-free experience** for everyone, regardless of:
 
-Community leaders have the right and responsibility to:
+<table>
+<tr>
+<td width="33%">
 
-- **Remove, edit, or reject** comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct
-- **Temporarily or permanently ban** any contributor for behaviors that they deem inappropriate, threatening, offensive, or harmful
-- **Explain the reason** for moderation decisions when appropriate
+🌍 **Identity**
+- Age  
+- Gender identity and expression  
+- Sexual identity and orientation  
+- Race & Ethnicity
+- Religion
 
-Community leaders will communicate the reason for any moderation action when possible and appropriate to do so.
+</td>
+<td width="33%">
 
----
+🎓 **Background**
+- Level of experience  
+- Technical background
+- Nationality  
+- Socioeconomic status
+- Education level
 
-## Scope
+</td>
+<td width="34%">
 
-This Code of Conduct applies in all community spaces, including but not limited to:
+💫 **Physical Attributes**
+- Body size  
+- Disability  
+- Personal appearance
+- Neurodiversity
+- Health conditions
 
-- **GitHub repository** - Issues, pull requests, discussions, code reviews
-- **Project spaces** - Any official or community-run spaces dedicated to the Smart-Rent project
-- **Online communication** - GitHub discussions, mailing lists, social media channels related to the project
-- **Offline events** - Conferences, meetups, workshops, or other events organized by the community
-- **Public spaces** - When an individual is representing the project or its community (e.g., using a project email address, speaking at conferences, posting on social media as a representative)
+</td>
+</tr>
+</table>
 
-This Code of Conduct also applies outside these spaces in cases where conduct has a direct, negative impact on the safety and well-being of community members or the project's health.
+<div align="center">
 
----
+### ✨ Diversity strengthens our community. Respect keeps it healthy.
 
-## Enforcement
-
-### Reporting Violations
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement.
-
-**Report violations by emailing:**
-
-- **Email**: `conduct@smart-rent-project.com` (placeholder - customize with actual email)
-- **Or contact**: Project Maintainers on GitHub
-
-**When reporting, please include:**
-
-- Your contact information
-- Names (real, nicknames, or pseudonyms) of any individuals involved
-- Description of the incident
-- The context where the incident occurred
-- Any additional details that would be helpful
-
-**All complaints will be:**
-
-- Reviewed promptly and impartially
-- Kept confidential to the extent possible
-- Investigated thoroughly
-- Responded to in writing
-
-Community leaders who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project leadership.
+</div>
 
 ---
 
-## Enforcement Guidelines
+## ✅ Expected Behavior
 
-Community leaders will follow these Community Impact Guidelines in determining the consequences for any action they deem in violation of this Code of Conduct:
+<p align="center">
+  <img src="https://media.giphy.com/media/l0HlHFRbmaZtBRhXG/giphy.gif" width="300"/>
+</p>
 
-### 1. Correction
+All participants are expected to:
 
-**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+<table>
+<tr>
+<td width="50%">
 
-**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+### 🤝 Communication
+- 🤝 Communicate respectfully and professionally  
+- 💬 Use inclusive and welcoming language  
+- 🗣️ Listen actively and attentively
+- 🎯 Provide constructive, actionable feedback
 
----
+</td>
+<td width="50%">
 
-### 2. Warning
+### 🌟 Collaboration
+- 🧠 Be open to constructive feedback  
+- 🌱 Support learning and collaboration  
+- 🧾 Credit others for their contributions  
+- 🕊 Be patient and helpful, especially with beginners
 
-**Community Impact**: A violation through a single incident or series of actions.
+</td>
+</tr>
+</table>
 
-**Consequence**: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.
+<div align="center">
 
----
+### 💡 Remember
 
-### 3. Temporary Ban
+```
+┌─────────────────────────────────────────────┐
+│  Mistakes are acceptable.                   │
+│  Disrespect is not.                         │
+└─────────────────────────────────────────────┘
+```
 
-**Community Impact**: A serious violation of community standards, including sustained inappropriate behavior.
+</div>
 
-**Consequence**: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.
+### 🎨 Examples of Stellar Behavior
 
----
-
-### 4. Permanent Ban
-
-**Community Impact**: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
-
-**Consequence**: A permanent ban from any sort of public interaction within the community.
-
----
-
-## Appeals
-
-If you believe a moderation decision was made in error or was unjust, you may appeal the decision by:
-
-1. **Sending a detailed appeal** to `conduct@smart-rent-project.com` (placeholder - customize)
-2. **Explaining your perspective** on the decision
-3. **Providing any additional context** that was missed in the original investigation
-
-Appeals will be reviewed by project leadership and a response will be provided within 14 days.
-
----
-
-## Attribution
-
-This Code of Conduct is adapted from the **Contributor Covenant, version 2.1**, available at [https://www.contributor-covenant.org/version/2/1/code_of_conduct/](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
-
-Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity).
-
-For answers to common questions about this code of conduct, see the FAQ at [https://www.contributor-covenant.org/faq](https://www.contributor-covenant.org/faq). Translations are available at [https://www.contributor-covenant.org/translations](https://www.contributor-covenant.org/translations).
-
----
-
-## Questions?
-
-If you have any questions about this Code of Conduct, please feel free to:
-
-- **Open an issue** on GitHub (use label: `question`)
-- **Contact project maintainers** at `conduct@smart-rent-project.com`
-- **Review the FAQ** at [Contributor Covenant FAQ](https://www.contributor-covenant.org/faq)
+> **The Helpful Mentor**: Taking time to explain concepts to newcomers without making them feel inadequate
+> 
+> **The Gracious Reviewer**: Providing code feedback that educates rather than criticizes
+> 
+> **The Team Player**: Celebrating others' merged PRs and contributions
+> 
+> **The Bridge Builder**: Helping resolve conflicts between community members with empathy
+> 
+> **The Knowledge Sharer**: Writing documentation that makes complex topics accessible
 
 ---
 
-## Community Health
+## 🚫 Unacceptable Behavior
 
-We believe that maintaining a healthy community is essential to the success of the Smart-Rent project. By following this Code of Conduct, you help us create an environment where:
+<p align="center">
+  <img src="https://media.giphy.com/media/STfLOU6iRBRunMciZv/giphy.gif" width="300"/>
+</p>
 
-- ✅ Everyone feels welcome and valued
-- ✅ Diverse perspectives are respected and heard
-- ✅ Constructive collaboration thrives
-- ✅ Innovation and creativity flourish
-- ✅ Trust and psychological safety are maintained
-- ✅ The project can grow sustainably
+The following behavior is **not tolerated**:
 
-Thank you for helping us maintain a positive community!
+<div align="center">
+
+```
+⚠️  ZERO TOLERANCE POLICY  ⚠️
+```
+
+</div>
+
+### 🔴 Serious Violations
+
+<table>
+<tr>
+<td width="50%">
+
+- ❌ Harassment, discrimination, or bullying  
+- ❌ Personal attacks or hateful language  
+- ❌ Sexually explicit or violent content  
+- ❌ Trolling, spamming, or disruption  
+
+</td>
+<td width="50%">
+
+- ❌ Plagiarism or misrepresentation  
+- ❌ Unwanted sexual attention  
+- ❌ Sharing private information without consent  
+- ❌ Doxxing or stalking
+
+</td>
+</tr>
+</table>
+
+### 📉 The Impact Scale
+
+```
+┌──────────────────────────────────────────────────────────┐
+│ Minor → Moderate → Serious → Severe                      │
+│   ↓         ↓          ↓         ↓                       │
+│ Warning  Restriction  Temp Ban  Permanent Ban            │
+└──────────────────────────────────────────────────────────┘
+```
+
+<div align="center">
+
+**Violations may result in immediate action.**
+
+</div>
 
 ---
 
-## Related Resources
+## 🛡 Maintainer Responsibilities
 
-- [Smart-Rent CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution guidelines
-- [Smart-Rent Community Guidelines](./CONTRIBUTING.md#communication) - How to communicate
-- [Contributor Covenant](https://www.contributor-covenant.org/) - Official Code of Conduct
-- [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/) - Additional best practices
+<p align="center">
+  <img src="https://media.giphy.com/media/3o7TKsQ8MkXJV0EVNS/giphy.gif" width="300"/>
+</p>
+
+Project maintainers are responsible for:
+
+<div align="center">
+
+| Responsibility | Description |
+|----------------|-------------|
+| ⚖️ **Fair Enforcement** | Applying rules consistently without bias |
+| ⏱️ **Timely Response** | Addressing issues within 24-48 hours |
+| 🔐 **Privacy Protection** | Keeping reporter identities confidential |
+| 🧹 **Content Moderation** | Removing violations promptly |
+| 📢 **Clear Communication** | Explaining decisions transparently |
+| 🎓 **Community Education** | Helping members understand expectations |
+
+</div>
+
+### 🎯 Maintainer Pledge
+
+```
+We commit to:
+✓ Leading by example
+✓ Listening with empathy
+✓ Deciding with fairness
+✓ Acting with integrity
+```
+
+Maintainers may edit, remove, or reject contributions that do not align with these values.
 
 ---
 
-**Version**: 2.1 (Based on Contributor Covenant)  
-**Effective Date**: December 3, 2025  
-**Last Updated**: December 3, 2025
+## 📢 Reporting Concerns
+
+<p align="center">
+  <img src="https://media.giphy.com/media/l4FGpP4lxGGgK5CBW/giphy.gif" width="300"/>
+</p>
+
+If you experience or witness unacceptable behavior, please report it.
+
+<div align="center">
+
+### 📧 Contact Information
+
+**Email:** `hiteshdevkumar2003@gmail.com`
+
+```
+┌─────────────────────────────────────────┐
+│  Your voice matters.                    │
+│  Your safety matters.                   │
+│  We're here to help.                    │
+└─────────────────────────────────────────┘
+```
+
+</div>
+
+### 📝 What to Include in Your Report
+
+<table>
+<tr>
+<td width="50%">
+
+**Essential Information:**
+- 📍 What happened (detailed description)
+- 👥 Who was involved (names/usernames)
+- 📅 When it occurred (date and time)
+- 🔗 Where it happened (links/screenshots)
+
+</td>
+<td width="50%">
+
+**Optional but Helpful:**
+- 👁️ Were there witnesses?
+- 📜 Any previous incidents?
+- 🎯 What outcome do you seek?
+- 📱 Your preferred contact method
+
+</td>
+</tr>
+</table>
+
+### 🔄 What Happens Next?
+
+```
+Step 1: Acknowledgment (24-48 hrs)
+   ↓
+Step 2: Investigation (thorough review)
+   ↓
+Step 3: Communication (status updates)
+   ↓
+Step 4: Resolution (appropriate action)
+   ↓
+Step 5: Follow-up (ensuring safety)
+```
+
+<div align="center">
+
+**All reports are handled confidentially.**
+
+[![Confidential](https://img.shields.io/badge/100%25-Confidential-red?style=for-the-badge&logo=lock)](CODE_OF_CONDUCT.md)
+
+</div>
 
 ---
 
-## Quick Reference
+## ⚖ Enforcement Process
 
-| What to Do                       | Resources                                                        |
-| -------------------------------- | ---------------------------------------------------------------- |
-| **Report a violation**           | Email: `conduct@smart-rent-project.com`                          |
-| **Read contribution guidelines** | [CONTRIBUTING.md](./CONTRIBUTING.md)                             |
-| **Learn about the project**      | [README.md](./README.md)                                         |
-| **Ask questions**                | Open a GitHub issue with label: `question`                       |
-| **Appeal a decision**            | Email: `conduct@smart-rent-project.com` with "APPEAL" in subject |
+<p align="center">
+  <img src="https://media.giphy.com/media/3oz8xBwn8AU6Bp1hKM/giphy.gif" width="300"/>
+</p>
+
+Depending on severity and context, maintainers may take:
+
+<div align="center">
+
+### 📊 Enforcement Ladder
+
+</div>
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║  Level 1: CORRECTION                                          ║
+║  • Private warning                                            ║
+║  • Clarification of violation                                 ║
+║  • No public record                                           ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Level 2: WARNING                                             ║
+║  • Formal written warning                                     ║
+║  • Consequences outlined                                      ║
+║  • Limited interaction period                                 ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Level 3: TEMPORARY RESTRICTION                               ║
+║  • Temporary ban (duration specified)                         ║
+║  • No community interaction                                   ║
+║  • Review before reinstatement                                ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Level 4: PERMANENT REMOVAL                                   ║
+║  • Permanent ban from all spaces                              ║
+║  • No future participation                                    ║
+║  • Public documentation (if severe)                           ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+<div align="center">
+
+### ⚡ Enforcement Principles
+
+| Principle | What It Means |
+|-----------|---------------|
+| 🎯 **Proportionate** | Punishment fits the violation |
+| 🔄 **Consistent** | Same rules for everyone |
+| 🤝 **Restorative** | Focus on growth, not just punishment |
+| 📊 **Transparent** | Decisions explained clearly |
+
+</div>
+
+Decisions are made **fairly and responsibly**.
 
 ---
 
-**Smart-Rent Community** - Building a respectful and inclusive open-source project together. 🤝
+## 🌐 Scope
+
+<p align="center">
+  <img src="https://media.giphy.com/media/l0HlQXlQ3nHyLMvte/giphy.gif" width="300"/>
+</p>
+
+This Code of Conduct applies to all **Smart Rent System project spaces**, including:
+
+<div align="center">
+
+### 💻 Digital Spaces
+
+</div>
+
+<table>
+<tr>
+<td width="33%">
+
+**📦 Development**
+- GitHub repositories
+- Issues & Pull Requests  
+- Code reviews
+- Discussions
+- Wikis
+
+</td>
+<td width="33%">
+
+**💬 Communication**
+- Discord/Slack channels
+- Email lists
+- Video meetings
+- Social media
+- Forums
+
+</td>
+<td width="34%">
+
+**🎓 Events**
+- Workshops
+- Hackathons
+- Meetups
+- Conferences
+- Webinars
+
+</td>
+</tr>
+</table>
+
+<div align="center">
+
+### 🏢 When Representing Smart-Rent
+
+```
+✓ Using official project email
+✓ Posting via official social media
+✓ Acting as appointed representative
+✓ Speaking at events on behalf of project
+```
+
+</div>
+
+---
+
+## 📚 Attribution
+
+<p align="center">
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" width="300"/>
+</p>
+
+This Code of Conduct is inspired by:
+
+<div align="center">
+
+| Source | Contribution |
+|--------|--------------|
+| 🤝 **[Contributor Covenant](https://www.contributor-covenant.org)** | Foundational pledge framework |
+| 🦊 **[Mozilla Community Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/)** | Comprehensive participation standards |
+| 🐍 **[Django Code of Conduct](https://www.djangoproject.com/conduct/)** | Enforcement process guidance |
+
+</div>
+
+<div align="center">
+
+```
+┌───────────────────────────────────────────────────────┐
+│  Standing on the shoulders of giants to build a      │
+│  better community for everyone.                       │
+└───────────────────────────────────────────────────────┘
+```
+
+</div>
+
+---
+
+## 💡 Additional Resources
+
+<table>
+<tr>
+<td width="50%">
+
+### 🤔 Before Reporting
+
+1. **Consider Direct Communication**
+   - Sometimes a respectful DM resolves things
+   - Assume good intent initially
+   
+2. **Document the Incident**
+   - Take screenshots if needed
+   - Note dates and times
+   
+3. **Seek Support**
+   - Talk to trusted community members
+   - You're not alone
+
+</td>
+<td width="50%">
+
+### 🧠 Mental Health Matters
+
+**Open source should be rewarding!**
+
+- 🌿 Take breaks when needed
+- 🚧 Set boundaries on availability
+- 💬 Communicate overwhelm early
+- 🎯 Remember: learning, not perfection
+
+**Need help?** Reach out to maintainers privately.
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🌟 Final Note
+
+<p align="center">
+  <img src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" width="360"/>
+</p>
+
+**Smart-Rent is built by people who learn together, build together, and grow together.**
+
+By participating, you agree to uphold these standards and help create a welcoming community for everyone 💙
+
+<div align="center">
+
+### 🎯 Our Community Vision
+
+```
+     🌱 Learn Together
+        ↓
+     🤝 Build Together  
+        ↓
+     📈 Grow Together
+        ↓
+     🌟 Succeed Together
+```
+
+### Core Values in Action
+
+| Value | How We Live It |
+|-------|----------------|
+| 🎓 **Learning** | Every question is valid, every mistake is a lesson |
+| 🤝 **Collaboration** | We rise by lifting others |
+| 💪 **Growth** | Progress over perfection |
+| 🌈 **Diversity** | Different perspectives make us stronger |
+| ❤️ **Respect** | Non-negotiable, always |
+
+</div>
+
+---
+
+<div align="center">
+
+## 📞 Need Help?
+
+**Questions about this Code of Conduct?**  
+**Witnessed something concerning?**  
+**Want to discuss community standards?**
+
+### Contact Us
+
+📧 **Email:** `hiteshdevkumar2003@gmail.com`
+
+```
+╔════════════════════════════════════════════╗
+║  We're here to listen.                     ║
+║  We're here to help.                       ║
+║  We're here to make this community great.  ║
+╚════════════════════════════════════════════╝
+```
+
+### Document Information
+
+**Version:** 1.0  
+**Last Updated:** December 2025  
+**Review Cycle:** Annually or as needed
+
+---
+
+**Thank you for being part of Smart-Rent!** 🚀
+
+[![Made with Love](https://img.shields.io/badge/Made_with-Love-red?style=for-the-badge&logo=heart)](https://github.com/hitesh-kumar123/Smart-Rent)
+[![Community First](https://img.shields.io/badge/Community-First-blue?style=for-the-badge&logo=people)](CODE_OF_CONDUCT.md)
+[![Open Source](https://img.shields.io/badge/Open-Source-green?style=for-the-badge&logo=opensource)](LICENSE)
+
+**[⬆ Back to Top](#-code-of-conduct)**
+
+</div>

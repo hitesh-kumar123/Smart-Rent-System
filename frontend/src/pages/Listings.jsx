@@ -10,6 +10,7 @@ const Listings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
+  const [wishlistIds, setWishlistIds] = useState(new Set());
 
   // App settings for language and currency
   const {
@@ -29,6 +30,7 @@ const Listings = () => {
     propertyType: "",
     bedrooms: "",
     location: "",
+    experience: "",
     language: language, // Add language to filters
   });
   const [activeCategory, setActiveCategory] = useState("all");
@@ -64,6 +66,41 @@ const Listings = () => {
    * Scrolls the categories container left or right
    * @param {string} direction - Either "left" or "right"
    */
+  // API is called to add this or remove this from the Wishlist
+  const toggleWishlist = async (e, propertyId) => {
+    e.stopPropagation();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await api.post(
+        `/api/wishlist/${propertyId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setWishlistIds((prev) => {
+        const updated = new Set(prev);
+        if (updated.has(propertyId)) {
+          updated.delete(propertyId);
+        } else {
+          updated.add(propertyId);
+        }
+        return updated;
+      });
+    } catch (err) {
+      console.error("Failed to toggle wishlist", err);
+    }
+  };
+
   const scrollCategories = (direction) => {
     const container = categoriesContainerRef.current;
     if (!container) return;
@@ -83,7 +120,29 @@ const Listings = () => {
    * Reset all filters when component mounts
    */
   useEffect(() => {
-    console.log("FILTER RESET EFFECT: Resetting all filters on mount");
+    const fetchWishlist = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const res = await api.get("/api/wishlist", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const ids = new Set(res.data.map((item) => item._id));
+        setWishlistIds(ids);
+      } catch (err) {
+        console.error("Failed to fetch wishlist", err);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+
+  useEffect(() => {
+   
     // Reset all filters when the page loads to ensure all properties show
     setFilters({
       priceMin: "",
@@ -91,6 +150,7 @@ const Listings = () => {
       propertyType: "",
       bedrooms: "",
       location: "",
+      experience: "",
       language: language, // Add language to filters
     });
     setActiveCategory("all");
@@ -119,17 +179,18 @@ const Listings = () => {
     const queryParams = new URLSearchParams(location.search);
     const locationParam = queryParams.get("location");
     const typeParam = queryParams.get("type"); // Get the type parameter from URL
+    const experienceParam = queryParams.get("experience"); // Get the experience parameter from URL
 
     // Update filters if parameters exist
     let updatedFilters = { ...filters };
 
     if (locationParam) {
-      console.log("Location param found:", locationParam);
+
       updatedFilters.location = locationParam;
     }
 
     if (typeParam) {
-      console.log("Property type param found:", typeParam);
+   
 
       // Convert URL parameter to match property categories in the system
       let propertyType = "";
@@ -152,6 +213,11 @@ const Listings = () => {
 
       updatedFilters.propertyType = propertyType;
       setActiveCategory(propertyType);
+    }
+
+    if (experienceParam) {
+      console.log("Experience param found:", experienceParam);
+      updatedFilters.experience = experienceParam;
     }
 
     // Update filters with all changes
@@ -182,7 +248,7 @@ const Listings = () => {
           )}`;
         }
 
-        // Make API call to fetch properties
+        // Make API call to fetch properties (timeout is handled by axios config)
         const response = await api.get(
           `/api/properties${queryString ? `?${queryString}` : ""}`
         );
@@ -192,8 +258,8 @@ const Listings = () => {
           const propsArray = Array.isArray(response.data)
             ? response.data
             : Array.isArray(response.data.properties)
-            ? response.data.properties
-            : null;
+              ? response.data.properties
+              : null;
 
           if (propsArray) {
             setProperties(propsArray);
@@ -201,39 +267,50 @@ const Listings = () => {
             // prefer pagination.total when provided
             const total =
               response.data.pagination &&
-              typeof response.data.pagination.total === "number"
+                typeof response.data.pagination.total === "number"
                 ? response.data.pagination.total
                 : propsArray.length;
 
             setTotalCount(total);
             setIsApiData(true);
           } else {
-            console.log(
-              "Using dummy data (API returned invalid data)",
-              response.data
-            );
+            
             setIsApiData(false);
           }
         } else {
-          console.log("No data returned from API");
+          
           setIsApiData(false);
         }
         setLoading(false);
       } catch (err) {
         console.error("Error fetching properties:", err);
-        setError(
-          "Unable to load properties. Please try again later or check your connection."
-        );
-        // Fall back to dummy data
+        
+        // If it's a timeout or network error, show a more helpful message
+        if (err.code === "ECONNABORTED" || err.message?.includes("timeout")) {
+          setError(
+            "The server is taking too long to respond. Please check your connection or try again later."
+          );
+        } else if (err.response?.status === 404 || err.code === "ERR_NETWORK") {
+          setError(
+            "Unable to connect to the server. Please check your connection."
+          );
+        } else {
+          setError(
+            "Unable to load properties. Please try again later or check your connection."
+          );
+        }
+        
+        // Fall back to empty array - experience filter will handle showing results
         setProperties([]);
         setTotalCount(0);
         setIsApiData(false);
+        setLoading(false);
       }
     };
 
     fetchProperties();
   }, [location.search, language]);
-  console.log(properties);
+
   /**
    * Handles changes to the filter inputs
    * @param {Event} e - The change event
@@ -244,6 +321,62 @@ const Listings = () => {
       ...filters,
       [name]: value,
     });
+  };
+
+  /**
+   * Checks if a property matches the experience filter based on keywords
+   * @param {Object} property - The property object to check
+   * @param {string} experience - The experience type (city-tours, outdoor-adventures, local-cuisine)
+   * @returns {boolean} - True if property matches the experience
+   */
+  const matchesExperience = (property, experience) => {
+    if (!experience) return true;
+
+    const title = (property.title || "").toLowerCase();
+    const description = (property.description || "").toLowerCase();
+    const category = (property.category || "").toLowerCase();
+    const propertyType = (property.propertyType || "").toLowerCase();
+    const searchText = `${title} ${description} ${category} ${propertyType}`;
+
+    switch (experience.toLowerCase()) {
+      case "city-tours":
+        return (
+          searchText.includes("city") ||
+          searchText.includes("tour") ||
+          searchText.includes("urban") ||
+          searchText.includes("downtown") ||
+          searchText.includes("sightseeing") ||
+          searchText.includes("metropolitan") ||
+          searchText.includes("downtown")
+        );
+      case "outdoor-adventures":
+        return (
+          searchText.includes("outdoor") ||
+          searchText.includes("adventure") ||
+          searchText.includes("hiking") ||
+          searchText.includes("camping") ||
+          searchText.includes("nature") ||
+          searchText.includes("mountain") ||
+          searchText.includes("trail") ||
+          searchText.includes("forest") ||
+          searchText.includes("wilderness") ||
+          searchText.includes("national park")
+        );
+      case "local-cuisine":
+        return (
+          searchText.includes("cuisine") ||
+          searchText.includes("food") ||
+          searchText.includes("restaurant") ||
+          searchText.includes("cooking") ||
+          searchText.includes("culinary") ||
+          searchText.includes("dining") ||
+          searchText.includes("kitchen") ||
+          searchText.includes("gourmet") ||
+          searchText.includes("local food")
+        );
+      default:
+        return true;
+    }
   };
 
   // Apply category filter
@@ -270,15 +403,7 @@ const Listings = () => {
       activeCategory === "Desert" ||
       activeCategory === "Ski-in/out" ||
       activeCategory === "Vineyard"
-    ) {
-      console.log(`Checking match for ${activeCategory}:`, {
-        property: property.title,
-        propertyCategory,
-        propertyType,
-        activeCat,
-      });
-    }
-
+    ) 
     // Match based on property category and type
     // Case-insensitive matching for various property types
     switch (activeCat) {
@@ -416,23 +541,23 @@ const Listings = () => {
         );
 
       case "arctic":
-        console.log("Arctic match check:", propertyCategory, propertyType);
+    
         return (
           propertyCategory.includes("arctic") || propertyType.includes("arctic")
         );
 
       case "desert":
-        console.log("Desert match check:", propertyCategory, propertyType);
+   
         return (
           propertyCategory.includes("desert") || propertyType.includes("desert")
         );
 
       case "ski-in/out":
-        console.log("Ski match check:", propertyCategory, propertyType);
+
         return propertyCategory.includes("ski") || propertyType.includes("ski");
 
       case "vineyard":
-        console.log("Vineyard match check:", propertyCategory, propertyType);
+   
         return (
           propertyCategory.includes("vineyard") ||
           propertyType.includes("vineyard") ||
@@ -452,6 +577,11 @@ const Listings = () => {
   // Apply remaining filters (price, amenities, etc.)
   const fullyFilteredProperties = filteredProperties.filter((property) => {
     let matches = true;
+
+    // Experience filter
+    if (filters.experience && !matchesExperience(property, filters.experience)) {
+      return false;
+    }
 
     // Price filters
     if (filters.priceMin && property.price < parseInt(filters.priceMin)) {
@@ -600,70 +730,28 @@ const Listings = () => {
     const usingApiData = isApiData !== undefined ? isApiData : false;
 
     if (activeCategory !== "all") {
-      console.log(`----- CATEGORY FILTER: ${activeCategory} -----`);
-      console.log(`MongoDB data?: ${usingApiData ? "YES" : "NO"}`);
-      console.log(
-        `Properties count: ${sortedProperties.length} out of ${properties.length}`
-      );
-
       // Check the first few properties and their categories
       if (properties.length > 0) {
-        console.log("PROPERTY SAMPLE DATA:");
+       
         properties.slice(0, 3).forEach((prop, i) => {
-          console.log(`Property ${i + 1}:`, {
-            id: prop._id,
-            title: prop.title,
-            propertyType: prop.propertyType,
-            category: prop.category,
-            hasImage: !!prop.image,
-            imageValue: prop.image,
-            hasImages: prop.images && prop.images.length > 0,
-            imagesCount: prop.images ? prop.images.length : 0,
-            imagesData: prop.images,
-          });
         });
       }
 
       // Check which properties matched the category filter
-      console.log("CATEGORY MATCHED PROPERTIES:");
+
       sortedProperties.slice(0, 3).forEach((property, idx) => {
-        console.log(`Matched ${idx + 1}:`, {
-          title: property.title,
-          propertyType: property.propertyType,
-          category: property.category,
-          match:
-            activeCategory === property.propertyType ||
-            activeCategory === property.category,
-        });
+      
       });
     }
   }, [activeCategory, sortedProperties.length, properties.length, isApiData]);
 
-  console.log("BEFORE FILTERS - Total properties count:", properties.length);
-  console.log(
-    "AFTER FILTERS - Filtered properties count:",
-    sortedProperties.length
-  );
+ 
 
   // Log filter state
-  console.log("Current filter state:", {
-    priceMin: filters.priceMin,
-    priceMax: filters.priceMax,
-    bedrooms: filters.bedrooms,
-    location: filters.location,
-    activeCategory: activeCategory,
-    amenityFilters: amenityFilters,
-  });
-
   // Debug filtered properties and their images
-  console.log("Filtered Properties Count:", sortedProperties.length);
-  console.log("First few filtered properties with images:");
+
+
   sortedProperties.slice(0, 3).forEach((property, idx) => {
-    console.log(`Property ${idx}:`, {
-      title: property.title,
-      imageCount: property.images ? property.images.length : 0,
-      images: property.images || [],
-    });
   });
 
   /**
@@ -694,6 +782,7 @@ const Listings = () => {
     if (filters.priceMax) count++;
     if (filters.bedrooms) count++;
     if (filters.location) count++;
+    if (filters.experience) count++;
     if (activeCategory !== "all") count++;
 
     return count;
@@ -709,6 +798,7 @@ const Listings = () => {
       propertyType: "",
       bedrooms: "",
       location: "",
+      experience: "",
       language: language, // Add language to filters
     });
     setAmenityFilters({
@@ -727,6 +817,10 @@ const Listings = () => {
       gym: false,
     });
     setActiveCategory("all");
+    // Clear experience from URL
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.delete("experience");
+    navigate(`/listings?${queryParams.toString()}`, { replace: true });
   };
 
   /**
@@ -808,7 +902,6 @@ const Listings = () => {
    * @param {string} categoryId - The ID of the clicked category
    */
   const handleCategoryClick = (categoryId) => {
-    console.log("Category clicked:", categoryId);
 
     // Set the active category
     setActiveCategory(categoryId);
@@ -836,7 +929,7 @@ const Listings = () => {
   const navigateToPropertyDetail = (propertyId, e) => {
     if (e) e.stopPropagation();
 
-    console.log("Navigating to property with ID:", propertyId);
+  
 
     // Ensure propertyId is a string and is valid
     const stringId = String(propertyId).trim();
@@ -860,7 +953,7 @@ const Listings = () => {
         // Also store the property ID separately for redundancy
         sessionStorage.setItem("lastViewedPropertyId", stringId);
 
-        console.log("Stored complete property data:", currentProperty);
+      
       } catch (err) {
         console.error("Failed to store property in session storage:", err);
       }
@@ -917,11 +1010,25 @@ const Listings = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50">
-        <div className="text-primary-600 text-xl font-semibold flex items-center">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50">
+        <div className="text-primary-600 text-xl font-semibold flex items-center mb-4">
           <i className="fas fa-spinner fa-spin mr-3 text-2xl"></i>
           Loading properties...
         </div>
+        <p className="text-neutral-500 text-sm">
+          This may take a few seconds...
+        </p>
+        {filters.experience && (
+          <p className="text-neutral-400 text-xs mt-2">
+            Filtering for {filters.experience === "city-tours"
+              ? "City Tours"
+              : filters.experience === "outdoor-adventures"
+              ? "Outdoor Adventures"
+              : filters.experience === "local-cuisine"
+              ? "Local Cuisine"
+              : filters.experience}
+          </p>
+        )}
       </div>
     );
   }
@@ -965,7 +1072,7 @@ const Listings = () => {
                   {categories.map((category) => {
                     // Debug the category
                     if (activeCategory === category.id) {
-                      console.log(`Active category selected: ${category.id}`);
+                     
                     }
 
                     return (
@@ -979,18 +1086,16 @@ const Listings = () => {
                         }`}
                       >
                         <div
-                          className={`rounded-full p-2 mb-1 ${
-                            activeCategory === category.id
+                          className={`rounded-full p-2 mb-1 ${activeCategory === category.id
                               ? "bg-primary-50"
                               : "bg-neutral-50"
-                          }`}
+                            }`}
                         >
                           <i
-                            className={`${category.icon} text-lg ${
-                              activeCategory === category.id
+                            className={`${category.icon} text-lg ${activeCategory === category.id
                                 ? "text-primary-600"
                                 : "text-neutral-500"
-                            }`}
+                              }`}
                           ></i>
                         </div>
                         <span className="text-sm font-medium">
@@ -1153,11 +1258,10 @@ const Listings = () => {
                               language: lang.code,
                             });
                           }}
-                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
-                            language === lang.code
+                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${language === lang.code
                               ? "bg-primary-50 text-primary-600 font-medium border border-primary-200"
                               : "text-neutral-700 hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300"
-                          }`}
+                            }`}
                         >
                           <span>{lang.name}</span>
                         </button>
@@ -1378,6 +1482,7 @@ const Listings = () => {
                           propertyType: "",
                           bedrooms: "",
                           location: "",
+                          experience: "",
                           language: language, // Add language to filters
                         });
                         setAmenityFilters({
@@ -1396,6 +1501,10 @@ const Listings = () => {
                           gym: false,
                         });
                         setActiveCategory("all");
+                        // Clear experience from URL
+                        const queryParams = new URLSearchParams(location.search);
+                        queryParams.delete("experience");
+                        navigate(`/listings?${queryParams.toString()}`, { replace: true });
                       }}
                       className="flex-1 px-4 py-2 border border-neutral-300 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors duration-200"
                     >
@@ -1428,6 +1537,18 @@ const Listings = () => {
               in{" "}
               {categories.find((cat) => cat.id === activeCategory)?.label ||
                 activeCategory}
+            </span>
+          )}
+          {filters.experience && (
+            <span className="text-sm font-normal text-primary-600 ml-2">
+              for{" "}
+              {filters.experience === "city-tours"
+                ? "City Tours"
+                : filters.experience === "outdoor-adventures"
+                ? "Outdoor Adventures"
+                : filters.experience === "local-cuisine"
+                ? "Local Cuisine"
+                : filters.experience}
             </span>
           )}
         </h1>
@@ -1480,21 +1601,14 @@ const Listings = () => {
                 const propertyType =
                   property.propertyType || property.category || "";
                 const normalizedType = propertyType.trim().toLowerCase();
-
-                console.log("Looking for fallback image for:", {
-                  title: property.title,
-                  category: property.category,
-                  propertyType: property.propertyType,
-                  normalizedType,
-                });
               };
 
               // Ensure property has valid images array, use fallback if needed
               const propertyImages = hasValidImages
                 ? property.images
                 : hasValidImage
-                ? [property.image]
-                : [getCategoryImage()];
+                  ? [property.image]
+                  : [getCategoryImage()];
 
               return (
                 // Property card component
@@ -1545,13 +1659,14 @@ const Listings = () => {
                       {/* Favorite button */}
                       <button
                         className="absolute top-3 left-3 bg-white text-neutral-600 hover:text-primary-600 h-8 w-8 rounded-full flex items-center justify-center shadow-sm transition-colors duration-200"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Add favorite logic here
-                        }}
+                        onClick={(e) => toggleWishlist(e, property._id)}
                       >
-                        <i className="far fa-heart"></i>
+                        <i
+                          className={`${wishlistIds.has(property._id) ? "fas text-red-500" : "far"
+                            } fa-heart`}
+                        ></i>
                       </button>
+
                     </div>
 
                     {/* Property details section */}

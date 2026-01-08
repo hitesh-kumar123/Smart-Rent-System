@@ -1,340 +1,619 @@
-# Smart Rent - Property Rental Platform
+# 🏡 Smart Rent System
 
-A full-stack MERN application for managing property rentals, bookings, and communications between property owners and guests.
+<div align="center">
+  <img src="assets/readme-banner.png" alt="Smart-Rent Banner" width="100%">
+</div>
 
-## Overview
+**Revolutionizing the rental experience through technology and community**
 
-Smart Rent is a modern property rental platform that enables users to list properties, make bookings, manage reservations, and communicate with hosts. The application features real-time messaging, review systems, and a comprehensive admin panel.
+[![SWoC 2025](assets/Project%20Admin%20Badge.png)](https://swoc.tech)
+[![Contributors](https://img.shields.io/github/contributors/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/graphs/contributors)
+[![Stars](https://img.shields.io/github/stars/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/stargazers)
+[![Issues](https://img.shields.io/github/issues/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/issues)
+[![License](https://img.shields.io/github/license/hitesh-kumar123/Smart-Rent?style=flat-square)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/commits)
 
----
+[🚀 Live Demo](https://smartrentsystem.netlify.app/) • [📖 Documentation](#) • [🐛 Report Bug](https://github.com/hitesh-kumar123/Smart-Rent/issues) • [✨ Request Feature](https://github.com/hitesh-kumar123/Smart-Rent/issues)
 
-## Tech Stack
-
-### Backend
-
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MongoDB with Mongoose ODM
-- **Authentication:** JWT + Passport.js
-- **File Storage:** Cloudinary
-- **Real-time:** Socket.io
-- **Email:** Nodemailer
-- **Validation:** Joi
-- **Security:** Helmet, Express Mongo Sanitize
-
-### Frontend
-
-- **Library:** React 18
-- **Routing:** React Router v7
-- **Styling:** Tailwind CSS + PostCSS
-- **Maps:** Leaflet
-- **Icons:** React Icons, Heroicons, Lucide React
-- **HTTP Client:** Axios
-- **Build Tool:** Create React App
+</div>
 
 ---
 
-## Features
+## 📋 Table of Contents
 
-### User Features
+<details open>
+<summary>Click to expand</summary>
 
-- **Authentication:** Secure registration and login with JWT
-- **Property Listings:** Browse and search available properties
-- **Bookings:** Reserve properties with date selection
-- **Trip Management:** Track active bookings and booking history
-- **Messaging:** Real-time messaging with property hosts
-- **Reviews:** Leave and view property reviews
-- **Wishlist:** Save favorite properties
-- **Profile Management:** Update user profile and preferences
+- [🎯 Vision](#-vision)
+- [✨ Features](#-features)
+- [🛠️ Technology Stack](#️-technology-stack)
+- [📸 Screenshots](#-screenshots)
+- [🚀 Quick Start](#-quick-start)
+- [📚 Project Structure](#-project-structure)
+- [🔧 Configuration](#-configuration)
+- [🤝 Contributing](#-contributing)
+- [🗺️ Roadmap](#️-roadmap)
+- [👥 Community](#-community)
+- [📄 License](#-license)
+- [🙏 Acknowledgments](#-acknowledgments)
 
-### Host Features
-
-- **List Properties:** Create and manage property listings
-- **Booking Management:** View and manage guest bookings
-- **Communication:** Direct messaging with guests
-- **Analytics:** Track bookings and reviews
-
-### Admin Features
-
-- **User Management:** Manage user accounts
-- **Property Moderation:** Review and manage listings
-- **Booking Oversight:** Monitor all bookings
-- **Report Handling:** Manage user concerns and reports
+</details>
 
 ---
 
-## Project Structure
+## 🎯 Vision
+
+Smart Rent System is more than a rental platform—it's a **movement towards smarter, more transparent property transactions**. Built with modern web technologies and best practices, we're creating a space where property owners and travelers connect seamlessly.
+
+### 🌍 Our Mission
 
 ```
-smart-rent/
+Democratize property rentals by building an open-source platform that:
+✓ Prioritizes user experience and security
+✓ Fosters trust through verified reviews
+✓ Empowers developers to learn and contribute
+✓ Creates economic opportunities for hosts worldwide
+```
+
+### 🎓 Learning Hub
+
+As part of **Social Winter of Code (SWoC) 2026**, Smart Rent System serves as a comprehensive learning resource for developers mastering the MERN stack. Dive into real-world implementations of:
+
+- **RESTful API Design** with Express.js
+- **State Management** using Redux Toolkit
+- **Real-time Communication** with WebSockets
+- **Cloud Storage** integration with Cloudinary
+- **Authentication Flows** including OAuth 2.0
+- **Database Modeling** for complex relationships
+
+---
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%">
+
+### 🔐 **Secure Authentication**
+- JWT-based session management
+- Google OAuth integration
+- Password encryption with bcrypt
+- Role-based access control (RBAC)
+
+### 🏠 **Smart Listings**
+- Rich media uploads (Cloudinary CDN)
+- Dynamic pricing algorithms
+- Amenities and house rules editor
+- Availability calendar integration
+
+### 🗺️ **Map Integration**
+- Interactive Leaflet.js maps
+- Geolocation-based search
+- Radius filtering
+- Custom map markers
+
+</td>
+<td width="50%">
+
+### 💬 **Real-Time Chat**
+- Socket.io powered messaging
+- Typing indicators
+- Read receipts
+- Message history persistence
+
+### 📊 **Analytics Dashboard**
+- Booking statistics
+- Revenue tracking
+- Occupancy rates
+- User engagement metrics
+
+### ⭐ **Review System**
+- Verified guest reviews
+- Rating aggregation
+- Photo reviews
+- Response management
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🛠️ Technology Stack
+
+<div align="center">
+
+### Frontend Arsenal
+![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Redux](https://img.shields.io/badge/Redux_Toolkit-1.9-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-6.x-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+
+### Backend Infrastructure
+![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4.18-000000?style=for-the-badge&logo=express&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-4.5-010101?style=for-the-badge&logo=socket.io&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
+
+### Database & Storage
+![MongoDB](https://img.shields.io/badge/MongoDB-6.0-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![Mongoose](https://img.shields.io/badge/Mongoose-7.x-880000?style=for-the-badge&logo=mongodb&logoColor=white)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-CDN-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
+
+### Development Tools
+![Git](https://img.shields.io/badge/Git-Version_Control-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-API_Testing-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-Code_Quality-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-Code_Format-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
+
+</div>
+
+---
+
+## 📸 Screenshots
+
+<details>
+<summary>🖼️ View Application Screenshots</summary>
+
+### Landing Page
+![Landing Page](assets/Landing%20Page.png)
+
+### Property Listings
+![Property Grid](assets/Property%20Grid.png)
+
+### Interactive Map
+![Map View](assets/Map%20View.png)
+
+### Real-Time Chat
+![Chat Interface](assets/Chat%20Interface.png)
+
+</details>
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+```bash
+node -v  # v16.0.0 or higher
+npm -v   # v8.0.0 or higher
+```
+
+You'll also need:
+- **MongoDB** (local installation or Atlas URI)
+- **Cloudinary Account** (free tier available)
+- **Git** for version control
+
+### Installation
+
+**1. Clone the Repository**
+
+```bash
+git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
+
+```
+
+**2. Backend Setup**
+
+```bash
+cd backend
+npm install
+```
+
+Create `.env` file in the `backend` directory:
+
+```env
+# Server Configuration
+PORT=8000
+NODE_ENV=development
+
+# Database
+MONGODB_URI=mongodb://localhost:27017/smartrent
+
+# Authentication
+JWT_SECRET=your_super_secret_jwt_key_change_in_production
+JWT_EXPIRE=7d
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_KEY=your_api_key
+CLOUDINARY_SECRET=your_api_secret
+
+# Google OAuth (Optional)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+**3. Frontend Setup**
+
+```bash
+cd ../frontend
+npm install
+```
+
+Create `.env` file in the `frontend` directory:
+
+```env
+REACT_APP_API_URL=http://localhost:8000/api
+REACT_APP_SOCKET_URL=http://localhost:8000
+```
+
+**4. Launch Application**
+
+**Terminal 1 - Backend:**
+```bash
+cd backend
+npm run server
+```
+
+**Terminal 2 - Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+
+**5. Access the Application**
+
+Open your browser and navigate to:
+```
+http://localhost:3000
+```
+
+🎉 **Congratulations!** Smart-Rent is now running locally.
+
+---
+
+## 📚 Project Structure
+
+```
+Smart-Rent/
 ├── backend/
-│   ├── controllers/        # Business logic for routes
-│   ├── middleware/         # Auth, validation, error handling
-│   ├── models/             # MongoDB schemas
-│   ├── routes/             # API endpoints
-│   ├── services/           # Email service
-│   ├── app.js              # Express configuration
-│   ├── server.js           # Server entry point
-│   ├── schema.js           # Mongoose schemas
-│   └── package.json
+│   ├── config/              # Configuration files
+│   ├── controllers/         # Request handlers
+│   ├── middleware/          # Custom middleware
+│   ├── models/              # Mongoose schemas
+│   ├── routes/              # API routes
+│   ├── utils/               # Helper functions
+│   └── server.js            # Entry point
 │
 ├── frontend/
-│   ├── public/             # Static files
+│   ├── public/              # Static assets
 │   ├── src/
-│   │   ├── components/     # Reusable React components
-│   │   ├── pages/          # Page components
-│   │   ├── contexts/       # React context (Auth, Settings)
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── services/       # API services
-│   │   ├── utils/          # Utility functions
-│   │   ├── config/         # API configuration
-│   │   ├── data/           # Static data
-│   │   ├── App.js          # Main app component
-│   │   └── index.js        # React entry point
-│   ├── build/              # Production build
+│   │   ├── components/      # Reusable components
+│   │   ├── pages/           # Page components
+│   │   ├── redux/           # State management
+│   │   ├── services/        # API services
+│   │   ├── utils/           # Utility functions
+│   │   └── App.js           # Root component
 │   └── package.json
 │
-├── middleware.js           # Global middleware configuration
-├── build.js                # Build configuration
+├── assets/                  # Project assets
+├── docs/                    # Documentation
+├── .gitignore
+├── CONTRIBUTING.md
+├── LICENSE
 └── README.md
 ```
 
 ---
 
-## Installation
+## 🔧 Configuration
+
+### Environment Variables Reference
+
+| Variable | Description | Required | Default |
+|----------|-------------|----------|---------|
+| `PORT` | Backend server port | ✅ | 8000 |
+| `MONGO_URL` | MongoDB connection string | ✅ | - |
+| `JWT_SECRET` | Secret key for JWT signing | ✅ | - |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name | ✅ | - |
+| `CLOUDINARY_KEY` | Cloudinary API key | ✅ | - |
+| `CLOUDINARY_SECRET` | Cloudinary API secret | ✅ | - |
+
+### API Documentation
+
+Once the backend is running, access API documentation at:
+```
+http://localhost:8000/api-docs
+```
+
+---
+
+## 🐳 Docker Setup (Recommended)
+
+This project supports Docker to simplify local development, reduce setup issues, and ensure a consistent development environment across systems.
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- MongoDB (local or Atlas)
-- Cloudinary account (for image uploads)
-- SMTP credentials (for email service)
+Make sure you have the following installed on your system:
 
-### Backend Setup
+- Docker (v20+ recommended)
+- Docker Compose (v2+)
 
-1. Navigate to backend directory:
+### Verify installation:
 
 ```bash
-cd backend
+docker --version
+docker compose version
 ```
 
-2. Install dependencies:
-
+### Clone the repository
 ```bash
-npm install
+git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
+cd Smart-Rent-System
 ```
 
-3. Create `.env` file:
+## 📁 Project Structure (Docker)
+
+Docker uses a single `.env` file at the project root.
+
+```
+Smart-Rent-System/
+├── backend/
+│   └── Dockerfile         # Backend container
+├── frontend/
+│   └── Dockerfile         # Frontend container
+├── docker-compose.yml     # Docker orchestration
+├── .env                   # Required for Docker
+└── README.md
+```
+
+## 🔐 Environment Variables
+
+When using Docker, only one `.env` file is required at the `root`.
+
+Create a `.env` file in the project `root` with the following content:
 
 ```env
+# Backend
 PORT=8000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-CLOUDINARY_NAME=your_cloudinary_name
-CLOUDINARY_KEY=your_cloudinary_key
-CLOUDINARY_SECRET=your_cloudinary_secret
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_email_password
 NODE_ENV=development
+MONGODB_URI=mongodb://mongodb:27017/smartrent
+JWT_SECRET=your_jwt_secret_here
+
+# Optional (email service)
+# RESEND_API_KEY=your_resend_key_here
+
+# Frontend
+REACT_APP_API_URL=http://localhost:8000
 ```
 
+### 🚀 Running the Application with Docker
 
-4. Start server:
+From the project `root`, run:
 
+```
+docker compose up --build
+```
+
+**This will:**
+
+- Build backend and frontend images
+- Start MongoDB
+- Start backend and frontend services
+- Automatically link all services together
+
+### 🌐 Accessing the Application
+
+Once the containers are running:
+
+**Frontend:**
+```
+http://localhost:3000
+```
+
+**Backend API:** 
+```
+http://localhost:8000
+```
+
+**MongoDB:**
+```
+mongodb://localhost:27017
+```
+
+### 🛑 Stopping the Application
+
+To stop and remove all containers:
+
+```
+docker compose down
+```
+
+To stop containers but keep them:
+```
+docker compose stop
+```
+
+### 🔄 Rebuilding Containers (After Code Changes)
+
+If you modify dependencies or Docker files:
+```
+docker compose up --build
+```
+
+---
+
+## 🤝 Contributing
+
+We ❤️ contributions! Smart-Rent is an open-source project built for **Social Winter of Code (SWoC) 2026**.
+
+### How to Contribute
+
+**1. Find an Issue**
+- Browse [existing issues](https://github.com/hitesh-kumar123/Smart-Rent-System/issues)
+- Look for labels: `good first issue`, `help wanted`, `enhancement`
+
+**2. Fork & Create Branch**
 ```bash
-npm run dev
+# Fork the repository (click Fork button on GitHub)
+
+# Clone your fork
+git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
+# Create a feature branch
+git checkout -b feature/amazing-feature
 ```
 
-Server runs on `http://localhost:8000`
-
-### Frontend Setup
-
-1. Navigate to frontend directory:
-
+**3. Make Changes**
 ```bash
-cd frontend
+# Make your changes
+# Follow our coding standards (ESLint + Prettier)
+
+# Test your changes
+npm test
 ```
 
-2. Install dependencies:
-
+**4. Commit & Push**
 ```bash
-npm install
+# Commit with descriptive message
+git commit -m "Add: Implement amazing feature"
+
+# Push to your fork
+git push origin feature/amazing-feature
 ```
 
-3. Start development server:
+**5. Create Pull Request**
+- Go to your fork on GitHub
+- Click "New Pull Request"
+- Fill out the PR template
+- Wait for review 🎉
 
-```bash
-npm start
-```
+### Contribution Guidelines
 
-Frontend runs on `http://localhost:3000`
+📖 Read our [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines including:
+- Code style and formatting
+- Commit message conventions
+- Testing requirements
+- Documentation standards
 
----
+### Development Workflow
 
-## Available Scripts
-
-### Backend
-
-- `npm start` - Start production server
-- `npm run dev` - Start with nodemon (auto-reload)
-- `npm run server` - Run server
-
-### Frontend
-
-- `npm start` - Start development server
-- `npm run build` - Create production build
-- `npm run dev` - Start with hot reload
-- `npm test` - Run tests
-
----
-
-## API Endpoints
-
-### Authentication
-
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `POST /api/auth/logout` - Logout user
-
-### Properties
-
-- `GET /api/properties` - Get all properties
-- `GET /api/properties/:id` - Get property details
-- `POST /api/properties` - Create property (host only)
-- `PUT /api/properties/:id` - Update property
-- `DELETE /api/properties/:id` - Delete property
-
-### Bookings
-
-- `GET /api/bookings` - Get user bookings
-- `POST /api/bookings` - Create booking
-- `GET /api/bookings/:id` - Get booking details
-- `PUT /api/bookings/:id` - Update booking
-- `DELETE /api/bookings/:id` - Cancel booking
-
-### Messages
-
-- `GET /api/messages` - Get conversations
-- `GET /api/messages/:conversationId` - Get messages in conversation
-- `POST /api/messages` - Send message
-- `POST /api/messages/create-conversation` - Create conversation
-
-### Reviews
-
-- `GET /api/reviews/:propertyId` - Get property reviews
-- `POST /api/reviews` - Create review
-- `PUT /api/reviews/:id` - Update review
-- `DELETE /api/reviews/:id` - Delete review
-
-### Users
-
-- `GET /api/users/:id` - Get user profile
-- `PUT /api/users/:id` - Update user profile
-- `GET /api/users/:id/reviews` - Get user reviews
-
----
-
-## Key Components
-
-### Frontend Components
-
-- `Layout` - Main layout wrapper
-- `Navbar` - Navigation bar
-- `Footer` - Footer component
-- `ProtectedRoute` - Route protection for authenticated users
-- `ErrorBoundary` - Error handling
-- `PropertyImage` - Image display component
-- `StaticMap` - Map display
-
-### Backend Models
-
-- **User** - User account and profile data
-- **Property** - Property listings
-- **Booking** - Reservation records
-- **Review** - Property reviews
-- **Message** - Conversation messages
-- **Conversation** - Message threads
-
----
-
-## Security Features
-
-- JWT-based authentication
-- Password hashing with bcryptjs
-- Input validation with Joi
-- CORS enabled
-- Helmet for HTTP headers
-- Mongo sanitization against injection
-- Protected routes for authenticated users
-- Session management with express-session
-
----
-
-## Environment Variables
-
-### Backend `.env`
-
-```env
-PORT                    # Server port (default: 8000)
-MONGODB_URI             # MongoDB connection string
-JWT_SECRET              # JWT secret key
-CLOUDINARY_NAME         # Cloudinary account name
-CLOUDINARY_KEY          # Cloudinary API key
-CLOUDINARY_SECRET       # Cloudinary API secret
-EMAIL_USER              # Email for sending notifications
-EMAIL_PASS              # Email password
-NODE_ENV                # development or production
-```
-
-### Frontend `.env` (if needed)
-
-```env
-REACT_APP_API_URL       # Backend API URL (default: http://localhost:8000)
+```mermaid
+graph LR
+    A[Fork Repo] --> B[Clone Locally]
+    B --> C[Create Branch]
+    C --> D[Make Changes]
+    D --> E[Run Tests]
+    E --> F[Commit]
+    F --> G[Push to Fork]
+    G --> H[Create PR]
+    H --> I[Code Review]
+    I --> J[Merge]
 ```
 
 ---
 
-## Deployment
+## 🗺️ Roadmap
 
-### Backend
+### ✅ Phase 1 - Foundation (Completed)
+- [x] Project scaffolding and architecture
+- [x] User authentication system
+- [x] Basic CRUD operations for listings
+- [x] Responsive UI with Tailwind CSS
 
-- Deploy to Heroku, Railway, or Render
-- Set environment variables in hosting platform
-- Ensure MongoDB Atlas connection string is set
+### 🚧 Phase 2 - Core Features (In Progress)
+- [x] Map integration with Leaflet.js
+- [] Real-time chat with Socket.io
+- [ ] Advanced search and filtering
+- [ ] Booking calendar with conflict resolution
+- [ ] Review and rating system
 
-### Frontend
+### 🔮 Phase 3 - Advanced Features (Planned)
+- [ ] Payment gateway integration (Stripe/Razorpay)
+- [ ] Email notifications (SendGrid/Nodemailer)
+- [ ] Admin dashboard with analytics
+- [ ] Multi-language support (i18n)
+- [ ] Progressive Web App (PWA)
 
-- Build production: `npm run build`
-- Deploy to Netlify, Vercel, or GitHub Pages
-- Update API proxy in `package.json` if needed
+### 🌟 Phase 4 - Optimization (Future)
+- [ ] Performance optimization (lazy loading, code splitting)
+- [ ] SEO optimization
+- [ ] Automated testing (Jest, Cypress)
+- [ ] CI/CD pipeline (GitHub Actions)
+- [ ] Mobile native apps (React Native)
 
----
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
----
-
-## License
-
-ISC
-
----
-
-## Contributing
-
-1. Fork repository
-2. Create feature branch
-3. Commit changes
-4. Push to branch
-5. Create Pull Request
+**Want to influence the roadmap?** [Share your ideas](https://github.com/hitesh-kumar123/Smart-Rent-System/discussions)
 
 ---
 
-## Support
+## 👥 Community
 
-For issues or questions, please create a GitHub issue or contact the development team.
+<div align="center">
+
+### 🌟 Project Maintainers
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/hitesh-kumar123">
+        <img src="https://avatars.githubusercontent.com/u/186756045?v=4" width="120px" alt="Hitesh Kumar"/>
+        <br />
+        <sub><b>Hitesh Kumar</b></sub>
+      </a>
+      <br />
+      <sub>Project Admin 🚀</sub>
+    </td>
+  </tr>
+</table>
+
+### 🏆 Top Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=hitesh-kumar123/Smart-Rent-System)](https://github.com/hitesh-kumar123/Smart-Rent-System/graphs/contributors)
+
+### 💬 Join the Conversation
+
+[![Discord](https://img.shields.io/badge/Discord-Join_Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/channels/@me)
+[![Linkedin](https://img.shields.io/badge/LinkedIn-Connect-0077B6?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hitesh-kumar-dev/)
+[![GitHub](https://img.shields.io/badge/GitHub-Star_Repo-1DA1F2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hitesh-kumar123/Smart-Rent-System)
+</div>
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License - Copyright (c) 2025 Smart Rent System Contributors
+Permission is hereby granted, free of charge, to any person obtaining a copy...
+```
+
+---
+
+## 🙏 Acknowledgments
+
+Special thanks to:
+
+- **[Social Winter of Code 2026](https://swoc.tech)** for providing this amazing opportunity
+- **Open Source Community** for continuous inspiration
+- **Contributors** who dedicate their time to improve Smart-Rent
+- **[Flaticon](https://www.flaticon.com/)** for icons
+- **[Cloudinary](https://cloudinary.com/)** for image hosting
+- **[MongoDB Atlas](https://www.mongodb.com/atlas)** for database hosting
+
+---
+
+<div align="center">
+
+### 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=hitesh-kumar123/Smart-Rent-System&type=date&legend=top-left)](https://www.star-history.com/#hitesh-kumar123/Smart-Rent-System&type=date&legend=top-left)
+
+### 📊 Repository Stats
+
+![Repository Size](https://img.shields.io/github/repo-size/hitesh-kumar123/Smart-Rent-System?style=flat-square)
+![Lines of Code](https://img.shields.io/tokei/lines/github/hitesh-kumar123/Smart-Rent-System?style=flat-square)
+![Top Language](https://img.shields.io/github/languages/top/hitesh-kumar123/Smart-Rent-System?style=flat-square)
+
+---
+
+**Made with ❤️ by the Smart Rent System Community**
+
+**If this project helped you, give it a ⭐️!**
+
+[⬆ Back to Top](#-smart-rent-system)
+
+</div>

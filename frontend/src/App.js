@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Layout component that wraps all pages
 import Layout from "./components/Layout";
@@ -30,10 +30,13 @@ import Cookies from "./pages/Cookies";
 import ResetPassword from "./pages/ResetPassword";
 import Map from "./pages/Map";
 import PropertyMap from "./pages/PropertyMap";
+import BlogPost from "./pages/BlogPost"
 // Component to protect routes that require authentication
 import ProtectedRoute from "./components/ProtectedRoute";
 // Import ScrollToTop component
 import ScrollToTop from "./components/ScrollToTop";
+// Import Loading Screen
+import LoadingScreen from "./pages/Loading_Screen";
 // Context providers
 import { AppSettingsProvider } from "./contexts/AppSettingsContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -42,6 +45,9 @@ import PaymentPage from "./pages/PaymentPage";
 // import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
+
+   const [loading, setLoading] = useState(true);
+  
   // Set browser's scrollRestoration to manual to take control of scrolling
   useEffect(() => {
     // Take control of scroll restoration
@@ -77,6 +83,20 @@ function App() {
     };
   }, []);
 
+  // Handle loading screen
+  // useEffect(() => {
+  //   // Hide loading screen after 3 seconds
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000);
+
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+  //  if (loading) {
+  //   return <LoadingScreen />;
+  // }
+
   return (
     // Application settings context provider
     <AppSettingsProvider>
@@ -99,6 +119,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/safety" element={<Safety />} />
               <Route path="/cancellation" element={<Cancellation />} />
               <Route path="/report-concern" element={<ReportConcern />} />

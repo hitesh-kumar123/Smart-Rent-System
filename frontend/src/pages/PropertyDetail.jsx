@@ -27,18 +27,39 @@ const PropertyDetail = () => {
     guests: 1,
   });
   const [isBooked, setIsBooked] = useState(false);
-  console.log(
-    property,
-    "-----------------------------------------------------------"
-  );
+ 
+
+  //Checks if user has already saved it in his wishlist
+  useEffect(() => {
+  const checkIfSaved = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token || !property) return;
+
+      const res = await axios.get("/api/wishlist", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const exists = res.data.some(
+        (item) => String(item._id) === String(property._id)
+      );
+
+      setIsSaved(exists);
+    } catch (err) {
+      console.error("Error checking wishlist status", err);
+    }
+  };
+
+  checkIfSaved();
+}, [property]);
+
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
         setLoading(true);
         setError(false);
-
-        console.log("Fetching property with ID:", id);
-
         // First check if we have the property in session storage
         let sessionProperty = null;
         try {
@@ -53,27 +74,15 @@ const PropertyDetail = () => {
 
             // Verify this is the correct property by checking ID matches
             if (parsedProperty && String(parsedProperty._id) === String(id)) {
-              console.log("Found matching property in session storage");
+             
               sessionProperty = parsedProperty;
 
               // We found the property, set it and stop loading
               setProperty(sessionProperty);
               setLoading(false);
-              console.log(
-                "Using session storage property data:",
-                sessionProperty
-              );
+            
               return;
-            } else if (storedPropertyId === String(id)) {
-              // IDs match but property object might be corrupted
-              console.log(
-                "Property ID matches but object is invalid. Fetching from API."
-              );
-            } else {
-              console.log("Stored property doesn't match requested ID");
-            }
-          } else {
-            console.log("No property data in session storage");
+            } 
           }
         } catch (sessionError) {
           console.error("Error accessing session storage:", sessionError);
@@ -84,26 +93,20 @@ const PropertyDetail = () => {
             `${process.env.REACT_APP_API_URL}/api/properties/${id}`
           );
           if (response.data) {
-            console.log(
-              "Successfully fetched property from API:",
-              response.data
-            );
+  
             setProperty(response.data);
             setLoading(false);
             return;
           }
         } catch (mongoError) {
-          console.log("API fetch error:", mongoError.message);
-
           // If API fetch fails, but we already have session property, use it as fallback
           if (sessionProperty) {
             setProperty(sessionProperty);
             setLoading(false);
             return;
           }
-
           // If no session property, try dummy data
-          console.log("Looking in dummy data for ID:", id);
+     
 
           // Try to match ID, accounting for possible type differences
           // let dummyProperty = dummyProperties.find(
@@ -111,7 +114,6 @@ const PropertyDetail = () => {
           // );
 
           // if (dummyProperty) {
-          //   console.log("Found matching dummy property:", dummyProperty);
           //   setProperty(dummyProperty);
           //   setLoading(false);
           //   return;
@@ -119,7 +121,6 @@ const PropertyDetail = () => {
 
           // If we still don't have a property, use the first dummy property as a fallback
           // if (dummyProperties.length > 0) {
-          //   console.log("Using first dummy property as final fallback");
           //   setProperty(dummyProperties[0]);
           //   setLoading(false);
           //   return;
@@ -153,7 +154,7 @@ const PropertyDetail = () => {
           // Store current property for potential navigation back
           sessionStorage.setItem("currentProperty", JSON.stringify(property));
           sessionStorage.setItem("lastViewedPropertyId", String(property._id));
-          console.log("Preserved property data for navigation:", property._id);
+   
         } catch (err) {
           console.error("Failed to preserve property data:", err);
         }
@@ -176,16 +177,33 @@ const PropertyDetail = () => {
       checkBookingStatus();
     }
   }, [id, property]);
-
+  
+  //Here we are making API call to save it in the users wishlist
   const handleSave = async () => {
-    try {
-      // Here you would typically make an API call to save the property
-      setIsSaved(!isSaved);
-      // You can also add a toast notification here
-    } catch (error) {
-      console.error("Error saving property:", error);
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
     }
-  };
+
+    await axios.post(
+      `/api/wishlist/${property._id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setIsSaved((prev) => !prev);
+  } catch (error) {
+    console.error("Error saving property:", error);
+  }
+};
+
 
   const handleShare = async () => {
     try {
@@ -207,7 +225,7 @@ const PropertyDetail = () => {
     e.preventDefault();
     try {
       // Here you would typically make an API call to submit the review
-      console.log("Submitting review:", review);
+    
       setShowReviewModal(false);
       setReview({ rating: 5, comment: "" });
       // You can also add a toast notification here
@@ -220,7 +238,7 @@ const PropertyDetail = () => {
     e.preventDefault();
     try {
       // Here you would typically make an API call to create a reservation
-      console.log("Creating reservation:", reservation);
+ 
       setShowReserveModal(false);
       setReservation({ checkIn: "", checkOut: "", guests: 1 });
       // You can also add a toast notification here
@@ -723,21 +741,21 @@ const PropertyDetail = () => {
                       Where you'll be
                     </h3>
                     <p className="text-neutral-700 mb-4">
-                      {property.city
-                        ? `${property.city}, ${property.state || ""}, ${
-                            property.country || ""
-                          }`
-                        : "Location details not available"}
+                       {property.location?.city
+                       ? `${property.location.city}, ${property.location.state || ""}, ${property.location.country || ""}`
+                       : "Location details not available"}
                     </p>
+
                     <div className="h-[400px] w-full rounded-lg overflow-hidden">
                       <StaticMap
-                        address={isBooked ? property.address : undefined}
-                        city={property.city}
-                        state={property.state}
-                        country={property.country}
-                        isConfirmedBooking={isBooked}
-                        zoom={13}
-                      />
+                      address={isBooked ? property.location?.address : undefined}
+                     city={property.location?.city}
+                     state={property.location?.state}
+                      country={property.location?.country}
+                      isConfirmedBooking={isBooked}
+                      zoom={13}
+                     />
+
                     </div>
                     {!isBooked && (
                       <p className="mt-4 text-sm text-neutral-500">

@@ -214,7 +214,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white py-4 px-4 md:px-6 sticky top-0 z-20 shadow-sm">
+    <nav className="bg-white py-4 px-2 md:px-6 sticky top-0 z-20 shadow-sm">
       <div className="container mx-auto">
         {/* Main navigation bar with logo and menu items */}
         <div className="flex justify-between items-center">
@@ -223,7 +223,7 @@ const Navbar = () => {
 
           {/* Explore Button - Added next to the logo */}
           {location.pathname === "/" && (
-            <div className="hidden md:block ml-12">
+            <div className="hidden md:block ml-4 lg:ml-12">
               <Link
                 to="/listings"
                 className="flex items-center px-4 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full transition duration-300 shadow-sm hover:shadow-md gap-2"
@@ -241,24 +241,26 @@ const Navbar = () => {
               ref={searchRef}
               className="flex relative mx-auto max-w-md w-full rounded-full border border-neutral-200 shadow-search hover:shadow-md transition duration-200"
             >
-              <form onSubmit={handleSearchSubmit} className="w-full">
+              <form onSubmit={handleSearchSubmit} className="relative w-full flex items-center">
                 <input
                   type="text"
                   placeholder={getText("common", "search")}
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onFocus={() => setIsSearchFocused(true)}
-                  className="w-full px-8 py-2.5 rounded-full focus:outline-none text-sm text-neutral-700 pr-12"
+                  /* Changed px-8 to pl-6 pr-12 for better spacing */
+                  className="w-full pl-6 pr-12 py-2.5 rounded-full focus:outline-none text-sm text-neutral-700 placeholder:text-transparent sm:placeholder:text-neutral-400"
                 />
-                {/* Search Button */}
 
                 <button
                   type="submit"
-                  className="absolute right-1.5 top-[40%] transform -translate-y-1/2 bg-[#FF4C6D] text-white    rounded-full hover:bg-[#E03F5A] transition duration-200 flex items-center justify-center w-8 h-8 m-1"
+                  /* Removed top-1/2 and translate-y to let Flexbox handle vertical centering */
+                  /* Removed m-1 which was pushing it off-center */
+                  className="absolute right-1.5 bg-[#FF4C6D] text-white rounded-full hover:bg-[#E03F5A] transition duration-200 flex items-center justify-center w-8 h-8"
                 >
-                  <i className="fas fa-search text-sm"></i>
+                  <i className="fas fa-search text-[10px]"></i>
                 </button>
-              </form>
+              </form>             
 
               {/* Search Dropdown - appears when search is focused */}
               {isSearchFocused && (
@@ -320,7 +322,7 @@ const Navbar = () => {
           )}
 
           {/* Navigation - Responsive */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-1 md:gap-2">
             {/* Become a host link */}
             <Link
               to="/host/become-a-host"
