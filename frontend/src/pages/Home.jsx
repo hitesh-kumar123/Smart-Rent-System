@@ -13,11 +13,11 @@ const Home = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
-   // State for hero slideshow current image index
+  // State for hero slideshow current image index
   const [currentIndex, setCurrentIndex] = useState(0);
   // State to prevent multiple transitions at once
   const [isTransitioning, setIsTransitioning] = useState(false);
-  
+
   // Reference to search container for detecting outside clicks
   const searchRef = useRef(null);
   const navigate = useNavigate();
@@ -30,51 +30,9 @@ const Home = () => {
     "Chicago",
     "San Francisco",
   ];
-  
 
-
-   useEffect(() => {
-  const interval = setInterval(() => {
-    setIsTransitioning(true);
-    setCurrentIndex(prev => (prev + 1) % heroImages.length);
-
-    setTimeout(() => setIsTransitioning(false), 700);
-  }, 3300);
-
-  return () => clearInterval(interval);
-}, []);
-
-
-   // Function to go to next slide
-  const nextSlide = () => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
-      setCurrentIndex((prev) => (prev + 1) % heroImages.length);
-      setTimeout(() => setIsTransitioning(false), 700);
-    }
-  };
-
-  // Function to go to previous slide
-  const prevSlide = () => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
-      setCurrentIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
-      setTimeout(() => setIsTransitioning(false), 700);
-    }
-  };
-
-  // Function to jump to specific slide
-  const goToSlide = (index) => {
-    if (!isTransitioning && index !== currentIndex) {
-      setIsTransitioning(true);
-      setCurrentIndex(index);
-      setTimeout(() => setIsTransitioning(false), 700);
-    }
-  };
-  
-  
+  // Function to handle clicks outside the search dropdown
   useEffect(() => {
-    // Handle clicks outside the search dropdown to close it
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setIsSearchFocused(false);
@@ -91,7 +49,7 @@ const Home = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // Add to recent searches (avoid duplicates and limit to 5)
+      // Add to recent searches
       const updatedSearches = [
         searchQuery.trim(),
         ...recentSearches.filter((search) => search !== searchQuery.trim()),
@@ -105,8 +63,8 @@ const Home = () => {
   };
 
   // Function to handle click on a search suggestion
+  // (KEPT FROM UPSTREAM: This is useful logic the original creator added)
   const handleSuggestionClick = (suggestion) => {
-    // Add to recent searches
     const updatedSearches = [
       suggestion,
       ...recentSearches.filter((search) => search !== suggestion),
@@ -116,13 +74,12 @@ const Home = () => {
     navigate(`/listings?location=${encodeURIComponent(suggestion)}`);
   };
 
-  // Function to clear all recent searches from localStorage
+  // Function to clear all recent searches
   const clearRecentSearches = () => {
     localStorage.setItem("recentSearches", JSON.stringify([]));
     setRecentSearches([]);
   };
 
-  
   // Sample featured destinations data
   const destinations = [
     {
@@ -180,85 +137,47 @@ const Home = () => {
     },
   ];
 
-   // Array of hero images for the slideshow
-  const heroImages = [
-    {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-      alt: "Luxurious vacation home"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-      alt: "Mountain landscape retreat"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1540206395-68808572332f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-      alt: "Tropical beach paradise"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-      alt: "Forest wilderness escape"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-      alt: "Coastal sunset view"
-    }
-  ];
-  
   return (
-    <div className="bg-white">
-
-      {/* Hero section with background image and search form */}
-       <div className="relative h-[600px] overflow-hidden group">
-        {/* Render all images with fade transition */}
-        {heroImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-              index === currentIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+    <div className="bg-gray-50 min-h-screen">
+      
+      {/* --- START OF YOUR CUSTOM HERO SECTION --- */}
+      {/* KEPT FROM STASH: This is your design */}
+      <div className="pt-8 px-4 sm:px-8 pb-16">
+        <div className="relative max-w-7xl mx-auto h-[600px] rounded-[40px] overflow-hidden shadow-2xl group">
+          
+          {/* Background Image */}
+          <div className="absolute inset-0">
             <img
-              src={image.url}
-              alt={image.alt}
-              className="w-full h-full object-cover"
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+              alt="Luxury Hotel Resort"
+              className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30"></div>
+            {/* Semi-transparent Dark Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/90 via-[#1a1a1a]/40 to-transparent"></div>
           </div>
-        ))}
 
+          {/* Content: Left Aligned Text */}
+          <div className="relative h-full flex flex-col justify-center items-start pl-12 md:pl-20 pr-6 z-10">
+            <div className="max-w-xl text-left">
+              
+              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-4 leading-tight drop-shadow-lg cursor-default">
+                Experience <br />
+                <span className="text-red-400">Luxury Living.</span>
+              </h1>
+              
+              <p className="font-['poppins'] text-lg text-white font-medium drop-shadow-md mb-4 cursor-default">
+                Book your escape to paradise. Unforgettable moments await.
+              </p>
 
-        
+              <p className="font-['Poppins'] text-sm md:text-base font-light text-gray-200 tracking-wider mt-2">
+                Discover a curated collection of premium hotels, cozy suites, and private villas available for rent. Enjoy exclusive deals and world-class amenities for your dream stay.
+              </p>
+            </div>
+          </div>
 
-        {/* Previous slide button - shows on hover */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        {/* Next slide button - shows on hover */}
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-10"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-
-        {/* Dot indicators for slide navigation */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-          {heroImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex
-                  ? 'w-8 h-2 bg-white'
-                  : 'w-2 h-2 bg-white/50 hover:bg-white/75'
-              }`}
-            />
-          ))}
         </div>
       </div>
+      {/* --- END OF YOUR CUSTOM HERO SECTION --- */}
 
       {/* Featured destinations section */}
       <div className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
@@ -306,7 +225,6 @@ const Home = () => {
 
           {/* Property types grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {/* Apartments property type */}
             <Link to="/listings?type=apartment" className="group">
               <div className="rounded-xl overflow-hidden">
                 <div className="h-60 relative overflow-hidden">
@@ -324,7 +242,6 @@ const Home = () => {
                 </div>
               </div>
             </Link>
-            {/* Houses property type */}
             <Link to="/listings?type=house" className="group">
               <div className="rounded-xl overflow-hidden">
                 <div className="h-60 relative overflow-hidden">
@@ -342,7 +259,6 @@ const Home = () => {
                 </div>
               </div>
             </Link>
-            {/* Cabins property type */}
             <Link to="/listings?type=cabin" className="group">
               <div className="rounded-xl overflow-hidden">
                 <div className="h-60 relative overflow-hidden">
@@ -360,7 +276,6 @@ const Home = () => {
                 </div>
               </div>
             </Link>
-            {/* Villas property type */}
             <Link to="/listings?type=villa" className="group">
               <div className="rounded-xl overflow-hidden">
                 <div className="h-60 relative overflow-hidden">
@@ -391,7 +306,6 @@ const Home = () => {
           Find activities hosted by local experts
         </p>
 
-        {/* Experiences grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {experiences.map((experience) => (
             <Link
@@ -432,7 +346,6 @@ const Home = () => {
                   Share your space, earn extra income, and connect with guests
                   from around the world.
                 </p>
-                {/* Learn more button for host sign-up */}
                 <Link
                   to="/host/become-a-host"
                   className="inline-block bg-white text-primary-500 font-medium px-6 py-3 rounded-lg hover:bg-neutral-100 transition duration-300 w-fit"
