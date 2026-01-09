@@ -543,7 +543,7 @@ graph LR
 
 <div align="center">
 
-### 🌟 Project Maintainers
+### 🌟 Project Admin
 
 <table>
   <tr>
@@ -553,15 +553,55 @@ graph LR
         <br />
         <sub><b>Hitesh Kumar</b></sub>
       </a>
-      <br />
-      <sub>Project Admin 🚀</sub>
+      <br /><br />
+      <a href="https://www.linkedin.com/in/hitesh-kumar-dev/">
+        <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" />
+      </a>
     </td>
   </tr>
 </table>
 
+---
+
 ### 🏆 Top Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=hitesh-kumar123/Smart-Rent-System)](https://github.com/hitesh-kumar123/Smart-Rent-System/graphs/contributors)
+<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=hitesh-kumar123/Smart-Rent-System&refresh=1" />
+</a>
+
+---
+
+### ⭐ Stargazers
+
+<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/stargazers">
+  <img src="https://reporoster.com/stars/hitesh-kumar123/Smart-Rent-System?type=svg&limit=100&names=false" />
+</a>
+
+---
+
+### 🍴 Forkers
+
+<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/network/members">
+  <img src="https://reporoster.com/forks/hitesh-kumar123/Smart-Rent-System?type=svg&limit=100&names=false" />
+</a>
+
+---
+
+### ❤️ Support the Project
+
+<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/stargazers">
+  <img src="https://img.shields.io/github/stars/hitesh-kumar123/Smart-Rent-System?style=social" />
+</a>
+&nbsp;&nbsp;
+<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/fork">
+  <img src="https://img.shields.io/github/forks/hitesh-kumar123/Smart-Rent-System?style=social" />
+</a>
+
+<br /><br />
+
+💙 If you like this project, consider **starring ⭐** and **forking 🍴** it to support the community!
+
+</div>
 
 ### 💬 Join the Conversation
 
