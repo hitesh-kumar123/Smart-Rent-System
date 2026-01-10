@@ -12,31 +12,28 @@ const app = express();
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow server-to-server / Postman / curl
+    console.log("CORS Origin:", origin);
+
+    // Allow Postman, curl, server-to-server, OAuth redirects
     if (!origin) return callback(null, true);
 
-    const allowedOrigins = [
-      "https://smartrentsystem.netlify.app",
-      "http://127.0.0.1:3000",
-      "http://localhost:3000",
-    ];
-
-    // Allow main frontend
-    if (allowedOrigins.includes(origin)) {
+    // Allow ALL localhost ports
+    if (origin.startsWith("http://localhost")) {
       return callback(null, true);
     }
 
-    // ⭐ Allow ALL Netlify deploy previews (PRs)
+    // Allow Netlify (production + previews)
     if (origin.endsWith(".netlify.app")) {
       return callback(null, true);
     }
 
-    return callback(new Error("Not allowed by CORS"));
+    // ❗ DO NOT throw error
+    return callback(null, false);
   },
-  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   credentials: true,
-  optionsSuccessStatus: 204,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 };
+
 
 
 // Middleware

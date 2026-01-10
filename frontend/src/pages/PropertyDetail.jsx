@@ -8,6 +8,7 @@ import StaticMap from "../components/StaticMap";
 const PropertyDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -27,6 +28,7 @@ const PropertyDetail = () => {
     guests: 1,
   });
   const [isBooked, setIsBooked] = useState(false);
+  
  
 
   //Checks if user has already saved it in his wishlist
@@ -203,6 +205,29 @@ const PropertyDetail = () => {
     console.error("Error saving property:", error);
   }
 };
+
+const getNights = () => {
+  const { checkIn, checkOut } = reservation;
+  if (!checkIn || !checkOut) return 0;
+
+  const start = new Date(checkIn);
+  const end = new Date(checkOut);
+
+  const diffTime = end - start;
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+  return diffDays > 0 ? diffDays : 1;
+};
+
+const nights = getNights();
+
+const pricePerNight = property?.price || 100;
+const cleaningFee = 60;
+const serviceFee = 75;
+
+const stayPrice = nights * pricePerNight;
+const totalPrice =
+  nights > 0 ? stayPrice + cleaningFee + serviceFee : 0;
 
 
   const handleShare = async () => {
@@ -836,6 +861,10 @@ const PropertyDetail = () => {
                     </label>
                     <input
                       type="date"
+                      value={reservation.checkIn}
+                      onChange={(e) =>
+                        setReservation({ ...reservation, checkIn: e.target.value })
+                      }
                       className="w-full border-none p-0 text-neutral-800 focus:ring-0"
                     />
                   </div>
@@ -845,8 +874,13 @@ const PropertyDetail = () => {
                     </label>
                     <input
                       type="date"
+                      value={reservation.checkOut}
+                      onChange={(e) =>
+                        setReservation({ ...reservation, checkOut: e.target.value })
+                      }
                       className="w-full border-none p-0 text-neutral-800 focus:ring-0"
                     />
+
                   </div>
                 </div>
                 <div className="p-4">
@@ -907,23 +941,27 @@ const PropertyDetail = () => {
               <div className="space-y-4 text-neutral-800">
                 <div className="flex justify-between">
                   <span className="underline">
-                    ${property.price || 100} x 5 nights
+                    ${pricePerNight} × {nights} night{nights !== 1 ? "s" : ""}
                   </span>
-                  <span>${(property.price || 100) * 5}</span>
+                  <span>${stayPrice}</span>
                 </div>
+
                 <div className="flex justify-between">
                   <span className="underline">Cleaning fee</span>
-                  <span>$60</span>
+                  <span>${cleaningFee}</span>
                 </div>
+
                 <div className="flex justify-between">
                   <span className="underline">Service fee</span>
-                  <span>$75</span>
+                  <span>${serviceFee}</span>
                 </div>
+
                 <div className="flex justify-between pt-4 border-t border-neutral-200 font-semibold">
                   <span>Total before taxes</span>
-                  <span>${(property.price || 100) * 5 + 60 + 75}</span>
+                  <span>${totalPrice}</span>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
