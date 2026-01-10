@@ -5,16 +5,7 @@ const reviewController = require("../controllers/reviewController");
 const { authenticate, authorize } = require("../middleware");
 const { upload } = require("../cloudConfig");
 
-// Test route to check data structure
-router.get("/test", async (req, res) => {
-  try {
-    const Property = require("../models/property");
-    const properties = await Property.find().limit(2);
-    res.json(properties);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// Test route removed (PR Feedback)
 
 // New route to get all properties without any filtering
 router.get("/all", async (req, res) => {

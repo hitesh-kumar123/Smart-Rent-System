@@ -54,8 +54,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection with better error handling
+const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/smart-rent-system";
+
+if (!mongoUri) {
+  console.error("Critical Error: MongoDB connection string is missing!");
+  process.exit(1);
+}
+
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(mongoUri)
   .then(() => {
     console.log("MongoDB Connected Successfully");
   })
@@ -192,8 +199,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+module.exports = app;

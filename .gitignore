@@ -102,7 +102,7 @@ firebase-debug.log
 serviceAccount.json
 
 # Package files
-package-lock.json
+
 yarn.lock
 .tmp
 .temp
