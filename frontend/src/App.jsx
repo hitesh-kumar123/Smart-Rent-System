@@ -13,6 +13,7 @@ import PaymentPage from "./pages/PaymentPage";
 import ResetPassword from "./pages/ResetPassword";
 import ApiTest from "./pages/ApiTest";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/listings" element={<Listings />} />
         <Route path="/property/:id" element={<PropertyDetail />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/api-test" element={<ApiTest />} />

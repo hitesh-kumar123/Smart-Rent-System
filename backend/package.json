@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Smart Rent System - A MERN Stack Application",
   "main": "server.js",
-   "scripts": {
+  "scripts": {
     "server": "node server.js",
     "start": "node server.js",
     "dev": "concurrently \"node app.js\" \"cd client && npm run dev\""
@@ -23,9 +23,10 @@
     "express": "^4.21.2",
     "express-mongo-sanitize": "^2.2.0",
     "express-session": "^1.18.1",
+    "google-auth-library": "^10.5.0",
     "helmet": "^8.1.0",
     "joi": "^17.13.3",
-    "jsonwebtoken": "^9.0.2",
+    "jsonwebtoken": "^9.0.3",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.542.0",
     "method-override": "^3.0.0",

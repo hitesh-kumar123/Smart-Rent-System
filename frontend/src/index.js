@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 // Reset scroll position on page load
 if (typeof window !== "undefined") {
@@ -29,10 +30,14 @@ if (typeof window !== "undefined") {
   });
 }
 
+console.log("Google Client ID:", process.env.REACT_APP_GOOGLE_CLIENT_ID);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <App />
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 

@@ -3,12 +3,15 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const { authenticate, authorize } = require("../middleware");
 const { upload } = require("../cloudConfig");
+const { googleLogin } = require("../controllers/googleauth");
 
 // Public routes
 router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
 router.post("/forgot-password", userController.forgotPassword);
 router.post("/reset-password/:token", userController.resetPassword);
+router.post("/google", googleLogin);
+
 
 // Protected routes
 router.post("/logout", authenticate, userController.logoutUser);
