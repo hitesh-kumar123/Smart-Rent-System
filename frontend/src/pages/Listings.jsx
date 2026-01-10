@@ -11,7 +11,9 @@ const Listings = () => {
   const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
   const [wishlistIds, setWishlistIds] = useState(new Set());
-
+  const [inputError, setInputError] = useState({});
+  const PRICE_MIN = 1000;
+  const PRICE_MAX = 10000;
   // App settings for language and currency
   const {
     language,
@@ -142,7 +144,6 @@ const Listings = () => {
   }, []);
 
   useEffect(() => {
-   
     // Reset all filters when the page loads to ensure all properties show
     setFilters({
       priceMin: "",
@@ -185,13 +186,10 @@ const Listings = () => {
     let updatedFilters = { ...filters };
 
     if (locationParam) {
-
       updatedFilters.location = locationParam;
     }
 
     if (typeParam) {
-   
-
       // Convert URL parameter to match property categories in the system
       let propertyType = "";
       switch (typeParam.toLowerCase()) {
@@ -258,8 +256,8 @@ const Listings = () => {
           const propsArray = Array.isArray(response.data)
             ? response.data
             : Array.isArray(response.data.properties)
-              ? response.data.properties
-              : null;
+            ? response.data.properties
+            : null;
 
           if (propsArray) {
             setProperties(propsArray);
@@ -267,24 +265,22 @@ const Listings = () => {
             // prefer pagination.total when provided
             const total =
               response.data.pagination &&
-                typeof response.data.pagination.total === "number"
+              typeof response.data.pagination.total === "number"
                 ? response.data.pagination.total
                 : propsArray.length;
 
             setTotalCount(total);
             setIsApiData(true);
           } else {
-            
             setIsApiData(false);
           }
         } else {
-          
           setIsApiData(false);
         }
         setLoading(false);
       } catch (err) {
         console.error("Error fetching properties:", err);
-        
+
         // If it's a timeout or network error, show a more helpful message
         if (err.code === "ECONNABORTED" || err.message?.includes("timeout")) {
           setError(
@@ -299,7 +295,7 @@ const Listings = () => {
             "Unable to load properties. Please try again later or check your connection."
           );
         }
-        
+
         // Fall back to empty array - experience filter will handle showing results
         setProperties([]);
         setTotalCount(0);
@@ -311,6 +307,39 @@ const Listings = () => {
     fetchProperties();
   }, [location.search, language]);
 
+  const checkInput = (e) => {
+    const { name, value } = e.target;
+    let hasError = false;
+    if (name === "priceMin") {
+      hasError =
+        (value < PRICE_MIN || value > PRICE_MAX) && filters.priceMin !== "";
+      if (hasError) {
+        filters.priceMin = "";
+      }
+    }
+
+    if (name === "priceMax") {
+      hasError =
+        (value > PRICE_MAX || value < PRICE_MIN) && filters.priceMax !== "";
+      if (hasError) {
+        filters.priceMax = "";
+      }
+    }
+
+    setInputError((prev) => ({
+      ...prev,
+      [name]: hasError,
+    }));
+
+    if (hasError) {
+      setTimeout(function () {
+        setInputError((prev) => ({
+          ...prev,
+          [name]: false,
+        }));
+      }, 300);
+    }
+  };
   /**
    * Handles changes to the filter inputs
    * @param {Event} e - The change event
@@ -403,175 +432,178 @@ const Listings = () => {
       activeCategory === "Desert" ||
       activeCategory === "Ski-in/out" ||
       activeCategory === "Vineyard"
-    ) 
-    // Match based on property category and type
-    // Case-insensitive matching for various property types
-    switch (activeCat) {
-      case "house":
-        return (
-          propertyCategory.includes("house") || propertyType.includes("house")
-        );
+    )
+      // Match based on property category and type
+      // Case-insensitive matching for various property types
+      switch (activeCat) {
+        case "house":
+          return (
+            propertyCategory.includes("house") || propertyType.includes("house")
+          );
 
-      case "apartment":
-        return (
-          propertyCategory.includes("apartment") ||
-          propertyType.includes("apartment")
-        );
+        case "apartment":
+          return (
+            propertyCategory.includes("apartment") ||
+            propertyType.includes("apartment")
+          );
 
-      case "villa":
-        return (
-          propertyCategory.includes("villa") || propertyType.includes("villa")
-        );
+        case "villa":
+          return (
+            propertyCategory.includes("villa") || propertyType.includes("villa")
+          );
 
-      case "condo":
-        return (
-          propertyCategory.includes("condo") || propertyType.includes("condo")
-        );
+        case "condo":
+          return (
+            propertyCategory.includes("condo") || propertyType.includes("condo")
+          );
 
-      case "cabin":
-        return (
-          propertyCategory.includes("cabin") || propertyType.includes("cabin")
-        );
+        case "cabin":
+          return (
+            propertyCategory.includes("cabin") || propertyType.includes("cabin")
+          );
 
-      case "beach":
-        return (
-          propertyCategory.includes("beach") || propertyType.includes("beach")
-        );
+        case "beach":
+          return (
+            propertyCategory.includes("beach") || propertyType.includes("beach")
+          );
 
-      case "lakefront":
-        return (
-          propertyCategory.includes("lake") ||
-          propertyType.includes("lake") ||
-          propertyCategory.includes("lakefront") ||
-          propertyType.includes("lakefront")
-        );
+        case "lakefront":
+          return (
+            propertyCategory.includes("lake") ||
+            propertyType.includes("lake") ||
+            propertyCategory.includes("lakefront") ||
+            propertyType.includes("lakefront")
+          );
 
-      case "amazing":
-        return (
-          propertyCategory.includes("amazing") ||
-          propertyType.includes("amazing") ||
-          propertyCategory.includes("view") ||
-          propertyType.includes("view")
-        );
+        case "amazing":
+          return (
+            propertyCategory.includes("amazing") ||
+            propertyType.includes("amazing") ||
+            propertyCategory.includes("view") ||
+            propertyType.includes("view")
+          );
 
-      case "tiny":
-        return (
-          propertyCategory.includes("tiny") || propertyType.includes("tiny")
-        );
+        case "tiny":
+          return (
+            propertyCategory.includes("tiny") || propertyType.includes("tiny")
+          );
 
-      case "mansion":
-        return (
-          propertyCategory.includes("mansion") ||
-          propertyType.includes("mansion")
-        );
+        case "mansion":
+          return (
+            propertyCategory.includes("mansion") ||
+            propertyType.includes("mansion")
+          );
 
-      case "countryside":
-        return (
-          propertyCategory.includes("country") ||
-          propertyType.includes("country")
-        );
+        case "countryside":
+          return (
+            propertyCategory.includes("country") ||
+            propertyType.includes("country")
+          );
 
-      case "luxury":
-        return (
-          propertyCategory.includes("luxury") || propertyType.includes("luxury")
-        );
+        case "luxury":
+          return (
+            propertyCategory.includes("luxury") ||
+            propertyType.includes("luxury")
+          );
 
-      case "castles":
-        return (
-          propertyCategory.includes("castle") || propertyType.includes("castle")
-        );
+        case "castles":
+          return (
+            propertyCategory.includes("castle") ||
+            propertyType.includes("castle")
+          );
 
-      case "tropical":
-        return (
-          propertyCategory.includes("tropical") ||
-          propertyType.includes("tropical")
-        );
+        case "tropical":
+          return (
+            propertyCategory.includes("tropical") ||
+            propertyType.includes("tropical")
+          );
 
-      case "historic":
-        return (
-          propertyCategory.includes("historic") ||
-          propertyType.includes("historic")
-        );
+        case "historic":
+          return (
+            propertyCategory.includes("historic") ||
+            propertyType.includes("historic")
+          );
 
-      case "design":
-        return (
-          propertyCategory.includes("design") || propertyType.includes("design")
-        );
+        case "design":
+          return (
+            propertyCategory.includes("design") ||
+            propertyType.includes("design")
+          );
 
-      case "farm":
-        return (
-          propertyCategory.includes("farm") || propertyType.includes("farm")
-        );
+        case "farm":
+          return (
+            propertyCategory.includes("farm") || propertyType.includes("farm")
+          );
 
-      case "treehouse":
-        return (
-          propertyCategory.includes("tree") || propertyType.includes("tree")
-        );
+        case "treehouse":
+          return (
+            propertyCategory.includes("tree") || propertyType.includes("tree")
+          );
 
-      case "boat":
-        return (
-          propertyCategory.includes("boat") || propertyType.includes("boat")
-        );
+        case "boat":
+          return (
+            propertyCategory.includes("boat") || propertyType.includes("boat")
+          );
 
-      case "container":
-        return (
-          propertyCategory.includes("container") ||
-          propertyType.includes("container")
-        );
+        case "container":
+          return (
+            propertyCategory.includes("container") ||
+            propertyType.includes("container")
+          );
 
-      case "dome":
-        return (
-          propertyCategory.includes("dome") || propertyType.includes("dome")
-        );
+        case "dome":
+          return (
+            propertyCategory.includes("dome") || propertyType.includes("dome")
+          );
 
-      case "windmill":
-        return (
-          propertyCategory.includes("windmill") ||
-          propertyType.includes("windmill")
-        );
+        case "windmill":
+          return (
+            propertyCategory.includes("windmill") ||
+            propertyType.includes("windmill")
+          );
 
-      case "cave":
-        return (
-          propertyCategory.includes("cave") || propertyType.includes("cave")
-        );
+        case "cave":
+          return (
+            propertyCategory.includes("cave") || propertyType.includes("cave")
+          );
 
-      case "camping":
-        return (
-          propertyCategory.includes("camp") || propertyType.includes("camp")
-        );
+        case "camping":
+          return (
+            propertyCategory.includes("camp") || propertyType.includes("camp")
+          );
 
-      case "arctic":
-    
-        return (
-          propertyCategory.includes("arctic") || propertyType.includes("arctic")
-        );
+        case "arctic":
+          return (
+            propertyCategory.includes("arctic") ||
+            propertyType.includes("arctic")
+          );
 
-      case "desert":
-   
-        return (
-          propertyCategory.includes("desert") || propertyType.includes("desert")
-        );
+        case "desert":
+          return (
+            propertyCategory.includes("desert") ||
+            propertyType.includes("desert")
+          );
 
-      case "ski-in/out":
+        case "ski-in/out":
+          return (
+            propertyCategory.includes("ski") || propertyType.includes("ski")
+          );
 
-        return propertyCategory.includes("ski") || propertyType.includes("ski");
+        case "vineyard":
+          return (
+            propertyCategory.includes("vineyard") ||
+            propertyType.includes("vineyard") ||
+            propertyCategory.includes("vine") ||
+            propertyType.includes("vine")
+          );
 
-      case "vineyard":
-   
-        return (
-          propertyCategory.includes("vineyard") ||
-          propertyType.includes("vineyard") ||
-          propertyCategory.includes("vine") ||
-          propertyType.includes("vine")
-        );
-
-      default:
-        // For any other category, do a partial match
-        return (
-          propertyCategory.includes(activeCat) ||
-          propertyType.includes(activeCat)
-        );
-    }
+        default:
+          // For any other category, do a partial match
+          return (
+            propertyCategory.includes(activeCat) ||
+            propertyType.includes(activeCat)
+          );
+      }
   });
 
   // Apply remaining filters (price, amenities, etc.)
@@ -579,7 +611,10 @@ const Listings = () => {
     let matches = true;
 
     // Experience filter
-    if (filters.experience && !matchesExperience(property, filters.experience)) {
+    if (
+      filters.experience &&
+      !matchesExperience(property, filters.experience)
+    ) {
       return false;
     }
 
@@ -732,27 +767,19 @@ const Listings = () => {
     if (activeCategory !== "all") {
       // Check the first few properties and their categories
       if (properties.length > 0) {
-       
-        properties.slice(0, 3).forEach((prop, i) => {
-        });
+        properties.slice(0, 3).forEach((prop, i) => {});
       }
 
       // Check which properties matched the category filter
 
-      sortedProperties.slice(0, 3).forEach((property, idx) => {
-      
-      });
+      sortedProperties.slice(0, 3).forEach((property, idx) => {});
     }
   }, [activeCategory, sortedProperties.length, properties.length, isApiData]);
-
- 
 
   // Log filter state
   // Debug filtered properties and their images
 
-
-  sortedProperties.slice(0, 3).forEach((property, idx) => {
-  });
+  sortedProperties.slice(0, 3).forEach((property, idx) => {});
 
   /**
    * Toggles a specific amenity filter
@@ -902,7 +929,6 @@ const Listings = () => {
    * @param {string} categoryId - The ID of the clicked category
    */
   const handleCategoryClick = (categoryId) => {
-
     // Set the active category
     setActiveCategory(categoryId);
 
@@ -929,8 +955,6 @@ const Listings = () => {
   const navigateToPropertyDetail = (propertyId, e) => {
     if (e) e.stopPropagation();
 
-  
-
     // Ensure propertyId is a string and is valid
     const stringId = String(propertyId).trim();
 
@@ -952,8 +976,6 @@ const Listings = () => {
 
         // Also store the property ID separately for redundancy
         sessionStorage.setItem("lastViewedPropertyId", stringId);
-
-      
       } catch (err) {
         console.error("Failed to store property in session storage:", err);
       }
@@ -1020,7 +1042,8 @@ const Listings = () => {
         </p>
         {filters.experience && (
           <p className="text-neutral-400 text-xs mt-2">
-            Filtering for {filters.experience === "city-tours"
+            Filtering for{" "}
+            {filters.experience === "city-tours"
               ? "City Tours"
               : filters.experience === "outdoor-adventures"
               ? "Outdoor Adventures"
@@ -1052,50 +1075,51 @@ const Listings = () => {
         style={{ zIndex: 10 }}
       >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="relative w-full max-w-5xl mx-auto">
+          <div className="flex justify-around items-center">
+            <div className="relative max-w-4xl flex-grow overflow-hidden">
               {/* Left Arrow */}
               <button
                 onClick={() => scrollCategories("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border border-neutral-200 shadow-lg hover:shadow-xl hover:bg-neutral-100 transition-all duration-200 rounded-full w-10 h-10 flex items-center justify-center z-20 active:scale-95"
+                className="absolute top-1/2 -translate-y-1/2 bg-white border border-neutral-200 shadow-lg hover:shadow-xl hover:bg-neutral-100 transition-all duration-200 rounded-full w-10 h-10 flex items-center justify-center z-20 active:scale-95"
                 aria-label="Scroll left"
               >
-                <i className="fas fa-chevron-left text-xl text-primary-600"></i>
+                <i className="fas fa-chevron-left text-2xl text-primary-600"></i>
               </button>
 
               {/* Scrollable Categories */}
               <div
-                className="flex overflow-x-auto px-12 py-2 scrollbar-hide"
+                className="flex overflow-x-auto pb-2 pl-8 pr-8 scrollbar-hide"
                 ref={categoriesContainerRef}
               >
-                <div className="flex space-x-8 items-center h-full">
+                <div className="flex space-x-8">
                   {categories.map((category) => {
                     // Debug the category
                     if (activeCategory === category.id) {
-                     
                     }
 
                     return (
                       <div
                         key={category.id}
                         onClick={() => handleCategoryClick(category.id)}
-                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max h-full py-1 ${
+                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${
                           activeCategory === category.id
-                            ? "text-primary-600 border-b-2 border-primary-600 scale-105"
-                            : "text-neutral-500 hover:text-primary-500 hover:scale-100"
+                            ? "text-primary-600 border-b-2 border-primary-600 scale-110"
+                            : "text-neutral-500 hover:text-primary-500 hover:scale-105"
                         }`}
                       >
                         <div
-                          className={`rounded-full p-2 mb-1 ${activeCategory === category.id
+                          className={`rounded-full p-2 mb-1 ${
+                            activeCategory === category.id
                               ? "bg-primary-50"
                               : "bg-neutral-50"
-                            }`}
+                          }`}
                         >
                           <i
-                            className={`${category.icon} text-lg ${activeCategory === category.id
+                            className={`${category.icon} text-lg ${
+                              activeCategory === category.id
                                 ? "text-primary-600"
                                 : "text-neutral-500"
-                              }`}
+                            }`}
                           ></i>
                         </div>
                         <span className="text-sm font-medium">
@@ -1116,7 +1140,7 @@ const Listings = () => {
                 className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border border-neutral-200 shadow-lg hover:shadow-xl hover:bg-neutral-100 transition-all duration-200 rounded-full w-10 h-10 flex items-center justify-center z-20 active:scale-95"
                 aria-label="Scroll right"
               >
-                <i className="fas fa-chevron-right text-xl text-primary-600"></i>
+                <i className="fas fa-chevron-right text-2xl text-primary-600"></i>
               </button>
             </div>
 
@@ -1164,12 +1188,15 @@ const Listings = () => {
                   {/* Price Range filter */}
                   <div>
                     <h3 className="text-lg font-medium text-neutral-800 mb-3">
-                      Price Range1111
+                      Price Range
+                      <span className="text-sm ps-1 text-neutral-500">
+                        (1000 - 10,000)
+                      </span>
                     </h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-neutral-700 mb-1">
-                          Min Price1111
+                          Min Price
                         </label>
                         <div className="relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -1179,15 +1206,18 @@ const Listings = () => {
                             type="number"
                             name="priceMin"
                             value={filters.priceMin}
+                            onBlur={checkInput}
                             onChange={handleFilterChange}
-                            className="pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
+                              inputError.priceMin ? "range-input-error" : ""
+                            }`}
                             placeholder="Min"
                           />
                         </div>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-neutral-700 mb-1">
-                          Max Price1111
+                          Max Price
                         </label>
                         <div className="relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -1197,8 +1227,11 @@ const Listings = () => {
                             type="number"
                             name="priceMax"
                             value={filters.priceMax}
+                            onBlur={checkInput}
                             onChange={handleFilterChange}
-                            className="pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
+                              inputError.priceMax ? "range-input-error" : ""
+                            }`}
                             placeholder="Max"
                           />
                         </div>
@@ -1258,10 +1291,11 @@ const Listings = () => {
                               language: lang.code,
                             });
                           }}
-                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${language === lang.code
+                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
+                            language === lang.code
                               ? "bg-primary-50 text-primary-600 font-medium border border-primary-200"
                               : "text-neutral-700 hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300"
-                            }`}
+                          }`}
                         >
                           <span>{lang.name}</span>
                         </button>
@@ -1502,9 +1536,13 @@ const Listings = () => {
                         });
                         setActiveCategory("all");
                         // Clear experience from URL
-                        const queryParams = new URLSearchParams(location.search);
+                        const queryParams = new URLSearchParams(
+                          location.search
+                        );
                         queryParams.delete("experience");
-                        navigate(`/listings?${queryParams.toString()}`, { replace: true });
+                        navigate(`/listings?${queryParams.toString()}`, {
+                          replace: true,
+                        });
                       }}
                       className="flex-1 px-4 py-2 border border-neutral-300 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors duration-200"
                     >
@@ -1607,8 +1645,8 @@ const Listings = () => {
               const propertyImages = hasValidImages
                 ? property.images
                 : hasValidImage
-                  ? [property.image]
-                  : [getCategoryImage()];
+                ? [property.image]
+                : [getCategoryImage()];
 
               return (
                 // Property card component
@@ -1662,11 +1700,13 @@ const Listings = () => {
                         onClick={(e) => toggleWishlist(e, property._id)}
                       >
                         <i
-                          className={`${wishlistIds.has(property._id) ? "fas text-red-500" : "far"
-                            } fa-heart`}
+                          className={`${
+                            wishlistIds.has(property._id)
+                              ? "fas text-red-500"
+                              : "far"
+                          } fa-heart`}
                         ></i>
                       </button>
-
                     </div>
 
                     {/* Property details section */}
