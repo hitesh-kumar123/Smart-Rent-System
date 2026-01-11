@@ -577,6 +577,21 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+            {/* Trips shortcut */}
+            {isAuthenticated && (
+              <Link
+                to="/trips"
+                className={`relative flex items-center justify-center p-2 rounded-full transition
+                    ${pathname.startsWith("/trips")
+                    ? "text-primary-600 bg-primary-50"
+                    : "text-neutral-600 hover:text-primary-600 hover:bg-neutral-100"
+                  }`}
+                aria-label="Trips"
+              >
+                <i className="fas fa-suitcase text-lg"></i>
+              </Link>
+            )}
+
 
             {/* User profile menu */}
 
