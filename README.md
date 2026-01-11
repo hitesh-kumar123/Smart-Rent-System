@@ -2,658 +2,273 @@
 
 <div align="center">
   <img src="assets/readme-banner.png" alt="Smart-Rent Banner" width="100%">
+
+  **Revolutionizing the rental experience through technology and community**
+
+  ![Repo Size](https://img.shields.io/github/repo-size/hitesh-kumar123/Smart-Rent-System?style=for-the-badge&color=blue)
+  ![License](https://img.shields.io/github/license/hitesh-kumar123/Smart-Rent-System?style=for-the-badge&color=green)
+  ![Last Commit](https://img.shields.io/github/last-commit/hitesh-kumar123/Smart-Rent-System?style=for-the-badge&color=orange)
+  ![SWoC 2026](https://img.shields.io/badge/SWoC-2026-FF5733?style=for-the-badge&logo=github)
+
+  [🚀 Live Demo](https://smartrentsystem.netlify.app/) • [📖 Documentation](#) • [🐛 Report Bug](https://github.com/hitesh-kumar123/Smart-Rent/issues) • [✨ Request Feature](https://github.com/hitesh-kumar123/Smart-Rent/issues)
 </div>
 
-**Revolutionizing the rental experience through technology and community**
+---
 
-[![SWoC 2025](assets/Project%20Admin%20Badge.png)](https://swoc.tech)
-[![Contributors](https://img.shields.io/github/contributors/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/graphs/contributors)
-[![Stars](https://img.shields.io/github/stars/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/stargazers)
-[![Issues](https://img.shields.io/github/issues/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/issues)
-[![License](https://img.shields.io/github/license/hitesh-kumar123/Smart-Rent?style=flat-square)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/commits)
-
-[🚀 Live Demo](https://smartrentsystem.netlify.app/) • [📖 Documentation](#) • [🐛 Report Bug](https://github.com/hitesh-kumar123/Smart-Rent/issues) • [✨ Request Feature](https://github.com/hitesh-kumar123/Smart-Rent/issues)
-
+## 📺 Project Demo
+<div align="center">
+  <img src="https://via.placeholder.com/800x450.png?text=Smart+Rent+Experience+Demo+GIF" alt="Project Demo Walkthrough" width="800">
+  <p><i>Visualizing a seamless property search and booking experience.</i></p>
 </div>
 
 ---
 
 ## 📋 Table of Contents
-
 <details open>
 <summary>Click to expand</summary>
 
 - [🎯 Vision](#-vision)
-- [✨ Features](#-features)
+- [🏗️ System Architecture](#️-system-architecture)
 - [🛠️ Technology Stack](#️-technology-stack)
-- [📸 Screenshots](#-screenshots)
+- [🔌 API Documentation](#-api-documentation)
 - [🚀 Quick Start](#-quick-start)
 - [📚 Project Structure](#-project-structure)
-- [🔧 Configuration](#-configuration)
+- [🔧 Troubleshooting](#-troubleshooting)
 - [🤝 Contributing](#-contributing)
-- [🗺️ Roadmap](#️-roadmap)
-- [👥 Community](#-community)
 - [📄 License](#-license)
-- [🙏 Acknowledgments](#-acknowledgments)
 
 </details>
 
 ---
 
 ## 🎯 Vision
-
-Smart Rent System is more than a rental platform—it's a **movement towards smarter, more transparent property transactions**. Built with modern web technologies and best practices, we're creating a space where property owners and travelers connect seamlessly.
-
-### 🌍 Our Mission
-
-```
-Democratize property rentals by building an open-source platform that:
-✓ Prioritizes user experience and security
-✓ Fosters trust through verified reviews
-✓ Empowers developers to learn and contribute
-✓ Creates economic opportunities for hosts worldwide
-```
-
-### 🎓 Learning Hub
-
-As part of **Social Winter of Code (SWoC) 2026**, Smart Rent System serves as a comprehensive learning resource for developers mastering the MERN stack. Dive into real-world implementations of:
-
-- **RESTful API Design** with Express.js
-- **State Management** using Redux Toolkit
-- **Real-time Communication** with WebSockets
-- **Cloud Storage** integration with Cloudinary
-- **Authentication Flows** including OAuth 2.0
-- **Database Modeling** for complex relationships
+Smart Rent System is a movement towards smarter, more transparent property transactions. As a featured project in **Social Winter of Code (SWoC) 2026**, we aim to provide a high-performance MERN platform for hosts and travelers.
 
 ---
 
-## ✨ Features
+## 🏗️ System Architecture
+The following diagram illustrates the data flow from the client-side interaction to the persistent database storage.
 
-<table>
-<tr>
-<td width="50%">
+```mermaid
+graph TD
+    A[User Interface / React] -->|Dispatches Action| B[Redux Toolkit State]
+    B -->|Async Thunk / Axios| C[Express.js Server]
+    C -->|JWT Verify / Controller| D[Mongoose Models]
+    D -->|Query/Command| E[(MongoDB Atlas)]
+    E -->|Data Payload| D
+    D -->|JSON Response| C
+    C -->|Update State| B
+    B -->|Reactive UI Update| A
+    C -->|Socket.io| F[Real-time Chat Engine]
+```
 
-### 🔐 **Secure Authentication**
-- JWT-based session management
-- Google OAuth integration
-- Password encryption with bcrypt
-- Role-based access control (RBAC)
+---
 
-### 🏠 **Smart Listings**
-- Rich media uploads (Cloudinary CDN)
-- Dynamic pricing algorithms
-- Amenities and house rules editor
-- Availability calendar integration
+### 🔌 API Documentation
 
-### 🗺️ **Map Integration**
-- Interactive Leaflet.js maps
-- Geolocation-based search
-- Radius filtering
-- Custom map markers
+For quick reference, here are the core endpoints of the Smart Rent API. You can use these to integrate with the frontend or test via Postman.
 
-</td>
-<td width="50%">
+| Endpoint | Method | Description | Auth Required |
+| :--- | :---: | :--- | :---: |
+| `/api/auth/register` | `POST` | Create a new user account | ❌ |
+| `/api/auth/login` | `POST` | Authenticate user & return JWT | ❌ |
+| `/api/listings` | `GET` | Retrieve all property listings | ❌ |
+| `/api/listings/:id` | `GET` | Get detailed info for a specific listing | ❌ |
+| `/api/listings/create`| `POST` | Post a new rental property | ✅ |
+| `/api/bookings` | `POST` | Reserve a property for specific dates | ✅ |
+| `/api/chat/:userId` | `GET` | Fetch conversation history | ✅ |
 
-### 💬 **Real-Time Chat**
-- Socket.io powered messaging
-- Typing indicators
-- Read receipts
-- Message history persistence
-
-### 📊 **Analytics Dashboard**
-- Booking statistics
-- Revenue tracking
-- Occupancy rates
-- User engagement metrics
-
-### ⭐ **Review System**
-- Verified guest reviews
-- Rating aggregation
-- Photo reviews
-- Response management
-
-</td>
-</tr>
-</table>
+> [!TIP]
+> **Authentication:** For all protected routes (marked with ✅), ensure you include the JWT token in the `Authorization` header as follows:  
+> `Authorization: Bearer <your_jwt_token>`
 
 ---
 
 ## 🛠️ Technology Stack
 
+The Smart Rent System is built using the **MERN Stack** (MongoDB, Express, React, Node) along with modern tools for real-time communication and cloud storage.
+
 <div align="center">
 
-### Frontend Arsenal
-![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Redux](https://img.shields.io/badge/Redux_Toolkit-1.9-764ABC?style=for-the-badge&logo=redux&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![React Router](https://img.shields.io/badge/React_Router-6.x-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-
-### Backend Infrastructure
-![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express-4.18-000000?style=for-the-badge&logo=express&logoColor=white)
-![Socket.io](https://img.shields.io/badge/Socket.io-4.5-010101?style=for-the-badge&logo=socket.io&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
-
-### Database & Storage
-![MongoDB](https://img.shields.io/badge/MongoDB-6.0-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![Mongoose](https://img.shields.io/badge/Mongoose-7.x-880000?style=for-the-badge&logo=mongodb&logoColor=white)
-![Cloudinary](https://img.shields.io/badge/Cloudinary-CDN-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
-
-### Development Tools
-![Git](https://img.shields.io/badge/Git-Version_Control-F05032?style=for-the-badge&logo=git&logoColor=white)
-![Postman](https://img.shields.io/badge/Postman-API_Testing-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-Code_Quality-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
-![Prettier](https://img.shields.io/badge/Prettier-Code_Format-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
+| Frontend | Backend | DevOps & Tools |
+| :--- | :--- | :--- |
+| **React 18** & Redux Toolkit | **Node.js** & Express.js | **Docker** & Docker Compose |
+| **Tailwind CSS** & Framer Motion | **MongoDB** & Mongoose | **Git** & GitHub Actions |
+| **Leaflet.js** (Maps) | **Socket.io** (Real-time) | **Postman** (API Testing) |
+| **Axios** (API Calls) | **JSON Web Tokens** (JWT) | **ESLint** & Prettier |
+| **React Hook Form** | **Cloudinary** (Media SDK) | **Vite** (Build Tool) |
 
 </div>
-
----
-
-## 📸 Screenshots
-
-<details>
-<summary>🖼️ View Application Screenshots</summary>
-
-### Landing Page
-![Landing Page](assets/Landing%20Page.png)
-
-### Property Listings
-![Property Grid](assets/Property%20Grid.png)
-
-### Interactive Map
-![Map View](assets/Map%20View.png)
-
-### Real-Time Chat
-![Chat Interface](assets/Chat%20Interface.png)
-
-</details>
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
+Follow these steps to get the **Smart Rent System** running on your local machine.
 
-Before you begin, ensure you have the following installed:
+### ✅ Prerequisites Check-list
+Before you begin, ensure you have the following installed and set up:
+- [ ] **Node.js**: `v18.x` or higher
+- [ ] **MongoDB**: Local instance or a [MongoDB Atlas](https://www.mongodb.com/atlas) URI
+- [ ] **Cloudinary**: A free account for image hosting ([Sign up here](https://cloudinary.com/))
+- [ ] **Docker**: (Optional) Required only if you prefer containerized setup
 
-```bash
-node -v  # v16.0.0 or higher
-npm -v   # v8.0.0 or higher
+### 🛠️ Manual Installation
+
+**1. Clone & Install Dependencies**
+```
+# Clone the repository
+git clone [https://github.com/hitesh-kumar123/Smart-Rent-System.git](https://github.com/hitesh-kumar123/Smart-Rent-System.git)
+
+# Enter the project directory
+cd Smart-Rent-System
+
+# Install Backend dependencies
+cd backend && npm install
+
+# Install Frontend dependencies
+cd ../frontend && npm install
 ```
 
-You'll also need:
-- **MongoDB** (local installation or Atlas URI)
-- **Cloudinary Account** (free tier available)
-- **Git** for version control
+**2. Setup Environment Variables**
+The application requires specific configuration keys to connect to the database, handle authentication, and store images. 
 
-### Installation
+**Steps:**
+1. Navigate to the `backend/` directory and create a file named `.env`.
+2. Navigate to the `frontend/` directory and create a file named `.env`.
+3. Fill in the keys as shown below (refer to the [Configuration](#-configuration) section for more details).
 
-**1. Clone the Repository**
-
-```bash
-git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
-
-```
-
-**2. Backend Setup**
-
-```bash
-cd backend
-npm install
-```
-
-Create `.env` file in the `backend` directory:
-
+ * **📂 Backend `.env`**
 ```env
-# Server Configuration
 PORT=8000
-NODE_ENV=development
-
-# Database
-MONGODB_URI=mongodb://localhost:27017/smartrent
-
-# Authentication
-JWT_SECRET=your_super_secret_jwt_key_change_in_production
-JWT_EXPIRE=7d
-
-# Cloudinary Configuration
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_KEY=your_api_key
-CLOUDINARY_SECRET=your_api_secret
-
-# Google OAuth (Optional)
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+CLOUDINARY_CLOUD_NAME=your_name
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_secret
 ```
-
-**3. Frontend Setup**
-
-```bash
-cd ../frontend
-npm install
-```
-
-Create `.env` file in the `frontend` directory:
-
+* **📂 Frontend `.env`**
 ```env
-REACT_APP_API_URL=http://localhost:8000/api
-REACT_APP_SOCKET_URL=http://localhost:8000
+VITE_API_BASE_URL=http://localhost:8000/api
+VITE_CLOUDINARY_UPLOAD_PRESET=your_preset
 ```
 
-**4. Launch Application**
+> [!WARNING] Never commit your .env files to GitHub. They are already included in the .gitignore to keep your credentials safe.
 
-**Terminal 1 - Backend:**
-```bash
+**3. Run the Application** 
+Open two terminals to run the services simultaneously:
+* **Terminal 1 (Backend):**
+```
 cd backend
 npm run server
 ```
-
-**Terminal 2 - Frontend:**
-```bash
+* **Terminal 2 (Frontend):**
+```
 cd frontend
 npm run dev
 ```
-
-**5. Access the Application**
-
-Open your browser and navigate to:
-```
-http://localhost:3000
-```
-
-🎉 **Congratulations!** Smart-Rent is now running locally.
 
 ---
 
 ## 📚 Project Structure
 
-```
+The project is organized into a clear separation of concerns between the client and the server, following the **MERN** architecture.
+
+```text
 Smart-Rent/
 ├── backend/
-│   ├── config/              # Configuration files
-│   ├── controllers/         # Request handlers
-│   ├── middleware/          # Custom middleware
-│   ├── models/              # Mongoose schemas
-│   ├── routes/              # API routes
-│   ├── utils/               # Helper functions
-│   └── server.js            # Entry point
-│
+│   ├── controllers/    # Request handlers & business logic
+│   ├── models/         # Mongoose schemas & DB logic
+│   ├── routes/         # API endpoint definitions
+│   ├── middleware/     # Auth, validation & error handlers
+│   └── utils/          # Shared helper functions
 ├── frontend/
-│   ├── public/              # Static assets
 │   ├── src/
-│   │   ├── components/      # Reusable components
-│   │   ├── pages/           # Page components
-│   │   ├── redux/           # State management
-│   │   ├── services/        # API services
-│   │   ├── utils/           # Utility functions
-│   │   └── App.js           # Root component
-│   └── package.json
-│
-├── assets/                  # Project assets
-├── docs/                    # Documentation
-├── .gitignore
-├── CONTRIBUTING.md
-├── LICENSE
-└── README.md
+│   │   ├── redux/      # Global state (Slices & Store)
+│   │   ├── components/ # Reusable UI components
+│   │   ├── pages/      # Route-based view components
+│   │   ├── services/   # API call definitions (Axios)
+│   │   └── hooks/      # Custom React hooks
+└── docker-compose.yml  # Orchestration for containerized services
 ```
 
 ---
 
-## 🔧 Configuration
+## 🔧 Troubleshooting
 
-### Environment Variables Reference
+If you encounter any issues during setup or development, please check these common solutions before opening a new issue.
 
-| Variable | Description | Required | Default |
-|----------|-------------|----------|---------|
-| `PORT` | Backend server port | ✅ | 8000 |
-| `MONGO_URL` | MongoDB connection string | ✅ | - |
-| `JWT_SECRET` | Secret key for JWT signing | ✅ | - |
-| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name | ✅ | - |
-| `CLOUDINARY_KEY` | Cloudinary API key | ✅ | - |
-| `CLOUDINARY_SECRET` | Cloudinary API secret | ✅ | - |
+* **💻 MongoDB Connection Error**
+  * Ensure your local MongoDB service is running (`mongod`).
+  * If using **MongoDB Atlas**, check that your current IP address is whitelisted in the **Network Access** tab.
+  * Verify that your `MONGODB_URI` in the `.env` file is wrapped in quotes if it contains special characters.
 
-### API Documentation
+* **🔑 JWT Unauthorized (401/403)**
+  * Double-check that the `JWT_SECRET` in your backend `.env` is identical to the one used for token generation.
+  * Ensure the frontend is sending the token in the headers as: `Authorization: Bearer <token>`.
 
-Once the backend is running, access API documentation at:
-```
-http://localhost:8000/api-docs
-```
+* **☁️ Cloudinary Upload Fails**
+  * Verify your `CLOUDINARY_CLOUD_NAME`, `API_KEY`, and `API_SECRET` from the Cloudinary Dashboard.
+  * Ensure your upload preset is set to 'unsigned' if you are performing client-side uploads.
 
----
+* **🐳 Docker Port Conflict**
+  * If ports `3000` or `8000` are already in use, run `docker compose down` to stop existing containers.
+  * Use `lsof -i :8000` (Mac/Linux) or `netstat -ano | findstr :8000` (Windows) to find and kill processes occupying the ports.
 
-## 🐳 Docker Setup (Recommended)
-
-This project supports Docker to simplify local development, reduce setup issues, and ensure a consistent development environment across systems.
-
-### Prerequisites
-
-Make sure you have the following installed on your system:
-
-- Docker (v20+ recommended)
-- Docker Compose (v2+)
-
-### Verify installation:
-
-```bash
-docker --version
-docker compose version
-```
-
-### Clone the repository
-```bash
-git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
-cd Smart-Rent-System
-```
-
-## 📁 Project Structure (Docker)
-
-Docker uses a single `.env` file at the project root.
-
-```
-Smart-Rent-System/
-├── backend/
-│   └── Dockerfile         # Backend container
-├── frontend/
-│   └── Dockerfile         # Frontend container
-├── docker-compose.yml     # Docker orchestration
-├── .env                   # Required for Docker
-└── README.md
-```
-
-## 🔐 Environment Variables
-
-When using Docker, only one `.env` file is required at the `root`.
-
-Create a `.env` file in the project `root` with the following content:
-
-```env
-# Backend
-PORT=8000
-NODE_ENV=development
-MONGODB_URI=mongodb://mongodb:27017/smartrent
-JWT_SECRET=your_jwt_secret_here
-
-# Optional (email service)
-# RESEND_API_KEY=your_resend_key_here
-
-# Frontend
-REACT_APP_API_URL=http://localhost:8000
-```
-
-### 🚀 Running the Application with Docker
-
-From the project `root`, run:
-
-```
-docker compose up --build
-```
-
-**This will:**
-
-- Build backend and frontend images
-- Start MongoDB
-- Start backend and frontend services
-- Automatically link all services together
-
-### 🌐 Accessing the Application
-
-Once the containers are running:
-
-**Frontend:**
-```
-http://localhost:3000
-```
-
-**Backend API:** 
-```
-http://localhost:8000
-```
-
-**MongoDB:**
-```
-mongodb://localhost:27017
-```
-
-### 🛑 Stopping the Application
-
-To stop and remove all containers:
-
-```
-docker compose down
-```
-
-To stop containers but keep them:
-```
-docker compose stop
-```
-
-### 🔄 Rebuilding Containers (After Code Changes)
-
-If you modify dependencies or Docker files:
-```
-docker compose up --build
-```
+> [!TIP]
+> Still stuck? Feel free to [open an issue](https://github.com/hitesh-kumar123/Smart-Rent-System/issues) with the "bug" label and include your error logs!
 
 ---
 
 ## 🤝 Contributing
 
-We ❤️ contributions! Smart-Rent is an open-source project built for **Social Winter of Code (SWoC) 2026**.
+We ❤️ contributions! **Smart-Rent System** is an open-source project built for **Social Winter of Code (SWoC) 2026**. Whether you're fixing a bug, improving documentation, or adding a new feature, your help is welcome.
 
-### How to Contribute
+### 🛣️ Development Workflow
 
-**1. Find an Issue**
-- Browse [existing issues](https://github.com/hitesh-kumar123/Smart-Rent-System/issues)
-- Look for labels: `good first issue`, `help wanted`, `enhancement`
+To ensure a smooth contribution process, please follow these steps:
 
-**2. Fork & Create Branch**
-```bash
-# Fork the repository (click Fork button on GitHub)
+1.  **Fork the Repo**: Click the 'Fork' button at the top right of this page.
+2.  **Clone your Fork**: 
+    ```bash
+    git clone [https://github.com/hitesh-kumar123/Smart-Rent-System.git](https://github.com/hitesh-kumar123/Smart-Rent-System.git)
+    ```
+3.  **Create a Branch**: 
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+4.  **Commit Changes**: Use clear, descriptive commit messages.
+    ```bash
+    git commit -m 'feat: add amazing new feature'
+    ```
+5.  **Push to GitHub**:
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+6.  **Open a Pull Request**: Go to the original repository and click "New Pull Request".
 
-# Clone your fork
-git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
-# Create a feature branch
-git checkout -b feature/amazing-feature
-```
+### 📄 License
 
-**3. Make Changes**
-```bash
-# Make your changes
-# Follow our coding standards (ESLint + Prettier)
-
-# Test your changes
-npm test
-```
-
-**4. Commit & Push**
-```bash
-# Commit with descriptive message
-git commit -m "Add: Implement amazing feature"
-
-# Push to your fork
-git push origin feature/amazing-feature
-```
-
-**5. Create Pull Request**
-- Go to your fork on GitHub
-- Click "New Pull Request"
-- Fill out the PR template
-- Wait for review 🎉
-
-### Contribution Guidelines
-
-📖 Read our [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines including:
-- Code style and formatting
-- Commit message conventions
-- Testing requirements
-- Documentation standards
-
-### Development Workflow
-
-```mermaid
-graph LR
-    A[Fork Repo] --> B[Clone Locally]
-    B --> C[Create Branch]
-    C --> D[Make Changes]
-    D --> E[Run Tests]
-    E --> F[Commit]
-    F --> G[Push to Fork]
-    G --> H[Create PR]
-    H --> I[Code Review]
-    I --> J[Merge]
-```
-
----
-
-## 🗺️ Roadmap
-
-### ✅ Phase 1 - Foundation (Completed)
-- [x] Project scaffolding and architecture
-- [x] User authentication system
-- [x] Basic CRUD operations for listings
-- [x] Responsive UI with Tailwind CSS
-
-### 🚧 Phase 2 - Core Features (In Progress)
-- [x] Map integration with Leaflet.js
-- [] Real-time chat with Socket.io
-- [ ] Advanced search and filtering
-- [ ] Booking calendar with conflict resolution
-- [ ] Review and rating system
-
-### 🔮 Phase 3 - Advanced Features (Planned)
-- [ ] Payment gateway integration (Stripe/Razorpay)
-- [ ] Email notifications (SendGrid/Nodemailer)
-- [ ] Admin dashboard with analytics
-- [ ] Multi-language support (i18n)
-- [ ] Progressive Web App (PWA)
-
-### 🌟 Phase 4 - Optimization (Future)
-- [ ] Performance optimization (lazy loading, code splitting)
-- [ ] SEO optimization
-- [ ] Automated testing (Jest, Cypress)
-- [ ] CI/CD pipeline (GitHub Actions)
-- [ ] Mobile native apps (React Native)
-
-**Want to influence the roadmap?** [Share your ideas](https://github.com/hitesh-kumar123/Smart-Rent-System/discussions)
-
----
-
-## 👥 Community
-
-<div align="center">
-
-### 🌟 Project Admin
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/hitesh-kumar123">
-        <img src="https://avatars.githubusercontent.com/u/186756045?v=4" width="120px" alt="Hitesh Kumar"/>
-        <br />
-        <sub><b>Hitesh Kumar</b></sub>
-      </a>
-      <br /><br />
-      <a href="https://www.linkedin.com/in/hitesh-kumar-dev/">
-        <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" />
-      </a>
-    </td>
-  </tr>
-</table>
-
----
-
-### 🏆 Top Contributors
-
-<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=hitesh-kumar123/Smart-Rent-System&refresh=1" />
-</a>
-
----
-
-### ⭐ Stargazers
-
-<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/stargazers">
-  <img src="https://reporoster.com/stars/hitesh-kumar123/Smart-Rent-System?type=svg&limit=100&names=false" />
-</a>
-
----
-
-### 🍴 Forkers
-
-<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/network/members">
-  <img src="https://reporoster.com/forks/hitesh-kumar123/Smart-Rent-System?type=svg&limit=100&names=false" />
-</a>
-
----
-
-### ❤️ Support the Project
-
-<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/stargazers">
-  <img src="https://img.shields.io/github/stars/hitesh-kumar123/Smart-Rent-System?style=social" />
-</a>
-&nbsp;&nbsp;
-<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/fork">
-  <img src="https://img.shields.io/github/forks/hitesh-kumar123/Smart-Rent-System?style=social" />
-</a>
-
-<br /><br />
-
-💙 If you like this project, consider **starring ⭐** and **forking 🍴** it to support the community!
-
-</div>
-
-### 💬 Join the Conversation
-
-[![Discord](https://img.shields.io/badge/Discord-Join_Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/channels/@me)
-[![Linkedin](https://img.shields.io/badge/LinkedIn-Connect-0077B6?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hitesh-kumar-dev/)
-[![GitHub](https://img.shields.io/badge/GitHub-Star_Repo-1DA1F2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hitesh-kumar123/Smart-Rent-System)
-</div>
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License - Copyright (c) 2025 Smart Rent System Contributors
-Permission is hereby granted, free of charge, to any person obtaining a copy...
-```
-
----
-
-## 🙏 Acknowledgments
-
-Special thanks to:
-
-- **[Social Winter of Code 2026](https://swoc.tech)** for providing this amazing opportunity
-- **Open Source Community** for continuous inspiration
-- **Contributors** who dedicate their time to improve Smart-Rent
-- **[Flaticon](https://www.flaticon.com/)** for icons
-- **[Cloudinary](https://cloudinary.com/)** for image hosting
-- **[MongoDB Atlas](https://www.mongodb.com/atlas)** for database hosting
+This project is licensed under the **MIT License**. This means you are free to use, modify, and distribute the software, provided that the original copyright notice and permission notice are included.
 
 ---
 
 <div align="center">
 
-### 🌟 Star History
+### 🌟 Show your support
 
-[![Star History Chart](https://api.star-history.com/svg?repos=hitesh-kumar123/Smart-Rent-System&type=date&legend=top-left)](https://www.star-history.com/#hitesh-kumar123/Smart-Rent-System&type=date&legend=top-left)
+If you find this project helpful, please consider giving it a star! It helps the project grow and motivates our contributors.
 
-### 📊 Repository Stats
+<a href="https://github.com/hitesh-kumar123/Smart-Rent-System/stargazers">
+  <img src="https://img.shields.io/github/stars/hitesh-kumar123/Smart-Rent-System?style=social" alt="GitHub stars" />
+</a>
 
-![Repository Size](https://img.shields.io/github/repo-size/hitesh-kumar123/Smart-Rent-System?style=flat-square)
-![Lines of Code](https://img.shields.io/tokei/lines/github/hitesh-kumar123/Smart-Rent-System?style=flat-square)
-![Top Language](https://img.shields.io/github/languages/top/hitesh-kumar123/Smart-Rent-System?style=flat-square)
+<p><b>Made with ❤️ by the Smart Rent System Community</b></p>
 
----
-
-**Made with ❤️ by the Smart Rent System Community**
-
-**If this project helped you, give it a ⭐️!**
+<br />
 
 [⬆ Back to Top](#-smart-rent-system)
 
 </div>
+
+---
