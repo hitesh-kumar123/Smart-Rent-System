@@ -312,7 +312,7 @@ const Listings = () => {
     let hasError = false;
     if (name === "priceMin") {
       hasError =
-        (value < PRICE_MIN || value > PRICE_MAX) && filters.priceMin !== "";
+        ((value < PRICE_MIN || value > PRICE_MAX) && filters.priceMin !== "") || (value > filters.priceMax && filters.priceMax !== '');
       if (hasError) {
         filters.priceMin = "";
       }
@@ -320,7 +320,7 @@ const Listings = () => {
 
     if (name === "priceMax") {
       hasError =
-        (value > PRICE_MAX || value < PRICE_MIN) && filters.priceMax !== "";
+        ((value > PRICE_MAX || value < PRICE_MIN) && filters.priceMax !== "") || (value < filters.priceMin && filters.priceMin !== '');
       if (hasError) {
         filters.priceMax = "";
       }
