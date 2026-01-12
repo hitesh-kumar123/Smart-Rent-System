@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-// Reset scroll position on page load
+import '@fortawesome/fontawesome-free/css/all.min.css';
+// // Reset scroll position on page load
 if (typeof window !== "undefined") {
   window.onload = () => {
     window.scrollTo(0, 0);
