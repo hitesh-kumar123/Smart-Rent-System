@@ -1,4 +1,4 @@
-const dummyProperties = [
+export const dummyProperties = [
   // Apartment category (2 properties)
   {
     _id: "1",
@@ -1274,6 +1274,167 @@ const dummyProperties = [
     ],
   },
 
+  // New York — Midtown Luxury Condo
+{
+  _id: "NY1",
+  title: "Midtown Luxury Condo with Skyline Views",
+  description:
+    "Modern condo located in the heart of Midtown Manhattan, with panoramic skyline views, close to Times Square and public transit.",
+  price: 350,
+  propertyType: "Condo",
+  category: "Condo",
+  capacity: {
+    bedrooms: 2,
+    bathrooms: 2,
+  },
+  size: 110,
+  rating: 4.92,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    kitchen: true,
+    ac: true,
+    workspace: true,
+    parking: false,
+  },
+  features: ["City View", "Gym Access"],
+  images: [
+    "https://images.unsplash.com/photo-1560448075-bb0a3fe5e131?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Brooklyn Brownstone
+{
+  _id: "NY2",
+  title: "Historic Brooklyn Brownstone Retreat",
+  description:
+    "Charming brownstone in Brooklyn with classic architecture and modern interior. Close to cafes, shops, and subway lines.",
+  price: 280,
+  propertyType: "House",
+  category: "House",
+  capacity: {
+    bedrooms: 3,
+    bathrooms: 2,
+  },
+  size: 160,
+  rating: 4.88,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    kitchen: true,
+    washer: true,
+    dryer: true,
+    ac: true,
+  },
+  features: ["Historic", "Neighborhood"],
+  images: [
+    "https://images.unsplash.com/photo-1572120360610-d971b9b62a4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Central Park Luxury Suite
+{
+  _id: "NY3",
+  title: "Central Park Luxury Suite",
+  description:
+    "Elegant suite overlooking Central Park with high-end furnishings, concierge service, and quick access to Fifth Avenue shopping.",
+  price: 420,
+  propertyType: "Apartment",
+  category: "Apartment",
+  capacity: {
+    bedrooms: 2,
+    bathrooms: 2,
+  },
+  size: 130,
+  rating: 4.95,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    ac: true,
+    kitchen: true,
+    hotTub: false,
+    parking: false,
+  },
+  features: ["Central Park View", "Concierge"],
+  images: [
+    "https://images.unsplash.com/photo-1615909040947-cfafb14fc1f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Stylish Loft in SoHo
+{
+  _id: "NY4",
+  title: "Stylish Loft in SoHo",
+  description:
+    "A bright and airy loft in SoHo with exposed brick walls, designer furniture, and walking distance to boutiques and galleries.",
+  price: 310,
+  propertyType: "Apartment",
+  category: "Apartment",
+  capacity: {
+    bedrooms: 1,
+    bathrooms: 1,
+  },
+  size: 95,
+  rating: 4.84,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    ac: true,
+    kitchen: true,
+    workspace: true,
+  },
+  features: ["Designer", "Urban"],
+  images: [
+    "https://images.unsplash.com/photo-1542318414-1f5a3b2b2c90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Upper East Side Townhouse
+{
+  _id: "NY5",
+  title: "Upper East Side Townhouse",
+  description:
+    "Spacious townhouse in the Upper East Side with a private garden, perfect for families or long stays in New York City.",
+  price: 500,
+  propertyType: "House",
+  category: "House",
+  capacity: {
+    bedrooms: 4,
+    bathrooms: 3,
+  },
+  size: 220,
+  rating: 4.98,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    kitchen: true,
+    parking: false,
+    ac: true,
+    washer: true,
+    dryer: true,
+  },
+  features: ["Private Garden", "Family Friendly"],
+  images: [
+    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+
   // update
   {
     _id: "44",
@@ -1304,3 +1465,5 @@ const dummyProperties = [
     ],
   },
 ];
+
+export default dummyProperties;

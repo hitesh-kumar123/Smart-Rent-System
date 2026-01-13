@@ -272,14 +272,18 @@ const Home = () => {
         {/* Featured destinations grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {destinations.map((destination) => (
-            <Link to="/listings" key={destination.id} className="group">
+            <Link
+            to={`/listings?location=${encodeURIComponent(destination.name)}`}
+            key={destination.id}
+            className="group"
+            >
               <div className="overflow-hidden rounded-2xl shadow-card hover:shadow-card-hover transition duration-300">
-                <div className="relative h-72">
-                  <img
-                    src={destination.image}
-                    alt={destination.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+               <div className="relative h-72">
+  <img
+    src={destination.image}
+    alt={destination.name}
+    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+  />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
                   <div className="absolute bottom-0 left-0 p-4 text-white">
                     <h3 className="text-xl font-bold">{destination.name}</h3>
