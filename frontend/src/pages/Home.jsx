@@ -269,7 +269,7 @@ const Home = () => {
           Explore top destinations with perfect vacation rentals
         </p>
 
-        {/* Featured destinations grid */}
+       {/* Featured destinations grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {destinations.map((destination) => (
             <Link

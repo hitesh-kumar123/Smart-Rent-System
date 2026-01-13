@@ -1500,6 +1500,240 @@ export const dummyProperties = [
     ],
   },
 
+   // Apartment
+  {
+    _id: "CHI-201",
+    title: "Downtown Luxury Apartment",
+    description:
+      "Modern apartment in the heart of Chicago with skyline views, steps from Millennium Park and the Riverwalk.",
+    price: 450,
+    propertyType: "Apartment",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 2,
+      bathrooms: 2,
+    },
+    size: 130,
+    rating: 4.9,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: true,
+      hotTub: false,
+    },
+    features: ["Luxury", "City View", "Modern"],
+    images: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // House
+  {
+    _id: "CHI-202",
+    title: "Cozy Lakeview House",
+    description:
+      "Charming house with lake view, perfect for families and groups, located in a quiet neighborhood.",
+    price: 350,
+    propertyType: "House",
+    category: "Cozy",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 180,
+    rating: 4.7,
+    trending: false,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: false,
+      hotTub: false,
+    },
+    features: ["Family-Friendly", "Lake View"],
+    images: [
+      "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Villa
+  {
+    _id: "CHI-203",
+    title: "Modern Gold Coast Villa",
+    description:
+      "Spacious villa with private garden, rooftop terrace, and modern amenities for a luxury Chicago stay.",
+    price: 700,
+    propertyType: "Villa",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 4,
+      bathrooms: 3,
+    },
+    size: 280,
+    rating: 4.95,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: false,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Rooftop Terrace", "Private Garden"],
+    images: [
+      "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Mansion
+  {
+    _id: "CHI-204",
+    title: "Magnificent Gold Coast Mansion",
+    description:
+      "Luxury mansion in Chicago’s Gold Coast with private pool, gym, and cinema room, ideal for large groups.",
+    price: 1500,
+    propertyType: "Mansion",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 6,
+      bathrooms: 5,
+    },
+    size: 500,
+    rating: 5.0,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Private Pool", "Cinema Room"],
+    images: [
+      "https://images.unsplash.com/photo-1599423300746-3e5e5d6d9d61?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Studio Apartment
+  {
+    _id: "CHI-205",
+    title: "Compact Studio Near Navy Pier",
+    description:
+      "Efficient studio apartment with essentials, ideal for solo travelers, steps from Navy Pier attractions.",
+    price: 180,
+    propertyType: "Apartment",
+    category: "Budget",
+    capacity: {
+      bedrooms: 1,
+      bathrooms: 1,
+    },
+    size: 40,
+    rating: 4.4,
+    trending: false,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: false,
+      gym: false,
+      hotTub: false,
+    },
+    features: ["Budget-Friendly", "Central"],
+    images: [
+      "https://images.unsplash.com/photo-1615874959472-b65a9918f8d0?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Family House
+  {
+    _id: "CHI-206",
+    title: "Suburban Family House",
+    description:
+      "Comfortable suburban house with backyard and garage, suitable for families looking for a quiet stay.",
+    price: 320,
+    propertyType: "House",
+    category: "Family",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 160,
+    rating: 4.6,
+    trending: false,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: false,
+      hotTub: false,
+    },
+    features: ["Family-Friendly", "Suburban"],
+    images: [
+      "https://images.unsplash.com/photo-1572120360610-3b5d6c8a8e1b?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Luxury Penthouse
+  {
+    _id: "CHI-207",
+    title: "Magnificent Skyline Penthouse",
+    description:
+      "Penthouse apartment with panoramic skyline views, modern furnishings, and private terrace in downtown Chicago.",
+    price: 750,
+    propertyType: "Apartment",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 200,
+    rating: 4.98,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Skyline View", "Terrace"],
+    images: [
+      "https://images.unsplash.com/photo-1599423300746-9a6e6f7d6f3e?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  
   // New York — Midtown Luxury Condo
 {
   _id: "NY1",
