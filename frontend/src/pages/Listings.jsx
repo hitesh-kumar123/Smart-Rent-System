@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PropertyImage from "../components/PropertyImage";
 import { useAppSettings } from "../contexts/AppSettingsContext";
 import api from "../config/api";
+import dummyProperties from "../data/dummyProperties";
 
 const Listings = () => {
   // State for property data and loading indicators
@@ -175,141 +176,49 @@ const Listings = () => {
    * Runs when the URL search parameters change
    */
   useEffect(() => {
-    // Continue with the normal location param handling
-    const queryParams = new URLSearchParams(location.search);
-    const locationParam = queryParams.get("location");
-    const typeParam = queryParams.get("type"); // Get the type parameter from URL
-    const experienceParam = queryParams.get("experience"); // Get the experience parameter from URL
+  const fetchProperties = async () => {
+    setLoading(true);
+    setError(null);
 
-    // Update filters if parameters exist
-    let updatedFilters = { ...filters };
+    try {
+      const queryParams = new URLSearchParams(location.search);
+      const locationParam = queryParams.get("location");
 
-    if (locationParam) {
+      let propsArray = [];
 
-      updatedFilters.location = locationParam;
-    }
-
-    if (typeParam) {
-   
-
-      // Convert URL parameter to match property categories in the system
-      let propertyType = "";
-      switch (typeParam.toLowerCase()) {
-        case "apartment":
-          propertyType = "Apartment";
-          break;
-        case "house":
-          propertyType = "House";
-          break;
-        case "cabin":
-          propertyType = "Cabin";
-          break;
-        case "villa":
-          propertyType = "Villa";
-          break;
-        default:
-          propertyType = typeParam;
-      }
-
-      updatedFilters.propertyType = propertyType;
-      setActiveCategory(propertyType);
-    }
-
-    if (experienceParam) {
-      console.log("Experience param found:", experienceParam);
-      updatedFilters.experience = experienceParam;
-    }
-
-    // Update filters with all changes
-    setFilters(updatedFilters);
-
-    /**
-     * Fetches properties from the API or falls back to dummy data
-     */
-    const fetchProperties = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        // Parse URL parameters for filters
-        const searchParams = new URLSearchParams(location.search);
-        const locationParam = searchParams.get("location");
-        const propertyTypeParam = searchParams.get("propertyType");
-
-        // Build query string
-        let queryString = "";
-        if (locationParam) {
-          queryString += `location=${locationParam}`;
-        }
-        if (propertyTypeParam) {
-          if (queryString) queryString += "&";
-          queryString += `propertyType=${mapCategoryToPropertyType(
-            propertyTypeParam
-          )}`;
-        }
-
-        // Make API call to fetch properties (timeout is handled by axios config)
-        const response = await api.get(
-          `/api/properties${queryString ? `?${queryString}` : ""}`
+      if (locationParam) {
+        // Use dummy data filtered by city
+        propsArray = dummyProperties.filter(
+          (prop) =>
+            prop.location.city.toLowerCase() === locationParam.toLowerCase()
         );
-
-        // API returns an object: { properties: [...], pagination: {...} }
-        if (response.data) {
-          const propsArray = Array.isArray(response.data)
-            ? response.data
-            : Array.isArray(response.data.properties)
-              ? response.data.properties
-              : null;
-
-          if (propsArray) {
-            setProperties(propsArray);
-
-            // prefer pagination.total when provided
-            const total =
-              response.data.pagination &&
-                typeof response.data.pagination.total === "number"
-                ? response.data.pagination.total
-                : propsArray.length;
-
-            setTotalCount(total);
-            setIsApiData(true);
-          } else {
-            
-            setIsApiData(false);
-          }
-        } else {
-          
-          setIsApiData(false);
-        }
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching properties:", err);
-        
-        // If it's a timeout or network error, show a more helpful message
-        if (err.code === "ECONNABORTED" || err.message?.includes("timeout")) {
-          setError(
-            "The server is taking too long to respond. Please check your connection or try again later."
-          );
-        } else if (err.response?.status === 404 || err.code === "ERR_NETWORK") {
-          setError(
-            "Unable to connect to the server. Please check your connection."
-          );
-        } else {
-          setError(
-            "Unable to load properties. Please try again later or check your connection."
-          );
-        }
-        
-        // Fall back to empty array - experience filter will handle showing results
-        setProperties([]);
-        setTotalCount(0);
-        setIsApiData(false);
-        setLoading(false);
+        setIsApiData(false); // indicate we are using dummy data
+      } else {
+        // Fetch from API
+        const response = await api.get("/api/properties");
+        propsArray = Array.isArray(response.data)
+          ? response.data
+          : Array.isArray(response.data.properties)
+          ? response.data.properties
+          : [];
+        setIsApiData(true); // indicate we are using API data
       }
-    };
 
-    fetchProperties();
-  }, [location.search, language]);
+      setProperties(propsArray);
+      setTotalCount(propsArray.length);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching properties:", err);
+      setProperties([]);
+      setTotalCount(0);
+      setIsApiData(false);
+      setError("Unable to load properties. Try again later.");
+      setLoading(false);
+    }
+  };
+
+  fetchProperties();
+}, [location.search]);
 
   /**
    * Handles changes to the filter inputs
