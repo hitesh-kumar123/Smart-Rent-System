@@ -34,6 +34,37 @@ const createProperty = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+exports.searchProperties = async (req, res) => {
+  try {
+    const { city, state, lat, lng, radius = 5 } = req.query;
+
+    let query = {};
+
+    //  City / State filter
+    if (city) query.city = new RegExp(city, "i");
+    if (state) query.state = new RegExp(state, "i");
+
+    // Geo-based search
+    if (lat && lng) {
+      query.location = {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [lng, lat]
+          },
+          $maxDistance: radius * 1000 // km → meters
+        }
+      };
+    }
+
+    const properties = await Property.find(query);
+
+    res.status(200).json(properties);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 // @desc    Get all properties
 // @route   GET /api/properties
