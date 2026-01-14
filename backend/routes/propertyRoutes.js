@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+router.get("/search", searchProperties);
+module.exports = router;
 const propertyController = require("../controllers/propertyController");
 const reviewController = require("../controllers/reviewController");
 const { authenticate, authorize } = require("../middleware");
@@ -15,6 +17,7 @@ router.get("/test", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 // New route to get all properties without any filtering
 router.get("/all", async (req, res) => {
