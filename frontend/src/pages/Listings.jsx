@@ -13,7 +13,9 @@ const Listings = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [wishlistIds, setWishlistIds] = useState(new Set());
   const [inputError, setInputError] = useState({});
-  const PRICE_MIN = 1000;
+  const [inputErrorTxt , setErrorTxt] = useState("");
+
+  const PRICE_MIN = 100;
   const PRICE_MAX = 10000;
   // App settings for language and currency
   const {
@@ -224,35 +226,56 @@ const Listings = () => {
   const checkInput = (e) => {
     const { name, value } = e.target;
     let hasError = false;
-    if (name === "priceMin") {
-      hasError =
-        ((value < PRICE_MIN || value > PRICE_MAX) && filters.priceMin !== "") || (value > filters.priceMax && filters.priceMax !== '');
-      if (hasError) {
-        filters.priceMin = "";
-      }
+    if (value === "") {
+      setFilters(prev => ({ ...prev, [name]: "" }));
+      setInputError(prev => ({ ...prev, [name]: false }));
+      return;
     }
 
-    if (name === "priceMax") {
-      hasError =
-        ((value > PRICE_MAX || value < PRICE_MIN) && filters.priceMax !== "") || (value < filters.priceMin && filters.priceMin !== '');
-      if (hasError) {
-        filters.priceMax = "";
-      }
+    let input_value = Number(value);
+    if(Number.isNaN(input_value)){
+      setFilters({
+        ...filters ,
+        [name] : ''
+      });
+      hasError = true;
+      setErrorTxt('Please enter numbers only.');
     }
 
+    else if (name === "priceMin") {
+      hasError =
+        ((input_value < PRICE_MIN || input_value > PRICE_MAX) && filters.priceMin !== "") || (input_value > Number(filters.priceMax) && filters.priceMax !== '');
+        
+
+    }
+
+    else if (name === "priceMax") {
+      hasError =
+        ((input_value > PRICE_MAX || input_value < PRICE_MIN) && filters.priceMax !== "") || (input_value < Number(filters.priceMin) && filters.priceMin !== '');
+        
+    }
     setInputError((prev) => ({
       ...prev,
       [name]: hasError,
     }));
 
+  
+
     if (hasError) {
-      setTimeout(function () {
-        setInputError((prev) => ({
-          ...prev,
-          [name]: false,
-        }));
-      }, 300);
-    }
+      setErrorTxt(
+          name === 'priceMin'
+            ? `Minimum price must be between ${PRICE_MIN} and ${PRICE_MAX}.`
+            : `Maximum price must be between ${PRICE_MIN} and ${PRICE_MAX}.`
+          );
+      setFilters({
+        ...filters ,
+        [name] : ''
+      });
+    setTimeout(() => {
+      setInputError(prev => ({ ...prev, [name]: false }));
+    }, 500);
+  }
+   
   };
   /**
    * Handles changes to the filter inputs
@@ -521,29 +544,9 @@ const filteredProperties = properties.filter((property) => {
     }
   });
 
-  /**
-   * Debug logging for tracking filtered properties
-   */
-  useEffect(() => {
-    // Create a variable to track if API data is being used
-    const usingApiData = isApiData !== undefined ? isApiData : false;
 
-    if (activeCategory !== "all") {
-      // Check the first few properties and their categories
-      if (properties.length > 0) {
-        properties.slice(0, 3).forEach((prop, i) => {});
-      }
 
-      // Check which properties matched the category filter
 
-      sortedProperties.slice(0, 3).forEach((property, idx) => {});
-    }
-  }, [activeCategory, sortedProperties.length, properties.length, isApiData]);
-
-  // Log filter state
-  // Debug filtered properties and their images
-
-  sortedProperties.slice(0, 3).forEach((property, idx) => {});
 
   /**
    * Toggles a specific amenity filter
@@ -923,7 +926,7 @@ const filteredProperties = properties.filter((property) => {
                     <h3 className="text-lg font-medium text-neutral-800 mb-3">
                       Price Range
                       <span className="text-sm ps-1 text-neutral-500">
-                        (1000 - 10,000)
+                        (100 - 10,000)
                       </span>
                     </h3>
                     <div className="grid grid-cols-2 gap-4">
@@ -936,14 +939,13 @@ const filteredProperties = properties.filter((property) => {
                             <span className="text-neutral-500">$</span>
                           </div>
                           <input
-                            type="number"
+                            type="text"
                             name="priceMin"
                             value={filters.priceMin}
                             onBlur={checkInput}
                             onChange={handleFilterChange}
-                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                              inputError.priceMin ? "range-input-error" : ""
-                            }`}
+                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
+                              ${ inputError.priceMin ? "range-input-error" : ""}`}
                             placeholder="Min"
                           />
                         </div>
@@ -957,19 +959,30 @@ const filteredProperties = properties.filter((property) => {
                             <span className="text-neutral-500">$</span>
                           </div>
                           <input
-                            type="number"
+                            type="text"
                             name="priceMax"
                             value={filters.priceMax}
                             onBlur={checkInput}
                             onChange={handleFilterChange}
-                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                              inputError.priceMax ? "range-input-error" : ""
-                            }`}
+                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 
+                              ${ inputError.priceMax ? "range-input-error" : ""}`}
                             placeholder="Max"
                           />
                         </div>
                       </div>
                     </div>
+                    {inputErrorTxt && (
+                        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 mt-3 text-sm animate-shake relative">
+                          <p className="font-medium">⚠️ {inputErrorTxt}</p>
+                          <button
+                            type="button"
+                            className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+                            onClick={() => setErrorTxt("")}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                     )}
                   </div>
 
                   {/* Bedrooms filter */}
