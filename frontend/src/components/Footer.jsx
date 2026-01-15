@@ -1,10 +1,29 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useTranslatedText from "../hooks/useTranslatedText";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscribeStatus, setSubscribeStatus] = useState(null); // null | 'success' | 'error'
+
+  const descriptionText = useTranslatedText("Find your perfect home away from home. SmartRent provides a secure platform for property rental with verified hosts and quality listings.");
+  const quickLinksText = useTranslatedText("Quick Links");
+  const homeText = useTranslatedText("Home");
+  const aboutUsText = useTranslatedText("About us");
+  const contactText = useTranslatedText("Contact");
+  const blogText = useTranslatedText("Blog");
+  const supportText = useTranslatedText("Support");
+  const contactUsText = useTranslatedText("Contact Us");
+  const helpText = useTranslatedText("Help");
+  const safetyText = useTranslatedText("Safety Information");
+  const cancellationText = useTranslatedText("Cancellation Options");
+  const ReportText = useTranslatedText("Report Concern");
+  const FAQText = useTranslatedText("FAQ");
+  const subscribeText = useTranslatedText("Subscribe to Newsletter");
+  const privacyPolicyText = useTranslatedText("Privacy Policy");
+  const termsOFServiceText = useTranslatedText("Terms of Service");
+  const cookiePolicyText = useTranslatedText("Cookie Policy");
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -48,9 +67,7 @@ const Footer = () => {
               <span className="font-light">RentSystem</span>
             </h3>
             <p className="text-neutral-400 mb-6 leading-relaxed max-w-sm">
-              Find your perfect home away from home. SmartRent provides a secure
-              platform for property rental with verified hosts and quality
-              listings.
+              {descriptionText}
             </p>
             <div className="flex space-x-4">
               <a
@@ -97,7 +114,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div className="mt-4 sm:mt-0">
             <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
-              Quick Links
+              {quickLinksText}
             </h3>
             <ul className="space-y-2.5 sm:space-y-3">
               <li>
@@ -107,7 +124,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Home
+                  {homeText}
                 </Link>
               </li>
               <li>
@@ -117,7 +134,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  About Us
+                  {aboutUsText}
                 </Link>
               </li>
               <li>
@@ -127,7 +144,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Contact
+                  {contactText}
                 </Link>
               </li>
               <li>
@@ -137,7 +154,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Blog
+                  {blogText}
                 </Link>
               </li>
             </ul>
@@ -145,7 +162,7 @@ const Footer = () => {
 
           {/* Support */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 text-white">Support</h3>
+          <h3 className="text-lg font-semibold mb-6 text-white">{supportText}</h3>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -154,7 +171,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Help
+                  {helpText}
                 </Link>
               </li>
               <li>
@@ -164,7 +181,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Safety Information
+                  {safetyText}
                 </Link>
               </li>
               <li>
@@ -174,7 +191,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Cancellation Options
+                  {cancellationText}
                 </Link>
               </li>
               <li>
@@ -184,7 +201,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  Report Concern
+                  {ReportText}
                 </Link>
               </li>
               <li>
@@ -194,7 +211,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  FAQ
+                  {FAQText}
                 </Link>
               </li>
             </ul>
@@ -203,7 +220,7 @@ const Footer = () => {
           {/* Contact */}
           <div className="mt-4 sm:mt-0">
             <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
-              Contact Us
+              {contactUsText}
             </h3>
             <ul className="space-y-4 text-neutral-400">
               <li className="flex items-start justify-center sm:justify-start group">
@@ -233,7 +250,7 @@ const Footer = () => {
             </ul>
             <div className="mt-8">
               <h4 className="text-sm font-semibold mb-4 text-white">
-                Subscribe to Newsletter
+                {subscribeText}
               </h4>
               <form onSubmit={handleSubscribe} className="space-y-2">
                 <div className="flex max-w-sm mx-auto sm:mx-0 group focus-within:scale-[1.02] transition-transform duration-300">
@@ -308,7 +325,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Privacy Policy
+              {privacyPolicyText}
             </Link>
             <span className="hidden sm:block text-neutral-600">•</span>
             <Link
@@ -316,7 +333,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Terms of Service
+              {termsOFServiceText}
             </Link>
             <span className="hidden sm:block text-neutral-600">•</span>
             <Link
@@ -324,7 +341,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              Cookie Policy
+              {cookiePolicyText}
             </Link>
           </div>
         </div>
