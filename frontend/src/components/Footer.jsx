@@ -50,16 +50,13 @@ const Footer = () => {
 
   return (
     <footer
-      className="bg-neutral-900 text-white pt-12 sm:pt-16 pb-8 sm:pb-10"
+      className="bg-gradient-to-b from-neutral-950 to-neutral-900 text-white pt-16 pb-8"
       role="contentinfo"
       aria-label="Site footer"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12 text-center sm:text-left"
-          role="navigation"
-          aria-label="Footer navigation"
-        >
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 mb-14">
           {/* Company Info */}
           <div className="flex flex-col items-center sm:items-start">
             <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-white inline-flex items-center">
@@ -67,7 +64,9 @@ const Footer = () => {
               <span className="font-light">RentSystem</span>
             </h3>
             <p className="text-neutral-400 mb-6 leading-relaxed max-w-sm">
-              {descriptionText}
+              Find your perfect home away from home. SmartRent provides a secure
+              platform for property rental with verified hosts and quality
+              listings.
             </p>
             <div className="flex space-x-4">
               <a
@@ -114,7 +113,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div className="mt-4 sm:mt-0">
             <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
-              {quickLinksText}
+              Quick Links
             </h3>
             <ul className="space-y-2.5 sm:space-y-3">
               <li>
@@ -124,7 +123,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {homeText}
+                  Home
                 </Link>
               </li>
               <li>
@@ -134,7 +133,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {aboutUsText}
+                  About Us
                 </Link>
               </li>
               <li>
@@ -144,7 +143,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {contactText}
+                  Contact
                 </Link>
               </li>
               <li>
@@ -154,7 +153,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {blogText}
+                  Blog
                 </Link>
               </li>
             </ul>
@@ -162,7 +161,7 @@ const Footer = () => {
 
           {/* Support */}
           <div>
-          <h3 className="text-lg font-semibold mb-6 text-white">{supportText}</h3>
+            <h3 className="text-lg font-semibold mb-6 text-white">Support</h3>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -171,7 +170,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {helpText}
+                  Help
                 </Link>
               </li>
               <li>
@@ -181,7 +180,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {safetyText}
+                  Safety Information
                 </Link>
               </li>
               <li>
@@ -191,7 +190,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {cancellationText}
+                  Cancellation Options
                 </Link>
               </li>
               <li>
@@ -201,7 +200,7 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {ReportText}
+                  Report Concern
                 </Link>
               </li>
               <li>
@@ -211,16 +210,16 @@ const Footer = () => {
                   onClick={() => window.scrollTo(0, 0)}
                 >
                   <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {FAQText}
+                  FAQ
                 </Link>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Contact */}
           <div className="mt-4 sm:mt-0">
             <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
-              {contactUsText}
+              Contact Us
             </h3>
             <ul className="space-y-4 text-neutral-400">
               <li className="flex items-start justify-center sm:justify-start group">
@@ -229,28 +228,22 @@ const Footer = () => {
                   123 Rent Street, City, Country
                 </span>
               </li>
-              <li className="flex items-center justify-center sm:justify-start group">
-                <i className="fas fa-phone-alt mr-3 text-primary-500 group-hover:scale-110 transition-transform duration-300"></i>
-                <a
-                  href="tel:+11234567890"
-                  className="group-hover:text-neutral-300 transition-colors duration-300"
-                >
-                  +1 (123) 456-7890
-                </a>
+              <li>
+                <Link to="/cancellation" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
+                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
+                  Cancellation
+                </Link>
               </li>
-              <li className="flex items-center justify-center sm:justify-start group">
-                <i className="fas fa-envelope mr-3 text-primary-500 group-hover:scale-110 transition-transform duration-300"></i>
-                <a
-                  href="mailto:info@smartrentsystem.com"
-                  className="group-hover:text-neutral-300 transition-colors duration-300"
-                >
-                  info@smartrentsystem.com
-                </a>
+              <li>
+                <Link to="/report-concern" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
+                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
+                  Report Issue
+                </Link>
               </li>
             </ul>
             <div className="mt-8">
               <h4 className="text-sm font-semibold mb-4 text-white">
-                {subscribeText}
+                Subscribe to Newsletter
               </h4>
               <form onSubmit={handleSubscribe} className="space-y-2">
                 <div className="flex max-w-sm mx-auto sm:mx-0 group focus-within:scale-[1.02] transition-transform duration-300">
@@ -325,7 +318,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              {privacyPolicyText}
+              Privacy Policy
             </Link>
             <span className="hidden sm:block text-neutral-600">•</span>
             <Link
@@ -333,7 +326,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              {termsOFServiceText}
+              Terms of Service
             </Link>
             <span className="hidden sm:block text-neutral-600">•</span>
             <Link
@@ -341,7 +334,7 @@ const Footer = () => {
               className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
               onClick={() => window.scrollTo(0, 0)}
             >
-              {cookiePolicyText}
+              Cookie Policy
             </Link>
           </div>
         </div>
