@@ -1,10 +1,29 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useTranslatedText from "../hooks/useTranslatedText";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscribeStatus, setSubscribeStatus] = useState(null); // null | 'success' | 'error'
+
+  const descriptionText = useTranslatedText("Find your perfect home away from home. SmartRent provides a secure platform for property rental with verified hosts and quality listings.");
+  const quickLinksText = useTranslatedText("Quick Links");
+  const homeText = useTranslatedText("Home");
+  const aboutUsText = useTranslatedText("About us");
+  const contactText = useTranslatedText("Contact");
+  const blogText = useTranslatedText("Blog");
+  const supportText = useTranslatedText("Support");
+  const contactUsText = useTranslatedText("Contact Us");
+  const helpText = useTranslatedText("Help");
+  const safetyText = useTranslatedText("Safety Information");
+  const cancellationText = useTranslatedText("Cancellation Options");
+  const ReportText = useTranslatedText("Report Concern");
+  const FAQText = useTranslatedText("FAQ");
+  const subscribeText = useTranslatedText("Subscribe to Newsletter");
+  const privacyPolicyText = useTranslatedText("Privacy Policy");
+  const termsOFServiceText = useTranslatedText("Terms of Service");
+  const cookiePolicyText = useTranslatedText("Cookie Policy");
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -40,145 +59,174 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 mb-14">
           {/* Company Info */}
           <div className="flex flex-col items-center sm:items-start">
-            <div className="mb-5">
-              <h3 className="text-2xl font-bold text-white tracking-wide">
-                <span className="text-primary-400">Smart</span>
-                <span className="text-white/90"> Rent</span>
-              </h3>
-              <p className="text-xs text-primary-400 font-semibold tracking-widest mt-1">SYSTEM</p>
-            </div>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-6 max-w-xs">
-              Your trusted platform for finding and listing rental properties. Secure, reliable, and built for modern travelers.
+            <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-white inline-flex items-center">
+              <span className="text-primary-500 font-bold">Smart</span>
+              <span className="font-light">RentSystem</span>
+            </h3>
+            <p className="text-neutral-400 mb-6 leading-relaxed max-w-sm">
+              Find your perfect home away from home. SmartRent provides a secure
+              platform for property rental with verified hosts and quality
+              listings.
             </p>
-            
-            {/* Social Links */}
-            <div className="flex items-center space-x-3 mt-2">
-              <p className="text-xs text-neutral-500 uppercase tracking-widest mr-3">Follow</p>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="group relative">
-                <div className="absolute inset-0 bg-primary-500/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <div className="relative bg-neutral-800/80 hover:bg-primary-500 text-white h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                  <i className="fab fa-facebook-f text-sm" aria-hidden="true"></i>
-                </div>
+            <div className="flex space-x-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-neutral-800/80 hover:bg-primary-600 text-white h-9 w-9 sm:h-10 sm:w-10 rounded-full 
+                  flex items-center justify-center 
+                  transition-all duration-300 
+                  hover:scale-110 active:scale-95 
+                  shadow-lg hover:shadow-primary-500/20
+                  hover:rotate-[360deg]"
+                aria-label="Follow us on Facebook"
+              >
+                <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="group relative">
-                <div className="absolute inset-0 bg-primary-500/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <div className="relative bg-neutral-800/80 hover:bg-primary-500 text-white h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                  <i className="fab fa-twitter text-sm" aria-hidden="true"></i>
-                </div>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+              >
+                <i className="fab fa-twitter"></i>
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="group relative">
-                <div className="absolute inset-0 bg-primary-500/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <div className="relative bg-neutral-800/80 hover:bg-primary-500 text-white h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                  <i className="fab fa-instagram text-sm" aria-hidden="true"></i>
-                </div>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+              >
+                <i className="fab fa-instagram"></i>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group relative">
-                <div className="absolute inset-0 bg-primary-500/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <div className="relative bg-neutral-800/80 hover:bg-primary-500 text-white h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                  <i className="fab fa-linkedin-in text-sm" aria-hidden="true"></i>
-                </div>
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="group relative">
-                <div className="absolute inset-0 bg-primary-500/20 rounded-full blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <div className="relative bg-neutral-800/80 hover:bg-primary-500 text-white h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                  <i className="fab fa-youtube text-sm" aria-hidden="true"></i>
-                </div>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+              >
+                <i className="fab fa-linkedin-in"></i>
               </a>
             </div>
           </div>
 
-          {/* Company Links */}
-          <nav aria-label="Company links" className="mt-6 sm:mt-0">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-5 flex items-center">
-              <span className="w-1 h-1 bg-primary-400 rounded-full mr-3"></span>
-              Company
-            </h4>
-            <ul className="space-y-3.5">
+          {/* Quick Links */}
+          <div className="mt-4 sm:mt-0">
+            <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
+              Quick Links
+            </h3>
+            <ul className="space-y-2.5 sm:space-y-3">
               <li>
-                <Link to="/" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
+                <Link
+                  to="/"
+                  className="group text-neutral-400 hover:text-primary-400 transition-all duration-300 inline-flex items-center hover:translate-x-1 active:translate-x-0.5"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
+                <Link
+                  to="/about"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/become-host" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  Become a Host
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
+                <Link
+                  to="/contact"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
                   Contact
                 </Link>
               </li>
-            </ul>
-          </nav>
-
-          {/* Discover Links */}
-          <nav aria-label="Discover links" className="mt-6 sm:mt-0">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-5 flex items-center">
-              <span className="w-1 h-1 bg-primary-400 rounded-full mr-3"></span>
-              Discover
-            </h4>
-            <ul className="space-y-3.5">
               <li>
-                <Link to="/listings" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  Browse Properties
-                </Link>
-              </li>
-              <li>
-                <Link to="/wishlist" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  Saved Listings
-                </Link>
-              </li>
-              <li>
-                <Link to="/trips" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  My Trips
-                </Link>
-              </li>
-              <li>
-                <Link to="/messages" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  Messages
+                <Link
+                  to="/blog"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+                  Blog
                 </Link>
               </li>
             </ul>
-          </nav>
+          </div>
 
-          {/* Support Links */}
-          <nav aria-label="Support links" className="mt-6 sm:mt-0">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-5 flex items-center">
-              <span className="w-1 h-1 bg-primary-400 rounded-full mr-3"></span>
-              Support
-            </h4>
-            <ul className="space-y-3.5">
+          {/* Support */}
+          <div>
+            <h3 className="text-lg font-semibold mb-6 text-white">Support</h3>
+            <ul className="space-y-3">
               <li>
-                <Link to="/help" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  Help & FAQ
+                <Link
+                  to="/help"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+                  Help
                 </Link>
               </li>
               <li>
-                <Link to="/safety" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
-                  <span className="inline-block w-0 h-0.5 bg-primary-400 mr-2 group-hover:w-4 transition-all duration-300"></span>
-                  Safety
+                <Link
+                  to="/safety"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+                  Safety Information
                 </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cancellation"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+                  Cancellation Options
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report-concern"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+                  Report Concern
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/faq"
+                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+                  FAQ
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Contact */}
+          <div className="mt-4 sm:mt-0">
+            <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
+              Contact Us
+            </h3>
+            <ul className="space-y-4 text-neutral-400">
+              <li className="flex items-start justify-center sm:justify-start group">
+                <i className="fas fa-map-marker-alt mt-1 mr-3 text-primary-500 group-hover:scale-110 transition-transform duration-300"></i>
+                <span className="group-hover:text-neutral-300 transition-colors duration-300">
+                  123 Rent Street, City, Country
+                </span>
               </li>
               <li>
                 <Link to="/cancellation" className="group text-neutral-400 hover:text-primary-400 text-sm transition-colors duration-200 flex items-center" onClick={() => window.scrollTo(0, 0)}>
@@ -193,163 +241,101 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
-          </nav>
-
-          {/* Contact & Newsletter */}
-          <div className="mt-6 sm:mt-0 bg-neutral-900/50 rounded-lg p-5 border border-neutral-800/50">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-5 flex items-center">
-              <i className="fas fa-envelope text-primary-400 mr-3"></i>
-              Connect
-            </h4>
-            
-            <div className="space-y-3.5 mb-6">
-              <div className="flex items-start">
-                <i className="fas fa-map-marker-alt text-primary-400 mt-0.5 mr-3 flex-shrink-0 text-xs"></i>
-                <span className="text-xs text-neutral-400 leading-relaxed">123 Rent Street,<br/>City, Country</span>
-              </div>
-              <div className="flex items-center">
-                <i className="fas fa-phone-alt text-primary-400 mr-3 flex-shrink-0 text-xs"></i>
-                <a href="tel:+11234567890" className="text-xs text-neutral-400 hover:text-primary-400 transition">+1 (123) 456-7890</a>
-              </div>
-              <div className="flex items-center">
-                <i className="fas fa-envelope text-primary-400 mr-3 flex-shrink-0 text-xs"></i>
-                <a href="mailto:info@smartrentsystem.com" className="text-xs text-neutral-400 hover:text-primary-400 transition break-all">info@smartrentsystem.com</a>
-              </div>
-              <div className="flex items-center text-primary-300">
-                <i className="fas fa-clock text-primary-400 mr-3 flex-shrink-0 text-xs"></i>
-                <span className="text-xs">Mon-Fri, 9AM-6PM EST</span>
-              </div>
+            <div className="mt-8">
+              <h4 className="text-sm font-semibold mb-4 text-white">
+                Subscribe to Newsletter
+              </h4>
+              <form onSubmit={handleSubscribe} className="space-y-2">
+                <div className="flex max-w-sm mx-auto sm:mx-0 group focus-within:scale-[1.02] transition-transform duration-300">
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={`w-full text-sm text-neutral-800 bg-neutral-100 rounded-l-lg px-4 py-2.5 
+                      focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white
+                      transition-all duration-300 placeholder:text-neutral-400
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      ${
+                        subscribeStatus === "error" ? "ring-2 ring-red-500" : ""
+                      }`}
+                    disabled={isSubscribing}
+                    aria-label="Email for newsletter"
+                    aria-invalid={subscribeStatus === "error"}
+                    aria-describedby="newsletter-feedback"
+                  />
+                  <button
+                    type="submit"
+                    className={`bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white px-4 py-2.5 rounded-r-lg 
+                      transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/20
+                      flex items-center justify-center min-w-[48px]
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      ${isSubscribing ? "animate-pulse" : ""}`}
+                    disabled={isSubscribing}
+                    aria-label={
+                      isSubscribing
+                        ? "Subscribing..."
+                        : "Subscribe to newsletter"
+                    }
+                  >
+                    {isSubscribing ? (
+                      <i className="fas fa-circle-notch fa-spin"></i>
+                    ) : (
+                      <i className="fas fa-paper-plane group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"></i>
+                    )}
+                  </button>
+                </div>
+                {subscribeStatus && (
+                  <p
+                    id="newsletter-feedback"
+                    className={`text-sm ${
+                      subscribeStatus === "success"
+                        ? "text-green-400"
+                        : "text-red-400"
+                    } transition-all duration-300 animate-fadeIn text-center sm:text-left`}
+                  >
+                    {subscribeStatus === "success"
+                      ? "Thank you for subscribing!"
+                      : "Please enter a valid email address."}
+                  </p>
+                )}
+              </form>
             </div>
-
-            <form onSubmit={handleSubscribe} className="space-y-3 border-t border-neutral-800 pt-4">
-              <p className="text-xs font-semibold text-neutral-300">Get exclusive updates</p>
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={`flex-1 text-xs bg-neutral-800 text-white rounded-l px-3 py-2.5 focus:outline-none focus:ring-1 focus:ring-primary-400 placeholder:text-neutral-500 transition ${subscribeStatus === "error" ? "ring-1 ring-red-500" : ""}`}
-                  disabled={isSubscribing}
-                  aria-invalid={subscribeStatus === "error"}
-                  aria-describedby="newsletter-feedback"
-                />
-                <button
-                  type="submit"
-                  className="bg-primary-500 hover:bg-primary-600 text-white px-3 py-2.5 rounded-r transition duration-200 flex items-center justify-center disabled:opacity-50"
-                  disabled={isSubscribing}
-                >
-                  {isSubscribing ? <i className="fas fa-circle-notch fa-spin text-xs" /> : <i className="fas fa-arrow-right text-xs" />}
-                </button>
-              </div>
-              {subscribeStatus && (
-                <p id="newsletter-feedback" className={`text-xs ${subscribeStatus === "success" ? "text-green-400" : "text-red-400"}`}>
-                  {subscribeStatus === "success" ? "✓ Thanks for subscribing!" : "✗ Please enter a valid email"}
-                </p>
-              )}
-            </form>
           </div>
         </div>
 
-        {/* Bottom Footer Section */}
-        <div className="border-t border-neutral-800/50 mt-12 pt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            {/* Legal */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-widest text-neutral-300 mb-4 flex items-center">
-                <span className="w-1 h-1 bg-primary-400 rounded-full mr-3"></span>
-                Legal
-              </h5>
-              <ul className="space-y-3">
-                <li>
-                  <Link to="/privacy" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200" onClick={() => window.scrollTo(0, 0)}>
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/terms" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200" onClick={() => window.scrollTo(0, 0)}>
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/cookies" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200" onClick={() => window.scrollTo(0, 0)}>
-                    Cookie Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Information */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-widest text-neutral-300 mb-4 flex items-center">
-                <span className="w-1 h-1 bg-primary-400 rounded-full mr-3"></span>
-                Information
-              </h5>
-              <ul className="space-y-3">
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200">How it Works</a>
-                </li>
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200">Accessibility</a>
-                </li>
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200">Sitemap</a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Community */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-widest text-neutral-300 mb-4 flex items-center">
-                <span className="w-1 h-1 bg-primary-400 rounded-full mr-3"></span>
-                Community
-              </h5>
-              <ul className="space-y-3">
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200">Guidelines</a>
-                </li>
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200">Reviews & Ratings</a>
-                </li>
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200">User Stories</a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Get the App */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-widest text-neutral-300 mb-4 flex items-center">
-                <span className="w-1 h-1 bg-primary-400 rounded-full mr-3"></span>
-                Mobile App
-              </h5>
-              <ul className="space-y-3">
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200 flex items-center">
-                    <i className="fab fa-apple mr-2"></i>
-                    iOS App
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-sm text-neutral-400 hover:text-primary-400 transition-colors duration-200 flex items-center">
-                    <i className="fab fa-android mr-2"></i>
-                    Android App
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Final Bottom Bar */}
-          <div className="border-t border-neutral-800/50 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-neutral-500">
-              &copy; {currentYear} <span className="text-neutral-400 font-semibold">Smart Rent System</span>
-              <span className="text-neutral-600 mx-2">•</span>
-              <span className="text-neutral-500">All rights reserved</span>
-            </p>
-            <p className="text-sm text-neutral-500 flex items-center justify-center">
-              Designed with <i className="fas fa-heart text-primary-400 mx-2"></i> for travelers worldwide
-            </p>
+        <div className="border-t border-neutral-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+          <p className="text-neutral-400 text-sm mb-4 sm:mb-0 group">
+            &copy; {currentYear}{" "}
+            <span className="text-white font-medium group-hover:text-primary-400 transition-colors duration-300">
+              SmartRentSystem
+            </span>
+            . All rights reserved.
+          </p>
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 sm:items-center">
+            <Link
+              to="/privacy"
+              className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              Privacy Policy
+            </Link>
+            <span className="hidden sm:block text-neutral-600">•</span>
+            <Link
+              to="/terms"
+              className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              Terms of Service
+            </Link>
+            <span className="hidden sm:block text-neutral-600">•</span>
+            <Link
+              to="/cookies"
+              className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-y-[-1px]"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              Cookie Policy
+            </Link>
           </div>
         </div>
       </div>

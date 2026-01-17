@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PropertyImage from "../components/PropertyImage";
 import { useAppSettings } from "../contexts/AppSettingsContext";
 import api from "../config/api";
+import dummyProperties from "../data/dummyProperties";
 
 const Listings = () => {
   // State for property data and loading indicators
@@ -175,141 +176,49 @@ const Listings = () => {
    * Runs when the URL search parameters change
    */
   useEffect(() => {
-    // Continue with the normal location param handling
-    const queryParams = new URLSearchParams(location.search);
-    const locationParam = queryParams.get("location");
-    const typeParam = queryParams.get("type"); // Get the type parameter from URL
-    const experienceParam = queryParams.get("experience"); // Get the experience parameter from URL
+  const fetchProperties = async () => {
+    setLoading(true);
+    setError(null);
 
-    // Update filters if parameters exist
-    let updatedFilters = { ...filters };
+    try {
+      const queryParams = new URLSearchParams(location.search);
+      const locationParam = queryParams.get("location");
 
-    if (locationParam) {
+      let propsArray = [];
 
-      updatedFilters.location = locationParam;
-    }
-
-    if (typeParam) {
-   
-
-      // Convert URL parameter to match property categories in the system
-      let propertyType = "";
-      switch (typeParam.toLowerCase()) {
-        case "apartment":
-          propertyType = "Apartment";
-          break;
-        case "house":
-          propertyType = "House";
-          break;
-        case "cabin":
-          propertyType = "Cabin";
-          break;
-        case "villa":
-          propertyType = "Villa";
-          break;
-        default:
-          propertyType = typeParam;
-      }
-
-      updatedFilters.propertyType = propertyType;
-      setActiveCategory(propertyType);
-    }
-
-    if (experienceParam) {
-      console.log("Experience param found:", experienceParam);
-      updatedFilters.experience = experienceParam;
-    }
-
-    // Update filters with all changes
-    setFilters(updatedFilters);
-
-    /**
-     * Fetches properties from the API or falls back to dummy data
-     */
-    const fetchProperties = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        // Parse URL parameters for filters
-        const searchParams = new URLSearchParams(location.search);
-        const locationParam = searchParams.get("location");
-        const propertyTypeParam = searchParams.get("propertyType");
-
-        // Build query string
-        let queryString = "";
-        if (locationParam) {
-          queryString += `location=${locationParam}`;
-        }
-        if (propertyTypeParam) {
-          if (queryString) queryString += "&";
-          queryString += `propertyType=${mapCategoryToPropertyType(
-            propertyTypeParam
-          )}`;
-        }
-
-        // Make API call to fetch properties (timeout is handled by axios config)
-        const response = await api.get(
-          `/api/properties${queryString ? `?${queryString}` : ""}`
+      if (locationParam) {
+        // Use dummy data filtered by city
+        propsArray = dummyProperties.filter(
+          (prop) =>
+            prop.location.city.toLowerCase() === locationParam.toLowerCase()
         );
-
-        // API returns an object: { properties: [...], pagination: {...} }
-        if (response.data) {
-          const propsArray = Array.isArray(response.data)
-            ? response.data
-            : Array.isArray(response.data.properties)
-              ? response.data.properties
-              : null;
-
-          if (propsArray) {
-            setProperties(propsArray);
-
-            // prefer pagination.total when provided
-            const total =
-              response.data.pagination &&
-                typeof response.data.pagination.total === "number"
-                ? response.data.pagination.total
-                : propsArray.length;
-
-            setTotalCount(total);
-            setIsApiData(true);
-          } else {
-            
-            setIsApiData(false);
-          }
-        } else {
-          
-          setIsApiData(false);
-        }
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching properties:", err);
-        
-        // If it's a timeout or network error, show a more helpful message
-        if (err.code === "ECONNABORTED" || err.message?.includes("timeout")) {
-          setError(
-            "The server is taking too long to respond. Please check your connection or try again later."
-          );
-        } else if (err.response?.status === 404 || err.code === "ERR_NETWORK") {
-          setError(
-            "Unable to connect to the server. Please check your connection."
-          );
-        } else {
-          setError(
-            "Unable to load properties. Please try again later or check your connection."
-          );
-        }
-        
-        // Fall back to empty array - experience filter will handle showing results
-        setProperties([]);
-        setTotalCount(0);
-        setIsApiData(false);
-        setLoading(false);
+        setIsApiData(false); // indicate we are using dummy data
+      } else {
+        // Fetch from API
+        const response = await api.get("/api/properties");
+        propsArray = Array.isArray(response.data)
+          ? response.data
+          : Array.isArray(response.data.properties)
+          ? response.data.properties
+          : [];
+        setIsApiData(true); // indicate we are using API data
       }
-    };
 
-    fetchProperties();
-  }, [location.search, language]);
+      setProperties(propsArray);
+      setTotalCount(propsArray.length);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching properties:", err);
+      setProperties([]);
+      setTotalCount(0);
+      setIsApiData(false);
+      setError("Unable to load properties. Try again later.");
+      setLoading(false);
+    }
+  };
+
+  fetchProperties();
+}, [location.search]);
 
   /**
    * Handles changes to the filter inputs
@@ -379,200 +288,53 @@ const Listings = () => {
     }
   };
 
-  // Apply category filter
-  const filteredProperties = properties.filter((property) => {
-    // If no category filter is active, show all properties
-    if (activeCategory === "all") {
-      return true;
-    }
+  const getNormalizedCategory = (categoryId) => {
+    // Special cases mapping
+    const categoryMap = {
+      Tiny: "Tiny homes",
+      Amazing: "Amazing views",
+      "Ski-in/out": "Ski-in/out",
+      // Add more mappings as needed for special categories
+      Castles: "Castle", // Match 'Castles' category with 'Castle' propertyType
+      Trending: "Trending",
+      Beach: "Beach",
+      Lakefront: "Lakefront",
+      Countryside: "Countryside",
+      Luxury: "Luxury",
+      Tropical: "Tropical",
+      Historic: "Historic",
+      Design: "Design",
+      Farm: "Farm",
+      Treehouse: "Treehouse",
+      Boat: "Boat",
+      Container: "Container",
+      Dome: "Dome",
+      Windmill: "Windmill",
+      Cave: "Cave",
+      Camping: "Camping",
+      Arctic: "Arctic",
+      Desert: "Desert",
+      Vineyard: "Vineyard",
+    };
 
-    // For Trending category, only show properties marked as trending
-    if (activeCategory === "Trending") {
-      return property.trending === true;
-    }
+    return categoryMap[categoryId] || categoryId;
+  };
 
-    // For MongoDB data, we need to be more flexible with matching
-    // Get property category and type, making sure they exist
-    const propertyCategory = (property.category || "").trim().toLowerCase();
-    const propertyType = (property.propertyType || "").trim().toLowerCase();
-    const activeCat = activeCategory.toLowerCase();
+ // Apply category filter
+const filteredProperties = properties.filter((property) => {
+  if (activeCategory === "all") return true;
 
-    // Debug the category matching for problematic categories
-    if (
-      activeCategory === "Arctic" ||
-      activeCategory === "Desert" ||
-      activeCategory === "Ski-in/out" ||
-      activeCategory === "Vineyard"
-    ) 
-    // Match based on property category and type
-    // Case-insensitive matching for various property types
-    switch (activeCat) {
-      case "house":
-        return (
-          propertyCategory.includes("house") || propertyType.includes("house")
-        );
+  const normalizedActiveCat = getNormalizedCategory(activeCategory).toLowerCase();
+  const propertyCategory = (property.category || property.propertyType || "").toLowerCase();
 
-      case "apartment":
-        return (
-          propertyCategory.includes("apartment") ||
-          propertyType.includes("apartment")
-        );
+  if (normalizedActiveCat === "trending") {
+    return property.trending === true;
+  }
 
-      case "villa":
-        return (
-          propertyCategory.includes("villa") || propertyType.includes("villa")
-        );
+  // Flexible matching: check if propertyCategory contains the normalized category
+  return propertyCategory.includes(normalizedActiveCat);
+});
 
-      case "condo":
-        return (
-          propertyCategory.includes("condo") || propertyType.includes("condo")
-        );
-
-      case "cabin":
-        return (
-          propertyCategory.includes("cabin") || propertyType.includes("cabin")
-        );
-
-      case "beach":
-        return (
-          propertyCategory.includes("beach") || propertyType.includes("beach")
-        );
-
-      case "lakefront":
-        return (
-          propertyCategory.includes("lake") ||
-          propertyType.includes("lake") ||
-          propertyCategory.includes("lakefront") ||
-          propertyType.includes("lakefront")
-        );
-
-      case "amazing":
-        return (
-          propertyCategory.includes("amazing") ||
-          propertyType.includes("amazing") ||
-          propertyCategory.includes("view") ||
-          propertyType.includes("view")
-        );
-
-      case "tiny":
-        return (
-          propertyCategory.includes("tiny") || propertyType.includes("tiny")
-        );
-
-      case "mansion":
-        return (
-          propertyCategory.includes("mansion") ||
-          propertyType.includes("mansion")
-        );
-
-      case "countryside":
-        return (
-          propertyCategory.includes("country") ||
-          propertyType.includes("country")
-        );
-
-      case "luxury":
-        return (
-          propertyCategory.includes("luxury") || propertyType.includes("luxury")
-        );
-
-      case "castles":
-        return (
-          propertyCategory.includes("castle") || propertyType.includes("castle")
-        );
-
-      case "tropical":
-        return (
-          propertyCategory.includes("tropical") ||
-          propertyType.includes("tropical")
-        );
-
-      case "historic":
-        return (
-          propertyCategory.includes("historic") ||
-          propertyType.includes("historic")
-        );
-
-      case "design":
-        return (
-          propertyCategory.includes("design") || propertyType.includes("design")
-        );
-
-      case "farm":
-        return (
-          propertyCategory.includes("farm") || propertyType.includes("farm")
-        );
-
-      case "treehouse":
-        return (
-          propertyCategory.includes("tree") || propertyType.includes("tree")
-        );
-
-      case "boat":
-        return (
-          propertyCategory.includes("boat") || propertyType.includes("boat")
-        );
-
-      case "container":
-        return (
-          propertyCategory.includes("container") ||
-          propertyType.includes("container")
-        );
-
-      case "dome":
-        return (
-          propertyCategory.includes("dome") || propertyType.includes("dome")
-        );
-
-      case "windmill":
-        return (
-          propertyCategory.includes("windmill") ||
-          propertyType.includes("windmill")
-        );
-
-      case "cave":
-        return (
-          propertyCategory.includes("cave") || propertyType.includes("cave")
-        );
-
-      case "camping":
-        return (
-          propertyCategory.includes("camp") || propertyType.includes("camp")
-        );
-
-      case "arctic":
-    
-        return (
-          propertyCategory.includes("arctic") || propertyType.includes("arctic")
-        );
-
-      case "desert":
-   
-        return (
-          propertyCategory.includes("desert") || propertyType.includes("desert")
-        );
-
-      case "ski-in/out":
-
-        return propertyCategory.includes("ski") || propertyType.includes("ski");
-
-      case "vineyard":
-   
-        return (
-          propertyCategory.includes("vineyard") ||
-          propertyType.includes("vineyard") ||
-          propertyCategory.includes("vine") ||
-          propertyType.includes("vine")
-        );
-
-      default:
-        // For any other category, do a partial match
-        return (
-          propertyCategory.includes(activeCat) ||
-          propertyType.includes(activeCat)
-        );
-    }
-  });
 
   // Apply remaining filters (price, amenities, etc.)
   const fullyFilteredProperties = filteredProperties.filter((property) => {
@@ -828,37 +590,7 @@ const Listings = () => {
    * @param {string} categoryId - The category ID to normalize
    * @returns {string} - The normalized category name
    */
-  const getNormalizedCategory = (categoryId) => {
-    // Special cases mapping
-    const categoryMap = {
-      Tiny: "Tiny homes",
-      Amazing: "Amazing views",
-      "Ski-in/out": "Ski-in/out",
-      // Add more mappings as needed for special categories
-      Castles: "Castle", // Match 'Castles' category with 'Castle' propertyType
-      Trending: "Trending",
-      Beach: "Beach",
-      Lakefront: "Lakefront",
-      Countryside: "Countryside",
-      Luxury: "Luxury",
-      Tropical: "Tropical",
-      Historic: "Historic",
-      Design: "Design",
-      Farm: "Farm",
-      Treehouse: "Treehouse",
-      Boat: "Boat",
-      Container: "Container",
-      Dome: "Dome",
-      Windmill: "Windmill",
-      Cave: "Cave",
-      Camping: "Camping",
-      Arctic: "Arctic",
-      Desert: "Desert",
-      Vineyard: "Vineyard",
-    };
-
-    return categoryMap[categoryId] || categoryId;
-  };
+  
 
   /**
    * Categories for the horizontal scrolling menu
@@ -971,42 +703,41 @@ const Listings = () => {
    * @returns {string} - The corresponding property type
    */
   const mapCategoryToPropertyType = (categoryId) => {
-    // If no category, return empty string
-    if (!categoryId) return "";
+  if (!categoryId || categoryId === "all") return "";
 
-    // Map frontend category IDs to backend property types
-    const categoryMap = {
-      House: "House",
-      Apartment: "Apartment",
-      Villa: "Villa",
-      Condo: "Condo",
-      Cabin: "Cabin",
-      Beach: "Beach",
-      Lakefront: "Lakefront",
-      Amazing: "Amazing views",
-      Tiny: "Tiny homes",
-      Mansion: "Mansion",
-      Countryside: "Countryside",
-      Luxury: "Luxury",
-      Castles: "Castle",
-      Tropical: "Tropical",
-      Historic: "Historic",
-      Design: "Design",
-      Farm: "Farm",
-      Treehouse: "Treehouse",
-      Boat: "Boat",
-      Container: "Container",
-      Dome: "Dome",
-      Windmill: "Windmill",
-      Cave: "Cave",
-      Camping: "Camping",
-      Arctic: "Arctic",
-      Desert: "Desert",
-      Vineyard: "Vineyard",
-    };
-
-    return categoryMap[categoryId] || categoryId;
+  const categoryMap = {
+    House: "house",
+    Apartment: "apartment",
+    Villa: "villa",
+    Condo: "condo",
+    Cabin: "cabin",
+    Beach: "beach",
+    Lakefront: "lakefront",
+    Amazing: "amazing views",
+    Tiny: "tiny homes",
+    Mansion: "mansion",
+    Countryside: "countryside",
+    Luxury: "luxury",
+    Castles: "castle",
+    Tropical: "tropical",
+    Historic: "historic",
+    Design: "design",
+    Farm: "farm",
+    Treehouse: "treehouse",
+    Boat: "boat",
+    Container: "container",
+    Dome: "dome",
+    Windmill: "windmill",
+    Cave: "cave",
+    Camping: "camping",
+    Arctic: "arctic",
+    Desert: "desert",
+    Vineyard: "vineyard",
   };
+
+  return categoryMap[categoryId] || categoryId.toLowerCase();
+};
+
 
   if (loading) {
     return (
@@ -1597,10 +1328,18 @@ const Listings = () => {
                * @returns {string} - URL of an appropriate fallback image
                */
               const getCategoryImage = () => {
-                // For MongoDB data, ensure we normalize the property type/category
-                const propertyType =
-                  property.propertyType || property.category || "";
-                const normalizedType = propertyType.trim().toLowerCase();
+                const propertyType = property.propertyType || property.category || "";
+                const type = propertyType.trim().toLowerCase();
+                const fallbackMap = {
+                  house: "/images/house.jpg",
+                  apartment: "/images/apartment.jpg",
+                  villa: "/images/villa.jpg",
+                  condo: "/images/condo.jpg",
+                  cabin: "/images/cabin.jpg",
+                  beach: "/images/beach.jpg",
+                };
+
+                return fallbackMap[type] || "/images/default-property.jpg";
               };
 
               // Ensure property has valid images array, use fallback if needed

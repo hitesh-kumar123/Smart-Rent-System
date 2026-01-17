@@ -67,13 +67,6 @@ const Login = () => {
       );
       return;
     }
-
-    // Validate remember me checkbox must be checked
-    if (!rememberMe) {
-      setError("Please agree to the terms by checking the box.");
-      return;
-    }
-
     setLoading(true);
 
     try {

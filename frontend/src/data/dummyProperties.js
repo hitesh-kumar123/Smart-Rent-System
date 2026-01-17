@@ -1,4 +1,4 @@
-const dummyProperties = [
+export const dummyProperties = [
   // Apartment category (2 properties)
   {
     _id: "1",
@@ -1273,6 +1273,627 @@ const dummyProperties = [
       "https://images.unsplash.com/photo-1717161282488-528e26aa307b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fE1vZGVybiUyMERlc2VydCUyMENhdmUlMjBIb3VzZXxlbnwwfHwwfHx8MA%3D%3D",
     ],
   },
+   {
+    _id: "MI-01",
+    title: "Miami Beach Oceanfront Penthouse",
+    description:
+      "Spectacular oceanfront penthouse in Miami Beach featuring floor-to-ceiling glass walls, private balcony, and breathtaking Atlantic views.",
+    price: 720,
+    propertyType: "Condo",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 3,
+    },
+    size: 230,
+    rating: 4.96,
+    trending: true,
+    location: {
+      city: "Miami",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Ocean View", "Premium"],
+    images: [
+      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  {
+    _id: "MI-02",
+    title: "Brickell Skyline Luxury Condo",
+    description:
+      "High-rise luxury condo in Brickell with stunning skyline and bay views, modern interiors, and access to rooftop amenities.",
+    price: 640,
+    propertyType: "Condo",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 2,
+      bathrooms: 2,
+    },
+    size: 180,
+    rating: 4.91,
+    trending: true,
+    location: {
+      city: "Miami",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Skyline View", "Modern"],
+    images: [
+      "https://images.unsplash.com/photo-1600585154084-4e5f76bca7f2?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  {
+    _id: "MI-03",
+    title: "South Beach Designer Penthouse",
+    description:
+      "Designer penthouse in South Beach with chic interiors, rooftop terrace, and walking distance to Miami’s famous nightlife and beaches.",
+    price: 690,
+    propertyType: "Condo",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 210,
+    rating: 4.94,
+    trending: false,
+    location: {
+      city: "Miami",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Designer", "Rooftop"],
+    images: [
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+  {
+    _id: "MI-04",
+    title: "Star Island Waterfront Mansion",
+    description:
+      "Iconic waterfront mansion on Star Island with private dock, infinity pool, and panoramic Biscayne Bay views.",
+    price: 1800,
+    propertyType: "Villa",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 6,
+      bathrooms: 7,
+    },
+    size: 520,
+    rating: 5.0,
+    trending: true,
+    location: {
+      city: "Miami",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Waterfront", "Private Dock"],
+    images: [
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  {
+    _id: "MI-05",
+    title: "Coral Gables Luxury Villa",
+    description:
+      "Elegant Mediterranean-style villa in Coral Gables with private courtyard, pool, and lush tropical landscaping.",
+    price: 980,
+    propertyType: "Villa",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 4,
+      bathrooms: 4,
+    },
+    size: 350,
+    rating: 4.93,
+    trending: false,
+    location: {
+      city: "Miami",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: true,
+      gym: false,
+      hotTub: true,
+    },
+    features: ["Luxury", "Private Pool", "Garden"],
+    images: [
+      "https://images.unsplash.com/photo-1600585152915-d208bec867a1?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  {
+    _id: "MI-06",
+    title: "Downtown Miami High-Rise Apartment",
+    description:
+      "Modern high-rise apartment in downtown Miami with skyline views, coworking lounge, and rooftop pool access.",
+    price: 420,
+    propertyType: "Apartment",
+    category: "Modern",
+    capacity: {
+      bedrooms: 2,
+      bathrooms: 2,
+    },
+    size: 140,
+    rating: 4.75,
+    trending: false,
+    location: {
+      city: "Miami",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: true,
+      gym: true,
+      hotTub: false,
+    },
+    features: ["City View", "Modern", "High-Rise"],
+    images: [
+      "https://images.unsplash.com/photo-1600607688207-efcb2f40b7aa?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  {
+    _id: "MI-07",
+    title: "Miami Beach Art Deco House",
+    description:
+      "Charming Art Deco house near Miami Beach with private patio, retro design, and easy access to the ocean.",
+    price: 390,
+    propertyType: "House",
+    category: "Boutique",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 160,
+    rating: 4.81,
+    trending: false,
+    location: {
+      city: "Miami",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: false,
+      gym: false,
+      hotTub: false,
+    },
+    features: ["Beachside", "Art Deco", "Private Patio"],
+    images: [
+      "https://images.unsplash.com/photo-1572120360610-d971b9b78825?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+   // Apartment
+  {
+    _id: "CHI-201",
+    title: "Downtown Luxury Apartment",
+    description:
+      "Modern apartment in the heart of Chicago with skyline views, steps from Millennium Park and the Riverwalk.",
+    price: 450,
+    propertyType: "Apartment",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 2,
+      bathrooms: 2,
+    },
+    size: 130,
+    rating: 4.9,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: true,
+      hotTub: false,
+    },
+    features: ["Luxury", "City View", "Modern"],
+    images: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // House
+  {
+    _id: "CHI-202",
+    title: "Cozy Lakeview House",
+    description:
+      "Charming house with lake view, perfect for families and groups, located in a quiet neighborhood.",
+    price: 350,
+    propertyType: "House",
+    category: "Cozy",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 180,
+    rating: 4.7,
+    trending: false,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: false,
+      hotTub: false,
+    },
+    features: ["Family-Friendly", "Lake View"],
+    images: [
+      "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Villa
+  {
+    _id: "CHI-203",
+    title: "Modern Gold Coast Villa",
+    description:
+      "Spacious villa with private garden, rooftop terrace, and modern amenities for a luxury Chicago stay.",
+    price: 700,
+    propertyType: "Villa",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 4,
+      bathrooms: 3,
+    },
+    size: 280,
+    rating: 4.95,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: false,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Rooftop Terrace", "Private Garden"],
+    images: [
+      "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Mansion
+  {
+    _id: "CHI-204",
+    title: "Magnificent Gold Coast Mansion",
+    description:
+      "Luxury mansion in Chicago’s Gold Coast with private pool, gym, and cinema room, ideal for large groups.",
+    price: 1500,
+    propertyType: "Mansion",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 6,
+      bathrooms: 5,
+    },
+    size: 500,
+    rating: 5.0,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      pool: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Private Pool", "Cinema Room"],
+    images: [
+      "https://images.unsplash.com/photo-1599423300746-3e5e5d6d9d61?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Studio Apartment
+  {
+    _id: "CHI-205",
+    title: "Compact Studio Near Navy Pier",
+    description:
+      "Efficient studio apartment with essentials, ideal for solo travelers, steps from Navy Pier attractions.",
+    price: 180,
+    propertyType: "Apartment",
+    category: "Budget",
+    capacity: {
+      bedrooms: 1,
+      bathrooms: 1,
+    },
+    size: 40,
+    rating: 4.4,
+    trending: false,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: false,
+      gym: false,
+      hotTub: false,
+    },
+    features: ["Budget-Friendly", "Central"],
+    images: [
+      "https://images.unsplash.com/photo-1615874959472-b65a9918f8d0?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Family House
+  {
+    _id: "CHI-206",
+    title: "Suburban Family House",
+    description:
+      "Comfortable suburban house with backyard and garage, suitable for families looking for a quiet stay.",
+    price: 320,
+    propertyType: "House",
+    category: "Family",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 160,
+    rating: 4.6,
+    trending: false,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: false,
+      hotTub: false,
+    },
+    features: ["Family-Friendly", "Suburban"],
+    images: [
+      "https://images.unsplash.com/photo-1572120360610-3b5d6c8a8e1b?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  // Luxury Penthouse
+  {
+    _id: "CHI-207",
+    title: "Magnificent Skyline Penthouse",
+    description:
+      "Penthouse apartment with panoramic skyline views, modern furnishings, and private terrace in downtown Chicago.",
+    price: 750,
+    propertyType: "Apartment",
+    category: "Luxury",
+    capacity: {
+      bedrooms: 3,
+      bathrooms: 2,
+    },
+    size: 200,
+    rating: 4.98,
+    trending: true,
+    location: {
+      city: "Chicago",
+      country: "USA",
+    },
+    amenities: {
+      wifi: true,
+      kitchen: true,
+      parking: true,
+      gym: true,
+      hotTub: true,
+    },
+    features: ["Luxury", "Skyline View", "Terrace"],
+    images: [
+      "https://images.unsplash.com/photo-1599423300746-9a6e6f7d6f3e?auto=format&fit=crop&w=600&q=60",
+    ],
+  },
+
+  
+  // New York — Midtown Luxury Condo
+{
+  _id: "NY1",
+  title: "Midtown Luxury Condo with Skyline Views",
+  description:
+    "Modern condo located in the heart of Midtown Manhattan, with panoramic skyline views, close to Times Square and public transit.",
+  price: 350,
+  propertyType: "Condo",
+  category: "Condo",
+  capacity: {
+    bedrooms: 2,
+    bathrooms: 2,
+  },
+  size: 110,
+  rating: 4.92,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    kitchen: true,
+    ac: true,
+    workspace: true,
+    parking: false,
+  },
+  features: ["City View", "Gym Access"],
+  images: [
+    "https://images.unsplash.com/photo-1560448075-bb0a3fe5e131?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Brooklyn Brownstone
+{
+  _id: "NY2",
+  title: "Historic Brooklyn Brownstone Retreat",
+  description:
+    "Charming brownstone in Brooklyn with classic architecture and modern interior. Close to cafes, shops, and subway lines.",
+  price: 280,
+  propertyType: "House",
+  category: "House",
+  capacity: {
+    bedrooms: 3,
+    bathrooms: 2,
+  },
+  size: 160,
+  rating: 4.88,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    kitchen: true,
+    washer: true,
+    dryer: true,
+    ac: true,
+  },
+  features: ["Historic", "Neighborhood"],
+  images: [
+    "https://images.unsplash.com/photo-1572120360610-d971b9b62a4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Central Park Luxury Suite
+{
+  _id: "NY3",
+  title: "Central Park Luxury Suite",
+  description:
+    "Elegant suite overlooking Central Park with high-end furnishings, concierge service, and quick access to Fifth Avenue shopping.",
+  price: 420,
+  propertyType: "Apartment",
+  category: "Apartment",
+  capacity: {
+    bedrooms: 2,
+    bathrooms: 2,
+  },
+  size: 130,
+  rating: 4.95,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    ac: true,
+    kitchen: true,
+    hotTub: false,
+    parking: false,
+  },
+  features: ["Central Park View", "Concierge"],
+  images: [
+    "https://images.unsplash.com/photo-1615909040947-cfafb14fc1f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Stylish Loft in SoHo
+{
+  _id: "NY4",
+  title: "Stylish Loft in SoHo",
+  description:
+    "A bright and airy loft in SoHo with exposed brick walls, designer furniture, and walking distance to boutiques and galleries.",
+  price: 310,
+  propertyType: "Apartment",
+  category: "Apartment",
+  capacity: {
+    bedrooms: 1,
+    bathrooms: 1,
+  },
+  size: 95,
+  rating: 4.84,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    ac: true,
+    kitchen: true,
+    workspace: true,
+  },
+  features: ["Designer", "Urban"],
+  images: [
+    "https://images.unsplash.com/photo-1542318414-1f5a3b2b2c90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
+// New York — Upper East Side Townhouse
+{
+  _id: "NY5",
+  title: "Upper East Side Townhouse",
+  description:
+    "Spacious townhouse in the Upper East Side with a private garden, perfect for families or long stays in New York City.",
+  price: 500,
+  propertyType: "House",
+  category: "House",
+  capacity: {
+    bedrooms: 4,
+    bathrooms: 3,
+  },
+  size: 220,
+  rating: 4.98,
+  location: {
+    city: "New York",
+    country: "USA",
+  },
+  amenities: {
+    wifi: true,
+    kitchen: true,
+    parking: false,
+    ac: true,
+    washer: true,
+    dryer: true,
+  },
+  features: ["Private Garden", "Family Friendly"],
+  images: [
+    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+  ],
+},
+
 
   // update
   {
@@ -1304,3 +1925,5 @@ const dummyProperties = [
     ],
   },
 ];
+
+export default dummyProperties;
