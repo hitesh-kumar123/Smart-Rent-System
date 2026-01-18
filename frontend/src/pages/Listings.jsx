@@ -62,6 +62,20 @@ const Listings = () => {
 
   // Reference for the categories container for horizontal scrolling
   const categoriesContainerRef = useRef(null);
+  
+  useEffect(() => {
+  const queryParams = new URLSearchParams(location.search);
+  const typeParam = queryParams.get("type");
+
+  if (typeParam) {
+    setActiveCategory(typeParam.toLowerCase());
+  } else {
+    setActiveCategory("all");
+  }
+}, [location.search]);
+
+
+
 
   /**
    * Scrolls the categories container left or right
@@ -578,7 +592,7 @@ const filteredProperties = properties.filter((property) => {
       dryer: false,
       gym: false,
     });
-    setActiveCategory("all");
+    
     // Clear experience from URL
     const queryParams = new URLSearchParams(location.search);
     queryParams.delete("experience");
@@ -634,24 +648,20 @@ const filteredProperties = properties.filter((property) => {
    * @param {string} categoryId - The ID of the clicked category
    */
   const handleCategoryClick = (categoryId) => {
+  setActiveCategory(categoryId);
 
-    // Set the active category
-    setActiveCategory(categoryId);
+  const queryParams = new URLSearchParams(location.search);
 
-    // When 'all' is selected, clear all category-related filters
-    if (categoryId === "all") {
-      setFilters({
-        ...filters,
-        propertyType: "",
-      });
-    }
+  if (categoryId === "all") {
+    queryParams.delete("type");
+  } else {
+    queryParams.set("type", categoryId.toLowerCase());
+  }
 
-    // If we're in a mobile view, scroll back to the top of results
-    window.scrollTo({
-      top: document.querySelector(".container")?.offsetTop || 0,
-      behavior: "smooth",
-    });
-  };
+  navigate(`/listings?${queryParams.toString()}`);
+};
+
+
 
   /**
    * Navigates to property detail page
@@ -1231,11 +1241,20 @@ const filteredProperties = properties.filter((property) => {
                           dryer: false,
                           gym: false,
                         });
-                        setActiveCategory("all");
-                        // Clear experience from URL
                         const queryParams = new URLSearchParams(location.search);
+                        const typeParam = queryParams.get("type");
+                        setActiveCategory(
+                          typeParam
+                          ? typeParam.charAt(0).toUpperCase() + typeParam.slice(1)
+                          : "all"
+                        );
+
+                        // Clear experience from URL
+                       
                         queryParams.delete("experience");
-                        navigate(`/listings?${queryParams.toString()}`, { replace: true });
+                        queryParams.delete("type");
+                        navigate(`/listings`, { replace: true });
+
                       }}
                       className="flex-1 px-4 py-2 border border-neutral-300 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors duration-200"
                     >
