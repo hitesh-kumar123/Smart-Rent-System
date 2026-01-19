@@ -265,7 +265,7 @@ const Wishlist = () => {
                               {/* View property button */}
                               <div className="mt-4">
                                 <Link
-                                  to="/listings"
+                                  to={`/property/${item._id || item.id}`}
                                   // to={`/listings/${item.id}`}
                                   className="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700"
                                 >
@@ -404,7 +404,7 @@ const Wishlist = () => {
                           <div className="mt-4">
                             <Link
                               // to={`/listings/${item.id}`}
-                              to="/listings"
+                              to={`/property/${item._id || item.id}`}
                               className="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700"
                             >
                               View property

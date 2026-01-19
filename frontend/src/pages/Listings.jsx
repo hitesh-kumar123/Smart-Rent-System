@@ -66,6 +66,20 @@ const Listings = () => {
 
   // Reference for the categories container for horizontal scrolling
   const categoriesContainerRef = useRef(null);
+  
+  useEffect(() => {
+  const queryParams = new URLSearchParams(location.search);
+  const typeParam = queryParams.get("type");
+
+  if (typeParam) {
+    setActiveCategory(typeParam.toLowerCase());
+  } else {
+    setActiveCategory("all");
+  }
+}, [location.search]);
+
+
+
 
   /**
    * Scrolls the categories container left or right
@@ -606,7 +620,7 @@ const filteredProperties = properties.filter((property) => {
       dryer: false,
       gym: false,
     });
-    setActiveCategory("all");
+    
     // Clear experience from URL
     const queryParams = new URLSearchParams(location.search);
     queryParams.delete("experience");
@@ -665,20 +679,7 @@ const filteredProperties = properties.filter((property) => {
     // Set the active category
     setActiveCategory(categoryId);
 
-    // When 'all' is selected, clear all category-related filters
-    if (categoryId === "all") {
-      setFilters({
-        ...filters,
-        propertyType: "",
-      });
-    }
 
-    // If we're in a mobile view, scroll back to the top of results
-    window.scrollTo({
-      top: document.querySelector(".container")?.offsetTop || 0,
-      behavior: "smooth",
-    });
-  };
 
   /**
    * Navigates to property detail page
