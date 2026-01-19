@@ -34,8 +34,8 @@ const TripManage = () => {
           email: "sarah.johnson@example.com",
         },
         dates: {
-          checkin: "Jun 15, 2023",
-          checkout: "Jun 20, 2023",
+          checkin: "Jun 15, 2026",
+          checkout: "Jun 20, 2026",
           checkinTime: "3:00 PM",
           checkoutTime: "11:00 AM",
         },
