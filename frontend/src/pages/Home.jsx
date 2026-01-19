@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, MapPin, Clock, X } from "lucide-react";
+import { translateText } from "../services/translationService";
+import useTranslatedText from "../hooks/useTranslatedText";
+
 
 const Home = () => {
   // State for search query input value
@@ -12,6 +15,27 @@ const Home = () => {
     const saved = localStorage.getItem("recentSearches");
     return saved ? JSON.parse(saved) : [];
   });
+
+  const inspirationText = useTranslatedText("Inspiration for your next trip");
+  const subtitleText = useTranslatedText("Explore top destinations with perfect vacation rentals");
+  const stayAnywhereText = useTranslatedText("Stay anywhere");
+  const uniqueAccommodationsText = useTranslatedText("Unique accommodations for every style and budget");
+  const apartmentsText = useTranslatedText("Apartments");
+  const urbanComfortText = useTranslatedText("Urban comfort");
+  const housesText = useTranslatedText("Houses");
+  const entireHomesText = useTranslatedText("Entire homes");
+  const cabinsText = useTranslatedText("Cabins");
+  const rusticRetreatsText = useTranslatedText("Rustic retreats");
+  const villasText = useTranslatedText("Villas");
+  const luxuryStaysText = useTranslatedText("Luxury stays");
+  const discoverText = useTranslatedText("Discover experiences");
+  const findActivitiesText = useTranslatedText("Find activities hosted by local experts");
+  const cityToursText = useTranslatedText("City Tours");
+  const exploreText = useTranslatedText("Explore with local guides");
+  const becomeAHostText = useTranslatedText("Become a host");
+  const shareText = useTranslatedText("Share your space, earn extra income, and connect with guests from around the world.");
+  const learnMoreText = useTranslatedText("Learn more");
+
 
    // State for hero slideshow current image index
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -263,10 +287,10 @@ const Home = () => {
       {/* Featured destinations section */}
       <div className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <h2 className="text-3xl font-semibold mb-2 text-neutral-800">
-          Inspiration for your next trip
+          {inspirationText}
         </h2>
         <p className="text-neutral-600 mb-8">
-          Explore top destinations with perfect vacation rentals
+          {subtitleText}
         </p>
 
        {/* Featured destinations grid */}
@@ -301,10 +325,10 @@ const Home = () => {
       <div className="py-16 bg-neutral-50 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-semibold mb-2 text-neutral-800">
-            Stay anywhere
+            {stayAnywhereText}
           </h2>
           <p className="text-neutral-600 mb-8">
-            Unique accommodations for every style and budget
+            {uniqueAccommodationsText}
           </p>
 
           {/* Property types grid */}
@@ -321,9 +345,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Apartments
+                    {apartmentsText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Urban comfort</p>
+                  <p className="text-neutral-600 text-sm">{urbanComfortText}</p>
                 </div>
               </div>
             </Link>
@@ -339,9 +363,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Houses
+                    {housesText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Entire homes</p>
+                  <p className="text-neutral-600 text-sm">{entireHomesText}</p>
                 </div>
               </div>
             </Link>
@@ -357,9 +381,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Cabins
+                    {cabinsText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Rustic retreats</p>
+                  <p className="text-neutral-600 text-sm">{rusticRetreatsText}</p>
                 </div>
               </div>
             </Link>
@@ -375,9 +399,9 @@ const Home = () => {
                 </div>
                 <div className="p-3">
                   <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    Villas
+                    {villasText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">Luxury stays</p>
+                  <p className="text-neutral-600 text-sm">{luxuryStaysText}</p>
                 </div>
               </div>
             </Link>
@@ -388,10 +412,10 @@ const Home = () => {
       {/* Experiences section */}
       <div className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <h2 className="text-3xl font-semibold mb-2 text-neutral-800">
-          Discover experiences
+          {discoverText}
         </h2>
         <p className="text-neutral-600 mb-8">
-          Find activities hosted by local experts
+          {findActivitiesText}
         </p>
 
         {/* Experiences grid */}
@@ -414,7 +438,7 @@ const Home = () => {
                   <h3 className="text-xl font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
                     {experience.title}
                   </h3>
-                  <p className="text-neutral-600">Explore with local guides</p>
+                  <p className="text-neutral-600">{exploreText}</p>
                 </div>
               </div>
             </Link>
@@ -429,18 +453,17 @@ const Home = () => {
             <div className="md:flex">
               <div className="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  Become a host
+                  {becomeAHostText}
                 </h2>
                 <p className="text-white text-lg mb-8 max-w-md">
-                  Share your space, earn extra income, and connect with guests
-                  from around the world.
+                  {shareText}
                 </p>
                 {/* Learn more button for host sign-up */}
                 <Link
                   to="/host/become-a-host"
                   className="inline-block bg-white text-primary-500 font-medium px-6 py-3 rounded-lg hover:bg-neutral-100 transition duration-300 w-fit"
                 >
-                  Learn more
+                  {learnMoreText}
                 </Link>
               </div>
               <div className="md:w-1/2">
