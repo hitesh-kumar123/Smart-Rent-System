@@ -20,6 +20,7 @@ const TripManage = () => {
       const mockTrip = {
         id: parseInt(id),
         property: {
+          id: 101,
           name: "Luxury Apartment with Ocean View",
           image:
             "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
@@ -316,7 +317,8 @@ const TripManage = () => {
                         {trip.host.name}
                       </h3>
                       <Link
-                        to={`/messages?property=${trip.id}`}
+                        to={`/messages?property=${trip.property.id}`}
+
                         className="text-sm text-primary-600 hover:text-primary-700"
                       >
                         Message host
@@ -406,13 +408,6 @@ const TripManage = () => {
                   Cancel request
                 </button>
               )}
-
-              <Link
-                to={`/properties/${trip.id}`}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700"
-              >
-                View property details
-              </Link>
             </div>
           </div>
         </div>
