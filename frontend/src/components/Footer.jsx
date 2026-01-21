@@ -61,55 +61,62 @@ const Footer = () => {
           aria-label="Footer navigation"
         >
           {/* Company Info */}
-          <div className="flex flex-col items-center sm:items-start">
-            <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-white inline-flex items-center">
-              <span className="text-primary-500 font-bold">Smart</span>
-              <span className="font-light">RentSystem</span>
-            </h3>
-            <p className="text-neutral-400 mb-6 leading-relaxed max-w-sm">
-              {descriptionText}
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-neutral-800/80 hover:bg-primary-600 text-white h-9 w-9 sm:h-10 sm:w-10 rounded-full 
-                  flex items-center justify-center 
-                  transition-all duration-300 
-                  hover:scale-110 active:scale-95 
-                  shadow-lg hover:shadow-primary-500/20
-                  hover:rotate-[360deg]"
-                aria-label="Follow us on Facebook"
-              >
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
-              >
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
-              >
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
-              >
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-          </div>
+         {/* Company Info */}
+<div className="flex flex-col items-center sm:items-start">
+  <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
+    <span className="text-primary-500 font-bold">Smart</span>
+    <span className="font-light">RentSystem</span>
+  </h3>
+
+  <p className="text-neutral-400 mb-6 leading-relaxed max-w-sm">
+    {descriptionText}
+  </p>
+
+  <div className="flex space-x-4">
+    <a
+      href="https://facebook.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-neutral-800/80 hover:bg-primary-600 text-white h-9 w-9 sm:h-10 sm:w-10 rounded-full 
+        flex items-center justify-center 
+        transition-all duration-300 
+        hover:scale-110 active:scale-95 
+        shadow-lg hover:shadow-primary-500/20
+        hover:rotate-[360deg]"
+      aria-label="Follow us on Facebook"
+    >
+      <i className="fab fa-facebook-f"></i>
+    </a>
+
+    <a
+      href="https://twitter.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+    >
+      <i className="fab fa-twitter"></i>
+    </a>
+
+    <a
+      href="https://instagram.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+    >
+      <i className="fab fa-instagram"></i>
+    </a>
+
+    <a
+      href="https://linkedin.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+    >
+      <i className="fab fa-linkedin-in"></i>
+    </a>
+  </div>
+</div>
+
 
           {/* Quick Links */}
           <div className="mt-4 sm:mt-0">
@@ -161,61 +168,68 @@ const Footer = () => {
           </div>
 
           {/* Support */}
-          <div>
-          <h3 className="text-lg font-semibold mb-6 text-white">{supportText}</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/help"
-                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {helpText}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/safety"
-                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {safetyText}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/cancellation"
-                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {cancellationText}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/report-concern"
-                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {ReportText}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/faq"
-                  className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
-                  {FAQText}
-                </Link>
-              </li>
-            </ul>
-          </div>
+<div>
+  <h3 className="text-lg font-semibold mb-6 text-white inline-block border-b-2 border-primary-500 pb-1">
+    {supportText}
+  </h3>
+
+  <ul className="space-y-3">
+    <li>
+      <Link
+        to="/help"
+        className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+        {helpText}
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        to="/safety"
+        className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+        {safetyText}
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        to="/cancellation"
+        className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+        {cancellationText}
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        to="/report-concern"
+        className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+        {ReportText}
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        to="/faq"
+        className="text-neutral-400 hover:text-primary-400 transition duration-300 inline-flex items-center"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        <i className="fas fa-chevron-right text-xs mr-2 text-primary-500"></i>
+        {FAQText}
+      </Link>
+    </li>
+  </ul>
+</div>
 
           {/* Contact */}
           <div className="mt-4 sm:mt-0">
