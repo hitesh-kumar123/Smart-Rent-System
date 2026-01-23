@@ -21,22 +21,41 @@ const HostPolicies = () => {
 
   // Track active section on scroll
   useEffect(() => {
-    const handleScroll = () => {
+    let animationFrameId = null;
+
+    const runScrollLogic = () => {
       const sections = document.querySelectorAll('h2[id]');
       let currentSection = '';
-      
+
       sections.forEach(section => {
         const rect = section.getBoundingClientRect();
         if (rect.top <= 150 && rect.bottom >= 150) {
           currentSection = section.id;
         }
       });
-      
+
       setActiveSection(currentSection);
+      animationFrameId = null;
+    };
+
+    const handleScroll = () => {
+      if (animationFrameId !== null) {
+        return;
+      }
+      animationFrameId = window.requestAnimationFrame(runScrollLogic);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Initialize active section on mount
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameId !== null) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, []);
 
   const scrollToSection = (id) => {
