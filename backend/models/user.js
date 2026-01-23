@@ -119,10 +119,17 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Method to generate JWT token
-userSchema.methods.generateToken = function () {
+// Method to generate Access Token
+userSchema.methods.generateAccessToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE || "30d",  // default fallback
+    expiresIn: "15m", // Short-lived access token
+  });
+};
+
+// Method to generate Refresh Token
+userSchema.methods.generateRefreshToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET, {
+    expiresIn: "7d", // Long-lived refresh token
   });
 };
 

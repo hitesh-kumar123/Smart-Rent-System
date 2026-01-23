@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../config/api";
 
 const Wishlist = () => {
   // Wishlist Collection
@@ -18,11 +18,7 @@ const Wishlist = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const res = await axios.get("/api/wishlist", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const res = await api.get("/api/wishlist");
 
         // Wrap backend data into ONE default collection
         setCollections([
@@ -43,15 +39,7 @@ const Wishlist = () => {
   // Function to remove a property from a wishlist collection
   const handleRemoveFromWishlist = async (propertyId) => {
     try {
-      const res = await axios.post(
-        `/api/wishlist/${propertyId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const res = await api.post(`/api/wishlist/${propertyId}`, {});
 
       // Update UI after removal
       setCollections([
@@ -149,8 +137,8 @@ const Wishlist = () => {
                 key={collection.id}
                 onClick={() => setActiveTab(collection.id)}
                 className={`pb-4 px-1 border-b-2 font-medium text-sm ${activeTab === collection.id
-                    ? "border-primary-500 text-primary-600"
-                    : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
+                  ? "border-primary-500 text-primary-600"
+                  : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
                   }`}
               >
                 {collection.name}
