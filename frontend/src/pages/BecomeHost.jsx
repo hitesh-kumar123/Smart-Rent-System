@@ -1227,13 +1227,13 @@ const BecomeHost = () => {
           <div className="mt-6 text-center">
             <p className="text-sm text-neutral-500">
               By becoming a host, you agree to our{" "}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
+              <Link to="/terms" className="text-primary-600 hover:text-primary-500">
                 Terms of Service
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
+              <Link to="/terms" className="text-primary-600 hover:text-primary-500">
                 Host Policies
-              </a>
+              </Link>
               .
             </p>
           </div>
