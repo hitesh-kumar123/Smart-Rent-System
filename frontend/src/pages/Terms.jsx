@@ -280,29 +280,28 @@ const Terms = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Host CTA Banner */}
-        <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-xl shadow-lg p-8 text-white text-center mb-8 lg:col-span-3">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Ready to Become a Host?</h3>
-            <p className="text-primary-100 mb-6">
-              Now that you understand our Terms of Service, start listing your property and earn extra income!
-            </p>
-            <Link 
-              to="/host/become-a-host"
-              className="inline-flex items-center px-6 py-3 bg-white text-primary-700 font-semibold rounded-lg hover:bg-neutral-100 transition duration-300 shadow-md"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              List Your Property
-            </Link>
+          {/* Host CTA Banner */}
+          <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-xl shadow-lg p-8 text-white text-center mb-8">
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4">Ready to Become a Host?</h3>
+              <p className="text-primary-100 mb-6">
+                Now that you understand our Terms of Service, start listing your property and earn extra income!
+              </p>
+              <Link 
+                to="/host/become-a-host"
+                className="inline-flex items-center px-6 py-3 bg-white text-primary-700 font-semibold rounded-lg hover:bg-neutral-100 transition duration-300 shadow-md"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                List Your Property
+              </Link>
+            </div>
           </div>
-        </div>
 
-        {/* Related links */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:col-span-3">
+          {/* Related links */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link 
               to="/privacy"
               className="bg-white rounded-lg shadow-sm p-6 border border-neutral-200 hover:border-primary-500 transition duration-300"
@@ -354,6 +353,8 @@ const Terms = () => {
         </div>
       </div>
     </div>
+  </div>
+</div>
   );
 };
 
