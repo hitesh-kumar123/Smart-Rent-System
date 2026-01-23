@@ -13,7 +13,7 @@ const Listings = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [wishlistIds, setWishlistIds] = useState(new Set());
   const [inputError, setInputError] = useState({});
-  const [inputErrorTxt , setErrorTxt] = useState("");
+  const [inputErrorTxt, setErrorTxt] = useState("");
 
   const PRICE_MIN = 100;
   const PRICE_MAX = 10000;
@@ -75,22 +75,10 @@ const Listings = () => {
   const toggleWishlist = async (e, propertyId) => {
     e.stopPropagation();
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+    // The api instance will handle token and 401 redirect if needed
 
     try {
-      await api.post(
-        `/api/wishlist/${propertyId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await api.post(`/api/wishlist/${propertyId}`, {});
 
       setWishlistIds((prev) => {
         const updated = new Set(prev);
@@ -127,14 +115,9 @@ const Listings = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) return;
+        // No need to check token manually, api call will fail if unauthenticated
 
-        const res = await api.get("/api/wishlist", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await api.get("/api/wishlist");
 
         const ids = new Set(res.data.map((item) => item._id));
         setWishlistIds(ids);
@@ -179,49 +162,49 @@ const Listings = () => {
    * Runs when the URL search parameters change
    */
   useEffect(() => {
-  const fetchProperties = async () => {
-    setLoading(true);
-    setError(null);
+    const fetchProperties = async () => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const queryParams = new URLSearchParams(location.search);
-      const locationParam = queryParams.get("location");
+      try {
+        const queryParams = new URLSearchParams(location.search);
+        const locationParam = queryParams.get("location");
 
-      let propsArray = [];
+        let propsArray = [];
 
-      if (locationParam) {
-        // Use dummy data filtered by city
-        propsArray = dummyProperties.filter(
-          (prop) =>
-            prop.location.city.toLowerCase() === locationParam.toLowerCase()
-        );
-        setIsApiData(false); // indicate we are using dummy data
-      } else {
-        // Fetch from API
-        const response = await api.get("/api/properties");
-        propsArray = Array.isArray(response.data)
-          ? response.data
-          : Array.isArray(response.data.properties)
-          ? response.data.properties
-          : [];
-        setIsApiData(true); // indicate we are using API data
+        if (locationParam) {
+          // Use dummy data filtered by city
+          propsArray = dummyProperties.filter(
+            (prop) =>
+              prop.location.city.toLowerCase() === locationParam.toLowerCase()
+          );
+          setIsApiData(false); // indicate we are using dummy data
+        } else {
+          // Fetch from API
+          const response = await api.get("/api/properties");
+          propsArray = Array.isArray(response.data)
+            ? response.data
+            : Array.isArray(response.data.properties)
+              ? response.data.properties
+              : [];
+          setIsApiData(true); // indicate we are using API data
+        }
+
+        setProperties(propsArray);
+        setTotalCount(propsArray.length);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching properties:", err);
+        setProperties([]);
+        setTotalCount(0);
+        setIsApiData(false);
+        setError("Unable to load properties. Try again later.");
+        setLoading(false);
       }
+    };
 
-      setProperties(propsArray);
-      setTotalCount(propsArray.length);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error fetching properties:", err);
-      setProperties([]);
-      setTotalCount(0);
-      setIsApiData(false);
-      setError("Unable to load properties. Try again later.");
-      setLoading(false);
-    }
-  };
-
-  fetchProperties();
-}, [location.search]);
+    fetchProperties();
+  }, [location.search]);
 
   const checkInput = (e) => {
     const { name, value } = e.target;
@@ -233,10 +216,10 @@ const Listings = () => {
     }
 
     let input_value = Number(value);
-    if(Number.isNaN(input_value)){
+    if (Number.isNaN(input_value)) {
       setFilters({
-        ...filters ,
-        [name] : ''
+        ...filters,
+        [name]: ''
       });
       hasError = true;
       setErrorTxt('Please enter numbers only.');
@@ -245,33 +228,33 @@ const Listings = () => {
     else if (name === "priceMin") {
       hasError =
         ((input_value < PRICE_MIN || input_value > PRICE_MAX) && filters.priceMin !== "") || (input_value > Number(filters.priceMax) && filters.priceMax !== '');
-        
+
 
     }
 
     else if (name === "priceMax") {
       hasError =
         ((input_value > PRICE_MAX || input_value < PRICE_MIN) && filters.priceMax !== "") || (input_value < Number(filters.priceMin) && filters.priceMin !== '');
-        
+
     }
     setInputError((prev) => ({
       ...prev,
       [name]: hasError,
     }));
 
-  
+
 
     if (hasError) {
-     setErrorTxt(`Price must be between ${PRICE_MIN} and ${PRICE_MAX}.`);
+      setErrorTxt(`Price must be between ${PRICE_MIN} and ${PRICE_MAX}.`);
       setFilters({
-        ...filters ,
-        [name] : ''
+        ...filters,
+        [name]: ''
       });
-    setTimeout(() => {
-      setInputError(prev => ({ ...prev, [name]: false }));
-    }, 500);
-  }
-   
+      setTimeout(() => {
+        setInputError(prev => ({ ...prev, [name]: false }));
+      }, 500);
+    }
+
   };
   /**
    * Handles changes to the filter inputs
@@ -373,20 +356,20 @@ const Listings = () => {
     return categoryMap[categoryId] || categoryId;
   };
 
- // Apply category filter
-const filteredProperties = properties.filter((property) => {
-  if (activeCategory === "all") return true;
+  // Apply category filter
+  const filteredProperties = properties.filter((property) => {
+    if (activeCategory === "all") return true;
 
-  const normalizedActiveCat = getNormalizedCategory(activeCategory).toLowerCase();
-  const propertyCategory = (property.category || property.propertyType || "").toLowerCase();
+    const normalizedActiveCat = getNormalizedCategory(activeCategory).toLowerCase();
+    const propertyCategory = (property.category || property.propertyType || "").toLowerCase();
 
-  if (normalizedActiveCat === "trending") {
-    return property.trending === true;
-  }
+    if (normalizedActiveCat === "trending") {
+      return property.trending === true;
+    }
 
-  // Flexible matching: check if propertyCategory contains the normalized category
-  return propertyCategory.includes(normalizedActiveCat);
-});
+    // Flexible matching: check if propertyCategory contains the normalized category
+    return propertyCategory.includes(normalizedActiveCat);
+  });
 
 
   // Apply remaining filters (price, amenities, etc.)
@@ -618,7 +601,7 @@ const filteredProperties = properties.filter((property) => {
    * @param {string} categoryId - The category ID to normalize
    * @returns {string} - The normalized category name
    */
-  
+
 
   /**
    * Categories for the horizontal scrolling menu
@@ -726,40 +709,40 @@ const filteredProperties = properties.filter((property) => {
    * @returns {string} - The corresponding property type
    */
   const mapCategoryToPropertyType = (categoryId) => {
-  if (!categoryId || categoryId === "all") return "";
+    if (!categoryId || categoryId === "all") return "";
 
-  const categoryMap = {
-    House: "house",
-    Apartment: "apartment",
-    Villa: "villa",
-    Condo: "condo",
-    Cabin: "cabin",
-    Beach: "beach",
-    Lakefront: "lakefront",
-    Amazing: "amazing views",
-    Tiny: "tiny homes",
-    Mansion: "mansion",
-    Countryside: "countryside",
-    Luxury: "luxury",
-    Castles: "castle",
-    Tropical: "tropical",
-    Historic: "historic",
-    Design: "design",
-    Farm: "farm",
-    Treehouse: "treehouse",
-    Boat: "boat",
-    Container: "container",
-    Dome: "dome",
-    Windmill: "windmill",
-    Cave: "cave",
-    Camping: "camping",
-    Arctic: "arctic",
-    Desert: "desert",
-    Vineyard: "vineyard",
+    const categoryMap = {
+      House: "house",
+      Apartment: "apartment",
+      Villa: "villa",
+      Condo: "condo",
+      Cabin: "cabin",
+      Beach: "beach",
+      Lakefront: "lakefront",
+      Amazing: "amazing views",
+      Tiny: "tiny homes",
+      Mansion: "mansion",
+      Countryside: "countryside",
+      Luxury: "luxury",
+      Castles: "castle",
+      Tropical: "tropical",
+      Historic: "historic",
+      Design: "design",
+      Farm: "farm",
+      Treehouse: "treehouse",
+      Boat: "boat",
+      Container: "container",
+      Dome: "dome",
+      Windmill: "windmill",
+      Cave: "cave",
+      Camping: "camping",
+      Arctic: "arctic",
+      Desert: "desert",
+      Vineyard: "vineyard",
+    };
+
+    return categoryMap[categoryId] || categoryId.toLowerCase();
   };
-
-  return categoryMap[categoryId] || categoryId.toLowerCase();
-};
 
 
   if (loading) {
@@ -778,10 +761,10 @@ const filteredProperties = properties.filter((property) => {
             {filters.experience === "city-tours"
               ? "City Tours"
               : filters.experience === "outdoor-adventures"
-              ? "Outdoor Adventures"
-              : filters.experience === "local-cuisine"
-              ? "Local Cuisine"
-              : filters.experience}
+                ? "Outdoor Adventures"
+                : filters.experience === "local-cuisine"
+                  ? "Local Cuisine"
+                  : filters.experience}
           </p>
         )}
       </div>
@@ -833,25 +816,22 @@ const filteredProperties = properties.filter((property) => {
                       <div
                         key={category.id}
                         onClick={() => handleCategoryClick(category.id)}
-                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${
-                          activeCategory === category.id
+                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${activeCategory === category.id
                             ? "text-primary-600 border-b-2 border-primary-600 scale-110"
                             : "text-neutral-500 hover:text-primary-500 hover:scale-105"
-                        }`}
+                          }`}
                       >
                         <div
-                          className={`rounded-full p-2 mb-1 ${
-                            activeCategory === category.id
+                          className={`rounded-full p-2 mb-1 ${activeCategory === category.id
                               ? "bg-primary-50"
                               : "bg-neutral-50"
-                          }`}
+                            }`}
                         >
                           <i
-                            className={`${category.icon} text-lg ${
-                              activeCategory === category.id
+                            className={`${category.icon} text-lg ${activeCategory === category.id
                                 ? "text-primary-600"
                                 : "text-neutral-500"
-                            }`}
+                              }`}
                           ></i>
                         </div>
                         <span className="text-sm font-medium">
@@ -941,7 +921,7 @@ const filteredProperties = properties.filter((property) => {
                             onBlur={checkInput}
                             onChange={handleFilterChange}
                             className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
-                              ${ inputError.priceMin ? "range-input-error" : ""}`}
+                              ${inputError.priceMin ? "range-input-error" : ""}`}
                             placeholder="Min"
                           />
                         </div>
@@ -961,24 +941,24 @@ const filteredProperties = properties.filter((property) => {
                             onBlur={checkInput}
                             onChange={handleFilterChange}
                             className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 
-                              ${ inputError.priceMax ? "range-input-error" : ""}`}
+                              ${inputError.priceMax ? "range-input-error" : ""}`}
                             placeholder="Max"
                           />
                         </div>
                       </div>
                     </div>
                     {inputErrorTxt && (
-                        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 mt-3 text-sm animate-shake relative">
-                          <p className="font-medium">⚠️ {inputErrorTxt}</p>
-                          <button
-                            type="button"
-                            className="absolute top-3 right-3 text-red-500 hover:text-red-700"
-                            onClick={() => setErrorTxt("")}
-                          >
-                            ✕
-                          </button>
-                        </div>
-                     )}
+                      <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 mt-3 text-sm animate-shake relative">
+                        <p className="font-medium">⚠️ {inputErrorTxt}</p>
+                        <button
+                          type="button"
+                          className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+                          onClick={() => setErrorTxt("")}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   {/* Bedrooms filter */}
@@ -1033,11 +1013,10 @@ const filteredProperties = properties.filter((property) => {
                               language: lang.code,
                             });
                           }}
-                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
-                            language === lang.code
+                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${language === lang.code
                               ? "bg-primary-50 text-primary-600 font-medium border border-primary-200"
                               : "text-neutral-700 hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300"
-                          }`}
+                            }`}
                         >
                           <span>{lang.name}</span>
                         </button>
@@ -1325,10 +1304,10 @@ const filteredProperties = properties.filter((property) => {
               {filters.experience === "city-tours"
                 ? "City Tours"
                 : filters.experience === "outdoor-adventures"
-                ? "Outdoor Adventures"
-                : filters.experience === "local-cuisine"
-                ? "Local Cuisine"
-                : filters.experience}
+                  ? "Outdoor Adventures"
+                  : filters.experience === "local-cuisine"
+                    ? "Local Cuisine"
+                    : filters.experience}
             </span>
           )}
         </h1>
@@ -1395,8 +1374,8 @@ const filteredProperties = properties.filter((property) => {
               const propertyImages = hasValidImages
                 ? property.images
                 : hasValidImage
-                ? [property.image]
-                : [getCategoryImage()];
+                  ? [property.image]
+                  : [getCategoryImage()];
 
               return (
                 // Property card component
@@ -1450,11 +1429,10 @@ const filteredProperties = properties.filter((property) => {
                         onClick={(e) => toggleWishlist(e, property._id)}
                       >
                         <i
-                          className={`${
-                            wishlistIds.has(property._id)
+                          className={`${wishlistIds.has(property._id)
                               ? "fas text-red-500"
                               : "far"
-                          } fa-heart`}
+                            } fa-heart`}
                         ></i>
                       </button>
                     </div>

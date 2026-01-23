@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
+const cookieParser = require("cookie-parser");
 
 // Load environment variables
 dotenv.config();
@@ -38,6 +39,7 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 // Handle preflight requests
 app.options("*", cors(corsOptions));
