@@ -1231,9 +1231,9 @@ const BecomeHost = () => {
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
+              <Link to="/host-policies" className="text-primary-600 hover:text-primary-500">
                 Host Policies
-              </a>
+              </Link>
               .
             </p>
           </div>
