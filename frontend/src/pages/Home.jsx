@@ -146,6 +146,13 @@ const Home = () => {
     setRecentSearches([]);
   };
 
+  // Quick random property type navigation for the 'Surprise me' CTA
+  const surpriseMe = () => {
+    const types = ["apartment", "house", "cabin", "villa"];
+    const t = types[Math.floor(Math.random() * types.length)];
+    navigate(`/listings?type=${t}`);
+  }; 
+
   
   // Sample featured destinations data
   const destinations = [
@@ -331,80 +338,76 @@ const Home = () => {
             {uniqueAccommodationsText}
           </p>
 
-          {/* Property types grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {/* Apartments property type */}
-            <Link to="/listings?type=apartment" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
-                  <img
-                    src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                    alt="Apartments"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    {apartmentsText}
-                  </h3>
-                  <p className="text-neutral-600 text-sm">{urbanComfortText}</p>
-                </div>
-              </div>
-            </Link>
-            {/* Houses property type */}
-            <Link to="/listings?type=house" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
-                  <img
-                    src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                    alt="Houses"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    {housesText}
-                  </h3>
-                  <p className="text-neutral-600 text-sm">{entireHomesText}</p>
+          {/* Redesigned property types with a featured card + compact cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+            {/* Featured wide card */}
+            <Link to="/listings" className="group col-span-1 lg:col-span-2 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-2xl">
+              <div className="relative rounded-2xl overflow-hidden h-96 shadow-card hover:shadow-card-hover transition-transform duration-500 transform-gpu group-hover:-translate-y-1">
+                <img
+                  src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1400&q=80"
+                  alt="Featured stays"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent"></div>
+                <div className="absolute left-6 bottom-6 text-white">
+                  <span className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
+                    <MapPin className="w-4 h-4" /> {apartmentsText} • {housesText}
+                  </span>
+                  <h3 className="text-3xl font-bold mt-3">{stayAnywhereText}</h3>
+                  <p className="mt-2 max-w-lg text-white/90">From cozy cabins to luxury villas — find the perfect stay for every trip.</p>
+                  <div className="mt-4 flex items-center gap-3">
+                    <Link to="/listings" className="bg-white text-primary-600 px-4 py-2 rounded-lg font-medium hover:bg-white/90 transition focus:outline-none focus:ring-2 focus:ring-primary-500">Browse stays</Link>
+                    <button onClick={surpriseMe} className="bg-white/10 border border-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/5 transition focus:outline-none focus:ring-2 focus:ring-white/30">Surprise me</button>
+                  </div>
                 </div>
               </div>
             </Link>
-            {/* Cabins property type */}
-            <Link to="/listings?type=cabin" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
-                  <img
-                    src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                    alt="Cabins"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+
+            {/* Compact cards stack */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+              <Link to="/listings?type=cabin" className="group focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-xl">
+                <div className="rounded-xl overflow-hidden h-44 shadow-card hover:shadow-card-hover transition duration-300 transform-gpu group-hover:scale-105">
+                  <div className="h-full relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=800&q=60"
+                      alt="Cabins"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50"></div>
+                    <div className="absolute left-4 bottom-4 text-white">
+                      <h4 className="font-semibold">{cabinsText}</h4>
+                      <p className="text-sm text-white/90">{rusticRetreatsText}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    {cabinsText}
-                  </h3>
-                  <p className="text-neutral-600 text-sm">{rusticRetreatsText}</p>
+              </Link>
+
+              <Link to="/listings?type=villa" className="group focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-xl">
+                <div className="rounded-xl overflow-hidden h-44 shadow-card hover:shadow-card-hover transition duration-300 transform-gpu group-hover:scale-105">
+                  <div className="h-full relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=60"
+                      alt="Villas"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40"></div>
+                    <div className="absolute left-4 bottom-4 text-white">
+                      <h4 className="font-semibold">{villasText}</h4>
+                      <p className="text-sm text-white/90">{luxuryStaysText}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Link>
-            {/* Villas property type */}
-            <Link to="/listings?type=villa" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
-                  <img
-                    src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                    alt="Villas"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+              </Link>
+
+              {/* Surprise card */}
+              <button onClick={surpriseMe} className="group rounded-xl overflow-hidden h-44 shadow-card hover:shadow-card-hover transition duration-300 transform-gpu hover:scale-105 bg-gradient-to-t from-primary-600 to-primary-500 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary-500">
+                <div className="text-center p-4">
+                  <h4 className="text-lg font-semibold">Feeling adventurous?</h4>
+                  <p className="text-sm opacity-90">Let us pick a stay for you</p>
+                  <span className="mt-3 inline-block bg-white/20 px-3 py-1 rounded-full text-sm">Try it</span>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
-                    {villasText}
-                  </h3>
-                  <p className="text-neutral-600 text-sm">{luxuryStaysText}</p>
-                </div>
-              </div>
-            </Link>
+              </button>
+            </div>
           </div>
         </div>
       </div>
