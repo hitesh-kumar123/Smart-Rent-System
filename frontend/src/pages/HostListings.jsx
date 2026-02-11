@@ -16,6 +16,19 @@ const HostListings = () => {
   const [imgErrors, setImgErrors] = useState({});
   // Track loading state for image
   const [isLoading, setIsLoading] = useState(true);
+  // Modal state
+const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedListingId, setSelectedListingId] = useState(null);
+
+const handleConfirmDelete = () => {
+  if (selectedListingId) {
+    deleteListing(selectedListingId);
+    setIsModalOpen(false);
+    setSelectedListingId(null);
+  }
+};
+
+
 
   // Handle image load errors
   const handleImageError = (listingId) => {
@@ -379,19 +392,55 @@ const HostListings = () => {
 
   // Loading state while fetching listings
   if (loading) {
-    return (
-      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
-        <div className="text-primary-600 text-xl font-semibold flex items-center">
-          <i className="fas fa-spinner fa-spin mr-3 text-2xl"></i>
-          Loading your listings...
+   return (
+  <div className="min-h-screen bg-neutral-50 py-8">
+    <div className="container mx-auto px-4">
+
+      {/* all your listings code here */}
+
+    </div>
+
+    {/* 👇 PASTE MODAL HERE 👇 */}
+
+    {isModalOpen && (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
+          <h2 className="text-lg font-semibold mb-4 text-gray-800">
+            Confirm Delete
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            Are you sure you want to delete this listing?
+          </p>
+
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="px-4 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={handleConfirmDelete}
+              className="px-4 py-2 text-sm rounded-md bg-red-600 text-white hover:bg-red-700"
+            >
+              Yes, Delete
+            </button>
+          </div>
         </div>
       </div>
-    );
+    )}
+
+  </div>
+);
+
   }
 
   return (
     <div className="min-h-screen bg-neutral-50 py-8">
       <div className="container mx-auto px-4">
+
+
         {/* Page header with title and Add new listing button */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <h1 className="text-2xl font-bold text-neutral-800 mb-4 md:mb-0">
@@ -611,11 +660,15 @@ const HostListings = () => {
 
                         {/* Delete listing button */}
                         <button
-                          onClick={() => deleteListing(listing.id)}
-                          className="inline-flex items-center px-3 py-1.5 border border-neutral-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 hover:border-red-300"
-                        >
-                          Delete
-                        </button>
+  onClick={() => {
+    setSelectedListingId(listing.id);
+    setIsModalOpen(true);
+  }}
+  className="inline-flex items-center px-3 py-1.5 border border-neutral-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 hover:border-red-300"
+>
+  Delete
+</button>
+
                       </div>
                     </div>
 
