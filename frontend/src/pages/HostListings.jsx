@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
+import EmptyState from "../components/EmptyState";
+
 
 // Fallback image in case property image fails to load
 const FALLBACK_IMAGE_URL =
@@ -391,8 +394,10 @@ const handleConfirmDelete = () => {
   };
 
   // Loading state while fetching listings
-  if (loading) {
-   return (
+ if (loading) {
+  return <Loading message="Loading your listings..." />;
+
+
   <div className="min-h-screen bg-neutral-50 py-8">
     <div className="container mx-auto px-4">
 
@@ -432,9 +437,7 @@ const handleConfirmDelete = () => {
     )}
 
   </div>
-);
 
-  }
 
   return (
     <div className="min-h-screen bg-neutral-50 py-8">
@@ -666,8 +669,8 @@ const handleConfirmDelete = () => {
   }}
   className="inline-flex items-center px-3 py-1.5 border border-neutral-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 hover:border-red-300"
 >
-  Delete
-</button>
+      Delete
+      </button>
 
                       </div>
                     </div>
@@ -712,60 +715,22 @@ const handleConfirmDelete = () => {
             ))
           ) : (
             // Empty state when no listings match the current filter
-            <div className="text-center py-12">
-              <svg
-                className="mx-auto h-12 w-12 text-neutral-400"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                />
-              </svg>
-              {/* Empty state title */}
-              <h3 className="mt-2 text-sm font-medium text-neutral-900">
-                No listings found
-              </h3>
-              {/* Empty state description */}
-              <p className="mt-1 text-sm text-neutral-500">
-                {activeTab === "all"
-                  ? "Get started by creating a new listing"
-                  : `You don't have any ${activeTab} listings`}
-              </p>
-              {/* Call-to-action button to add a new listing */}
-              <div className="mt-6">
-                <Link
-                  to="/host/become-a-host"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700"
-                >
-                  <svg
-                    className="-ml-1 mr-2 h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                  Add new listing
-                </Link>
-              </div>
+           <EmptyState
+     title="No listings found"
+     description={
+      activeTab === "all"
+        ? "Get started by creating a new listing"
+        : `You don't have any ${activeTab} listings`
+      }
+       />
+             )}
+
+             
             </div>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
-  );
-};
+     );
+   };
+  }
 
 export default HostListings;
