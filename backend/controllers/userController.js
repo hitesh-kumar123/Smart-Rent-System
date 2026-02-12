@@ -43,6 +43,17 @@ const registerUser = async (req, res) => {
       referralCode,
     } = value;
 
+
+    // Gmail validation
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+
+    if (!gmailRegex.test(email)) {
+      return res.status(400).json({
+        message: "Only Gmail addresses are allowed."
+      });
+    }
+
+
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
