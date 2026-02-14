@@ -11,6 +11,17 @@ const { cloudinary } = require("../cloudConfig");
 const crypto = require("crypto");
 const { sendPasswordResetEmail } = require("../services/emailService");
 
+// Helper to set refresh token cookie
+const setRefreshTokenCookie = (res, refreshToken) => {
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    path: "/", // Cookie available for all routes
+  });
+};
+
 // @desc    Register user
 // @route   POST /api/users/register
 // @access  Public
@@ -31,6 +42,17 @@ const registerUser = async (req, res) => {
       phone,
       referralCode,
     } = value;
+
+
+    // Gmail validation
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+
+    if (!gmailRegex.test(email)) {
+      return res.status(400).json({
+        message: "Only Gmail addresses are allowed."
+      });
+    }
+
 
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
@@ -57,8 +79,12 @@ const registerUser = async (req, res) => {
       }
     }
 
-    // Generate token
-    const token = user.generateToken();
+    // Generate tokens
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+
+    // Set refresh token cookie
+    setRefreshTokenCookie(res, refreshToken);
 
     // Send response
     res.status(201).json({
@@ -70,7 +96,7 @@ const registerUser = async (req, res) => {
       role: user.role,
       profileImage: user.profileImage,
       referralCode: user.referralCode,
-      token,
+      token: accessToken, // Frontend still expects 'token' key for access token
     });
   } catch (error) {
     console.error(error);
@@ -103,15 +129,12 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Generate token
-    const token = user.generateToken();
+    // Generate tokens
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
 
-    // Set cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    });
+    // Set refresh token cookie
+    setRefreshTokenCookie(res, refreshToken);
 
     // Send response
     res.status(200).json({
@@ -122,11 +145,53 @@ const loginUser = async (req, res) => {
       lastName: user.lastName,
       role: user.role,
       profileImage: user.profileImage,
-      token,
+      token: accessToken,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// @desc    Refresh access token
+// @route   POST /api/users/refresh
+// @access  Public
+const refreshAccessToken = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No refresh token provided" });
+    }
+
+    // Verify token
+    const decoded = require("jsonwebtoken").verify(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET
+    );
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    // Generate new access token
+    const accessToken = user.generateAccessToken();
+
+    res.status(200).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      profileImage: user.profileImage,
+      token: accessToken,
+    });
+  } catch (error) {
+    console.error("Refresh token error:", error);
+    res.status(401).json({ message: "Invalid or expired refresh token" });
   }
 };
 
@@ -136,9 +201,10 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
   try {
     // Clear cookie
-    res.cookie("token", "", {
+    res.cookie("refreshToken", "", {
       httpOnly: true,
       expires: new Date(0),
+      path: "/",
     });
 
     res.status(200).json({ message: "Logged out successfully" });
@@ -500,6 +566,7 @@ const resetPassword = async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
+  refreshAccessToken,
   logoutUser,
   getUserProfile,
   updateUserProfile,

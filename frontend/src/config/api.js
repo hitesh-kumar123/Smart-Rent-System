@@ -18,6 +18,14 @@ const getApiUrl = () => {
 
 
 
+// In-memory variable for the access token to keep it away from XSS
+let accessToken = null;
+
+// Helper to update the token (will be used by AuthContext)
+export const setAccessToken = (token) => {
+  accessToken = token;
+};
+
 // Create axios instance with default config
 const api = axios.create({
   baseURL: getApiUrl(),
@@ -25,15 +33,14 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
-  timeout: 10000, // 10 second timeout
+  timeout: 10000,
 });
 
 // Add request interceptor to handle auth token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -42,20 +49,42 @@ api.interceptors.request.use(
   }
 );
 
-// Add response interceptor to handle errors
+// Add response interceptor to handle errors and silent refresh
 api.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
+    const originalRequest = error.config;
+
+    // If error is 401 and not already retrying
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        // Attempt to refresh the token
+        const res = await axios.post(`${getApiUrl()}/api/users/refresh`, {}, { withCredentials: true });
+
+        if (res.data && res.data.token) {
+          accessToken = res.data.token;
+
+          // Re-attach token and retry original request
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          return api(originalRequest);
+        }
+      } catch (refreshError) {
+        // Refresh failed, clear token and local session
+        accessToken = null;
+        // Optionally redirect to login or emit event
+        return Promise.reject(refreshError);
+      }
+    }
+
     console.error("API Error Details:", {
       url: error.config?.url,
       method: error.config?.method,
       status: error.response?.status,
-      statusText: error.response?.statusText,
       data: error.response?.data,
-      message: error.message,
-      baseURL: error.config?.baseURL,
     });
     return Promise.reject(error);
   }
