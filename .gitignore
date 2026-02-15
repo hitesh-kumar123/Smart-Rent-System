@@ -106,3 +106,5 @@ package-lock.json
 yarn.lock
 .tmp
 .temp
+
+npm-cache/
