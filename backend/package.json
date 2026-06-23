@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Smart Rent System - A MERN Stack Application",
   "main": "server.js",
-   "scripts": {
+  "scripts": {
     "server": "node server.js",
     "start": "node server.js",
-    "dev": "concurrently \"node app.js\" \"cd ../frontend && npm run dev\""
+    "dev": "concurrently \"node app.js\" \"cd ../frontend && npm run dev\"",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -41,6 +42,8 @@
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
-    "nodemon": "^3.1.0"
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.1.4"
   }
 }
