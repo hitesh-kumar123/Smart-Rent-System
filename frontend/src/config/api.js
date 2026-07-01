@@ -76,12 +76,18 @@ api.interceptors.response.use(
       }
     }
 
-    console.error("API Error Details:", {
-      url: error.config?.url,
-      method: error.config?.method,
-      status: error.response?.status,
-      data: error.response?.data,
-    });
+    if (originalRequest?.url?.includes("/api/users/refresh")) {
+      return Promise.reject(error);
+    }
+
+    if (process.env.NODE_ENV !== "production") {
+      console.error("API Error Details:", {
+        url: error.config?.url,
+        method: error.config?.method,
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+    }
     return Promise.reject(error);
   }
 );

@@ -32,16 +32,19 @@ const PropertyDetail = () => {
   });
   const [isBooked, setIsBooked] = useState(false);
 
-
-
   //Checks if user has already saved it in his wishlist
   useEffect(() => {
+    if (!currentUser || !property) {
+      setIsSaved(false);
+      return;
+    }
+
     const checkIfSaved = async () => {
       try {
         const res = await api.get("/api/wishlist");
 
         const exists = res.data.some(
-          (item) => String(item._id) === String(property._id)
+          (item) => String(item._id) === String(property._id),
         );
 
         setIsSaved(exists);
@@ -51,7 +54,7 @@ const PropertyDetail = () => {
     };
 
     checkIfSaved();
-  }, [property]);
+  }, [currentUser, property]);
 
   useEffect(() => {
     const fetchPropertyDetails = async () => {
@@ -64,7 +67,7 @@ const PropertyDetail = () => {
           // Try to get property from session storage
           const storedProperty = sessionStorage.getItem("currentProperty");
           const storedPropertyId = sessionStorage.getItem(
-            "lastViewedPropertyId"
+            "lastViewedPropertyId",
           );
 
           if (storedProperty) {
@@ -72,7 +75,6 @@ const PropertyDetail = () => {
 
             // Verify this is the correct property by checking ID matches
             if (parsedProperty && String(parsedProperty._id) === String(id)) {
-
               sessionProperty = parsedProperty;
 
               // We found the property, set it and stop loading
@@ -89,7 +91,6 @@ const PropertyDetail = () => {
         try {
           const response = await api.get(`/api/properties/${id}`);
           if (response.data) {
-
             setProperty(response.data);
             setLoading(false);
             return;
@@ -102,7 +103,6 @@ const PropertyDetail = () => {
             return;
           }
           // If no session property, try dummy data
-
 
           // Try to match ID, accounting for possible type differences
           // let dummyProperty = dummyProperties.find(
@@ -150,7 +150,6 @@ const PropertyDetail = () => {
           // Store current property for potential navigation back
           sessionStorage.setItem("currentProperty", JSON.stringify(property));
           sessionStorage.setItem("lastViewedPropertyId", String(property._id));
-
         } catch (err) {
           console.error("Failed to preserve property data:", err);
         }
@@ -158,24 +157,12 @@ const PropertyDetail = () => {
     };
   }, [id]);
 
-  useEffect(() => {
-    const checkBookingStatus = async () => {
-      try {
-        const response = await api.get(`/api/bookings/check/${id}`);
-        setIsBooked(response.data.isConfirmed);
-      } catch (error) {
-        console.error("Error checking booking status:", error);
-        setIsBooked(false);
-      }
-    };
-
-    if (property) {
-      checkBookingStatus();
-    }
-  }, [id, property]);
-
-  //Here we are making API call to save it in the users wishlist
   const handleSave = async () => {
+    if (!currentUser) {
+      console.warn("Login required to save this property.");
+      return;
+    }
+
     try {
       await api.post(`/api/wishlist/${property._id}`, {});
 
@@ -205,9 +192,7 @@ const PropertyDetail = () => {
   const serviceFee = 75;
 
   const stayPrice = nights * pricePerNight;
-  const totalPrice =
-    nights > 0 ? stayPrice + cleaningFee + serviceFee : 0;
-
+  const totalPrice = nights > 0 ? stayPrice + cleaningFee + serviceFee : 0;
 
   const handleShare = async () => {
     try {
@@ -341,18 +326,20 @@ const PropertyDetail = () => {
               <i className="fas fa-map-marker-alt mr-1 text-primary-600"></i>
               <span>
                 {property.location && property.location.city
-                  ? `${property.location.city}, ${property.location.country || ""
-                  }`
+                  ? `${property.location.city}, ${
+                      property.location.country || ""
+                    }`
                   : "Location not specified"}
               </span>
             </div>
             <div className="ml-auto flex gap-3">
               <button
                 onClick={handleSave}
-                className={`flex items-center ${isSaved
-                  ? "text-red-600"
-                  : "text-neutral-600 hover:text-primary-600"
-                  }`}
+                className={`flex items-center ${
+                  isSaved
+                    ? "text-red-600"
+                    : "text-neutral-600 hover:text-primary-600"
+                }`}
               >
                 <i className={`${isSaved ? "fas" : "far"} fa-heart mr-1`}></i>
                 {isSaved ? "Saved" : "Save"}
@@ -390,43 +377,45 @@ const PropertyDetail = () => {
             <div className="grid grid-cols-2 gap-2 h-96">
               {property.images && property.images.length > 1
                 ? property.images.slice(1, 5).map((image, index) => (
-                  <div
-                    key={`thumbnail-${index}`}
-                    className={`relative h-[188px] overflow-hidden ${index === 0 ? "rounded-tr-xl" : ""
+                    <div
+                      key={`thumbnail-${index}`}
+                      className={`relative h-[188px] overflow-hidden ${
+                        index === 0 ? "rounded-tr-xl" : ""
                       } ${index === 3 ? "rounded-br-xl" : ""}`}
-                  >
-                    {/* Pass the specific image URL via `image` so PropertyImage displays the correct thumbnail */}
-                    <PropertyImage
-                      image={image}
-                      images={property.images}
-                      alt={`${property.title} - ${index + 2}`}
-                      className="w-full h-full object-cover"
-                      showGallery={true}
-                      id={`property-image-${index + 2}-${property._id}`}
-                      propertyId={property._id}
-                    />
-                    {index === 3 && property.images.length > 5 && (
-                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <span className="text-white text-lg font-semibold">
-                          +{property.images.length - 5} more
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                ))
+                    >
+                      {/* Pass the specific image URL via `image` so PropertyImage displays the correct thumbnail */}
+                      <PropertyImage
+                        image={image}
+                        images={property.images}
+                        alt={`${property.title} - ${index + 2}`}
+                        className="w-full h-full object-cover"
+                        showGallery={true}
+                        id={`property-image-${index + 2}-${property._id}`}
+                        propertyId={property._id}
+                      />
+                      {index === 3 && property.images.length > 5 && (
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                          <span className="text-white text-lg font-semibold">
+                            +{property.images.length - 5} more
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  ))
                 : // Placeholder images with different categories
-                [
-                  { id: 1, category: "bedroom" },
-                  { id: 2, category: "kitchen" },
-                  { id: 3, category: "bathroom" },
-                  { id: 4, category: "living" },
-                ].map((item) => (
-                  <div
-                    key={`placeholder-${item.id}`}
-                    className={`relative h-[188px] overflow-hidden bg-neutral-100 ${item.id === 1 ? "rounded-tr-xl" : ""
+                  [
+                    { id: 1, category: "bedroom" },
+                    { id: 2, category: "kitchen" },
+                    { id: 3, category: "bathroom" },
+                    { id: 4, category: "living" },
+                  ].map((item) => (
+                    <div
+                      key={`placeholder-${item.id}`}
+                      className={`relative h-[188px] overflow-hidden bg-neutral-100 ${
+                        item.id === 1 ? "rounded-tr-xl" : ""
                       } ${item.id === 4 ? "rounded-br-xl" : ""}`}
-                  >
-                    {/* <PropertyImage
+                    >
+                      {/* <PropertyImage
                         image={`https://source.unsplash.com/random/300x200?${item.category}`}
                         alt={`Additional view ${item.id}`}
                         className="w-full h-full object-cover"
@@ -434,8 +423,8 @@ const PropertyDetail = () => {
                         id={`property-image-placeholder-${item.id}`}
                         propertyId={property._id}
                       /> */}
-                  </div>
-                ))}
+                    </div>
+                  ))}
             </div>
           </div>
         </div>
@@ -514,37 +503,41 @@ const PropertyDetail = () => {
             <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
               <div className="flex border-b border-neutral-200">
                 <button
-                  className={`px-6 py-4 font-medium text-sm ${activeTab === "overview"
-                    ? "text-primary-600 border-b-2 border-primary-600"
-                    : "text-neutral-600"
-                    }`}
+                  className={`px-6 py-4 font-medium text-sm ${
+                    activeTab === "overview"
+                      ? "text-primary-600 border-b-2 border-primary-600"
+                      : "text-neutral-600"
+                  }`}
                   onClick={() => setActiveTab("overview")}
                 >
                   Overview
                 </button>
                 <button
-                  className={`px-6 py-4 font-medium text-sm ${activeTab === "amenities"
-                    ? "text-primary-600 border-b-2 border-primary-600"
-                    : "text-neutral-600"
-                    }`}
+                  className={`px-6 py-4 font-medium text-sm ${
+                    activeTab === "amenities"
+                      ? "text-primary-600 border-b-2 border-primary-600"
+                      : "text-neutral-600"
+                  }`}
                   onClick={() => setActiveTab("amenities")}
                 >
                   Amenities
                 </button>
                 <button
-                  className={`px-6 py-4 font-medium text-sm ${activeTab === "reviews"
-                    ? "text-primary-600 border-b-2 border-primary-600"
-                    : "text-neutral-600"
-                    }`}
+                  className={`px-6 py-4 font-medium text-sm ${
+                    activeTab === "reviews"
+                      ? "text-primary-600 border-b-2 border-primary-600"
+                      : "text-neutral-600"
+                  }`}
                   onClick={() => setActiveTab("reviews")}
                 >
                   Reviews
                 </button>
                 <button
-                  className={`px-6 py-4 font-medium text-sm ${activeTab === "location"
-                    ? "text-primary-600 border-b-2 border-primary-600"
-                    : "text-neutral-600"
-                    }`}
+                  className={`px-6 py-4 font-medium text-sm ${
+                    activeTab === "location"
+                      ? "text-primary-600 border-b-2 border-primary-600"
+                      : "text-neutral-600"
+                  }`}
                   onClick={() => setActiveTab("location")}
                 >
                   Location
@@ -744,14 +737,15 @@ const PropertyDetail = () => {
 
                     <div className="h-[400px] w-full rounded-lg overflow-hidden">
                       <StaticMap
-                        address={isBooked ? property.location?.address : undefined}
+                        address={
+                          isBooked ? property.location?.address : undefined
+                        }
                         city={property.location?.city}
                         state={property.location?.state}
                         country={property.location?.country}
                         isConfirmedBooking={isBooked}
                         zoom={13}
                       />
-
                     </div>
                     {!isBooked && (
                       <p className="mt-4 text-sm text-neutral-500">
@@ -834,7 +828,10 @@ const PropertyDetail = () => {
                       type="date"
                       value={reservation.checkIn}
                       onChange={(e) =>
-                        setReservation({ ...reservation, checkIn: e.target.value })
+                        setReservation({
+                          ...reservation,
+                          checkIn: e.target.value,
+                        })
                       }
                       className="w-full border-none p-0 text-neutral-800 focus:ring-0"
                     />
@@ -847,11 +844,13 @@ const PropertyDetail = () => {
                       type="date"
                       value={reservation.checkOut}
                       onChange={(e) =>
-                        setReservation({ ...reservation, checkOut: e.target.value })
+                        setReservation({
+                          ...reservation,
+                          checkOut: e.target.value,
+                        })
                       }
                       className="w-full border-none p-0 text-neutral-800 focus:ring-0"
                     />
-
                   </div>
                 </div>
                 <div className="p-4">
@@ -931,7 +930,6 @@ const PropertyDetail = () => {
                   <span>${totalPrice}</span>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -956,9 +954,9 @@ const PropertyDetail = () => {
                   onClick={() =>
                     window.open(
                       `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                        window.location.href
+                        window.location.href,
                       )}`,
-                      "_blank"
+                      "_blank",
                     )
                   }
                   className="w-full flex items-center justify-center gap-2 bg-blue-800 text-white py-2 rounded-lg hover:bg-blue-900"
@@ -970,9 +968,9 @@ const PropertyDetail = () => {
                   onClick={() =>
                     window.open(
                       `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                        window.location.href
+                        window.location.href,
                       )}&text=${encodeURIComponent(property.title)}`,
-                      "_blank"
+                      "_blank",
                     )
                   }
                   className="w-full flex items-center justify-center gap-2 bg-blue-400 text-white py-2 rounded-lg hover:bg-blue-500"
@@ -1010,10 +1008,11 @@ const PropertyDetail = () => {
                         className="text-2xl focus:outline-none"
                       >
                         <i
-                          className={`fas fa-star ${star <= review.rating
-                            ? "text-yellow-400"
-                            : "text-neutral-300"
-                            }`}
+                          className={`fas fa-star ${
+                            star <= review.rating
+                              ? "text-yellow-400"
+                              : "text-neutral-300"
+                          }`}
                         ></i>
                       </button>
                     ))}

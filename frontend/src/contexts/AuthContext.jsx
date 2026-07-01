@@ -34,7 +34,9 @@ export function AuthProvider({ children }) {
           console.log("User session restored via refresh token");
         }
       } catch (err) {
-        console.log("No active session or refresh token expired");
+        if (process.env.NODE_ENV !== "production") {
+          console.log("No active session or refresh token expired");
+        }
         setAccessToken(null);
         setCurrentUser(null);
       } finally {
@@ -191,7 +193,8 @@ export function AuthProvider({ children }) {
 
       return { success: true };
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Failed to remove profile image";
+      const errorMessage =
+        err.response?.data?.message || "Failed to remove profile image";
       setError(errorMessage);
       return { success: false, error: errorMessage };
     }
@@ -204,7 +207,8 @@ export function AuthProvider({ children }) {
       await api.put("/api/users/password", passwordData);
       return { success: true, message: "Password updated successfully" };
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Password update failed";
+      const errorMessage =
+        err.response?.data?.message || "Password update failed";
       setError(errorMessage);
       return { success: false, error: errorMessage };
     }
@@ -217,7 +221,8 @@ export function AuthProvider({ children }) {
       await api.post("/api/users/forgot-password", { email });
       return { success: true, message: "Password reset email sent" };
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Password reset request failed";
+      const errorMessage =
+        err.response?.data?.message || "Password reset request failed";
       setError(errorMessage);
       throw new Error(errorMessage);
     }
@@ -237,7 +242,8 @@ export function AuthProvider({ children }) {
       if (provider === "google") {
         authUrl = "https://accounts.google.com/o/oauth2/v2/auth";
         params = {
-          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID || "your-google-client-id",
+          client_id:
+            process.env.REACT_APP_GOOGLE_CLIENT_ID || "your-google-client-id",
           redirect_uri: redirectUri,
           response_type: "code",
           scope: "email profile",
@@ -246,7 +252,8 @@ export function AuthProvider({ children }) {
       } else if (provider === "facebook") {
         authUrl = "https://www.facebook.com/v12.0/dialog/oauth";
         params = {
-          client_id: process.env.REACT_APP_FACEBOOK_APP_ID || "your-facebook-app-id",
+          client_id:
+            process.env.REACT_APP_FACEBOOK_APP_ID || "your-facebook-app-id",
           redirect_uri: redirectUri,
           response_type: "code",
           scope: "email,public_profile",

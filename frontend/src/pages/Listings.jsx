@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PropertyImage from "../components/PropertyImage";
 import { useAppSettings } from "../contexts/AppSettingsContext";
+import { useAuth } from "../contexts/AuthContext";
 import api from "../config/api";
 import dummyProperties from "../data/dummyProperties";
 
@@ -27,6 +28,7 @@ const Listings = () => {
     formatPrice,
     isTranslating,
   } = useAppSettings();
+  const { currentUser } = useAuth();
 
   // State for various filter settings
   const [filters, setFilters] = useState({
@@ -75,7 +77,10 @@ const Listings = () => {
   const toggleWishlist = async (e, propertyId) => {
     e.stopPropagation();
 
-    // The api instance will handle token and 401 redirect if needed
+    if (!currentUser) {
+      console.warn("Login required to manage wishlist.");
+      return;
+    }
 
     try {
       await api.post(`/api/wishlist/${propertyId}`, {});
@@ -113,10 +118,13 @@ const Listings = () => {
    * Reset all filters when component mounts
    */
   useEffect(() => {
+    if (!currentUser) {
+      setWishlistIds(new Set());
+      return;
+    }
+
     const fetchWishlist = async () => {
       try {
-        // No need to check token manually, api call will fail if unauthenticated
-
         const res = await api.get("/api/wishlist");
 
         const ids = new Set(res.data.map((item) => item._id));
@@ -127,7 +135,7 @@ const Listings = () => {
     };
 
     fetchWishlist();
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     // Reset all filters when the page loads to ensure all properties show
@@ -176,7 +184,7 @@ const Listings = () => {
           // Use dummy data filtered by city
           propsArray = dummyProperties.filter(
             (prop) =>
-              prop.location.city.toLowerCase() === locationParam.toLowerCase()
+              prop.location.city.toLowerCase() === locationParam.toLowerCase(),
           );
           setIsApiData(false); // indicate we are using dummy data
         } else {
@@ -210,8 +218,8 @@ const Listings = () => {
     const { name, value } = e.target;
     let hasError = false;
     if (value === "") {
-      setFilters(prev => ({ ...prev, [name]: "" }));
-      setInputError(prev => ({ ...prev, [name]: false }));
+      setFilters((prev) => ({ ...prev, [name]: "" }));
+      setInputError((prev) => ({ ...prev, [name]: false }));
       return;
     }
 
@@ -219,42 +227,36 @@ const Listings = () => {
     if (Number.isNaN(input_value)) {
       setFilters({
         ...filters,
-        [name]: ''
+        [name]: "",
       });
       hasError = true;
-      setErrorTxt('Please enter numbers only.');
-    }
-
-    else if (name === "priceMin") {
+      setErrorTxt("Please enter numbers only.");
+    } else if (name === "priceMin") {
       hasError =
-        ((input_value < PRICE_MIN || input_value > PRICE_MAX) && filters.priceMin !== "") || (input_value > Number(filters.priceMax) && filters.priceMax !== '');
-
-
-    }
-
-    else if (name === "priceMax") {
+        ((input_value < PRICE_MIN || input_value > PRICE_MAX) &&
+          filters.priceMin !== "") ||
+        (input_value > Number(filters.priceMax) && filters.priceMax !== "");
+    } else if (name === "priceMax") {
       hasError =
-        ((input_value > PRICE_MAX || input_value < PRICE_MIN) && filters.priceMax !== "") || (input_value < Number(filters.priceMin) && filters.priceMin !== '');
-
+        ((input_value > PRICE_MAX || input_value < PRICE_MIN) &&
+          filters.priceMax !== "") ||
+        (input_value < Number(filters.priceMin) && filters.priceMin !== "");
     }
     setInputError((prev) => ({
       ...prev,
       [name]: hasError,
     }));
 
-
-
     if (hasError) {
       setErrorTxt(`Price must be between ${PRICE_MIN} and ${PRICE_MAX}.`);
       setFilters({
         ...filters,
-        [name]: ''
+        [name]: "",
       });
       setTimeout(() => {
-        setInputError(prev => ({ ...prev, [name]: false }));
+        setInputError((prev) => ({ ...prev, [name]: false }));
       }, 500);
     }
-
   };
   /**
    * Handles changes to the filter inputs
@@ -360,8 +362,13 @@ const Listings = () => {
   const filteredProperties = properties.filter((property) => {
     if (activeCategory === "all") return true;
 
-    const normalizedActiveCat = getNormalizedCategory(activeCategory).toLowerCase();
-    const propertyCategory = (property.category || property.propertyType || "").toLowerCase();
+    const normalizedActiveCat =
+      getNormalizedCategory(activeCategory).toLowerCase();
+    const propertyCategory = (
+      property.category ||
+      property.propertyType ||
+      ""
+    ).toLowerCase();
 
     if (normalizedActiveCat === "trending") {
       return property.trending === true;
@@ -370,7 +377,6 @@ const Listings = () => {
     // Flexible matching: check if propertyCategory contains the normalized category
     return propertyCategory.includes(normalizedActiveCat);
   });
-
 
   // Apply remaining filters (price, amenities, etc.)
   const fullyFilteredProperties = filteredProperties.filter((property) => {
@@ -523,10 +529,6 @@ const Listings = () => {
     }
   });
 
-
-
-
-
   /**
    * Toggles a specific amenity filter
    * @param {string} filter - The amenity filter to toggle
@@ -601,7 +603,6 @@ const Listings = () => {
    * @param {string} categoryId - The category ID to normalize
    * @returns {string} - The normalized category name
    */
-
 
   /**
    * Categories for the horizontal scrolling menu
@@ -687,7 +688,7 @@ const Listings = () => {
         // Store entire property data in session storage
         sessionStorage.setItem(
           "currentProperty",
-          JSON.stringify(currentProperty)
+          JSON.stringify(currentProperty),
         );
 
         // Also store the property ID separately for redundancy
@@ -743,7 +744,6 @@ const Listings = () => {
 
     return categoryMap[categoryId] || categoryId.toLowerCase();
   };
-
 
   if (loading) {
     return (
@@ -816,22 +816,25 @@ const Listings = () => {
                       <div
                         key={category.id}
                         onClick={() => handleCategoryClick(category.id)}
-                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${activeCategory === category.id
+                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${
+                          activeCategory === category.id
                             ? "text-primary-600 border-b-2 border-primary-600 scale-110"
                             : "text-neutral-500 hover:text-primary-500 hover:scale-105"
-                          }`}
+                        }`}
                       >
                         <div
-                          className={`rounded-full p-2 mb-1 ${activeCategory === category.id
+                          className={`rounded-full p-2 mb-1 ${
+                            activeCategory === category.id
                               ? "bg-primary-50"
                               : "bg-neutral-50"
-                            }`}
+                          }`}
                         >
                           <i
-                            className={`${category.icon} text-lg ${activeCategory === category.id
+                            className={`${category.icon} text-lg ${
+                              activeCategory === category.id
                                 ? "text-primary-600"
                                 : "text-neutral-500"
-                              }`}
+                            }`}
                           ></i>
                         </div>
                         <span className="text-sm font-medium">
@@ -1013,10 +1016,11 @@ const Listings = () => {
                               language: lang.code,
                             });
                           }}
-                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${language === lang.code
+                          className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
+                            language === lang.code
                               ? "bg-primary-50 text-primary-600 font-medium border border-primary-200"
                               : "text-neutral-700 hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300"
-                            }`}
+                          }`}
                         >
                           <span>{lang.name}</span>
                         </button>
@@ -1258,7 +1262,7 @@ const Listings = () => {
                         setActiveCategory("all");
                         // Clear experience from URL
                         const queryParams = new URLSearchParams(
-                          location.search
+                          location.search,
                         );
                         queryParams.delete("experience");
                         navigate(`/listings?${queryParams.toString()}`, {
@@ -1348,7 +1352,7 @@ const Listings = () => {
                 property.images.some(
                   (img) =>
                     (typeof img === "string" && img.trim() !== "") ||
-                    (typeof img === "object" && img.url)
+                    (typeof img === "object" && img.url),
                 );
 
               /**
@@ -1356,7 +1360,8 @@ const Listings = () => {
                * @returns {string} - URL of an appropriate fallback image
                */
               const getCategoryImage = () => {
-                const propertyType = property.propertyType || property.category || "";
+                const propertyType =
+                  property.propertyType || property.category || "";
                 const type = propertyType.trim().toLowerCase();
                 const fallbackMap = {
                   house: "/images/house.jpg",
@@ -1429,10 +1434,11 @@ const Listings = () => {
                         onClick={(e) => toggleWishlist(e, property._id)}
                       >
                         <i
-                          className={`${wishlistIds.has(property._id)
+                          className={`${
+                            wishlistIds.has(property._id)
                               ? "fas text-red-500"
                               : "far"
-                            } fa-heart`}
+                          } fa-heart`}
                         ></i>
                       </button>
                     </div>

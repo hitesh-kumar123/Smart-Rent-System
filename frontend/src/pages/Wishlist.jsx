@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../config/api";
+import { useAuth } from "../contexts/AuthContext";
 
 const Wishlist = () => {
   // Wishlist Collection
   const [collections, setCollections] = useState([]);
+  const { currentUser } = useAuth();
 
   // States for managing active tab, modal visibility, and form data
   const [activeTab, setActiveTab] = useState(null);
-
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState("");
@@ -16,6 +17,11 @@ const Wishlist = () => {
 
   //Api Call for fetching Wishlist Collection for particular user
   useEffect(() => {
+    if (!currentUser) {
+      setCollections([]);
+      return;
+    }
+
     const fetchWishlist = async () => {
       try {
         const res = await api.get("/api/wishlist");
@@ -34,10 +40,15 @@ const Wishlist = () => {
     };
 
     fetchWishlist();
-  }, []);
+  }, [currentUser]);
 
   // Function to remove a property from a wishlist collection
   const handleRemoveFromWishlist = async (propertyId) => {
+    if (!currentUser) {
+      console.warn("Login required to manage wishlist.");
+      return;
+    }
+
     try {
       const res = await api.post(`/api/wishlist/${propertyId}`, {});
 
@@ -46,9 +57,7 @@ const Wishlist = () => {
         {
           id: "default",
           name: "My Wishlist",
-          items: collections[0].items.filter(
-            (item) => item._id !== propertyId
-          ),
+          items: collections[0].items.filter((item) => item._id !== propertyId),
         },
       ]);
     } catch (err) {
@@ -81,7 +90,7 @@ const Wishlist = () => {
     // Check if collection name already exists
     const nameExists = collections.some(
       (collection) =>
-        collection.name.toLowerCase() === newCollectionName.toLowerCase()
+        collection.name.toLowerCase() === newCollectionName.toLowerCase(),
     );
 
     if (nameExists) {
@@ -107,7 +116,7 @@ const Wishlist = () => {
   // Get total number of saved properties
   const totalSaved = collections.reduce(
     (total, collection) => total + collection.items.length,
-    0
+    0,
   );
 
   return (
@@ -130,16 +139,16 @@ const Wishlist = () => {
           <nav className="-mb-px flex space-x-8">
             {/* All properties tab */}
 
-
             {/* Collection tabs - one for each collection */}
             {collections.map((collection) => (
               <button
                 key={collection.id}
                 onClick={() => setActiveTab(collection.id)}
-                className={`pb-4 px-1 border-b-2 font-medium text-sm ${activeTab === collection.id
-                  ? "border-primary-500 text-primary-600"
-                  : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
-                  }`}
+                className={`pb-4 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === collection.id
+                    ? "border-primary-500 text-primary-600"
+                    : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
+                }`}
               >
                 {collection.name}
                 <span className="ml-2 py-0.5 px-2 rounded-full text-xs bg-neutral-100 text-neutral-700">
@@ -187,7 +196,9 @@ const Wishlist = () => {
                                 className="h-48 w-full object-cover"
                               />
                               <button
-                                onClick={() => handleRemoveFromWishlist(item._id)}
+                                onClick={() =>
+                                  handleRemoveFromWishlist(item._id)
+                                }
                                 className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-sm text-primary-500 hover:text-primary-700"
                               >
                                 <svg
@@ -234,7 +245,6 @@ const Wishlist = () => {
                                 {item.location}
                               </p>
 
-
                               {/* Property beds and baths info */}
                               <p className="text-sm text-neutral-700 mb-2">
                                 {item.beds} {item.beds === 1 ? "bed" : "beds"} ·{" "}
@@ -266,7 +276,7 @@ const Wishlist = () => {
                         ))}
                       </div>
                     </div>
-                  )
+                  ),
               )}
 
               {/* Empty state when no properties are saved */}
@@ -372,7 +382,6 @@ const Wishlist = () => {
                               ? `${item.location.city}, ${item.location.country || ""}`
                               : "Location not available"}
                           </p>
-
 
                           {/* Property beds and baths info */}
                           <p className="text-sm text-neutral-700 mb-2">
