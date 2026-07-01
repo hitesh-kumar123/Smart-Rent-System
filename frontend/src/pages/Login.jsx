@@ -182,68 +182,47 @@ const Login = () => {
   };
 
   // Common input style class to keep code clean
-  const inputStyle = "w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 text-sm";
+  const inputStyle = "w-full px-4 py-2 bg-white border-2 border-gray-200 rounded-xl placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 text-sm";
 
   return (
-    <div className="min-h-screen flex overflow-hidden">
-      {/* Left side - Image (Identical to Register) */}
-      <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
-        <div className="absolute animate-gradient"></div>
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
           alt="Modern luxury apartment"
-          className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay"
+          className="w-full h-full object-cover"
         />
-        
-        {/* Floating animated elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-20 w-72 h-72 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 rounded-full blur-3xl animate-float-delayed"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-2xl animate-pulse-slow"></div>
-        </div>
-
-        {/* Content overlay */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-black-12">
-          <div className="mb-8 animate-fade-in-up">
-            <Home className="w-20 h-20 mb-6 mx-auto drop-shadow-lg animate-bounce-slow" />
-          </div>
-          <h2 className="text-5xl font-bold mb-4 text-center drop-shadow-lg animate-fade-in-up animation-delay-200">
-            Welcome Back
-          </h2>
-          <p className="text-xl text-center text-black/90 max-w-md drop-shadow-lg animate-fade-in-up animation-delay-400">
-            Sign in to continue your journey
-          </p>
-        </div>
+        <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
-      {/* Right side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gradient-to-br from-gray-50 to-gray-300">
-        <div className="w-full max-w-md animate-fade-in">
+      {/* Form Container */}
+      <div className="relative z-10 w-full flex items-start justify-center min-h-screen pt-8">
+        <div className="w-full max-w-md animate-fade-in bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-5">
           
           {/* Logo/Brand */}
-          <div className="mb-8 text-center">
-            <div className="inline-block p-3 bg-red-600 rounded-2xl mb-4 shadow-lg transform hover:scale-105 transition-transform">
+          <div className="mb-3 text-center">
+            <div className="inline-block p-2 bg-red-600 rounded-2xl mb-2 shadow-lg transform hover:scale-110 transition-transform duration-300">
               <img
                 src="/android-chrome-512x512.png" 
                 alt="Smart Rent Logo"
-                className="w-8 h-8 object-contain" 
+                className="w-6 h-6 object-contain" 
               />
             </div>
-            <h1 className="text-3xl font-bold text-black mb-2">
-              Smart Rent <span className="text-red-600">System</span>
-            </h1>
-            <p className="text-gray-600">
+            <h1 className="text-2xl font-bold text-gray-900 mb-1">
+          Welcome Again             </h1>
+            <p className="text-gray-600 text-xs">
               {showForgotPassword ? "Recover your account" : "Login to access your dashboard"}
             </p>
           </div>
 
           {/* Error alert */}
           {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm animate-shake relative">
+            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-3 py-2 rounded-lg mb-3 text-xs animate-shake relative">
               <p className="font-medium">⚠️ {error}</p>
               <button
                 type="button"
-                className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
                 onClick={() => setError("")}
               >
                 ✕
@@ -253,7 +232,7 @@ const Login = () => {
 
           {/* Success message for password reset */}
           {resetSent && (
-            <div className="bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-lg mb-6 text-sm animate-fade-in">
+            <div className="bg-green-50 border-l-4 border-green-500 text-green-700 px-3 py-2 rounded-lg mb-3 text-xs animate-fade-in">
               <p className="font-medium">✅ Password reset email sent. Please check your inbox.</p>
             </div>
           )}
@@ -261,7 +240,7 @@ const Login = () => {
           {/* Conditional Rendering: Forgot Password vs Login */}
           {showForgotPassword ? (
              // --- Forgot Password Form ---
-            <form className="space-y-4" onSubmit={handlePasswordReset}>
+            <form className="space-y-3" onSubmit={handlePasswordReset}>
                <div className="relative group">
                   <input
                     id="resetEmail"
@@ -279,12 +258,12 @@ const Login = () => {
                <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="w-full py-2 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {loading ? "Sending..." : "Send Reset Link"}
                 </button>
                 
-                <p className="mt-6 text-center text-sm text-gray-600">
+                <p className="mt-3 text-center text-xs text-gray-600">
                   Remember your password?{" "}
                   <button
                     type="button"
@@ -299,17 +278,17 @@ const Login = () => {
             // --- Login Form ---
             <>
               {/* Social login buttons */}
-              <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="grid grid-cols-3 gap-2 mb-3">
                 <button
                   type="button"
                   onClick={handleGoogleLogin}
                   disabled={socialLoading !== ""}
-                  className="flex items-center justify-center p-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                  className="flex items-center justify-center p-2 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
                   {socialLoading === "google" ? (
-                    <span className="animate-spin h-6 w-6 border-t-2 border-r-2 border-blue-500 rounded-full" />
+                    <span className="animate-spin h-5 w-5 border-t-2 border-r-2 border-blue-500 rounded-full" />
                   ) : (
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                       <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                       <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
@@ -321,36 +300,36 @@ const Login = () => {
                   type="button"
                   onClick={handleFacebookLogin}
                   disabled={socialLoading !== ""}
-                  className="flex items-center justify-center p-3 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                  className="flex items-center justify-center p-2 bg-white border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
                   {socialLoading === "facebook" ? (
-                    <span className="animate-spin h-6 w-6 border-t-2 border-r-2 border-blue-600 rounded-full" />
+                    <span className="animate-spin h-5 w-5 border-t-2 border-r-2 border-blue-600 rounded-full" />
                   ) : (
-                    <svg className="w-6 h-6" fill="#1877F2" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     </svg>
                   )}
                 </button>
                 <button
                   type="button"
-                  className="flex items-center justify-center p-3 bg-white border-2 border-gray-200 rounded-xl hover:border-gray-800 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                  className="flex items-center justify-center p-2 bg-white border-2 border-gray-200 rounded-xl hover:border-gray-800 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
-                   <svg className="w-6 h-6" viewBox="0 0 24 24">
+                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                   </svg>
                 </button>
               </div>
 
-              <div className="relative mb-6">
+              <div className="relative mb-3">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300"></div>
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-3 bg-gradient-to-br from-gray-50 to-gray-100 text-gray-500 font-medium">or continue with email</span>
+                <div className="relative flex justify-center text-xs">
+                  <span className="px-3 bg-white text-gray-500 font-medium">or continue with email</span>
                 </div>
               </div>
 
-              <form className="space-y-4" onSubmit={handleSubmit}>
+              <form className="space-y-2" onSubmit={handleSubmit}>
                 {/* Email */}
                 <div className="relative group">
                   <input
@@ -389,7 +368,7 @@ const Login = () => {
                 </div>
 
                 {/* Remember Me & Forgot Password */}
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center">
                       <input
                         id="remember_me"
@@ -397,7 +376,7 @@ const Login = () => {
                         type="checkbox"
                         checked={rememberMe}
                         onChange={handleCheckboxChange}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        className="h-3 w-3 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
                       />
                       <label htmlFor="remember_me" className="ml-2 block text-gray-600 cursor-pointer select-none">
                         Remember me
@@ -424,7 +403,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4  bg-primary-600  hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="w-full py-2 px-4 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {loading ? (
                     <span className="flex items-center justify-center">
@@ -439,7 +418,7 @@ const Login = () => {
               </form>
               
               {/* Register link */}
-              <p className="mt-6 text-center text-sm text-gray-600">
+              <p className="mt-3 text-center text-xs text-gray-600">
                 Don't have an account?{" "}
                 <Link to="/register" className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all">
                   Create a new account

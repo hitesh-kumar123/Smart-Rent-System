@@ -268,8 +268,8 @@ const HostListings = () => {
       reviewCount: 24,
       status: "active",
       bookedDates: [
-        { checkIn: "2023-06-10", checkOut: "2023-06-15" },
-        { checkIn: "2023-07-05", checkOut: "2023-07-10" },
+        { checkIn: "2026-06-10", checkOut: "2026-06-15" },
+        { checkIn: "2026-07-05", checkOut: "2026-07-10" },
       ],
     },
     {
@@ -300,8 +300,8 @@ const HostListings = () => {
       reviewCount: 42,
       status: "active",
       bookedDates: [
-        { checkIn: "2023-05-20", checkOut: "2023-05-25" },
-        { checkIn: "2023-06-15", checkOut: "2023-06-22" },
+        { checkIn: "2026-05-20", checkOut: "2026-05-25" },
+        { checkIn: "2026-06-15", checkOut: "2026-06-22" },
       ],
     },
     {

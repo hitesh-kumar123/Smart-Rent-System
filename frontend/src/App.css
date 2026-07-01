@@ -198,3 +198,19 @@ h1 {
     transform: rotate(360deg);
   }
 }
+
+/* Shake animation */
+@keyframes rangeInputShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+/* Error state (additive only) */
+.range-input-error {
+  border-color: #d32f2f !important;
+  border: 1px solid;
+  animation: rangeInputShake 0.25s ease-in-out;
+}

@@ -26,6 +26,7 @@ import ReportConcern from "./pages/ReportConcern";
 import FAQ from "./pages/FAQ";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import HostPolicies from "./pages/HostPolicies";
 import Cookies from "./pages/Cookies";
 import ResetPassword from "./pages/ResetPassword";
 import Map from "./pages/Map";
@@ -126,6 +127,7 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
+              <Route path="/host-policies" element={<HostPolicies />} />
               <Route path="/cookies" element={<Cookies />} />
               <Route path="/payment" element={<PaymentPage />} />
               <Route

@@ -101,7 +101,7 @@ const Footer = () => {
                 <i className="fab fa-instagram"></i>
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/hitesh-kumar-dev/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-neutral-800 hover:bg-primary-600 text-white h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
@@ -162,7 +162,7 @@ const Footer = () => {
 
           {/* Support */}
           <div>
-          <h3 className="text-lg font-semibold mb-6 text-white">{supportText}</h3>
+            <h3 className="text-lg font-semibold mb-6 text-white">{supportText}</h3>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -226,7 +226,7 @@ const Footer = () => {
               <li className="flex items-start justify-center sm:justify-start group">
                 <i className="fas fa-map-marker-alt mt-1 mr-3 text-primary-500 group-hover:scale-110 transition-transform duration-300"></i>
                 <span className="group-hover:text-neutral-300 transition-colors duration-300">
-                  123 Rent Street, City, Country
+                  Ajmer, Rajasthan,India
                 </span>
               </li>
               <li className="flex items-center justify-center sm:justify-start group">
@@ -263,8 +263,7 @@ const Footer = () => {
                       focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white
                       transition-all duration-300 placeholder:text-neutral-400
                       disabled:opacity-50 disabled:cursor-not-allowed
-                      ${
-                        subscribeStatus === "error" ? "ring-2 ring-red-500" : ""
+                      ${subscribeStatus === "error" ? "ring-2 ring-red-500" : ""
                       }`}
                     disabled={isSubscribing}
                     aria-label="Email for newsletter"
@@ -295,11 +294,10 @@ const Footer = () => {
                 {subscribeStatus && (
                   <p
                     id="newsletter-feedback"
-                    className={`text-sm ${
-                      subscribeStatus === "success"
-                        ? "text-green-400"
-                        : "text-red-400"
-                    } transition-all duration-300 animate-fadeIn text-center sm:text-left`}
+                    className={`text-sm ${subscribeStatus === "success"
+                      ? "text-green-400"
+                      : "text-red-400"
+                      } transition-all duration-300 animate-fadeIn text-center sm:text-left`}
                   >
                     {subscribeStatus === "success"
                       ? "Thank you for subscribing!"

@@ -36,8 +36,8 @@ const Trips = () => {
           image: "https://randomuser.me/api/portraits/women/44.jpg",
         },
         dates: {
-          checkin: "Jun 15, 2023",
-          checkout: "Jun 20, 2023",
+          checkin: "Jun 15, 2026",
+          checkout: "Jun 20, 2026",
         },
         guests: 2,
         totalPrice: "$1,250",
@@ -57,8 +57,8 @@ const Trips = () => {
           image: "https://randomuser.me/api/portraits/men/67.jpg",
         },
         dates: {
-          checkin: "Jul 10, 2023",
-          checkout: "Jul 15, 2023",
+          checkin: "Jul 10, 2026",
+          checkout: "Jul 15, 2026",
         },
         guests: 3,
         totalPrice: "$950",
@@ -81,8 +81,8 @@ const Trips = () => {
           image: "https://randomuser.me/api/portraits/men/32.jpg",
         },
         dates: {
-          checkin: "May 5, 2023",
-          checkout: "May 10, 2023",
+          checkin: "May 5, 2025",
+          checkout: "May 10, 2025",
         },
         guests: 4,
         totalPrice: "$2,100",

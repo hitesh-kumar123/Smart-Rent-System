@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../config/api";
 
 const PaymentPage = () => {
   const location = useLocation();
@@ -36,12 +36,7 @@ const PaymentPage = () => {
 
   const fetchPropertyDetails = async (id) => {
     try {
-      const baseUrl = process.env.REACT_APP_API_URL || "/api";
-      const apiUrl = baseUrl.startsWith("http")
-        ? `${baseUrl}/properties/${id}`
-        : `http://localhost:8000/api/properties/${id}`;
-
-      const response = await axios.get(apiUrl);
+      const response = await api.get(`/api/properties/${id}`);
       setProperty(response.data);
       setLoading(false);
     } catch (err) {

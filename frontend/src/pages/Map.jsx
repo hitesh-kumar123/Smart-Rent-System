@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../config/api";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -27,12 +27,7 @@ const PropertyMap = () => {
     const fetchProperty = async () => {
       try {
         setLoading(true);
-        const baseUrl = process.env.REACT_APP_API_URL || "/api";
-        const apiUrl = baseUrl.startsWith("http")
-          ? `${baseUrl}/properties/${id}`
-          : `http://localhost:8000/api/properties/${id}`;
-
-        const response = await axios.get(apiUrl);
+        const response = await api.get(`/api/properties/${id}`);
         if (response.data) {
           setProperty(response.data);
         } else {
@@ -177,7 +172,7 @@ const PropertyMap = () => {
                   <p className="text-neutral-700">
                     <span className="font-medium">Coordinates:</span>{" "}
                     {property?.location?.latitude &&
-                    property?.location?.longitude
+                      property?.location?.longitude
                       ? `${property.location.latitude}, ${property.location.longitude}`
                       : "Coordinates not available"}
                   </p>

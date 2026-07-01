@@ -108,8 +108,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-medium text-neutral-900">Office</p>
-                  <p className="text-neutral-600 text-sm">123 Smart Rent Street</p>
-                  <p className="text-neutral-600 text-sm">San Francisco, CA 94103</p>
+                  <p className="text-neutral-600 text-sm">Ajmer, Rajasthan</p>
+                  <p className="text-neutral-600 text-sm">India</p>
                 </div>
               </div>
             </div>

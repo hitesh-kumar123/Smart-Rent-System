@@ -12,7 +12,11 @@ const Listings = () => {
   const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
   const [wishlistIds, setWishlistIds] = useState(new Set());
+  const [inputError, setInputError] = useState({});
+  const [inputErrorTxt, setErrorTxt] = useState("");
 
+  const PRICE_MIN = 100;
+  const PRICE_MAX = 10000;
   // App settings for language and currency
   const {
     language,
@@ -71,22 +75,10 @@ const Listings = () => {
   const toggleWishlist = async (e, propertyId) => {
     e.stopPropagation();
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+    // The api instance will handle token and 401 redirect if needed
 
     try {
-      await api.post(
-        `/api/wishlist/${propertyId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await api.post(`/api/wishlist/${propertyId}`, {});
 
       setWishlistIds((prev) => {
         const updated = new Set(prev);
@@ -123,14 +115,9 @@ const Listings = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) return;
+        // No need to check token manually, api call will fail if unauthenticated
 
-        const res = await api.get("/api/wishlist", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await api.get("/api/wishlist");
 
         const ids = new Set(res.data.map((item) => item._id));
         setWishlistIds(ids);
@@ -143,7 +130,6 @@ const Listings = () => {
   }, []);
 
   useEffect(() => {
-   
     // Reset all filters when the page loads to ensure all properties show
     setFilters({
       priceMin: "",
@@ -176,50 +162,100 @@ const Listings = () => {
    * Runs when the URL search parameters change
    */
   useEffect(() => {
-  const fetchProperties = async () => {
-    setLoading(true);
-    setError(null);
+    const fetchProperties = async () => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const queryParams = new URLSearchParams(location.search);
-      const locationParam = queryParams.get("location");
+      try {
+        const queryParams = new URLSearchParams(location.search);
+        const locationParam = queryParams.get("location");
 
-      let propsArray = [];
+        let propsArray = [];
 
-      if (locationParam) {
-        // Use dummy data filtered by city
-        propsArray = dummyProperties.filter(
-          (prop) =>
-            prop.location.city.toLowerCase() === locationParam.toLowerCase()
-        );
-        setIsApiData(false); // indicate we are using dummy data
-      } else {
-        // Fetch from API
-        const response = await api.get("/api/properties");
-        propsArray = Array.isArray(response.data)
-          ? response.data
-          : Array.isArray(response.data.properties)
-          ? response.data.properties
-          : [];
-        setIsApiData(true); // indicate we are using API data
+        if (locationParam) {
+          // Use dummy data filtered by city
+          propsArray = dummyProperties.filter(
+            (prop) =>
+              prop.location.city.toLowerCase() === locationParam.toLowerCase()
+          );
+          setIsApiData(false); // indicate we are using dummy data
+        } else {
+          // Fetch from API
+          const response = await api.get("/api/properties");
+          propsArray = Array.isArray(response.data)
+            ? response.data
+            : Array.isArray(response.data.properties)
+              ? response.data.properties
+              : [];
+          setIsApiData(true); // indicate we are using API data
+        }
+
+        setProperties(propsArray);
+        setTotalCount(propsArray.length);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching properties:", err);
+        setProperties([]);
+        setTotalCount(0);
+        setIsApiData(false);
+        setError("Unable to load properties. Try again later.");
+        setLoading(false);
       }
+    };
 
-      setProperties(propsArray);
-      setTotalCount(propsArray.length);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error fetching properties:", err);
-      setProperties([]);
-      setTotalCount(0);
-      setIsApiData(false);
-      setError("Unable to load properties. Try again later.");
-      setLoading(false);
+    fetchProperties();
+  }, [location.search]);
+
+  const checkInput = (e) => {
+    const { name, value } = e.target;
+    let hasError = false;
+    if (value === "") {
+      setFilters(prev => ({ ...prev, [name]: "" }));
+      setInputError(prev => ({ ...prev, [name]: false }));
+      return;
     }
+
+    let input_value = Number(value);
+    if (Number.isNaN(input_value)) {
+      setFilters({
+        ...filters,
+        [name]: ''
+      });
+      hasError = true;
+      setErrorTxt('Please enter numbers only.');
+    }
+
+    else if (name === "priceMin") {
+      hasError =
+        ((input_value < PRICE_MIN || input_value > PRICE_MAX) && filters.priceMin !== "") || (input_value > Number(filters.priceMax) && filters.priceMax !== '');
+
+
+    }
+
+    else if (name === "priceMax") {
+      hasError =
+        ((input_value > PRICE_MAX || input_value < PRICE_MIN) && filters.priceMax !== "") || (input_value < Number(filters.priceMin) && filters.priceMin !== '');
+
+    }
+    setInputError((prev) => ({
+      ...prev,
+      [name]: hasError,
+    }));
+
+
+
+    if (hasError) {
+      setErrorTxt(`Price must be between ${PRICE_MIN} and ${PRICE_MAX}.`);
+      setFilters({
+        ...filters,
+        [name]: ''
+      });
+      setTimeout(() => {
+        setInputError(prev => ({ ...prev, [name]: false }));
+      }, 500);
+    }
+
   };
-
-  fetchProperties();
-}, [location.search]);
-
   /**
    * Handles changes to the filter inputs
    * @param {Event} e - The change event
@@ -320,20 +356,20 @@ const Listings = () => {
     return categoryMap[categoryId] || categoryId;
   };
 
- // Apply category filter
-const filteredProperties = properties.filter((property) => {
-  if (activeCategory === "all") return true;
+  // Apply category filter
+  const filteredProperties = properties.filter((property) => {
+    if (activeCategory === "all") return true;
 
-  const normalizedActiveCat = getNormalizedCategory(activeCategory).toLowerCase();
-  const propertyCategory = (property.category || property.propertyType || "").toLowerCase();
+    const normalizedActiveCat = getNormalizedCategory(activeCategory).toLowerCase();
+    const propertyCategory = (property.category || property.propertyType || "").toLowerCase();
 
-  if (normalizedActiveCat === "trending") {
-    return property.trending === true;
-  }
+    if (normalizedActiveCat === "trending") {
+      return property.trending === true;
+    }
 
-  // Flexible matching: check if propertyCategory contains the normalized category
-  return propertyCategory.includes(normalizedActiveCat);
-});
+    // Flexible matching: check if propertyCategory contains the normalized category
+    return propertyCategory.includes(normalizedActiveCat);
+  });
 
 
   // Apply remaining filters (price, amenities, etc.)
@@ -341,7 +377,10 @@ const filteredProperties = properties.filter((property) => {
     let matches = true;
 
     // Experience filter
-    if (filters.experience && !matchesExperience(property, filters.experience)) {
+    if (
+      filters.experience &&
+      !matchesExperience(property, filters.experience)
+    ) {
       return false;
     }
 
@@ -484,37 +523,9 @@ const filteredProperties = properties.filter((property) => {
     }
   });
 
-  /**
-   * Debug logging for tracking filtered properties
-   */
-  useEffect(() => {
-    // Create a variable to track if API data is being used
-    const usingApiData = isApiData !== undefined ? isApiData : false;
-
-    if (activeCategory !== "all") {
-      // Check the first few properties and their categories
-      if (properties.length > 0) {
-       
-        properties.slice(0, 3).forEach((prop, i) => {
-        });
-      }
-
-      // Check which properties matched the category filter
-
-      sortedProperties.slice(0, 3).forEach((property, idx) => {
-      
-      });
-    }
-  }, [activeCategory, sortedProperties.length, properties.length, isApiData]);
-
- 
-
-  // Log filter state
-  // Debug filtered properties and their images
 
 
-  sortedProperties.slice(0, 3).forEach((property, idx) => {
-  });
+
 
   /**
    * Toggles a specific amenity filter
@@ -590,7 +601,7 @@ const filteredProperties = properties.filter((property) => {
    * @param {string} categoryId - The category ID to normalize
    * @returns {string} - The normalized category name
    */
-  
+
 
   /**
    * Categories for the horizontal scrolling menu
@@ -634,7 +645,6 @@ const filteredProperties = properties.filter((property) => {
    * @param {string} categoryId - The ID of the clicked category
    */
   const handleCategoryClick = (categoryId) => {
-
     // Set the active category
     setActiveCategory(categoryId);
 
@@ -661,8 +671,6 @@ const filteredProperties = properties.filter((property) => {
   const navigateToPropertyDetail = (propertyId, e) => {
     if (e) e.stopPropagation();
 
-  
-
     // Ensure propertyId is a string and is valid
     const stringId = String(propertyId).trim();
 
@@ -684,8 +692,6 @@ const filteredProperties = properties.filter((property) => {
 
         // Also store the property ID separately for redundancy
         sessionStorage.setItem("lastViewedPropertyId", stringId);
-
-      
       } catch (err) {
         console.error("Failed to store property in session storage:", err);
       }
@@ -703,40 +709,40 @@ const filteredProperties = properties.filter((property) => {
    * @returns {string} - The corresponding property type
    */
   const mapCategoryToPropertyType = (categoryId) => {
-  if (!categoryId || categoryId === "all") return "";
+    if (!categoryId || categoryId === "all") return "";
 
-  const categoryMap = {
-    House: "house",
-    Apartment: "apartment",
-    Villa: "villa",
-    Condo: "condo",
-    Cabin: "cabin",
-    Beach: "beach",
-    Lakefront: "lakefront",
-    Amazing: "amazing views",
-    Tiny: "tiny homes",
-    Mansion: "mansion",
-    Countryside: "countryside",
-    Luxury: "luxury",
-    Castles: "castle",
-    Tropical: "tropical",
-    Historic: "historic",
-    Design: "design",
-    Farm: "farm",
-    Treehouse: "treehouse",
-    Boat: "boat",
-    Container: "container",
-    Dome: "dome",
-    Windmill: "windmill",
-    Cave: "cave",
-    Camping: "camping",
-    Arctic: "arctic",
-    Desert: "desert",
-    Vineyard: "vineyard",
+    const categoryMap = {
+      House: "house",
+      Apartment: "apartment",
+      Villa: "villa",
+      Condo: "condo",
+      Cabin: "cabin",
+      Beach: "beach",
+      Lakefront: "lakefront",
+      Amazing: "amazing views",
+      Tiny: "tiny homes",
+      Mansion: "mansion",
+      Countryside: "countryside",
+      Luxury: "luxury",
+      Castles: "castle",
+      Tropical: "tropical",
+      Historic: "historic",
+      Design: "design",
+      Farm: "farm",
+      Treehouse: "treehouse",
+      Boat: "boat",
+      Container: "container",
+      Dome: "dome",
+      Windmill: "windmill",
+      Cave: "cave",
+      Camping: "camping",
+      Arctic: "arctic",
+      Desert: "desert",
+      Vineyard: "vineyard",
+    };
+
+    return categoryMap[categoryId] || categoryId.toLowerCase();
   };
-
-  return categoryMap[categoryId] || categoryId.toLowerCase();
-};
 
 
   if (loading) {
@@ -751,13 +757,14 @@ const filteredProperties = properties.filter((property) => {
         </p>
         {filters.experience && (
           <p className="text-neutral-400 text-xs mt-2">
-            Filtering for {filters.experience === "city-tours"
+            Filtering for{" "}
+            {filters.experience === "city-tours"
               ? "City Tours"
               : filters.experience === "outdoor-adventures"
-              ? "Outdoor Adventures"
-              : filters.experience === "local-cuisine"
-              ? "Local Cuisine"
-              : filters.experience}
+                ? "Outdoor Adventures"
+                : filters.experience === "local-cuisine"
+                  ? "Local Cuisine"
+                  : filters.experience}
           </p>
         )}
       </div>
@@ -783,38 +790,36 @@ const filteredProperties = properties.filter((property) => {
         style={{ zIndex: 10 }}
       >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="relative w-full max-w-5xl mx-auto">
+          <div className="flex justify-around items-center">
+            <div className="relative max-w-4xl flex-grow overflow-hidden">
               {/* Left Arrow */}
               <button
                 onClick={() => scrollCategories("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border border-neutral-200 shadow-lg hover:shadow-xl hover:bg-neutral-100 transition-all duration-200 rounded-full w-10 h-10 flex items-center justify-center z-20 active:scale-95"
+                className="absolute top-1/2 -translate-y-1/2 bg-white border border-neutral-200 shadow-lg hover:shadow-xl hover:bg-neutral-100 transition-all duration-200 rounded-full w-10 h-10 flex items-center justify-center z-20 active:scale-95"
                 aria-label="Scroll left"
               >
-                <i className="fas fa-chevron-left text-xl text-primary-600"></i>
+                <i className="fas fa-chevron-left text-2xl text-primary-600"></i>
               </button>
 
               {/* Scrollable Categories */}
               <div
-                className="flex overflow-x-auto px-12 py-2 scrollbar-hide"
+                className="flex overflow-x-auto pb-2 pl-8 pr-8 scrollbar-hide"
                 ref={categoriesContainerRef}
               >
-                <div className="flex space-x-8 items-center h-full">
+                <div className="flex space-x-8">
                   {categories.map((category) => {
                     // Debug the category
                     if (activeCategory === category.id) {
-                     
                     }
 
                     return (
                       <div
                         key={category.id}
                         onClick={() => handleCategoryClick(category.id)}
-                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max h-full py-1 ${
-                          activeCategory === category.id
-                            ? "text-primary-600 border-b-2 border-primary-600 scale-105"
-                            : "text-neutral-500 hover:text-primary-500 hover:scale-100"
-                        }`}
+                        className={`flex flex-col items-center cursor-pointer transition-all duration-300 min-w-max ${activeCategory === category.id
+                            ? "text-primary-600 border-b-2 border-primary-600 scale-110"
+                            : "text-neutral-500 hover:text-primary-500 hover:scale-105"
+                          }`}
                       >
                         <div
                           className={`rounded-full p-2 mb-1 ${activeCategory === category.id
@@ -847,7 +852,7 @@ const filteredProperties = properties.filter((property) => {
                 className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border border-neutral-200 shadow-lg hover:shadow-xl hover:bg-neutral-100 transition-all duration-200 rounded-full w-10 h-10 flex items-center justify-center z-20 active:scale-95"
                 aria-label="Scroll right"
               >
-                <i className="fas fa-chevron-right text-xl text-primary-600"></i>
+                <i className="fas fa-chevron-right text-2xl text-primary-600"></i>
               </button>
             </div>
 
@@ -895,46 +900,65 @@ const filteredProperties = properties.filter((property) => {
                   {/* Price Range filter */}
                   <div>
                     <h3 className="text-lg font-medium text-neutral-800 mb-3">
-                      Price Range1111
+                      Price Range
+                      <span className="text-sm ps-1 text-neutral-500">
+                        (100 - 10,000)
+                      </span>
                     </h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-neutral-700 mb-1">
-                          Min Price1111
+                          Min Price
                         </label>
                         <div className="relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span className="text-neutral-500">$</span>
                           </div>
                           <input
-                            type="number"
+                            type="text"
                             name="priceMin"
                             value={filters.priceMin}
+                            onBlur={checkInput}
                             onChange={handleFilterChange}
-                            className="pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
+                              ${inputError.priceMin ? "range-input-error" : ""}`}
                             placeholder="Min"
                           />
                         </div>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-neutral-700 mb-1">
-                          Max Price1111
+                          Max Price
                         </label>
                         <div className="relative rounded-md">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span className="text-neutral-500">$</span>
                           </div>
                           <input
-                            type="number"
+                            type="text"
                             name="priceMax"
                             value={filters.priceMax}
+                            onBlur={checkInput}
                             onChange={handleFilterChange}
-                            className="pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            className={`pl-7 w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 
+                              ${inputError.priceMax ? "range-input-error" : ""}`}
                             placeholder="Max"
                           />
                         </div>
                       </div>
                     </div>
+                    {inputErrorTxt && (
+                      <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 mt-3 text-sm animate-shake relative">
+                        <p className="font-medium">⚠️ {inputErrorTxt}</p>
+                        <button
+                          type="button"
+                          className="absolute top-3 right-3 text-red-500 hover:text-red-700"
+                          onClick={() => setErrorTxt("")}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   {/* Bedrooms filter */}
@@ -1233,9 +1257,13 @@ const filteredProperties = properties.filter((property) => {
                         });
                         setActiveCategory("all");
                         // Clear experience from URL
-                        const queryParams = new URLSearchParams(location.search);
+                        const queryParams = new URLSearchParams(
+                          location.search
+                        );
                         queryParams.delete("experience");
-                        navigate(`/listings?${queryParams.toString()}`, { replace: true });
+                        navigate(`/listings?${queryParams.toString()}`, {
+                          replace: true,
+                        });
                       }}
                       className="flex-1 px-4 py-2 border border-neutral-300 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors duration-200"
                     >
@@ -1276,10 +1304,10 @@ const filteredProperties = properties.filter((property) => {
               {filters.experience === "city-tours"
                 ? "City Tours"
                 : filters.experience === "outdoor-adventures"
-                ? "Outdoor Adventures"
-                : filters.experience === "local-cuisine"
-                ? "Local Cuisine"
-                : filters.experience}
+                  ? "Outdoor Adventures"
+                  : filters.experience === "local-cuisine"
+                    ? "Local Cuisine"
+                    : filters.experience}
             </span>
           )}
         </h1>
@@ -1401,11 +1429,12 @@ const filteredProperties = properties.filter((property) => {
                         onClick={(e) => toggleWishlist(e, property._id)}
                       >
                         <i
-                          className={`${wishlistIds.has(property._id) ? "fas text-red-500" : "far"
+                          className={`${wishlistIds.has(property._id)
+                              ? "fas text-red-500"
+                              : "far"
                             } fa-heart`}
                         ></i>
                       </button>
-
                     </div>
 
                     {/* Property details section */}

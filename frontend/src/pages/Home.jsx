@@ -28,6 +28,12 @@ const Home = () => {
   const rusticRetreatsText = useTranslatedText("Rustic retreats");
   const villasText = useTranslatedText("Villas");
   const luxuryStaysText = useTranslatedText("Luxury stays");
+  const beachText = useTranslatedText("Beach");
+  const coastalLivingText = useTranslatedText("Coastal living");
+  const luxuryText = useTranslatedText("Luxury");
+  const premiumExperienceText = useTranslatedText("Premium experience");
+  const uniqueText = useTranslatedText("Unique");
+  const oneOfAKindText = useTranslatedText("One-of-a-kind stays");
   const discoverText = useTranslatedText("Discover experiences");
   const findActivitiesText = useTranslatedText("Find activities hosted by local experts");
   const cityToursText = useTranslatedText("City Tours");
@@ -332,78 +338,202 @@ const Home = () => {
           </p>
 
           {/* Property types grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {/* Apartments property type */}
             <Link to="/listings?type=apartment" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-40 relative overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                     alt="Apartments"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
+                    <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
+                <div className="p-4">
+                  <h3 className="text-base font-semibold text-neutral-800 group-hover:text-primary-600 transition duration-300">
                     {apartmentsText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">{urbanComfortText}</p>
+                  <p className="text-neutral-600 text-xs mt-1">{urbanComfortText}</p>
+                  <div className="mt-2 flex items-center text-xs text-neutral-500">
+                    <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                    <span>2,500+ stays</span>
+                  </div>
                 </div>
               </div>
             </Link>
             {/* Houses property type */}
             <Link to="/listings?type=house" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-40 relative overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                     alt="Houses"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
+                    <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
+                <div className="p-4">
+                  <h3 className="text-base font-semibold text-neutral-800 group-hover:text-primary-600 transition duration-300">
                     {housesText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">{entireHomesText}</p>
+                  <p className="text-neutral-600 text-xs mt-1">{entireHomesText}</p>
+                  <div className="mt-2 flex items-center text-xs text-neutral-500">
+                    <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                    <span>3,200+ stays</span>
+                  </div>
                 </div>
               </div>
             </Link>
             {/* Cabins property type */}
             <Link to="/listings?type=cabin" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-40 relative overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                     alt="Cabins"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
+                    <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
+                <div className="p-4">
+                  <h3 className="text-base font-semibold text-neutral-800 group-hover:text-primary-600 transition duration-300">
                     {cabinsText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">{rusticRetreatsText}</p>
+                  <p className="text-neutral-600 text-xs mt-1">{rusticRetreatsText}</p>
+                  <div className="mt-2 flex items-center text-xs text-neutral-500">
+                    <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                    <span>800+ stays</span>
+                  </div>
                 </div>
               </div>
             </Link>
             {/* Villas property type */}
             <Link to="/listings?type=villa" className="group">
-              <div className="rounded-xl overflow-hidden">
-                <div className="h-60 relative overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-40 relative overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                     alt="Villas"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
+                    <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-lg font-medium text-neutral-800 group-hover:text-primary-500 transition duration-300">
+                <div className="p-4">
+                  <h3 className="text-base font-semibold text-neutral-800 group-hover:text-primary-600 transition duration-300">
                     {villasText}
                   </h3>
-                  <p className="text-neutral-600 text-sm">{luxuryStaysText}</p>
+                  <p className="text-neutral-600 text-xs mt-1">{luxuryStaysText}</p>
+                  <div className="mt-2 flex items-center text-xs text-neutral-500">
+                    <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                    <span>1,500+ stays</span>
+                  </div>
                 </div>
               </div>
+            </Link>
+            {/* Beach property type */}
+            <Link to="/listings?type=beach" className="group">
+              <div className="relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-40 relative overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Beach"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
+                    <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-base font-semibold text-neutral-800 group-hover:text-primary-600 transition duration-300">
+                    {beachText}
+                  </h3>
+                  <p className="text-neutral-600 text-xs mt-1">{coastalLivingText}</p>
+                  <div className="mt-2 flex items-center text-xs text-neutral-500">
+                    <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                    <span>1,800+ stays</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+            {/* Luxury property type */}
+            <Link to="/listings?type=luxury" className="group">
+              <div className="relative rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-40 relative overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Luxury"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-2 left-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs px-2 py-1 rounded-full font-medium">
+                    Premium
+                  </div>
+                  <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
+                    <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-base font-semibold text-neutral-800 group-hover:text-primary-600 transition duration-300">
+                    {luxuryText}
+                  </h3>
+                  <p className="text-neutral-600 text-xs mt-1">{premiumExperienceText}</p>
+                  <div className="mt-2 flex items-center text-xs text-neutral-500">
+                    <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span>900+ stays</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+          
+          {/* View all property types button */}
+          <div className="mt-8 text-center">
+            <Link 
+              to="/listings" 
+              className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md"
+            >
+              <span>View all property types</span>
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </Link>
           </div>
         </div>
