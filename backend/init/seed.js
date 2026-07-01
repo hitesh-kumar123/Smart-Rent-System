@@ -1,11 +1,18 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
 const connectDB = require("./database");
 const Property = require("../models/property");
 const User = require("../models/user");
+
+const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
+const adminPassword = process.env.ADMIN_PASSWORD;
+const adminUsername = process.env.ADMIN_USERNAME || "admin";
+const adminFirstName = process.env.ADMIN_FIRST_NAME || "Admin";
+const adminLastName = process.env.ADMIN_LAST_NAME || "User";
 
 // Load env variables
 dotenv.config();
@@ -15,25 +22,25 @@ const loadDummyProperties = () => {
   if (!fs.existsSync(dummyPath)) {
     throw new Error(`Dummy properties file not found at: ${dummyPath}`);
   }
-  
+
   let content = fs.readFileSync(dummyPath, "utf8");
-  
+
   // Strip ESM syntax
   content = content.replace(/export const/g, "const");
   content = content.replace(/export default/g, "module.exports =");
-  
+
   const tempFile = path.join(__dirname, "temp_dummy_seed.js");
   fs.writeFileSync(tempFile, content + "\nmodule.exports = { dummyProperties };", "utf8");
-  
+
   const { dummyProperties } = require(tempFile);
-  
+
   // Cleanup temp file
   try {
     fs.unlinkSync(tempFile);
   } catch (err) {
     console.error("Error cleaning up temp seed file:", err.message);
   }
-  
+
   return dummyProperties;
 };
 
@@ -41,37 +48,48 @@ const seedDB = async () => {
   try {
     // 1. Connect to DB
     await connectDB();
-    
+
     // 2. Clear existing properties
     console.log("Clearing existing properties...");
     await Property.deleteMany({});
     console.log("Properties cleared.");
-    
+
     // 3. Find or Create default Owner (Admin)
     console.log("Checking for admin user...");
-    let adminUser = await User.findOne({ email: "admin@example.com" });
+    let adminUser = await User.findOne({ email: adminEmail });
     if (!adminUser) {
-      console.log("Admin user not found. Creating a default admin user...");
+      console.log(`Admin user not found. Creating default admin user ${adminEmail}...`);
+      const safePassword =
+        adminPassword ||
+        crypto.randomBytes(12).toString("base64").replace(/[+/=]/g, "A");
+
       adminUser = new User({
-        username: "admin",
-        email: "admin@example.com",
-        password: "admin123",
-        firstName: "Admin",
-        lastName: "User",
+        username: adminUsername,
+        email: adminEmail,
+        password: safePassword,
+        firstName: adminFirstName,
+        lastName: adminLastName,
         role: "admin",
-        isVerified: true
+        isVerified: true,
       });
       await adminUser.save();
       console.log("Default admin user created successfully.");
+      if (!adminPassword) {
+        console.log(
+          "WARNING: A random admin password was generated for local seeding.");
+        console.log(`Admin email: ${adminEmail}`);
+        console.log(`Admin password: ${safePassword}`);
+        console.log("Set ADMIN_PASSWORD in .env for a stable credential.");
+      }
     }
-    
+
     const ownerId = adminUser._id;
-    
+
     // 4. Load & Parse dummy properties
     console.log("Loading dummy properties...");
     const dummyProperties = loadDummyProperties();
     console.log(`Loaded ${dummyProperties.length} dummy properties.`);
-    
+
     // 5. Enrich properties
     const enrichedProperties = dummyProperties.map((p, index) => {
       // Map category
@@ -97,7 +115,7 @@ const seedDB = async () => {
 
       const city = p.location.city || "New York";
       const baseCoords = cityCoords[city] || [-73.935242, 40.730610];
-      
+
       // Inject slight random noise to spread coordinates
       const noiseLong = (Math.random() - 0.5) * 0.02;
       const noiseLat = (Math.random() - 0.5) * 0.02;
@@ -169,12 +187,12 @@ const seedDB = async () => {
         isApproved: true
       };
     });
-    
+
     // 6. Insert properties
     console.log(`Seeding ${enrichedProperties.length} properties...`);
     const seeded = await Property.insertMany(enrichedProperties);
     console.log(`Successfully seeded ${seeded.length} properties!`);
-    
+
     // 7. Close DB connection and exit
     console.log("Database seeded successfully.");
     process.exit(0);

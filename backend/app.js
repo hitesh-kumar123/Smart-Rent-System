@@ -2,33 +2,40 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
 const path = require("path");
 const fs = require("fs");
 const cookieParser = require("cookie-parser");
+const { sanitizeData } = require("./middleware");
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
 
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000,https://smartrentsystem.netlify.app")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const corsOptions = {
   origin: (origin, callback) => {
     console.log("CORS Origin:", origin);
 
-    // Allow Postman, curl, server-to-server, OAuth redirects
+    // Allow non-browser clients like curl/postman
     if (!origin) return callback(null, true);
 
-    // Allow ALL localhost ports
-    if (origin.startsWith("http://localhost")) {
+    // Allow localhost development origins
+    const localhostPattern = /^https?:\/\/(localhost|127\.0\.0\.1):(3000|3001|5173|8000)$/;
+    if (localhostPattern.test(origin)) {
       return callback(null, true);
     }
 
-    // Allow Netlify (production + previews)
-    if (origin.endsWith(".netlify.app")) {
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
-    // ❗ DO NOT throw error
     return callback(null, false);
   },
   credentials: true,
@@ -38,6 +45,21 @@ const corsOptions = {
 
 
 // Middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https:", "ws:"],
+      fontSrc: ["'self'", "https:"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+}));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
@@ -54,6 +76,13 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(mongoSanitize({
+  replaceWith: "_",
+  onSanitize: ({ req, key }) => {
+    console.warn(`Sanitized request data from key: ${key}`);
+  },
+}));
+app.use(sanitizeData);
 
 // MongoDB Connection with better error handling
 mongoose

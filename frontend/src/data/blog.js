@@ -288,7 +288,7 @@ Don't just fill space. Every item should have a purpose or spark joy.
 *   **Entryway**: Hooks for coats, a bench for shoes, and a mirror.
 *   **Bedside**: Reading lamps and easily accessible power outlets.
 
-\> Great design is transparent. It works so well you don't even notice it.
+> Great design is transparent. It works so well you don't even notice it.
     `
     },
     {

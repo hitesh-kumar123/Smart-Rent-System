@@ -1,17 +1,15 @@
 # 🏡 Smart Rent System
 
-
-
 **Revolutionizing the rental experience through technology and community**
 
 [![SWoC 2025](assets/Project%20Admin%20Badge.png)](https://swoc.tech)
-[![Contributors](https://img.shields.io/github/contributors/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/graphs/contributors)
-[![Stars](https://img.shields.io/github/stars/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/stargazers)
-[![Issues](https://img.shields.io/github/issues/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/issues)
-[![License](https://img.shields.io/github/license/hitesh-kumar123/Smart-Rent?style=flat-square)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/hitesh-kumar123/Smart-Rent?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent/commits)
+[![Contributors](https://img.shields.io/github/contributors/hitesh-kumar123/Smart-Rent-System?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent-System/graphs/contributors)
+[![Stars](https://img.shields.io/github/stars/hitesh-kumar123/Smart-Rent-System?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent-System/stargazers)
+[![Issues](https://img.shields.io/github/issues/hitesh-kumar123/Smart-Rent-System?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent-System/issues)
+[![License](https://img.shields.io/github/license/hitesh-kumar123/Smart-Rent-System?style=flat-square)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/hitesh-kumar123/Smart-Rent-System?style=flat-square)](https://github.com/hitesh-kumar123/Smart-Rent-System/commits)
 
-[🚀 Live Demo](https://smartrentsystem.netlify.app/) • [📖 Documentation](#) • [🐛 Report Bug](https://github.com/hitesh-kumar123/Smart-Rent/issues) • [✨ Request Feature](https://github.com/hitesh-kumar123/Smart-Rent/issues)
+[🚀 Live Demo](https://smartrentsystem.netlify.app/) • [📖 Documentation](#) • [🐛 Report Bug](https://github.com/hitesh-kumar123/Smart-Rent-System/issues) • [✨ Request Feature](https://github.com/hitesh-kumar123/Smart-Rent-System/issues)
 
 </div>
 
@@ -73,18 +71,21 @@ As part of **Social Winter of Code (SWoC) 2026**, Smart Rent System serves as a 
 <td width="50%">
 
 ### 🔐 **Secure Authentication**
+
 - JWT-based session management
 - Google OAuth integration
 - Password encryption with bcrypt
 - Role-based access control (RBAC)
 
 ### 🏠 **Smart Listings**
+
 - Rich media uploads (Cloudinary CDN)
 - Dynamic pricing algorithms
 - Amenities and house rules editor
 - Availability calendar integration
 
 ### 🗺️ **Map Integration**
+
 - Interactive Leaflet.js maps
 - Geolocation-based search
 - Radius filtering
@@ -94,18 +95,21 @@ As part of **Social Winter of Code (SWoC) 2026**, Smart Rent System serves as a 
 <td width="50%">
 
 ### 💬 **Real-Time Chat**
+
 - Socket.io powered messaging
 - Typing indicators
 - Read receipts
 - Message history persistence
 
 ### 📊 **Analytics Dashboard**
+
 - Booking statistics
 - Revenue tracking
 - Occupancy rates
 - User engagement metrics
 
 ### ⭐ **Review System**
+
 - Verified guest reviews
 - Rating aggregation
 - Photo reviews
@@ -122,23 +126,27 @@ As part of **Social Winter of Code (SWoC) 2026**, Smart Rent System serves as a 
 <div align="center">
 
 ### Frontend Arsenal
+
 ![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Redux](https://img.shields.io/badge/Redux_Toolkit-1.9-764ABC?style=for-the-badge&logo=redux&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router-6.x-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 
 ### Backend Infrastructure
+
 ![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.18-000000?style=for-the-badge&logo=express&logoColor=white)
 ![Socket.io](https://img.shields.io/badge/Socket.io-4.5-010101?style=for-the-badge&logo=socket.io&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
 
 ### Database & Storage
+
 ![MongoDB](https://img.shields.io/badge/MongoDB-6.0-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Mongoose](https://img.shields.io/badge/Mongoose-7.x-880000?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Cloudinary](https://img.shields.io/badge/Cloudinary-CDN-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
 
 ### Development Tools
+
 ![Git](https://img.shields.io/badge/Git-Version_Control-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-API_Testing-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-Code_Quality-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
@@ -154,15 +162,19 @@ As part of **Social Winter of Code (SWoC) 2026**, Smart Rent System serves as a 
 <summary>🖼️ View Application Screenshots</summary>
 
 ### Landing Page
+
 ![Landing Page](assets/Landing%20Page.png)
 
 ### Property Listings
+
 ![Property Grid](assets/Property%20Grid.png)
 
 ### Interactive Map
+
 ![Map View](assets/Map%20View.png)
 
 ### Real-Time Chat
+
 ![Chat Interface](assets/Chat%20Interface.png)
 
 </details>
@@ -181,6 +193,7 @@ npm -v   # v8.0.0 or higher
 ```
 
 You'll also need:
+
 - **MongoDB** (local installation or Atlas URI)
 - **Cloudinary Account** (free tier available)
 - **Git** for version control
@@ -242,12 +255,14 @@ REACT_APP_SOCKET_URL=http://localhost:8000
 **4. Launch Application**
 
 **Terminal 1 - Backend:**
+
 ```bash
 cd backend
 npm run server
 ```
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd frontend
 npm run dev
@@ -256,6 +271,7 @@ npm run dev
 **5. Access the Application**
 
 Open your browser and navigate to:
+
 ```
 http://localhost:3000
 ```
@@ -302,18 +318,19 @@ Smart-Rent/
 
 ### Environment Variables Reference
 
-| Variable | Description | Required | Default |
-|----------|-------------|----------|---------|
-| `PORT` | Backend server port | ✅ | 8000 |
-| `MONGO_URL` | MongoDB connection string | ✅ | - |
-| `JWT_SECRET` | Secret key for JWT signing | ✅ | - |
-| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name | ✅ | - |
-| `CLOUDINARY_KEY` | Cloudinary API key | ✅ | - |
-| `CLOUDINARY_SECRET` | Cloudinary API secret | ✅ | - |
+| Variable                | Description                | Required | Default |
+| ----------------------- | -------------------------- | -------- | ------- |
+| `PORT`                  | Backend server port        | ✅       | 8000    |
+| `MONGO_URL`             | MongoDB connection string  | ✅       | -       |
+| `JWT_SECRET`            | Secret key for JWT signing | ✅       | -       |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name      | ✅       | -       |
+| `CLOUDINARY_KEY`        | Cloudinary API key         | ✅       | -       |
+| `CLOUDINARY_SECRET`     | Cloudinary API secret      | ✅       | -       |
 
 ### API Documentation
 
 Once the backend is running, access API documentation at:
+
 ```
 http://localhost:8000/api-docs
 ```
@@ -339,6 +356,7 @@ docker compose version
 ```
 
 ### Clone the repository
+
 ```bash
 git clone https://github.com/hitesh-kumar123/Smart-Rent-System.git
 cd Smart-Rent-System
@@ -399,16 +417,19 @@ docker compose up --build
 Once the containers are running:
 
 **Frontend:**
+
 ```
 http://localhost:3000
 ```
 
-**Backend API:** 
+**Backend API:**
+
 ```
 http://localhost:8000
 ```
 
 **MongoDB:**
+
 ```
 mongodb://localhost:27017
 ```
@@ -422,6 +443,7 @@ docker compose down
 ```
 
 To stop containers but keep them:
+
 ```
 docker compose stop
 ```
@@ -429,6 +451,7 @@ docker compose stop
 ### 🔄 Rebuilding Containers (After Code Changes)
 
 If you modify dependencies or Docker files:
+
 ```
 docker compose up --build
 ```
@@ -442,10 +465,12 @@ We ❤️ contributions! Smart-Rent is an open-source project built for **Social
 ### How to Contribute
 
 **1. Find an Issue**
+
 - Browse [existing issues](https://github.com/hitesh-kumar123/Smart-Rent-System/issues)
 - Look for labels: `good first issue`, `help wanted`, `enhancement`
 
 **2. Fork & Create Branch**
+
 ```bash
 # Fork the repository (click Fork button on GitHub)
 
@@ -456,6 +481,7 @@ git checkout -b feature/amazing-feature
 ```
 
 **3. Make Changes**
+
 ```bash
 # Make your changes
 # Follow our coding standards (ESLint + Prettier)
@@ -465,6 +491,7 @@ npm test
 ```
 
 **4. Commit & Push**
+
 ```bash
 # Commit with descriptive message
 git commit -m "Add: Implement amazing feature"
@@ -474,6 +501,7 @@ git push origin feature/amazing-feature
 ```
 
 **5. Create Pull Request**
+
 - Go to your fork on GitHub
 - Click "New Pull Request"
 - Fill out the PR template
@@ -482,6 +510,7 @@ git push origin feature/amazing-feature
 ### Contribution Guidelines
 
 📖 Read our [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines including:
+
 - Code style and formatting
 - Commit message conventions
 - Testing requirements
@@ -507,12 +536,14 @@ graph LR
 ## 🗺️ Roadmap
 
 ### ✅ Phase 1 - Foundation (Completed)
+
 - [x] Project scaffolding and architecture
 - [x] User authentication system
 - [x] Basic CRUD operations for listings
 - [x] Responsive UI with Tailwind CSS
 
 ### 🚧 Phase 2 - Core Features (In Progress)
+
 - [x] Map integration with Leaflet.js
 - [] Real-time chat with Socket.io
 - [ ] Advanced search and filtering
@@ -520,6 +551,7 @@ graph LR
 - [ ] Review and rating system
 
 ### 🔮 Phase 3 - Advanced Features (Planned)
+
 - [ ] Payment gateway integration (Stripe/Razorpay)
 - [ ] Email notifications (SendGrid/Nodemailer)
 - [ ] Admin dashboard with analytics
@@ -527,6 +559,7 @@ graph LR
 - [ ] Progressive Web App (PWA)
 
 ### 🌟 Phase 4 - Optimization (Future)
+
 - [ ] Performance optimization (lazy loading, code splitting)
 - [ ] SEO optimization
 - [ ] Automated testing (Jest, Cypress)
@@ -606,6 +639,7 @@ graph LR
 [![Discord](https://img.shields.io/badge/Discord-Join_Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/channels/@me)
 [![Linkedin](https://img.shields.io/badge/LinkedIn-Connect-0077B6?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hitesh-kumar-dev/)
 [![GitHub](https://img.shields.io/badge/GitHub-Star_Repo-1DA1F2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hitesh-kumar123/Smart-Rent-System)
+
 </div>
 
 ---

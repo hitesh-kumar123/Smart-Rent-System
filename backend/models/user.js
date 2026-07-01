@@ -121,6 +121,10 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 // Method to generate Access Token
 userSchema.methods.generateAccessToken = function () {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not configured");
+  }
+
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "15m", // Short-lived access token
   });
@@ -128,16 +132,20 @@ userSchema.methods.generateAccessToken = function () {
 
 // Method to generate Refresh Token
 userSchema.methods.generateRefreshToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET, {
+  if (!process.env.JWT_REFRESH_SECRET) {
+    throw new Error("JWT_REFRESH_SECRET is not configured");
+  }
+
+  return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_SECRET, {
     expiresIn: "7d", // Long-lived refresh token
   });
 };
 
-
 // Method to generate password reset token
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString("hex");
-  this.resetPasswordToken = resetToken;
+  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  this.resetPasswordToken = hashedToken;
   this.resetPasswordExpire = Date.now() + 3600000; // 1 hour
   return resetToken;
 };

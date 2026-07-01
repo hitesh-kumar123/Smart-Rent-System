@@ -2,35 +2,9 @@ const express = require("express");
 const router = express.Router();
 const propertyController = require("../controllers/propertyController");
 const reviewController = require("../controllers/reviewController");
-const { authenticate, authorize } = require("../middleware");
+const { authenticate, authorize, isPropertyHost } = require("../middleware");
+const Property = require("../models/property");
 const { upload } = require("../cloudConfig");
-
-// Test route to check data structure
-router.get("/test", async (req, res) => {
-  try {
-    const Property = require("../models/property");
-    const properties = await Property.find().limit(2);
-    res.json(properties);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// New route to get all properties without any filtering
-router.get("/all", async (req, res) => {
-  try {
-    const Property = require("../models/property");
-    const properties = await Property.find({})
-      .populate("owner", "username firstName lastName profileImage")
-      .sort({ createdAt: -1 });
-
-    console.log(`Found ${properties.length} properties with no filtering`);
-    res.json(properties);
-  } catch (error) {
-    console.error("Error getting all properties:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // Public routes
 router.get("/", propertyController.getProperties);
@@ -44,19 +18,31 @@ router.post(
   authorize("host", "admin"),
   propertyController.createProperty
 );
-router.put("/:id", authenticate, propertyController.updateProperty); // Authorization checked in controller
-router.delete("/:id", authenticate, propertyController.deleteProperty); // Authorization checked in controller
+router.put(
+  "/:id",
+  authenticate,
+  isPropertyHost(Property),
+  propertyController.updateProperty
+);
+router.delete(
+  "/:id",
+  authenticate,
+  isPropertyHost(Property),
+  propertyController.deleteProperty
+);
 
 // Property images
 router.post(
   "/:id/images",
   authenticate,
+  isPropertyHost(Property),
   upload.array("images", 10),
   propertyController.uploadPropertyImages
 );
 router.delete(
   "/:id/images/:imageId",
   authenticate,
+  isPropertyHost(Property),
   propertyController.deletePropertyImage
 );
 
@@ -64,6 +50,7 @@ router.delete(
 router.put(
   "/:id/availability",
   authenticate,
+  isPropertyHost(Property),
   propertyController.updateAvailability
 );
 

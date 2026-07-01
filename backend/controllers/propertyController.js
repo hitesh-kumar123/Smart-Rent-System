@@ -3,6 +3,26 @@ const User = require("../models/user");
 const { propertySchema } = require("../schema");
 const { cloudinary } = require("../cloudConfig");
 
+const cacheStore = new Map();
+const CACHE_TTL_MS = 30 * 1000; // 30 seconds
+
+const getCached = (key) => {
+  const cached = cacheStore.get(key);
+  if (!cached) return null;
+  if (Date.now() > cached.expiresAt) {
+    cacheStore.delete(key);
+    return null;
+  }
+  return cached.value;
+};
+
+const setCache = (key, value) => {
+  cacheStore.set(key, {
+    value,
+    expiresAt: Date.now() + CACHE_TTL_MS,
+  });
+};
+
 // @desc    Create a new property
 // @route   POST /api/properties
 // @access  Private (Host/Admin)
@@ -40,21 +60,17 @@ const createProperty = async (req, res) => {
 // @access  Public
 const getProperties = async (req, res) => {
   try {
-    // Build filter - explicitly include all properties by setting $or condition for isActive and isApproved
+    // Build filter - return only properties that are active and approved
     const filter = {
-      $or: [
-        { isActive: true },
-        { isActive: false },
-        { isActive: { $exists: false } },
-        { isApproved: true },
-        { isApproved: false },
-        { isApproved: { $exists: false } },
-      ],
+      isActive: true,
+      isApproved: true,
     };
 
     // Add location search if provided
     if (req.query.location) {
-      filter["location.city"] = { $regex: req.query.location, $options: "i" };
+      const locationQuery = req.query.location.trim().slice(0, 100);
+      const escapedLocation = locationQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      filter["location.city"] = { $regex: escapedLocation, $options: "i" };
     }
 
     // Add category filter if provided
@@ -82,16 +98,38 @@ const getProperties = async (req, res) => {
       });
     }
 
-    // Set up pagination - if limit is not provided, show all properties
-    const page = parseInt(req.query.page) || 1;
-    // Use a very high limit to show all properties if no limit is provided, or use the provided limit
-    const limit =
-      req.query.limit === undefined ? 1000 : parseInt(req.query.limit) || 1000;
+    // Set up pagination with safe defaults
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const defaultLimit = 20;
+    const maxLimit = 100;
+    let limit = parseInt(req.query.limit, 10);
+    if (Number.isNaN(limit) || limit < 1) {
+      limit = defaultLimit;
+    }
+    limit = Math.min(limit, maxLimit);
     const startIndex = (page - 1) * limit;
 
     // Count total properties for pagination
     const total = await Property.countDocuments({});
     console.log(`Total properties in database: ${total}`);
+
+    const cacheKey = JSON.stringify({
+      route: "properties",
+      page,
+      limit,
+      location: req.query.location || "",
+      category: req.query.category || "",
+      minPrice: req.query.minPrice || "",
+      maxPrice: req.query.maxPrice || "",
+      guests: req.query.guests || "",
+      amenities: req.query.amenities || "",
+    });
+
+    const cachedResult = getCached(cacheKey);
+    if (cachedResult) {
+      res.set("Cache-Control", "public, max-age=30");
+      return res.status(200).json(cachedResult);
+    }
 
     const filteredTotal = await Property.countDocuments(filter);
     console.log(`Total properties matching filters: ${filteredTotal}`);
@@ -110,8 +148,7 @@ const getProperties = async (req, res) => {
     // Log how many images each property has
     properties.forEach((property, index) => {
       console.log(
-        `Property ${index} - Title: ${property.title}, Images: ${
-          property.images ? property.images.length : 0
+        `Property ${index} - Title: ${property.title}, Images: ${property.images ? property.images.length : 0
         }`
       );
     });
@@ -120,11 +157,14 @@ const getProperties = async (req, res) => {
     const pagination = {
       page,
       limit,
-      total: properties.length,
-      pages: Math.ceil(properties.length / limit),
+      total: filteredTotal,
+      pages: Math.ceil(filteredTotal / limit),
     };
 
-    res.status(200).json({ properties, pagination });
+    const responsePayload = { properties, pagination };
+    setCache(cacheKey, responsePayload);
+    res.set("Cache-Control", "public, max-age=30");
+    res.status(200).json(responsePayload);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -136,7 +176,18 @@ const getProperties = async (req, res) => {
 // @access  Public
 const getPropertyById = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id)
+    const cacheKey = `property:${req.params.id}`;
+    const cachedProperty = getCached(cacheKey);
+    if (cachedProperty) {
+      res.set("Cache-Control", "public, max-age=30");
+      return res.status(200).json(cachedProperty);
+    }
+
+    const property = await Property.findOne({
+      _id: req.params.id,
+      isActive: true,
+      isApproved: true,
+    })
       .populate("owner", "username firstName lastName profileImage")
       .populate({
         path: "reviews",
@@ -151,6 +202,8 @@ const getPropertyById = async (req, res) => {
       return res.status(404).json({ message: "Property not found" });
     }
 
+    setCache(cacheKey, property);
+    res.set("Cache-Control", "public, max-age=30");
     res.status(200).json(property);
   } catch (error) {
     console.error(error);

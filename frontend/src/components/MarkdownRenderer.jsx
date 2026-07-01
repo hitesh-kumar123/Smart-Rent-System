@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-import remarkGfm from 'remark-gfm';
-import 'highlight.js/styles/github-dark-dimmed.css'; // or any other theme
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
+import "highlight.js/styles/github-dark-dimmed.css"; // or any other theme
 
 const MarkdownRenderer = ({ content }) => {
-    return (
-        <article className="prose prose-lg prose-slate max-w-none
+  return (
+    <article
+      className="prose prose-lg prose-slate max-w-none
       prose-headings:font-bold prose-headings:tracking-tight 
       prose-h1:text-4xl prose-h1:mb-6 prose-h1:text-slate-900 
       prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-slate-800 
@@ -17,34 +18,44 @@ const MarkdownRenderer = ({ content }) => {
       prose-img:rounded-xl prose-img:shadow-lg prose-img:w-full prose-img:my-8
       prose-code:text-pink-600  prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
       prose-pre:bg-gray-900 prose-pre:text-zinc-00 prose-pre:shadow-xl prose-pre:rounded-xl prose-pre:p-6
-      ">
-            <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeHighlight]}
-                components={{
-                    // Custom override for images to add extra styling if needed
-                    img: ({ node, ...props }) => (
-                        <span className="block my-8">
-                            <img {...props} className="rounded-xl shadow-lg w-full object-cover max-h-[500px]" alt={props.alt || ''} />
-                        </span>
-                    ),
-                    // Custom override for links to open in new tab if external
-                    a: ({ node, ...props }) => {
-                        const isExternal = props.href && (props.href.startsWith('http') || props.href.startsWith('https'));
-                        return (
-                            <a
-                                {...props}
-                                target={isExternal ? "_blank" : undefined}
-                                rel={isExternal ? "noopener noreferrer" : undefined}
-                            />
-                        )
-                    }
-                }}
-            >
-                {content}
-            </ReactMarkdown>
-        </article>
-    );
+      "
+    >
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeHighlight]}
+        components={{
+          // Custom override for images to add extra styling if needed
+          img: ({ node, ...props }) => (
+            <span className="block my-8">
+              <img
+                {...props}
+                className="rounded-xl shadow-lg w-full object-cover max-h-[500px]"
+                alt={props.alt || ""}
+              />
+            </span>
+          ),
+          // Custom override for links to open in new tab if external
+          a: ({ node, ...props }) => {
+            const { href, children, ...rest } = props;
+            const isExternal =
+              href && (href.startsWith("http") || href.startsWith("https"));
+            return (
+              <a
+                href={href}
+                {...rest}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+              >
+                {children}
+              </a>
+            );
+          },
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </article>
+  );
 };
 
 export default MarkdownRenderer;

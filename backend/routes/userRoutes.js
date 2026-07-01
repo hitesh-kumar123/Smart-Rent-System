@@ -3,11 +3,19 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const { authenticate, authorize } = require("../middleware");
 const { upload } = require("../cloudConfig");
+const {
+  authLimiter,
+  forgotPasswordLimiter,
+} = require("../middleware/rateLimitMiddleware");
 
 // Public routes
-router.post("/register", userController.registerUser);
-router.post("/login", userController.loginUser);
-router.post("/forgot-password", userController.forgotPassword);
+router.post("/register", authLimiter, userController.registerUser);
+router.post("/login", authLimiter, userController.loginUser);
+router.post(
+  "/forgot-password",
+  forgotPasswordLimiter,
+  userController.forgotPassword
+);
 router.post("/reset-password/:token", userController.resetPassword);
 router.post("/refresh", userController.refreshAccessToken);
 

@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Layout component that wraps all pages
 import Layout from "./components/Layout";
 // Page imports
 import Home from "./pages/Home";
-import Listings from "./pages/Listings";
-import PropertyDetail from "./pages/PropertyDetail";
-import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Messages from "./pages/Messages";
-import Trips from "./pages/Trips";
-import TripManage from "./pages/TripManage";
-import Wishlist from "./pages/Wishlist";
-import HostListings from "./pages/HostListings";
-import Account from "./pages/Account";
 import Help from "./pages/Help";
-import BecomeHost from "./pages/BecomeHost";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
@@ -31,24 +21,31 @@ import Cookies from "./pages/Cookies";
 import ResetPassword from "./pages/ResetPassword";
 import Map from "./pages/Map";
 import PropertyMap from "./pages/PropertyMap";
-import BlogPost from "./pages/BlogPost"
-// Component to protect routes that require authentication
+import BlogPost from "./pages/BlogPost";
 import ProtectedRoute from "./components/ProtectedRoute";
-// Import ScrollToTop component
 import ScrollToTop from "./components/ScrollToTop";
-// Import Loading Screen
 import LoadingScreen from "./pages/Loading_Screen";
-// Context providers
 import { AppSettingsProvider } from "./contexts/AppSettingsContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
 import PaymentPage from "./pages/PaymentPage";
 // import ForgotPassword from "./pages/ForgotPassword";
 
+const Listings = lazy(() => import("./pages/Listings"));
+const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Messages = lazy(() => import("./pages/Messages"));
+const Trips = lazy(() => import("./pages/Trips"));
+const TripManage = lazy(() => import("./pages/TripManage"));
+const Wishlist = lazy(() => import("./pages/Wishlist"));
+const HostListings = lazy(() => import("./pages/HostListings"));
+const Account = lazy(() => import("./pages/Account"));
+const BecomeHost = lazy(() => import("./pages/BecomeHost"));
+
 function App() {
 
-   const [loading, setLoading] = useState(true);
-  
+  const [loading, setLoading] = useState(true);
+
   // Set browser's scrollRestoration to manual to take control of scrolling
   useEffect(() => {
     // Take control of scroll restoration
@@ -109,97 +106,99 @@ function App() {
           <ScrollToTop />
           {/* Global layout component (header, footer, etc.) */}
           <Layout>
-            <Routes>
-              {/* Public routes - accessible to all users */}
-              <Route path="/" element={<Home />} />
-              <Route path="/listings" element={<Listings />} />
-              <Route path="/properties/:id" element={<PropertyDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/help" element={<Help />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/safety" element={<Safety />} />
-              <Route path="/cancellation" element={<Cancellation />} />
-              <Route path="/report-concern" element={<ReportConcern />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/host-policies" element={<HostPolicies />} />
-              <Route path="/cookies" element={<Cookies />} />
-              <Route path="/payment" element={<PaymentPage />} />
-              <Route
-                path="/reset-password/:token"
-                element={<ResetPassword />}
-              />
-              <Route path="/map" element={<Map />} />
-              <Route path="/property/:id/map" element={<PropertyMap />} />
-              {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
+            <Suspense fallback={<div className="p-8 text-center">Loading page...</div>}>
+              <Routes>
+                {/* Public routes - accessible to all users */}
+                <Route path="/" element={<Home />} />
+                <Route path="/listings" element={<Listings />} />
+                <Route path="/properties/:id" element={<PropertyDetail />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/help" element={<Help />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/safety" element={<Safety />} />
+                <Route path="/cancellation" element={<Cancellation />} />
+                <Route path="/report-concern" element={<ReportConcern />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/host-policies" element={<HostPolicies />} />
+                <Route path="/cookies" element={<Cookies />} />
+                <Route path="/payment" element={<PaymentPage />} />
+                <Route
+                  path="/reset-password/:token"
+                  element={<ResetPassword />}
+                />
+                <Route path="/map" element={<Map />} />
+                <Route path="/property/:id/map" element={<PropertyMap />} />
+                {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
 
-              {/* Protected routes - require user authentication */}
-              <Route
-                path="/messages"
-                element={
-                  <ProtectedRoute>
-                    <Messages />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/trips"
-                element={
-                  <ProtectedRoute>
-                    <Trips />
-                  </ProtectedRoute>
-                }
-              />
+                {/* Protected routes - require user authentication */}
+                <Route
+                  path="/messages"
+                  element={
+                    <ProtectedRoute>
+                      <Messages />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/trips"
+                  element={
+                    <ProtectedRoute>
+                      <Trips />
+                    </ProtectedRoute>
+                  }
+                />
 
-              <Route
-                path="/trips/:id/manage"
-                element={
-                  <ProtectedRoute>
-                    <TripManage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/wishlist"
-                element={
-                  <ProtectedRoute>
-                    <Wishlist />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/host/listings"
-                element={
-                  <ProtectedRoute>
-                    <HostListings />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/host/become-a-host"
-                element={
-                  <ProtectedRoute>
-                    <BecomeHost />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/account"
-                element={
-                  <ProtectedRoute>
-                    <Account />
-                  </ProtectedRoute>
-                }
-              />
+                <Route
+                  path="/trips/:id/manage"
+                  element={
+                    <ProtectedRoute>
+                      <TripManage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/wishlist"
+                  element={
+                    <ProtectedRoute>
+                      <Wishlist />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/host/listings"
+                  element={
+                    <ProtectedRoute>
+                      <HostListings />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/host/become-a-host"
+                  element={
+                    <ProtectedRoute>
+                      <BecomeHost />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/account"
+                  element={
+                    <ProtectedRoute>
+                      <Account />
+                    </ProtectedRoute>
+                  }
+                />
 
-              {/* Not found - catches all unmatched routes */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+                {/* Not found - catches all unmatched routes */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </Layout>
         </BrowserRouter>
       </AuthProvider>

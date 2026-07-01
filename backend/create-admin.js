@@ -1,10 +1,23 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const User = require("./models/user");
-const connectDB = require("./init/database");
+const connectDB = require("./init/database.js");
 
 // Load env variables
 dotenv.config();
+
+const adminEmail = process.env.ADMIN_EMAIL;
+const adminPassword = process.env.ADMIN_PASSWORD;
+const adminUsername = process.env.ADMIN_USERNAME || (adminEmail ? adminEmail.split("@")[0] : undefined);
+const adminFirstName = process.env.ADMIN_FIRST_NAME || "Admin";
+const adminLastName = process.env.ADMIN_LAST_NAME || "User";
+
+if (!adminEmail || !adminPassword) {
+  console.error(
+    "ADMIN_EMAIL and ADMIN_PASSWORD must be set in the environment before running create-admin.js"
+  );
+  process.exit(1);
+}
 
 // Connect to MongoDB
 connectDB();
@@ -20,13 +33,13 @@ const createAdmin = async () => {
       process.exit(0);
     }
 
-    // Create new admin user
+    // Create new admin user with environment-provided credentials
     const admin = new User({
-      username: "admin",
-      email: "admin@example.com",
-      password: "admin123",
-      firstName: "Admin",
-      lastName: "User",
+      username: adminUsername,
+      email: adminEmail,
+      password: adminPassword,
+      firstName: adminFirstName,
+      lastName: adminLastName,
       role: "admin",
       isVerified: true,
     });

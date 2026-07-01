@@ -2,18 +2,14 @@ import axios from "axios";
 
 // Get the API URL from environment or use fallback
 const getApiUrl = () => {
-  // Check if we're in production and environment variable is set
-  if (process.env.NODE_ENV === "production" && process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
-
-  // Fallback to hardcoded URL for production
+  // In production use the configured API URL or fallback to the Render host
   if (process.env.NODE_ENV === "production") {
-    return "https://smart-rent-g3vd.onrender.com";
+    return process.env.REACT_APP_API_URL || "https://smart-rent-g3vd.onrender.com";
   }
 
-  // Development fallback
-  return process.env.REACT_APP_API_URL || "http://localhost:8000";
+  // In development use the CRA proxy when no explicit API URL is configured.
+  // This keeps requests same-origin and makes cookies work correctly.
+  return process.env.REACT_APP_API_URL || "";
 };
 
 

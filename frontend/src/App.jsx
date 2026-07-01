@@ -6,7 +6,7 @@ import Listings from "./pages/Listings";
 import PropertyDetail from "./pages/PropertyDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Profile from "./pages/Profile";
+import Account from "./pages/Account";
 import Messages from "./pages/Messages";
 import Trips from "./pages/Trips";
 import PaymentPage from "./pages/PaymentPage";
@@ -32,7 +32,7 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Profile />
+              <Account />
             </ProtectedRoute>
           }
         />

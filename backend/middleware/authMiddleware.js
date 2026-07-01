@@ -110,9 +110,9 @@ const isPropertyHost = (propertyModel) => {
         });
       }
 
-      // Check if user is the host or admin
+      // Check if user is the owner or admin
       if (
-        property.host.toString() === req.user._id.toString() ||
+        property.owner.toString() === req.user._id.toString() ||
         req.user.role === "admin"
       ) {
         next();

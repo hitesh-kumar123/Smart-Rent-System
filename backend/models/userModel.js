@@ -106,13 +106,13 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 // Generate JWT token
 userSchema.methods.generateToken = function () {
-  return jwt.sign(
-    { id: this._id },
-    process.env.JWT_SECRET || "your_jwt_secret",
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN || "30d",
-    }
-  );
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not configured");
+  }
+
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN || "30d",
+  });
 };
 
 const User = mongoose.model("User", userSchema);

@@ -39,7 +39,7 @@ const createBooking = async (req, res) => {
     const overlappingBooking = await Booking.findOne({
       property: propertyId,
       status: { $nin: ['canceled'] },
-      checkIn:  { $lt: checkOutDate },
+      checkIn: { $lt: checkOutDate },
       checkOut: { $gt: checkInDate },
     });
 
@@ -47,7 +47,7 @@ const createBooking = async (req, res) => {
       return res.status(409).json({
         message: 'These dates are not available. The property is already booked for the selected period.',
         conflictingDates: {
-          checkIn:  overlappingBooking.checkIn,
+          checkIn: overlappingBooking.checkIn,
           checkOut: overlappingBooking.checkOut,
         },
       });
@@ -103,7 +103,7 @@ const createBooking = async (req, res) => {
 const getBookings = async (req, res) => {
   try {
     let bookings;
-    
+
     // If user is admin, get all bookings
     if (req.user.role === 'admin') {
       bookings = await Booking.find()
@@ -116,13 +116,13 @@ const getBookings = async (req, res) => {
           select: 'username firstName lastName email profileImage'
         })
         .sort({ createdAt: -1 });
-    } 
+    }
     // If user is host, get bookings for their properties
     else if (req.user.role === 'host') {
       // Get all properties owned by the user
       const properties = await Property.find({ owner: req.user._id });
       const propertyIds = properties.map(prop => prop._id);
-      
+
       bookings = await Booking.find({ property: { $in: propertyIds } })
         .populate({
           path: 'property',
@@ -133,7 +133,7 @@ const getBookings = async (req, res) => {
           select: 'username firstName lastName email profileImage'
         })
         .sort({ createdAt: -1 });
-    } 
+    }
     // Regular user gets their own bookings
     else {
       bookings = await Booking.find({ user: req.user._id })
@@ -143,7 +143,7 @@ const getBookings = async (req, res) => {
         })
         .sort({ createdAt: -1 });
     }
-    
+
     res.status(200).json(bookings);
   } catch (error) {
     console.error(error);
@@ -169,20 +169,20 @@ const getBookingById = async (req, res) => {
         path: 'user',
         select: 'username firstName lastName email profileImage phone'
       });
-    
+
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
-    
+
     // Check if user is authorized to view the booking
     const isAdmin = req.user.role === 'admin';
     const isBookingOwner = booking.user._id.toString() === req.user._id.toString();
     const isPropertyOwner = booking.property.owner._id.toString() === req.user._id.toString();
-    
+
     if (!isAdmin && !isBookingOwner && !isPropertyOwner) {
       return res.status(403).json({ message: 'Not authorized to view this booking' });
     }
-    
+
     res.status(200).json(booking);
   } catch (error) {
     console.error(error);
@@ -199,29 +199,29 @@ const cancelBooking = async (req, res) => {
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
-    
+
     // Check if user is authorized to cancel the booking
     const isAdmin = req.user.role === 'admin';
     const isBookingOwner = booking.user.toString() === req.user._id.toString();
     const property = await Property.findById(booking.property);
     const isPropertyOwner = property.owner.toString() === req.user._id.toString();
-    
+
     if (!isAdmin && !isBookingOwner && !isPropertyOwner) {
       return res.status(403).json({ message: 'Not authorized to cancel this booking' });
     }
-    
+
     // Check if booking can be canceled (not already canceled or completed)
     if (booking.status === 'canceled') {
       return res.status(400).json({ message: 'Booking is already canceled' });
     }
-    
+
     if (booking.status === 'completed') {
       return res.status(400).json({ message: 'Completed bookings cannot be canceled' });
     }
-    
+
     // Set cancellation info
     booking.status = 'canceled';
-    
+
     if (isAdmin) {
       booking.canceledBy = 'admin';
     } else if (isPropertyOwner) {
@@ -229,13 +229,13 @@ const cancelBooking = async (req, res) => {
     } else {
       booking.canceledBy = 'guest';
     }
-    
+
     // Calculate refund amount based on cancellation policy
     // This is a simple implementation - you can make it more complex based on your requirements
     const currentDate = new Date();
     const checkInDate = new Date(booking.checkIn);
     const daysUntilCheckIn = Math.ceil((checkInDate - currentDate) / (1000 * 60 * 60 * 24));
-    
+
     if (daysUntilCheckIn > 7) {
       // Full refund if canceled more than 7 days before check-in
       booking.refundAmount = booking.totalPrice;
@@ -246,7 +246,7 @@ const cancelBooking = async (req, res) => {
       // No refund if canceled less than 3 days before check-in
       booking.refundAmount = 0;
     }
-    
+
     // Update availability in property
     for (let d = new Date(booking.checkIn); d <= booking.checkOut; d.setDate(d.getDate() + 1)) {
       // Find and remove the availability entry
@@ -254,15 +254,15 @@ const cancelBooking = async (req, res) => {
       const availabilityIndex = property.availability.findIndex(
         a => a.date.toISOString().split('T')[0] === dateStr && a.isBooked
       );
-      
+
       if (availabilityIndex !== -1) {
         property.availability.splice(availabilityIndex, 1);
       }
     }
-    
+
     await property.save();
     await booking.save();
-    
+
     res.status(200).json({
       message: 'Booking canceled successfully',
       booking
@@ -282,17 +282,17 @@ const completePayment = async (req, res) => {
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
-    
+
     // Check if user is authorized
     if (booking.user.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized' });
     }
-    
+
     // Validate payment info
     if (!req.body.paymentInfo || !req.body.paymentInfo.id) {
       return res.status(400).json({ message: 'Payment information is required' });
     }
-    
+
     // Update booking with payment information
     booking.paymentStatus = 'completed';
     booking.status = 'confirmed';
@@ -302,12 +302,12 @@ const completePayment = async (req, res) => {
       method: req.body.paymentInfo.method,
       tax: req.body.paymentInfo.tax || 0
     };
-    
+
     // Generate invoice ID
     booking.invoiceId = `INV-${Date.now().toString().substring(7)}-${booking._id.toString().substring(18)}`;
-    
+
     await booking.save();
-    
+
     res.status(200).json({
       message: 'Payment completed successfully',
       booking
@@ -336,51 +336,55 @@ const generateInvoice = async (req, res) => {
         path: 'user',
         select: 'firstName lastName email'
       });
-    
+
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
-    
+
     // Check if user is authorized
     const isAdmin = req.user.role === 'admin';
     const isBookingOwner = booking.user._id.toString() === req.user._id.toString();
     const isPropertyOwner = booking.property.owner._id.toString() === req.user._id.toString();
-    
+
     if (!isAdmin && !isBookingOwner && !isPropertyOwner) {
       return res.status(403).json({ message: 'Not authorized to view this invoice' });
     }
-    
+
     // Check if payment is completed
     if (booking.paymentStatus !== 'completed') {
       return res.status(400).json({ message: 'Invoice can only be generated for paid bookings' });
     }
-    
-    // Create a PDF document
-    const doc = new PDFDocument();
-    const invoicePath = path.join(__dirname, '..', 'uploads', `invoice-${booking._id}.pdf`);
-    const writeStream = fs.createWriteStream(invoicePath);
-    
-    doc.pipe(writeStream);
-    
+
+    // Create a PDF document streamed directly to the response
+    const doc = new PDFDocument({ size: 'A4', margin: 50 });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename=invoice-${booking._id}.pdf`
+    );
+
+    doc.pipe(res);
+
     // Add invoice content
     doc.fontSize(20).text('INVOICE', { align: 'center' });
     doc.moveDown();
     doc.fontSize(12).text(`Invoice Number: ${booking.invoiceId || 'N/A'}`);
     doc.text(`Date: ${new Date().toLocaleDateString()}`);
     doc.moveDown();
-    
+
     // Customer information
     doc.fontSize(14).text('Customer Information:');
     doc.fontSize(12).text(`Name: ${booking.user.firstName} ${booking.user.lastName}`);
     doc.text(`Email: ${booking.user.email}`);
     doc.moveDown();
-    
+
     // Property information
     doc.fontSize(14).text('Property Information:');
     doc.fontSize(12).text(`Property: ${booking.property.title}`);
     doc.text(`Location: ${booking.property.location.address}, ${booking.property.location.city}, ${booking.property.location.state}, ${booking.property.location.country}`);
     doc.moveDown();
-    
+
     // Booking details
     doc.fontSize(14).text('Booking Details:');
     doc.fontSize(12).text(`Check-in: ${new Date(booking.checkIn).toLocaleDateString()}`);
@@ -388,7 +392,7 @@ const generateInvoice = async (req, res) => {
     doc.text(`Number of Nights: ${booking.numNights}`);
     doc.text(`Number of Guests: ${booking.numGuests}`);
     doc.moveDown();
-    
+
     // Payment details
     doc.fontSize(14).text('Payment Details:');
     doc.fontSize(12).text(`Price per Night: $${booking.property.price}`);
@@ -398,23 +402,9 @@ const generateInvoice = async (req, res) => {
     doc.text(`Payment Status: ${booking.paymentStatus}`);
     doc.text(`Payment Method: ${booking.paymentInfo.method || 'N/A'}`);
     doc.text(`Payment ID: ${booking.paymentInfo.id || 'N/A'}`);
-    
-    // End the document
+
+    // End the document and stream it directly to the client
     doc.end();
-    
-    // Wait for writing to finish
-    writeStream.on('finish', () => {
-      // Send file to client
-      res.download(invoicePath, `invoice-${booking._id}.pdf`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ message: 'Error downloading invoice' });
-        }
-        
-        // Delete the file after sending
-        fs.unlinkSync(invoicePath);
-      });
-    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });

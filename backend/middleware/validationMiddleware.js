@@ -19,11 +19,11 @@ const validateRequest = (schema, source = 'body') => {
     const errors = error.details.reduce((acc, detail) => {
       const key = detail.path[0];
       const message = detail.message.replace(/"/g, "'");
-      
+
       if (!acc[key]) {
         acc[key] = message;
       }
-      
+
       return acc;
     }, {});
 
@@ -47,18 +47,20 @@ const sanitizeData = (req, res, next) => {
     return str.trim().replace(/[<>]/g, '');
   };
 
-  // Function to recursively sanitize an object
+  // Function to recursively sanitize an object and block operator keys
   const sanitizeObject = (obj) => {
     if (!obj || typeof obj !== 'object') return obj;
 
-    // Handle arrays
     if (Array.isArray(obj)) {
       return obj.map(item => sanitizeObject(item));
     }
 
-    // Handle objects
     const sanitized = {};
     for (const [key, value] of Object.entries(obj)) {
+      if (key.startsWith('$') || key.includes('.')) {
+        continue;
+      }
+
       if (typeof value === 'string') {
         sanitized[key] = sanitizeString(value);
       } else if (value && typeof value === 'object') {

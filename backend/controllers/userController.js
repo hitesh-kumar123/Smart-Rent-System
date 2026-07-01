@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require("../models/user");
 const {
   registerSchema,
@@ -9,6 +10,7 @@ const {
 } = require("../schema");
 const { cloudinary } = require("../cloudConfig");
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 const { sendPasswordResetEmail } = require("../services/emailService");
 
 // Helper to set refresh token cookie
@@ -16,11 +18,13 @@ const setRefreshTokenCookie = (res, refreshToken) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     path: "/", // Cookie available for all routes
   });
 };
+
+const validateObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 // @desc    Register user
 // @route   POST /api/users/register
@@ -42,17 +46,6 @@ const registerUser = async (req, res) => {
       phone,
       referralCode,
     } = value;
-
-
-    // Gmail validation
-    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
-
-    if (!gmailRegex.test(email)) {
-      return res.status(400).json({
-        message: "Only Gmail addresses are allowed."
-      });
-    }
-
 
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
@@ -164,17 +157,23 @@ const refreshAccessToken = async (req, res) => {
       return res.status(401).json({ message: "No refresh token provided" });
     }
 
+    if (!process.env.JWT_REFRESH_SECRET) {
+      console.error("JWT_REFRESH_SECRET is not configured");
+      return res.status(500).json({ message: "Server is not configured properly" });
+    }
+
     // Verify token
-    const decoded = require("jsonwebtoken").verify(
-      refreshToken,
-      process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET
-    );
+    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
 
     const user = await User.findById(decoded.id);
 
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
+
+    // Rotate refresh token
+    const newRefreshToken = user.generateRefreshToken();
+    setRefreshTokenCookie(res, newRefreshToken);
 
     // Generate new access token
     const accessToken = user.generateAccessToken();
@@ -406,6 +405,39 @@ const getWishlist = async (req, res) => {
   }
 };
 
+const modifyWishlist = async (user, propertyId, action) => {
+  const hasProperty = user.wishlist.some(
+    (id) => id.toString() === propertyId
+  );
+
+  switch (action) {
+    case "add":
+      if (hasProperty) {
+        return { status: 400, message: "Property already in wishlist" };
+      }
+      user.wishlist.push(propertyId);
+      return { status: 200, message: "Property added to wishlist" };
+    case "remove":
+      if (!hasProperty) {
+        return { status: 404, message: "Property not found in wishlist" };
+      }
+      user.wishlist = user.wishlist.filter(
+        (id) => id.toString() !== propertyId
+      );
+      return { status: 200, message: "Property removed from wishlist" };
+    case "toggle":
+    default:
+      if (hasProperty) {
+        user.wishlist = user.wishlist.filter(
+          (id) => id.toString() !== propertyId
+        );
+        return { status: 200, message: "Property removed from wishlist" };
+      }
+      user.wishlist.push(propertyId);
+      return { status: 200, message: "Property added to wishlist" };
+  }
+};
+
 // @desc    Add property to wishlist
 // @route   POST /api/users/wishlist/:propertyId
 // @access  Private
@@ -413,23 +445,23 @@ const addToWishlist = async (req, res) => {
   try {
     const { propertyId } = req.params;
 
-    // Check if property exists in user's wishlist
+    if (!validateObjectId(propertyId)) {
+      return res.status(400).json({ message: "Invalid propertyId" });
+    }
+
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (user.wishlist.includes(propertyId)) {
-      return res.status(400).json({ message: "Property already in wishlist" });
+    const result = await modifyWishlist(user, propertyId, "add");
+    if (result.status !== 200) {
+      return res.status(result.status).json({ message: result.message });
     }
 
-    // Add property to wishlist
-    user.wishlist.push(propertyId);
     await user.save();
 
-    res
-      .status(200)
-      .json({ message: "Property added to wishlist", wishlist: user.wishlist });
+    res.status(200).json({ message: result.message, wishlist: user.wishlist });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -442,20 +474,45 @@ const addToWishlist = async (req, res) => {
 const removeFromWishlist = async (req, res) => {
   try {
     const { propertyId } = req.params;
-
-    // Remove property from wishlist
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.wishlist = user.wishlist.filter((id) => id.toString() !== propertyId);
+    const result = await modifyWishlist(user, propertyId, "remove");
+    if (result.status !== 200) {
+      return res.status(result.status).json({ message: result.message });
+    }
+
     await user.save();
 
-    res.status(200).json({
-      message: "Property removed from wishlist",
-      wishlist: user.wishlist,
-    });
+    res.status(200).json({ message: result.message, wishlist: user.wishlist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// @desc    Toggle property wishlist status
+// @route   POST /api/wishlist/:propertyId
+// @access  Private
+const toggleWishlist = async (req, res) => {
+  try {
+    const { propertyId } = req.params;
+
+    if (!validateObjectId(propertyId)) {
+      return res.status(400).json({ message: "Invalid propertyId" });
+    }
+
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const result = await modifyWishlist(user, propertyId, "toggle");
+    await user.save();
+
+    res.status(result.status).json({ message: result.message, wishlist: user.wishlist });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -538,9 +595,11 @@ const resetPassword = async (req, res) => {
     const { token } = req.params;
     const { password } = value;
 
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
     // Find user with valid reset token
     const user = await User.findOne({
-      resetPasswordToken: token,
+      resetPasswordToken: hashedToken,
       resetPasswordExpire: { $gt: Date.now() },
     });
 
@@ -576,6 +635,7 @@ module.exports = {
   getWishlist,
   addToWishlist,
   removeFromWishlist,
+  toggleWishlist,
   forgotPassword,
   resetPassword,
 };
