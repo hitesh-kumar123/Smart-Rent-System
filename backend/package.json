@@ -6,7 +6,8 @@
    "scripts": {
     "server": "node server.js",
     "start": "node server.js",
-    "dev": "concurrently \"node app.js\" \"cd ../frontend && npm run dev\""
+    "dev": "concurrently \"node app.js\" \"cd ../frontend && npm run dev\"",
+    "seed": "node init/seed.js"
   },
   "keywords": [],
   "author": "",

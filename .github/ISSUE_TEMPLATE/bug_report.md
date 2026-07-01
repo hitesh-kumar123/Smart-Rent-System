@@ -38,7 +38,6 @@ Example: "Logged-in users see a 500 error when accessing the dashboard."
 - **Device:** [e.g., iPhone 14, Windows PC]
 - **OS:** [e.g., iOS 16.5, Windows 11]
 - **Browser:** [e.g., Chrome 116, Safari 16]
-- **Codify Version:** [e.g., v2.3.0]
 
 ### 📦 Additional Context
 - Does this happen consistently? [Yes/No]

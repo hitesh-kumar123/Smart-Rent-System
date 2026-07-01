@@ -358,7 +358,7 @@ const deleteMessage = async (req, res) => {
     }
     
     // Delete message
-    await message.remove();
+    await Message.deleteOne({ _id: message._id });
     
     res.status(200).json({ message: 'Message deleted successfully' });
   } catch (error) {

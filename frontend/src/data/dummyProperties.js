@@ -441,7 +441,7 @@ export const dummyProperties = [
     },
     features: ["Amazing views", "Mountain View"],
     images: [
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1vdW50YWluJTIwdmlld3xlbnwwfHwwfHx8MA%3D&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=600&q=60",
     ],
   },
   {
@@ -527,7 +527,7 @@ export const dummyProperties = [
     },
     features: ["Tiny homes", "Rustic"],
     images: [
-      "https://images.unsplash.com/photo-1587061949409-02df41d5e562?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHRpbnklMjBob3VzZXxlbnwwfHwwfHx8MA%3D&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -648,7 +648,7 @@ export const dummyProperties = [
     },
     features: ["Countryside", "Garden"],
     images: [
-      "https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNvdW50cnklMjBjb3R0YWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -771,7 +771,7 @@ export const dummyProperties = [
     },
     features: ["Castle", "Unique"],
     images: [
-      "https://images.unsplash.com/photo-1583526241256-cb18e8056705?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y2FzdGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1562184552-997c461abbe6?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -889,7 +889,7 @@ export const dummyProperties = [
     },
     features: ["Historic", "Victorian"],
     images: [
-      "https://images.unsplash.com/photo-1519424187720-db6d0fc5a833?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGlzdG9yaWMlMjBob21lfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -921,7 +921,7 @@ export const dummyProperties = [
     },
     features: ["Design", "Architectural"],
     images: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bW9kZXJuJTIwaG9tZXxlbnwwfHwwfHx8MA%3D&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=60",
     ],
   },
   {
@@ -1010,7 +1010,7 @@ export const dummyProperties = [
     },
     features: ["Farm", "Historic"],
     images: [
-      "https://images.unsplash.com/photo-1593604572579-d7de1e19f094?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZmFybWhvdXNlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1068,7 +1068,7 @@ export const dummyProperties = [
     },
     features: ["Treehouse", "Forest"],
     images: [
-      "https://images.unsplash.com/photo-1578645806969-e755c0d43dfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJlZWhvdXNlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1130,7 +1130,7 @@ export const dummyProperties = [
     },
     features: ["Trending", "Coastal"],
     images: [
-      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNvYXN0YWwlMjBob21lfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1159,7 +1159,7 @@ export const dummyProperties = [
     },
     features: ["Boat", "Waterfront"],
     images: [
-      "https://images.unsplash.com/photo-1610501671344-ec9f347221b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2Vib2F0fGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=600&q=60",
     ],
   },
   {
@@ -1187,7 +1187,7 @@ export const dummyProperties = [
     },
     features: ["Container", "Modern"],
     images: [
-      "https://images.unsplash.com/photo-1482236416769-543abffc1c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29udGFpbmVyJTIwaG9tZXxlbnwwfHwwfHx8MA%3D&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1595846519845-68e298c2edd8?auto=format&fit=crop&w=600&q=60",
     ],
   },
   {
@@ -1242,7 +1242,7 @@ export const dummyProperties = [
     },
     features: ["Windmill", "Historic"],
     images: [
-      "https://images.unsplash.com/photo-1576007473554-a5fa517bc754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZG1pbGwlMjBob3VzZXxlbnwwfHwwfHx8MA%3D&auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1509024644558-2f56ce76c490?auto=format&fit=crop&w=600&q=60",
     ],
   },
   {
@@ -1333,7 +1333,7 @@ export const dummyProperties = [
     },
     features: ["Luxury", "Skyline View", "Modern"],
     images: [
-      "https://images.unsplash.com/photo-1600585154084-4e5f76bca7f2?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1365,7 +1365,7 @@ export const dummyProperties = [
     },
     features: ["Luxury", "Designer", "Rooftop"],
     images: [
-      "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=60",
     ],
   },
   {
@@ -1463,7 +1463,7 @@ export const dummyProperties = [
     },
     features: ["City View", "Modern", "High-Rise"],
     images: [
-      "https://images.unsplash.com/photo-1600607688207-efcb2f40b7aa?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1496,7 +1496,7 @@ export const dummyProperties = [
     },
     features: ["Beachside", "Art Deco", "Private Patio"],
     images: [
-      "https://images.unsplash.com/photo-1572120360610-d971b9b78825?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1529,7 +1529,7 @@ export const dummyProperties = [
     },
     features: ["Luxury", "City View", "Modern"],
     images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1630,7 +1630,7 @@ export const dummyProperties = [
     },
     features: ["Luxury", "Private Pool", "Cinema Room"],
     images: [
-      "https://images.unsplash.com/photo-1599423300746-3e5e5d6d9d61?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1663,7 +1663,7 @@ export const dummyProperties = [
     },
     features: ["Budget-Friendly", "Central"],
     images: [
-      "https://images.unsplash.com/photo-1615874959472-b65a9918f8d0?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1696,7 +1696,7 @@ export const dummyProperties = [
     },
     features: ["Family-Friendly", "Suburban"],
     images: [
-      "https://images.unsplash.com/photo-1572120360610-3b5d6c8a8e1b?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1729,7 +1729,7 @@ export const dummyProperties = [
     },
     features: ["Luxury", "Skyline View", "Terrace"],
     images: [
-      "https://images.unsplash.com/photo-1599423300746-9a6e6f7d6f3e?auto=format&fit=crop&w=600&q=60",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=60",
     ],
   },
 
@@ -1762,7 +1762,7 @@ export const dummyProperties = [
   },
   features: ["City View", "Gym Access"],
   images: [
-    "https://images.unsplash.com/photo-1560448075-bb0a3fe5e131?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=60",
   ],
 },
 
@@ -1794,7 +1794,7 @@ export const dummyProperties = [
   },
   features: ["Historic", "Neighborhood"],
   images: [
-    "https://images.unsplash.com/photo-1572120360610-d971b9b62a4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+    "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&w=600&q=60",
   ],
 },
 
@@ -1826,7 +1826,7 @@ export const dummyProperties = [
   },
   features: ["Central Park View", "Concierge"],
   images: [
-    "https://images.unsplash.com/photo-1615909040947-cfafb14fc1f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+    "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=60",
   ],
 },
 
@@ -1857,7 +1857,7 @@ export const dummyProperties = [
   },
   features: ["Designer", "Urban"],
   images: [
-    "https://images.unsplash.com/photo-1542318414-1f5a3b2b2c90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+    "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?auto=format&fit=crop&w=600&q=60",
   ],
 },
 
@@ -1890,7 +1890,7 @@ export const dummyProperties = [
   },
   features: ["Private Garden", "Family Friendly"],
   images: [
-    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60",
+    "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=600&q=60",
   ],
 },
 

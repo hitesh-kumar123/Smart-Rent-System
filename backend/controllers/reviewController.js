@@ -214,7 +214,7 @@ const deleteReview = async (req, res) => {
     });
     
     // Delete review
-    await review.remove();
+    await Review.deleteOne({ _id: review._id });
     
     res.status(200).json({ message: 'Review deleted successfully' });
   } catch (error) {

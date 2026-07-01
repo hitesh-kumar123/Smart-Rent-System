@@ -18,29 +18,49 @@ const createBooking = async (req, res) => {
     }
 
     const { property: propertyId, checkIn, checkOut, numGuests, message } = value;
-    
+
     // Find property
     const property = await Property.findById(propertyId);
     if (!property) {
       return res.status(404).json({ message: 'Property not found' });
     }
-    
+
     // Check if property is available
     if (!property.isActive || !property.isApproved) {
       return res.status(400).json({ message: 'Property is not available for booking' });
     }
-    
-    // Check if dates are available in property availability
+
     const checkInDate = new Date(checkIn);
     const checkOutDate = new Date(checkOut);
-    
+
+    // ── Double-booking guard ──────────────────────────────────────────────
+    // Two ranges [A,B) and [C,D) overlap when A < D AND B > C.
+    // Cancelled bookings are excluded so freed-up dates become available again.
+    const overlappingBooking = await Booking.findOne({
+      property: propertyId,
+      status: { $nin: ['canceled'] },
+      checkIn:  { $lt: checkOutDate },
+      checkOut: { $gt: checkInDate },
+    });
+
+    if (overlappingBooking) {
+      return res.status(409).json({
+        message: 'These dates are not available. The property is already booked for the selected period.',
+        conflictingDates: {
+          checkIn:  overlappingBooking.checkIn,
+          checkOut: overlappingBooking.checkOut,
+        },
+      });
+    }
+    // ─────────────────────────────────────────────────────────────────────
+
     // Calculate number of nights
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000;
     const numNights = Math.round(Math.abs((checkOutDate - checkInDate) / oneDay));
-    
+
     // Calculate total price
     const totalPrice = property.price * numNights;
-    
+
     // Create booking
     const booking = new Booking({
       property: propertyId,
@@ -52,15 +72,15 @@ const createBooking = async (req, res) => {
       totalPrice,
       message
     });
-    
+
     // Save booking
     const savedBooking = await booking.save();
-    
+
     // Add booking to user's bookings
     await User.findByIdAndUpdate(req.user._id, {
       $push: { bookings: savedBooking._id }
     });
-    
+
     // Update property availability
     for (let d = new Date(checkInDate); d <= checkOutDate; d.setDate(d.getDate() + 1)) {
       property.availability.push({
@@ -69,7 +89,7 @@ const createBooking = async (req, res) => {
       });
     }
     await property.save();
-    
+
     res.status(201).json(savedBooking);
   } catch (error) {
     console.error(error);

@@ -233,7 +233,7 @@ const deleteProperty = async (req, res) => {
     });
 
     // Delete property
-    await property.remove();
+    await Property.deleteOne({ _id: property._id });
 
     res.status(200).json({ message: "Property deleted successfully" });
   } catch (error) {
