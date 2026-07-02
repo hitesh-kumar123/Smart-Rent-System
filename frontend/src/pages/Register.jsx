@@ -370,7 +370,7 @@ const Register = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes gradient {
           0%,
           100% {

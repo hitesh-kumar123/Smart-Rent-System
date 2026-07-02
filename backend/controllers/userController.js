@@ -47,6 +47,12 @@ const registerUser = async (req, res) => {
       referralCode,
     } = value;
 
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        message: "Database is currently unavailable. Please try again later.",
+      });
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
@@ -92,8 +98,26 @@ const registerUser = async (req, res) => {
       token: accessToken, // Frontend still expects 'token' key for access token
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    console.error("Register user error:", error);
+
+    if (error.code === 11000) {
+      const duplicateField = Object.keys(error.keyValue || {})[0];
+      const message = duplicateField
+        ? `${duplicateField} is already in use`
+        : "User already exists";
+      return res.status(400).json({ message });
+    }
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
+    }
+
+    const message =
+      process.env.NODE_ENV === "development"
+        ? error.message || "Server Error"
+        : "Server Error";
+
+    res.status(500).json({ message });
   }
 };
 
@@ -109,6 +133,12 @@ const loginUser = async (req, res) => {
     }
 
     const { email, password } = value;
+
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        message: "Database is currently unavailable. Please try again later.",
+      });
+    }
 
     // Find user
     const user = await User.findOne({ email }).select("+password");
@@ -157,13 +187,22 @@ const refreshAccessToken = async (req, res) => {
       return res.status(401).json({ message: "No refresh token provided" });
     }
 
+    const refreshSecret = process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET;
+    if (!refreshSecret) {
+      console.error("JWT_REFRESH_SECRET or JWT_SECRET is not configured");
+      return res
+        .status(500)
+        .json({ message: "Server refresh token secret is not configured" });
+    }
+
     if (!process.env.JWT_REFRESH_SECRET) {
-      console.error("JWT_REFRESH_SECRET is not configured");
-      return res.status(500).json({ message: "Server is not configured properly" });
+      console.warn(
+        "JWT_REFRESH_SECRET is not configured. Falling back to JWT_SECRET for refresh token verification."
+      );
     }
 
     // Verify token
-    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    const decoded = jwt.verify(refreshToken, refreshSecret);
 
     const user = await User.findById(decoded.id);
 

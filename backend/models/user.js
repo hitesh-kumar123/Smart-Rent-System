@@ -121,22 +121,18 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 // Method to generate Access Token
 userSchema.methods.generateAccessToken = function () {
-  if (!process.env.JWT_SECRET) {
-    throw new Error("JWT_SECRET is not configured");
-  }
+  const accessSecret = getJwtSecret("access");
 
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: this._id }, accessSecret, {
     expiresIn: "15m", // Short-lived access token
   });
 };
 
 // Method to generate Refresh Token
 userSchema.methods.generateRefreshToken = function () {
-  if (!process.env.JWT_REFRESH_SECRET) {
-    throw new Error("JWT_REFRESH_SECRET is not configured");
-  }
+  const refreshSecret = getJwtSecret("refresh");
 
-  return jwt.sign({ id: this._id }, process.env.JWT_REFRESH_SECRET, {
+  return jwt.sign({ id: this._id }, refreshSecret, {
     expiresIn: "7d", // Long-lived refresh token
   });
 };
@@ -148,6 +144,26 @@ userSchema.methods.createPasswordResetToken = function () {
   this.resetPasswordToken = hashedToken;
   this.resetPasswordExpire = Date.now() + 3600000; // 1 hour
   return resetToken;
+};
+
+const getJwtSecret = (secretName) => {
+  const configuredSecret =
+    secretName === "access"
+      ? process.env.JWT_SECRET
+      : process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET;
+
+  if (configuredSecret) {
+    return configuredSecret;
+  }
+
+  const fallbackSecret =
+    process.env.JWT_FALLBACK_SECRET || "smart-rent-development-secret";
+
+  console.warn(
+    `[auth] ${secretName === "access" ? "JWT_SECRET" : "JWT_REFRESH_SECRET"} is not configured. Using fallback secret.`
+  );
+
+  return fallbackSecret;
 };
 
 const User = mongoose.model("User", userSchema);

@@ -3,6 +3,9 @@ import api, { setAccessToken } from "../config/api";
 
 const AuthContext = createContext();
 
+// Guard to avoid calling refresh multiple times in development (React StrictMode)
+let hasCheckedAuth = false;
+
 export function useAuth() {
   return useContext(AuthContext);
 }
@@ -13,11 +16,18 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    // Avoid duplicate calls in development StrictMode or hot-reloads
+    if (hasCheckedAuth) return;
+    hasCheckedAuth = true;
     // Check if user is already logged in via refresh token in cookie
     const checkLoggedIn = async () => {
       try {
         // Attempt to refresh token on mount
-        const res = await api.post("/api/users/refresh");
+        const res = await api.post(
+          "/api/users/refresh",
+          {},
+          { withCredentials: true },
+        );
 
         if (res.data && res.data.token) {
           setAccessToken(res.data.token);
@@ -31,12 +41,8 @@ export function AuthProvider({ children }) {
             profileImage: res.data.profileImage,
             referralCode: res.data.referralCode || "",
           });
-          console.log("User session restored via refresh token");
         }
       } catch (err) {
-        if (process.env.NODE_ENV !== "production") {
-          console.log("No active session or refresh token expired");
-        }
         setAccessToken(null);
         setCurrentUser(null);
       } finally {
@@ -54,9 +60,9 @@ export function AuthProvider({ children }) {
       setCurrentUser(null);
       setAccessToken(null);
 
-      console.log("Registering with data:", userData);
-      const res = await api.post("/api/users/register", userData);
-      console.log("Registration response:", res.data);
+      const res = await api.post("/api/users/register", userData, {
+        withCredentials: true,
+      });
 
       if (res.data && res.data.token) {
         setAccessToken(res.data.token);
@@ -75,7 +81,10 @@ export function AuthProvider({ children }) {
       return { success: true, data: res.data };
     } catch (err) {
       console.error("Registration error:", err);
-      const errorMessage = err.response?.data?.message || "Registration failed";
+      const errorMessage =
+        err.code === "ECONNABORTED" || err.message?.includes("timeout")
+          ? "The server took too long to respond. Please try again in a moment."
+          : err.response?.data?.message || "Registration failed";
       setError(errorMessage);
       return { success: false, error: errorMessage };
     }
@@ -88,9 +97,11 @@ export function AuthProvider({ children }) {
       setCurrentUser(null);
       setAccessToken(null);
 
-      console.log("Logging in with:", { email });
-      const res = await api.post("/api/users/login", { email, password });
-      console.log("Login response:", res.data);
+      const res = await api.post(
+        "/api/users/login",
+        { email, password },
+        { withCredentials: true },
+      );
 
       if (res.data && res.data.token) {
         setAccessToken(res.data.token);
@@ -109,7 +120,10 @@ export function AuthProvider({ children }) {
       return { success: true, data: res.data };
     } catch (err) {
       console.error("Login error:", err);
-      const errorMessage = err.response?.data?.message || "Invalid credentials";
+      const errorMessage =
+        err.code === "ECONNABORTED" || err.message?.includes("timeout")
+          ? "The server took too long to respond. Please try again in a moment."
+          : err.response?.data?.message || "Invalid credentials";
       setError(errorMessage);
       return { success: false, error: errorMessage };
     }
@@ -125,7 +139,7 @@ export function AuthProvider({ children }) {
   // Logout user
   const logout = async () => {
     try {
-      await api.post("/api/users/logout");
+      await api.post("/api/users/logout", {}, { withCredentials: true });
       clearUserData();
     } catch (err) {
       console.error("Logout error:", err);

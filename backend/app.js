@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dns = require("dns");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
@@ -14,7 +15,7 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000,https://smartrentsystem.netlify.app")
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "https://smartrentsystem.netlify.app")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
@@ -26,9 +27,9 @@ const corsOptions = {
     // Allow non-browser clients like curl/postman
     if (!origin) return callback(null, true);
 
-    // Allow localhost development origins
+    // Allow localhost development origins only outside production
     const localhostPattern = /^https?:\/\/(localhost|127\.0\.0\.1):(3000|3001|5173|8000)$/;
-    if (localhostPattern.test(origin)) {
+    if (process.env.NODE_ENV !== "production" && localhostPattern.test(origin)) {
       return callback(null, true);
     }
 
@@ -85,14 +86,30 @@ app.use(mongoSanitize({
 app.use(sanitizeData);
 
 // MongoDB Connection with better error handling
+const mongoUri = process.env.MONGODB_URI;
+
+if (mongoUri && mongoUri.startsWith("mongodb+srv://")) {
+  try {
+    const dnsServers = ["8.8.8.8", "1.1.1.1"];
+    console.log("Configuring DNS servers for SRV lookup:", dnsServers.join(", "));
+    dns.setServers(dnsServers);
+  } catch (err) {
+    console.warn("Unable to configure DNS servers for SRV lookup:", err.message);
+  }
+}
+
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000,
+  })
   .then(() => {
     console.log("MongoDB Connected Successfully");
   })
   .catch((err) => {
     console.error("MongoDB Connection Error:", err);
-    process.exit(1); // Exit if database connection fails
+    console.warn("Continuing without MongoDB connection. Auth routes will return a service-unavailable response until the database is reachable.");
   });
 
 // Health check endpoint

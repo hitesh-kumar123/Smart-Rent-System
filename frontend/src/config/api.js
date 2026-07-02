@@ -29,7 +29,7 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
-  timeout: 10000,
+  timeout: 30000,
 });
 
 // Add request interceptor to handle auth token
@@ -53,6 +53,10 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    if (originalRequest?.url?.includes("/api/users/refresh")) {
+      return Promise.reject(error);
+    }
+
     // If error is 401 and not already retrying
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -74,10 +78,6 @@ api.interceptors.response.use(
         // Optionally redirect to login or emit event
         return Promise.reject(refreshError);
       }
-    }
-
-    if (originalRequest?.url?.includes("/api/users/refresh")) {
-      return Promise.reject(error);
     }
 
     if (process.env.NODE_ENV !== "production") {
