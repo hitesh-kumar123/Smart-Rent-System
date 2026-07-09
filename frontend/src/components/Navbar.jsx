@@ -25,7 +25,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const location = useLocation();
   const navigate = useNavigate();
-
+  
   // Use auth context
   const { currentUser, logout, isAuthenticated } = useAuth();
 
@@ -577,6 +577,22 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+
+           
+
+            {/* Wishlist icon (only for logged-in users) */}
+            {isAuthenticated && (
+              <Link
+                to="/wishlist"
+                className={`relative p-2 rounded-full transition ${location.pathname === "/wishlist"
+                    ? "text-primary-600 bg-primary-50"
+                    : "text-neutral-600 hover:text-primary-600"
+                  }`}
+                aria-label="Wishlist"
+              >
+                <i className="fas fa-heart text-lg"></i>
+              </Link>
+            )}
 
             {/* User profile menu */}
 
