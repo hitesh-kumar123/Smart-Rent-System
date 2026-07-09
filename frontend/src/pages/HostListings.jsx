@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
+import EmptyState from "../components/EmptyState";
+
 
 // Fallback image in case property image fails to load
 const FALLBACK_IMAGE_URL =
@@ -16,6 +19,19 @@ const HostListings = () => {
   const [imgErrors, setImgErrors] = useState({});
   // Track loading state for image
   const [isLoading, setIsLoading] = useState(true);
+  // Modal state
+const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedListingId, setSelectedListingId] = useState(null);
+
+const handleConfirmDelete = () => {
+  if (selectedListingId) {
+    deleteListing(selectedListingId);
+    setIsModalOpen(false);
+    setSelectedListingId(null);
+  }
+};
+
+
 
   // Handle image load errors
   const handleImageError = (listingId) => {
@@ -378,20 +394,56 @@ const HostListings = () => {
   };
 
   // Loading state while fetching listings
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
-        <div className="text-primary-600 text-xl font-semibold flex items-center">
-          <i className="fas fa-spinner fa-spin mr-3 text-2xl"></i>
-          Loading your listings...
+ if (loading) {
+  return <Loading message="Loading your listings..." />;
+
+
+  <div className="min-h-screen bg-neutral-50 py-8">
+    <div className="container mx-auto px-4">
+
+      {/* all your listings code here */}
+
+    </div>
+
+    {/* 👇 PASTE MODAL HERE 👇 */}
+
+    {isModalOpen && (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
+          <h2 className="text-lg font-semibold mb-4 text-gray-800">
+            Confirm Delete
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            Are you sure you want to delete this listing?
+          </p>
+
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="px-4 py-2 text-sm rounded-md border border-gray-300 hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={handleConfirmDelete}
+              className="px-4 py-2 text-sm rounded-md bg-red-600 text-white hover:bg-red-700"
+            >
+              Yes, Delete
+            </button>
+          </div>
         </div>
       </div>
-    );
-  }
+    )}
+
+  </div>
+
 
   return (
     <div className="min-h-screen bg-neutral-50 py-8">
       <div className="container mx-auto px-4">
+
+
         {/* Page header with title and Add new listing button */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <h1 className="text-2xl font-bold text-neutral-800 mb-4 md:mb-0">
@@ -611,11 +663,15 @@ const HostListings = () => {
 
                         {/* Delete listing button */}
                         <button
-                          onClick={() => deleteListing(listing.id)}
-                          className="inline-flex items-center px-3 py-1.5 border border-neutral-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 hover:border-red-300"
-                        >
-                          Delete
-                        </button>
+  onClick={() => {
+    setSelectedListingId(listing.id);
+    setIsModalOpen(true);
+  }}
+  className="inline-flex items-center px-3 py-1.5 border border-neutral-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 hover:border-red-300"
+>
+      Delete
+      </button>
+
                       </div>
                     </div>
 
@@ -659,60 +715,22 @@ const HostListings = () => {
             ))
           ) : (
             // Empty state when no listings match the current filter
-            <div className="text-center py-12">
-              <svg
-                className="mx-auto h-12 w-12 text-neutral-400"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                />
-              </svg>
-              {/* Empty state title */}
-              <h3 className="mt-2 text-sm font-medium text-neutral-900">
-                No listings found
-              </h3>
-              {/* Empty state description */}
-              <p className="mt-1 text-sm text-neutral-500">
-                {activeTab === "all"
-                  ? "Get started by creating a new listing"
-                  : `You don't have any ${activeTab} listings`}
-              </p>
-              {/* Call-to-action button to add a new listing */}
-              <div className="mt-6">
-                <Link
-                  to="/host/become-a-host"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700"
-                >
-                  <svg
-                    className="-ml-1 mr-2 h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                  Add new listing
-                </Link>
-              </div>
+           <EmptyState
+     title="No listings found"
+     description={
+      activeTab === "all"
+        ? "Get started by creating a new listing"
+        : `You don't have any ${activeTab} listings`
+      }
+       />
+             )}
+
+             
             </div>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
-  );
-};
+     );
+   };
+  }
 
 export default HostListings;
