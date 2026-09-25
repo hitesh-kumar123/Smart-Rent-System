@@ -34,7 +34,7 @@
     "resend": "^4.2.0"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.5",
     "nodemon": "^3.1.0"
   }
 }
