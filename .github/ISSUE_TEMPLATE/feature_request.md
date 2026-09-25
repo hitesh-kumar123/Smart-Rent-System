@@ -1,36 +1,31 @@
 ---
-name: "Feature Request"
-about: Suggest an idea for Smart Rent System
-title: "Feat: [Brief Description]"
-labels: "enhancement"
+name: ✨ Feature Request
+about: Suggest a clear, actionable improvement for Smart Rent System
+title: "Feat: "
+labels: enhancement
 assignees: ""
 ---
 
-## 🚀 Is your feature request related to a problem?
-<!-- Example: "I'm frustrated when I can't save code drafts between sessions" -->
-- Problem: [Describe the pain point]
+## Problem
+<!-- What user/developer problem does this solve? -->
 
-## 💡 Proposed Solution
-<!-- Clearly describe what you want to happen -->
-- Solution: [Detailed description]
-- Technical Notes (optional): [API changes, database needs, etc.]
+## Proposed Solution
+<!-- Describe the expected behavior. -->
 
-## 🔍 Alternatives Considered
-<!-- List other approaches you've thought about -->
-1. Alternative A: [Description + why it's less ideal]
-2. Alternative B: [Description + why it's less ideal]
+## Acceptance Criteria
+- [ ] Clearly defined expected behavior
+- [ ] Works on supported desktop/mobile flows where applicable
+- [ ] No existing functionality is broken
+- [ ] Documentation is updated when needed
 
-## 📐 Mockups & Examples
-<!-- Add visuals if possible -->
-- [ ] Attach sketch/Screenshot
-- [ ] Link to similar features in other apps
+## Technical Notes
+<!-- Optional: API, database, UI, performance, or security considerations. -->
 
-## 🧩 Potential Impact
-<!-- Who will this benefit and how? -->
-- Target Users: [Students/Teachers/Admins]
-- Value: [Time saved, improved UX, etc.]
+## Alternatives
+<!-- Optional: mention alternatives considered. -->
 
-## 🌱 Additional Context
-<!-- Any other details? -->
-- Related Features: #[issue_number]
-- Technical Constraints: [If known]
+## Screenshots / References
+<!-- Add screenshots, mockups, links, or examples when useful. -->
+
+## Additional Context
+<!-- Anything else maintainers should know. -->
