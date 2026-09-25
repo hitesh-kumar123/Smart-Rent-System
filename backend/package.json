@@ -27,7 +27,7 @@
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
-    "multer": "^1.4.5-lts.2",
+    "multer": "^2.4.0",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^6.10.0",
     "pdfkit": "^0.16.0",
