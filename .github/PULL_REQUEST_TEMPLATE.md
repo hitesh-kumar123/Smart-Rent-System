@@ -1,49 +1,38 @@
 ---
-name: "📦 Pull Request"
-about: Submit changes for review
-title: "PR: [Brief Description]"
+name: 📦 Pull Request
+about: Submit a focused change for review
+title: "PR: "
 labels: ""
 assignees: ""
 ---
 
-## 📌 Linked Issue
-<!-- Link to the issue this PR addresses (e.g. "Closes #123" or "Related to #456") -->
-- [ ] Connected to #issue_number
----
+## Linked Issue
+<!-- Use "Closes #123" when this PR fully resolves an issue. -->
+- Closes #
 
-## 🛠 Changes Made
-<!-- Bullet-point summary of your changes -->
-- Added: [Description]
-- Fixed: [Description]
-- Updated: [Description]
+## What Changed
+<!-- Summarize the implementation in a few bullets. -->
+-
 
----
-## 🧪 Testing
-<!-- How did you verify your changes? -->
-- [ ] Ran unit tests (`npm test`)
-- [ ] Tested manually (describe below):
-  - Test case 1: [Steps + Expected Result]
-  - Test case 2: [Steps + Expected Result]
+## Why
+<!-- Explain the problem this PR solves. -->
 
----
-## 📸 UI Changes (if applicable)
-<!-- Before/after screenshots or GIFs -->
-| Before | After |
-|--------|-------|
-| [Image] | [Image] |
+## Testing
+- [ ] Backend tested locally
+- [ ] Frontend tested locally
+- [ ] Relevant tests added/updated
+- [ ] Manual testing completed
 
----
-## 📝 Documentation Updates
-- [ ] Updated README/docs
-- [ ] Added code comments
----
+### Test Details
+<!-- Commands, scenarios, API checks, etc. -->
 
-## ✅ Checklist
-- [ ] Created a new branch for PR
-- [ ] Have stared the repository
-- [ ] Follows [JavaScript Styleguide](CONTRIBUTING.md#javascript-styleguide)
-- [ ] No console warnings/errors
-- [ ] Commit messages follow [Git Guidelines](CONTRIBUTING.md#git-commit-messages)
+## UI Changes
+<!-- Add before/after screenshots or GIFs if applicable. -->
 
-## 💡 Additional Notes (If any)
-<!-- Optional: Deployment needs, breaking changes, etc. -->
+## Checklist
+- [ ] I created a focused feature/fix branch
+- [ ] I followed the project conventions in CONTRIBUTING.md
+- [ ] I did not commit secrets or .env files
+- [ ] I removed unnecessary console/debug code
+- [ ] I updated documentation when needed
+- [ ] This PR contains only related changes
