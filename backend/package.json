@@ -31,7 +31,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^6.10.0",
     "pdfkit": "^0.16.0",
-    "resend": "^4.2.0"
+    "resend": "^6.28.1"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
