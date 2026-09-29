@@ -8,6 +8,7 @@ const PaymentPage = () => {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [availabilityError, setAvailabilityError] = useState("");
   const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: "",
     expiryDate: "",
@@ -15,9 +16,9 @@ const PaymentPage = () => {
     name: "",
   });
   const [bookingDetails, setBookingDetails] = useState({
-    checkIn: "",
-    checkOut: "",
-    guests: 1,
+    checkIn: location.state?.bookingDetails?.checkIn || "",
+    checkOut: location.state?.bookingDetails?.checkOut || "",
+    guests: location.state?.bookingDetails?.guests || 1,
   });
 
   useEffect(() => {
@@ -48,7 +49,15 @@ const PaymentPage = () => {
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
+    setAvailabilityError("");
     try {
+      await api.post("/api/bookings", {
+        property: property?._id,
+        checkIn: bookingDetails.checkIn,
+        checkOut: bookingDetails.checkOut,
+        numGuests: bookingDetails.guests,
+      });
+
       // Here you would typically integrate with a payment processor
       console.log("Processing payment:", {
         paymentDetails,
@@ -69,7 +78,15 @@ const PaymentPage = () => {
       });
     } catch (error) {
       console.error("Payment error:", error);
-      // Handle payment error (show error message, etc.)
+      if (error.response?.status === 409) {
+        setAvailabilityError(
+          error.response.data?.message ||
+            "These dates are not available. Please choose different dates and try again."
+        );
+        return;
+      }
+
+      setAvailabilityError("We couldn't complete your booking. Please try again.");
     }
   };
 
@@ -134,6 +151,23 @@ const PaymentPage = () => {
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
               Payment Details
             </h2>
+            {availabilityError && (
+              <div
+                role="alert"
+                className="mb-6 rounded-lg bg-red-50 p-4 text-red-700"
+              >
+                {availabilityError}
+                {availabilityError.includes("not available") && (
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="mt-2 block font-medium underline"
+                  >
+                    Choose different dates
+                  </button>
+                )}
+              </div>
+            )}
             <form onSubmit={handlePaymentSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">

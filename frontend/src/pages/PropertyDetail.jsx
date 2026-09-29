@@ -893,6 +893,11 @@ const PropertyDetail = () => {
                       state: {
                         propertyId: property._id,
                         property: property,
+                        bookingDetails: {
+                          checkIn: reservation.checkIn,
+                          checkOut: reservation.checkOut,
+                          guests: reservation.guests,
+                        },
                       },
                     });
                   }}
