@@ -2,6 +2,25 @@ const mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema(
   {
+      title: String,
+  price: Number,
+  category: String,
+
+  city: String,
+  state: String,
+  area: String,
+
+  location: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true
+    }
+  }
     title: {
       type: String,
       required: [true, "Title is required"],
@@ -163,5 +182,4 @@ propertySchema.virtual("isAvailable").get(function () {
 });
 
 const Property = mongoose.model("Property", propertySchema);
-
 module.exports = Property;
