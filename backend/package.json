@@ -8,7 +8,8 @@
     "start": "node server.js",
     "dev": "concurrently \"nodemon server.js\" \"cd ../frontend && npm run dev\"",
     "seed": "node init/seed.js",
-    "lint": "node --check server.js"
+    "lint": "node --check server.js",
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",
