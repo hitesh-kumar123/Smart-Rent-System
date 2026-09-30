@@ -577,6 +577,20 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+            {/* This is message icon on navbar which redirects to message page */}
+            {isAuthenticated && (
+              <Link
+                to="/messages"
+                className={`relative p-2 rounded-full transition duration-200
+      ${location.pathname.startsWith("/messages")
+                    ? "text-primary-600 bg-primary-50"
+                    : "text-neutral-600 hover:text-primary-600 hover:bg-neutral-100"
+                  }`}
+                aria-label="Messages"
+              >
+                <i className="fas fa-envelope text-lg"></i>
+              </Link>
+            )}
 
             {/* User profile menu */}
 
