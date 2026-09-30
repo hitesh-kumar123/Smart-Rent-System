@@ -242,6 +242,13 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+// Inside app.js
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(process.env.MONGO_URI || 'your-fallback-connection-string', {
+    // your options...
+  })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("MongoDB Connection Error:", err));
+}
+
+module.exports = app;

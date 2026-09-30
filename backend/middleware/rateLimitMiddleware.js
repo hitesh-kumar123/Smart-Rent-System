@@ -11,11 +11,18 @@ const createRateLimiter = ({ windowMs, max, message }) =>
         },
     });
 
-const authLimiter = createRateLimiter({
+const baseAuthLimiter = createRateLimiter({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5,
     message: "Too many attempts from this IP, please try again after 15 minutes.",
 });
+
+const authLimiter = (req, res, next) => {
+  if (process.env.NODE_ENV === 'test') {
+    return next();
+  }
+  return baseAuthLimiter(req, res, next);
+};
 
 const forgotPasswordLimiter = createRateLimiter({
     windowMs: 60 * 60 * 1000, // 1 hour
