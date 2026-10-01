@@ -1,34 +1,42 @@
 import React, { useEffect, useState, Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// Layout component that wraps all pages
+// 1. CRITICAL & UTILITY IMPORTS (Statically imported for speed/continuity)
 import Layout from "./components/Layout";
-// Page imports
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Help from "./pages/Help";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Blog from "./pages/Blog";
-import Safety from "./pages/Safety";
-import Cancellation from "./pages/Cancellation";
-import ReportConcern from "./pages/ReportConcern";
-import FAQ from "./pages/FAQ";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import HostPolicies from "./pages/HostPolicies";
-import Cookies from "./pages/Cookies";
-import ResetPassword from "./pages/ResetPassword";
-import Map from "./pages/Map";
-import PropertyMap from "./pages/PropertyMap";
-import BlogPost from "./pages/BlogPost";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import LoadingScreen from "./pages/Loading_Screen";
 import { AppSettingsProvider } from "./contexts/AppSettingsContext";
 import { AuthProvider } from "./contexts/AuthContext";
+
+// High-priority core user pages
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import "./App.css";
-import PaymentPage from "./pages/PaymentPage";
+
+// 2. LAZY IMPORTS (Separated into independent code chunks)
+// Heavy Features (Maps, Markdown Parsers, Financials)
+const Map = lazy(() => import("./pages/Map"));
+const PropertyMap = lazy(() => import("./pages/PropertyMap"));
+const PaymentPage = lazy(() => import("./pages/PaymentPage"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+
+// Secondary Content Pages
+const Help = lazy(() => import("./pages/Help"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Safety = lazy(() => import("./pages/Safety"));
+const Cancellation = lazy(() => import("./pages/Cancellation"));
+const ReportConcern = lazy(() => import("./pages/ReportConcern"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+
+// Legal & Document Pages (High text density)
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const HostPolicies = lazy(() => import("./pages/HostPolicies"));
+const Cookies = lazy(() => import("./pages/Cookies"));
 // import ForgotPassword from "./pages/ForgotPassword";
 
 const Listings = lazy(() => import("./pages/Listings"));

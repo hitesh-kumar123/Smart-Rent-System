@@ -8,7 +8,8 @@
     "start": "node server.js",
     "dev": "concurrently \"nodemon server.js\" \"cd ../frontend && npm run dev\"",
     "seed": "node init/seed.js",
-    "lint": "node --check server.js"
+    "lint": "node --check server.js",
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +36,9 @@
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
-    "nodemon": "^3.1.0"
+    "jest": "^30.5.2",
+    "mongodb-memory-server": "^11.3.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.3.0"
   }
 }
