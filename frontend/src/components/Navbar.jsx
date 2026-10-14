@@ -22,6 +22,7 @@ const Navbar = () => {
   const searchRef = useRef(null);
   const settingsRef = useRef(null);
   const menuRef = useRef(null);
+  const profileMenuTimeoutRef = useRef(null);
   const { pathname } = useLocation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -182,6 +183,18 @@ const Navbar = () => {
   // Handler to clear all recent searches
   const clearRecentSearches = () => {
     setRecentSearches([]);
+  };
+
+  // Handlers for profile menu hover to prevent accidental closure
+  const handleProfileMouseEnter = () => {
+    clearTimeout(profileMenuTimeoutRef.current);
+    setIsProfileMenuOpen(true);
+  };
+
+  const handleProfileMouseLeave = () => {
+    profileMenuTimeoutRef.current = setTimeout(() => {
+      setIsProfileMenuOpen(false);
+    }, 150);
   };
 
   // Handler for changing language
@@ -580,11 +593,24 @@ const Navbar = () => {
 
             {/* User profile menu */}
 
-            <div className="relative">
+            <div
+              className="relative"
+              onMouseEnter={handleProfileMouseEnter}
+              onMouseLeave={handleProfileMouseLeave}
+            >
               <button
-                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                onClick={() => {
+                  const isMouseDevice = window.matchMedia(
+                    "(hover: hover) and (pointer: fine)",
+                  ).matches;
+
+                  if (!isMouseDevice) {
+                    setIsProfileMenuOpen((prev) => !prev);
+                  }
+                }}
                 className="flex items-center space-x-2 border border-neutral-300 p-2 rounded-full hover:shadow-md transition duration-200"
                 aria-label="User menu"
+                aria-expanded={isProfileMenuOpen}
               >
                 <i className="fas fa-bars text-neutral-500"></i>
                 {isAuthenticated && currentUser ? (
