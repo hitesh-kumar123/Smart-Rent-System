@@ -10,16 +10,9 @@ import NavSettings from "./navbar/NavSettings";
 const Navbar = () => {
   // State for UI controls
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [recentSearches, setRecentSearches] = useState(() => {
-    const saved = localStorage.getItem("recentSearches");
-    return saved ? JSON.parse(saved) : [];
-  });
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
   const [isSettingsLoading, setIsSettingsLoading] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-  const searchRef = useRef(null);
   const settingsRef = useRef(null);
   const menuRef = useRef(null);
   const { pathname } = useLocation();
@@ -68,61 +61,6 @@ const Navbar = () => {
     setIsSettingsMenuOpen(false);
   }, [location.pathname]);
 
-  // Handle clicks outside dropdown menus and keyboard navigation
-  useEffect(() => {
-    // Handle clicks outside the search dropdown
-    const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setIsSearchFocused(false);
-      }
-      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
-        setIsSettingsMenuOpen(false);
-      }
-    };
-
-    // Handle keyboard navigation
-    const handleKeyDown = (event) => {
-      // Close menus on Escape
-      if (event.key === "Escape") {
-        setIsSearchFocused(false);
-        setIsSettingsMenuOpen(false);
-        setIsProfileMenuOpen(false);
-      }
-
-      // Handle Tab key to manage focus trap in menus
-      if (event.key === "Tab" && (isSettingsMenuOpen || isProfileMenuOpen)) {
-        const menu = isSettingsMenuOpen ? settingsRef.current : document;
-        const focusableElements = menu.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        const firstFocusableElement = focusableElements[0];
-        const lastFocusableElement =
-          focusableElements[focusableElements.length - 1];
-
-        if (event.shiftKey) {
-          // If shift + tab and first element is focused, move to last
-          if (document.activeElement === firstFocusableElement) {
-            event.preventDefault();
-            lastFocusableElement.focus();
-          }
-        } else {
-          // If tab and last element is focused, move to first
-          if (document.activeElement === lastFocusableElement) {
-            event.preventDefault();
-            firstFocusableElement.focus();
-          }
-        }
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isSettingsMenuOpen, isProfileMenuOpen]);
-
   // Control body scrolling when settings modal is open
   useEffect(() => {
     // Prevent body scrolling when settings modal is open
@@ -137,52 +75,6 @@ const Navbar = () => {
       document.body.style.overflow = "";
     };
   }, [isSettingsMenuOpen]);
-
-  // Persist recent searches to localStorage
-  useEffect(() => {
-    // Save recent searches to localStorage whenever it changes
-    localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
-  }, [recentSearches]);
-
-  // Handler for search input changes
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  // Handler for search form submission
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      // Add to recent searches (avoid duplicates and limit to 5)
-      const updatedSearches = [
-        searchQuery.trim(),
-        ...recentSearches.filter((search) => search !== searchQuery.trim()),
-      ].slice(0, 5);
-
-      setRecentSearches(updatedSearches);
-      navigate(`/listings?location=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
-      setIsSearchFocused(false);
-    }
-  };
-
-  // Handler for clicking a search suggestion
-  const handleSuggestionClick = (suggestion) => {
-    // Add to recent searches
-    const updatedSearches = [
-      suggestion,
-      ...recentSearches.filter((search) => search !== suggestion),
-    ].slice(0, 5);
-
-    setRecentSearches(updatedSearches);
-    navigate(`/listings?location=${encodeURIComponent(suggestion)}`);
-    setIsSearchFocused(false);
-  };
-
-  // Handler to clear all recent searches
-  const clearRecentSearches = () => {
-    setRecentSearches([]);
-  };
 
   // Handler for changing language
   const handleLanguageChange = async (langCode, langName) => {
@@ -235,91 +127,10 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* Center search bar - Responsive for all screens */}
-          {location.pathname === "/" && (
-            <div
-              ref={searchRef}
-              className="flex relative mx-auto max-w-md w-full rounded-full border border-neutral-200 shadow-search hover:shadow-md transition duration-200"
-            >
-              <form onSubmit={handleSearchSubmit} className="relative w-full flex items-center">
-                <input
-                  type="text"
-                  placeholder={getText("common", "search")}
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  onFocus={() => setIsSearchFocused(true)}
-                  /* Changed px-8 to pl-6 pr-12 for better spacing */
-                  className="w-full pl-6 pr-12 py-2.5 rounded-full focus:outline-none text-sm text-neutral-700 placeholder:text-transparent sm:placeholder:text-neutral-400"
-                />
-
-                <button
-                  type="submit"
-                  /* Removed top-1/2 and translate-y to let Flexbox handle vertical centering */
-                  /* Removed m-1 which was pushing it off-center */
-                  className="absolute right-1.5 bg-[#FF4C6D] text-white rounded-full hover:bg-[#E03F5A] transition duration-200 flex items-center justify-center w-8 h-8"
-                >
-                  <i className="fas fa-search text-[10px]"></i>
-                </button>
-              </form>             
-
-              {/* Search Dropdown - appears when search is focused */}
-              {isSearchFocused && (
-                <div className="absolute w-full mt-1 top-full left-0 bg-white rounded-xl shadow-lg border border-neutral-200 overflow-hidden z-20">
-                  {/* Recent Searches Section */}
-                  {recentSearches.length > 0 && (
-                    <div className="p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-sm font-semibold text-neutral-800">
-                          Recent Searches
-                        </h3>
-                        <button
-                          onClick={clearRecentSearches}
-                          className="text-xs text-neutral-500 hover:text-neutral-700"
-                        >
-                          Clear all
-                        </button>
-                      </div>
-                      <div className="space-y-2">
-                        {recentSearches.map((search, index) => (
-                          <div
-                            key={index}
-                            onClick={() => handleSuggestionClick(search)}
-                            className="flex items-center p-2 hover:bg-neutral-50 rounded-md cursor-pointer"
-                          >
-                            <i className="fas fa-history text-neutral-400 mr-3"></i>
-                            <span className="text-sm text-neutral-700">
-                              {search}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Popular Destinations Section */}
-                  <div className="p-4 border-t border-neutral-100">
-                    <h3 className="text-sm font-semibold text-neutral-800">
-                      Popular Destinations
-                    </h3>
-                    <div className="space-y-2">
-                      {suggestions.map((suggestion, index) => (
-                        <div
-                          key={index}
-                          onClick={() => handleSuggestionClick(suggestion)}
-                          className="flex items-center p-2 hover:bg-neutral-50 rounded-md cursor-pointer"
-                        >
-                          <i className="fas fa-map-marker-alt text-neutral-400 mr-3"></i>
-                          <span className="text-sm text-neutral-700">
-                            {suggestion}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
+          {/* Center search bar (GLOBAL) */}
+            <div className="hidden md:flex flex-1 justify-center px-4">
+              <NavSearch />
             </div>
-          )}
 
           {/* Navigation - Responsive */}
           <div className="flex items-center gap-1 md:gap-2">
@@ -749,85 +560,11 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Search Overlay */}
-        {isSearchFocused && location.pathname === "/" && (
-          <div className="fixed inset-0 bg-white z-50 md:hidden p-4">
-            <div className="flex items-center mb-4">
-              <button
-                onClick={() => setIsSearchFocused(false)}
-                className="p-2 hover:bg-neutral-100 rounded-full"
-              >
-                <i className="fas fa-arrow-left text-neutral-700"></i>
-              </button>
-              <span className="ml-4 text-lg font-semibold">Search</span>
-            </div>
+        {/* Mobile search */}
+        <div className="flex md:hidden w-full px-4 mt-2">
+          <NavSearch isMobileLayout />
+        </div>
 
-            <div className="relative">
-              <form onSubmit={handleSearchSubmit} className="w-full">
-                <input
-                  type="text"
-                  placeholder={getText("common", "search")}
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  autoFocus
-                />
-              </form>
-
-              {/* Recent Searches */}
-              {recentSearches.length > 0 && (
-                <div className="mt-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold">Recent Searches</h3>
-                    <button
-                      onClick={clearRecentSearches}
-                      className="text-xs text-neutral-500"
-                    >
-                      Clear all
-                    </button>
-                  </div>
-                  <div className="space-y-2">
-                    {recentSearches.map((search, index) => (
-                      <div
-                        key={index}
-                        onClick={() => {
-                          handleSuggestionClick(search);
-                          setIsSearchFocused(false);
-                        }}
-                        className="flex items-center p-2 hover:bg-neutral-50 rounded-lg"
-                      >
-                        <i className="fas fa-history text-neutral-400 mr-3"></i>
-                        <span className="text-sm">{search}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Popular Destinations */}
-              <div className="mt-4">
-                <h3 className="text-sm font-semibold mb-2">
-                  Popular Destinations
-                </h3>
-                <div className="space-y-2">
-                  {suggestions.map((suggestion, index) => (
-                    <div
-                      key={index}
-                      onClick={() => {
-                        handleSuggestionClick(suggestion);
-                        setIsSearchFocused(false);
-                      }}
-                      className="flex items-center p-2 hover:bg-neutral-50 rounded-lg"
-                    >
-                      <i className="fas fa-map-marker-alt text-neutral-400 mr-3"></i>
-                      <span className="text-sm">{suggestion}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
